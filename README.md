@@ -1,5 +1,7 @@
 # estate-flow
 
+<img src="https://github.com/ryanzhxu/estate-flow/assets/47293037/94b5077d-a7b9-4643-b1f0-36a61663e2dd" width="300" height="300">
+
 ## Who is it for: 
 - Property managers
 
