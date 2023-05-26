@@ -1,4 +1,11 @@
-# estate-flow
+# Estate Flow
+
+## Developers:
+- Helena Xu
+- Ryan Xu
+- Zichao Zhou
+- Yixuan Li
+- Nicholas Luong
 
 ## Who is it for: 
 - Property managers
