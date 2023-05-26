@@ -63,4 +63,6 @@
   - design the user interface for adding a tenant to a property
 
 ## Prototypes sketches
+##### L.H.S. are two forms that users can fill in to add properties or tenants to the database
+##### R.H.S. is an overview page of a property and users can make changes to existing property
 ![image](https://github.com/ryanzhxu/estate-flow/assets/47293037/5a2f3225-cf4c-4f85-aa1f-f62e307747b0)
