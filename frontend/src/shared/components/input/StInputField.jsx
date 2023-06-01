@@ -3,17 +3,19 @@ import styled from "styled-components";
 const StInputField = styled.div`
 
     display: grid;
-    gap: 5px;
+    gap: 4px;
 
     input {
-        border: 1px solid grey;
-        border-radius: 4px;
-        font-size: 20px;
-        padding: 5px;
+        font-size: 16px;
+        line-height: 24px;
+        color: #121212;
+        border: 1px solid #808080;
+        border-radius: 8px;
+        padding: 8px 12px;
     }
 
     input:hover {
-        background-color: #F0F8FF;
+        background-color: #F2F2F2;
     }
 
     input:focus {
@@ -21,6 +23,13 @@ const StInputField = styled.div`
         adding: 3px 0px 3px 3px;
         border: 1px solid rgba(81, 203, 238, 1);
         transition: box-shadow 0.3s ease-in-out;
+    }
+
+    label {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
     }
 `;
 

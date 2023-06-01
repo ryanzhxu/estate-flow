@@ -4,8 +4,8 @@ import InputField from "./InputField";
 
 const InputForm = ({ fields }) => {
     return (
-        <StInputForm>{
-            fields.map((field) => {
+        <StInputForm>
+            {fields.map((field) => {
                 return <InputField field={field} value={undefined} />
             })}
         </StInputForm>
