@@ -1,13 +1,16 @@
+import "./PropertyDetailCardHome.css";
+
 function PropertyDetailCard(props) {
     const property = props.property;
     return (
-      <div>
+        <div className={`property-card-${props["parent-style"]}`}>
           <header>{ property.name ? property.name : property.id }</header>
-          <div>
+          <div className="bed-and-bath property-detail">
               <span>{ property.bed } bath</span>
-              <span> { property.bath } bed</span>
+              <span className="separator">|</span>
+              <span>{ property.bath } bed</span>
           </div>
-          <p>{property.address}</p>
+          <p className="property-detail" >{property.address}</p>
       </div>
     );
 }
