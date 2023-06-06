@@ -1,0 +1,31 @@
+.property-card-parent-style-home {
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.property-card-parent-style-home header  {
+    font-size: 40px;
+    font-weight: bold;
+    color: #1F355E;
+    margin-bottom: 10px;
+}
+
+.property-card-parent-style-home .property-detail {
+    color: #58575C;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.property-card-parent-style-home .bed-and-bath {
+    display: flex;
+    align-items: center;
+}
+
+.property-card-parent-style-home .bed-and-bath span {
+    margin-right: 5px;
+}
+
+.property-card-parent-style-home p {
+    margin: 0;
+}
