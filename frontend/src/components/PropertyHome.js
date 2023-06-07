@@ -6,7 +6,7 @@ import "./PropertyHome.css";
 function PropertyHome({property}) {
     return (
         <div>
-            <PropertyDetailCard parent-style="parent-style-home" property={property}/>
+            <PropertyDetailCard address={property.address} id={property.id} name={property.name}/>
             <div className="property-home-main-content">
                 <div className="property-overview-container">
                     <PropertyOverview property={property}/>

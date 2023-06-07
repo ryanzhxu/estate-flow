@@ -1,17 +1,13 @@
-import "./PropertyDetailCardHome.css";
+import "./PropertyDetailCard.css";
 
-function PropertyDetailCard(props) {
-    const property = props.property;
+function PropertyDetailCard({id, name, address}) {
     return (
-        <div className={`property-card-${props["parent-style"]}`}>
-          <header>{ property.name ? property.name : property.id }</header>
-          <div className="bed-and-bath property-detail">
-              <span>{ property.bed } bath</span>
-              <span className="separator">|</span>
-              <span>{ property.bath } bed</span>
-          </div>
-          <p className="property-detail" >{property.address}</p>
-      </div>
+        <div className="property-card">
+            <header>{name ? name : id}</header>
+            <p className="property-address">{address.streetAddress}</p>
+            <p className="property-zone-info"><small>{address.city}, {address.province} {address.zipCode}</small></p>
+            <p><small><small>ID#: {id}</small></small></p>
+        </div>
     );
 }
 export default PropertyDetailCard;
