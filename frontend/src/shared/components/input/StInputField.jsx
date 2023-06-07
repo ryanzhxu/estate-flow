@@ -14,7 +14,7 @@ const StInputField = styled.div`
         padding: 8px 12px;
     }
 
-    input:hover {
+    input:HomeWelcomePage {
         background-color: #F2F2F2;
     }
 
