@@ -6,12 +6,12 @@ function PropertyOverview({property}) {
             <h3>Overview</h3>
             <div className="property-details">
                 <div className="property-info">
-                    <p>Property Type: {property.type}</p>
-                    <p>Bedrooms: {property.bed}</p>
-                    <p>Bathrooms: {property.bath}</p>
-                    <p>Square Footage: {property.squareFootage}</p>
-                    <p>Rent: {property.rent}</p>
-                    <p>Description: {property.description}</p>
+                    <p><em>Property Type:</em> {property.type}</p>
+                    <p><em>Bedrooms:</em> {property.bed}</p>
+                    <p><em>Bathrooms:</em> {property.bath}</p>
+                    <p><em>Square Footage:</em> {property.squareFootage}</p>
+                    <p><em>Rent Per Month:</em> ${property.rent}</p>
+                    <p><em>Description:</em> {property.description}</p>
                 </div>
             </div>
         </div>
