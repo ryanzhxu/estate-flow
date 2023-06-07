@@ -1,0 +1,41 @@
+.gallery-container {
+    width: 500px;
+    height: 280px;
+    margin-top: 25px;
+    margin-left: 20px;
+}
+
+.property-actions-container {
+    margin-left: 20px;
+}
+
+.property-actions {
+    display: flex;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 5px;
+    width: fit-content;
+}
+
+.property-action {
+    background-color: #1f355e;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    margin: 0 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.property-action:hover {
+    background-color: #2e4a7d;
+}
+
+.property-overview-container {
+    width: 60%;
+}
+
+.property-home-main-content {
+    margin-bottom: 50px;
+}

@@ -1,0 +1,47 @@
+.property-overview {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.property-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.property-details {
+    display: flex;
+}
+
+.property-info {
+    flex: 1;
+}
+
+.property-info p {
+    margin-bottom: 10px;
+}
+
+.property-availability {
+    flex: 1;
+}
+
+.property-availability p {
+    margin-bottom: 10px;
+}
+
+.property-photos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.property-photo {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
