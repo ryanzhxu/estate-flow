@@ -1,29 +1,26 @@
 import './App.css';
-// import logo from './logo.svg';
 import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import InputForm from './shared/components/InputForm';
 import LeaseFormInputs from './shared/constants/input/LeaseFormInputs';
-
+import Layout from './shared/components/Layout';
+import TestHome from './shared/components/TestHome';
+import TestAbout from './shared/components/TestAbout';
+// import logo from './logo.svg';
 function App() {
-  return (
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //   </header>
-    // </div>
-    <InputForm fields={Object.values(LeaseFormInputs.Required)} />
-  );
+    return (
+        <Routes>
+            <Route path="/" element={<Layout />}>
+                <Route index element={<TestHome />} />
+                <Route path="LeaseInput" element={<InputForm fields={Object.values(LeaseFormInputs.Required)} />} />
+                <Route path="TestAbout" element={<TestAbout />} />
+            </Route>
+        </Routes>
+    );
+
+    /*return (
+      <InputForm fields={Object.values(LeaseFormInputs.Required)} />
+    );*/
 }
 
 export default App;
