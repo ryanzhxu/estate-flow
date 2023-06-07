@@ -1,28 +1,14 @@
 import './App.css';
-// import logo from './logo.svg';
 import React from 'react';
-import InputForm from './shared/components/InputForm';
-import LeaseFormInputs from './shared/constants/input/LeaseFormInputs';
+import { useSelector } from 'react-redux';
+import { selectUser } from './reducers/userSlice';
+import Login from './components/login/Login';
+import HomePage from './pages/HomePage';
 
 function App() {
+  const user = useSelector(selectUser);
   return (
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //   </header>
-    // </div>
-    <InputForm fields={Object.values(LeaseFormInputs.Required)} />
+    <div>{user ? <HomePage /> : <Login />}</div>
   );
 }
 
