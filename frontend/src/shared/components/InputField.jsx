@@ -15,7 +15,7 @@ const InputField = ({ field, value, isRequired = true }) => {
         (
           <label>{field}</label>
         )
-      },
+      }
       <input type="text" name={field} value={value} />
     </StInputField>
   );

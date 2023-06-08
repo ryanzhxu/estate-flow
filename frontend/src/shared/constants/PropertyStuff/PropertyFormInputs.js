@@ -1,13 +1,14 @@
 import PropertyTypes from './PropertyTypes.js';
+
 const PropertyFormInputs = {
     Required: {
         // Either have users put in the property's data, or make a dropdown list that users can select a list of existing properties
         UnitNumber: 'Unit Number',
         StreetAddress: 'Street Address', // street Number Street name
-        // PropertyTypes: {
-        //     label: "Property Type",
-        //     Options: PropertyTypes.values,
-        // },
+        PropertyTypes: {
+            label: "Property Type",
+            options: Object.values(PropertyTypes),
+        },
         Size: "Square footage/square meters",
         City: 'City',
         Province: 'Province',
@@ -20,10 +21,10 @@ const PropertyFormInputs = {
         NumberBedrooms: "Number of Bedrooms",
         NumberBathrooms: "Number of Bathrooms",
         Amenities: "Amenities included with Property",
-        // Photos: {
-        //     label: "Photos",
-        //     type: "file",
-        //     },
+        Photos: {
+            label: "Photos",
+            file: true,
+            },
         ContactInformation: "Contact Information",
     },
 };
