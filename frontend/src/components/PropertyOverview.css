@@ -11,10 +11,6 @@
     margin-bottom: 10px;
 }
 
-.property-details {
-    display: flex;
-}
-
 .property-photos {
     display: flex;
     justify-content: center;
