@@ -17,10 +17,10 @@
 }
 
 .property-card header  {
-    font-size: 40px;
+    font-size: 35px;
     font-weight: bold;
     color: #1F355E;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .property-card .property-detail {
