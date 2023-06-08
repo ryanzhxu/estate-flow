@@ -1,16 +1,18 @@
 import React from "react";
 import { motion } from "framer-motion";
 import "./SideBarItem.css";
+
 function SideBarItem({ icon, name }) {
-  const subheading = {
+  //partial code were learnd by ZAINKEEPSCODE's tutorial videos: "React js Sidebar | Animated Navigation Menu" from youtube.
+  const title = {
     true: {
       opacity: 1,
     },
     false: {
-      opacity: 0,
       display: "none",
     },
   };
+
   return (
     <motion.div
       className="SideBarItem"
@@ -27,7 +29,7 @@ function SideBarItem({ icon, name }) {
       <motion.div className="icon">
         <i className={icon}></i>
       </motion.div>
-      <motion.span variants={subheading}>{name}</motion.span>
+      <motion.span variants={title}>{name}</motion.span>
     </motion.div>
   );
 }

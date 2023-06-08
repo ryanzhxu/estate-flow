@@ -5,15 +5,16 @@ import SideBarItem from "./SideBarItem";
 import { useState } from "react";
 
 function HomeWelcomePage() {
+  //partial code were learnd by ZAINKEEPSCODE's tutorial videos: "React js Sidebar | Animated Navigation Menu" from youtube.
   const [open, setOpen] = useState(true);
 
   const handleToggle = () => {
     setOpen(!open);
   };
 
-  const sideContainerVariants = {
+  const sideContainerShift = {
     true: {
-      width: "15rem",
+      width: "14rem",
     },
     false: {
       transition: {
@@ -22,7 +23,7 @@ function HomeWelcomePage() {
     },
   };
 
-  const sidebarVariants = {
+  const sidebarShift = {
     true: {},
     false: {
       width: "3rem",
@@ -32,7 +33,7 @@ function HomeWelcomePage() {
     },
   };
 
-  const profileVariants = {
+  const profileShift = {
     true: {
       alignSelf: "center",
       width: "4rem",
@@ -43,11 +44,12 @@ function HomeWelcomePage() {
       width: "3rem",
     },
   };
+
   return (
     <div className="homepage">
       <motion.div
         data-Open={open}
-        variants={sideContainerVariants}
+        variants={sideContainerShift}
         initial={`${open}`}
         animate={`${open}`}
         className="sidebar_container"
@@ -56,7 +58,7 @@ function HomeWelcomePage() {
           className="sidebar"
           initial={`${open}`}
           animate={`${open}`}
-          variants={sidebarVariants}
+          variants={sidebarShift}
         >
           <motion.div
             whileHover={{
@@ -74,13 +76,13 @@ function HomeWelcomePage() {
             onClick={handleToggle}
             className="lines_icon"
           >
-            <i className={"bi bi-calendar2-heart"}></i>
+            <i className={"bi bi-card-list"}></i>
           </motion.div>
           <motion.div
             layout
             initial={`${open}`}
             animate={`${open}`}
-            variants={profileVariants}
+            variants={profileShift}
             className="profile"
             transition={{ duration: 0.4 }}
             whileHover={{
@@ -104,8 +106,7 @@ function HomeWelcomePage() {
               >
                 Welcome!
               </motion.h3>
-              <SideBarItem icon={"bi bi-calendar2-heart"} name="My Account" />
-              <SideBarItem icon={"bi bi-calendar2-heart"} name="Settings" />
+              <SideBarItem icon={"bi bi-person-bounding-box"} name="My Account" />
             </div>
           </div>
           <div className="group">
@@ -115,8 +116,8 @@ function HomeWelcomePage() {
               MANAGEMENT
             </motion.h3>
             <SideBarItem icon={"bi bi-calendar2-heart"} name="Dashboard" />
-            <SideBarItem icon={"bi bi-calendar2-heart"} name="Property" />{" "}
-            <SideBarItem icon={"bi bi-calendar2-heart"} name="Tanant" />
+            <SideBarItem icon={"bi bi-house-heart-fill"} name="Property" />{" "}
+            <SideBarItem icon={"bi bi-people"} name="Tenant" />
           </div>
           <div className="group">
             <motion.h3
@@ -124,8 +125,8 @@ function HomeWelcomePage() {
             >
               EASTATE-FLOW
             </motion.h3>
-            <SideBarItem icon={"bi bi-calendar2-heart"} name="About" />
-            <SideBarItem icon={"bi bi-calendar2-heart"} name="Team" />
+            <SideBarItem icon={"bi bi-cup-hot-fill"} name="About" />
+            <SideBarItem icon={"bi bi-microsoft-teams"} name="Team" />
           </div>
         </motion.div>
       </motion.div>
