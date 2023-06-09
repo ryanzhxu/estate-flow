@@ -2,11 +2,12 @@ import PropertyDetailCard from "./PropertyDetailCard";
 import PropertyOverview from "./PropertyOverview";
 import PropertyPhotoGallery from "./PropertyPhotoGallery";
 import "./PropertyHome.css";
+import TenantView from "./TenantView";
 
 
 function PropertyHome({property}) {
     return (
-        <div>
+        <div className="home-container">
             <div
                 className="property-card"
                 id="property-home-header"
@@ -20,13 +21,20 @@ function PropertyHome({property}) {
                     </div>
                 </div>
             </div>
-            <div className="property-home-main-content">
-                <div className="property-overview-container">
-                    <PropertyOverview property={property}/>
+            <div className="property-home-main-content-container">
+                <div className="property-home-main-content">
+                    <div className="property-overview-container">
+                        <PropertyOverview property={property}/>
+                    </div>
+                    <div className="gallery-container">
+                        <PropertyPhotoGallery photos={property.photos}/>
+                    </div>
                 </div>
-                <div className="gallery-container">
-                    <PropertyPhotoGallery photos={property.photos}/>
-                </div>
+                {/*<div className="col-md-4">*/}
+                    <div className="tenants-view-container border-left">
+                        <TenantView tenants={property.tenants}/>
+                    </div>
+                {/*</div>*/}
             </div>
         </div>
     )
