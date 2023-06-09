@@ -8,7 +8,7 @@ function TenantView({ tenants }) {
             </div>
             <div className="list-group list-group-flush border-bottom scrollarea">
                 {tenants.map((tenant, i) =>
-                    <a href="#" className="list-group-item list-group-item-action py-2 lh-tight tenant-card" key={i}>
+                    <a href="frontend/src/components/propertyhome/TenantView#" className="list-group-item list-group-item-action py-2 lh-tight tenant-card" key={i}>
                         <div>
                             <h6 className="mb-0">{tenant.firstName} {tenant.lastName}</h6>
                             <p className="mb-0 text-muted small"><small>{tenant.phoneNumber} | {tenant.email}</small></p>
