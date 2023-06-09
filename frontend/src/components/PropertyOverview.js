@@ -16,7 +16,7 @@ function PropertyOverview({property}) {
                     </div>
                     <div className="col-md-6 mb-1">
                         <p><strong>Description:</strong> {property.description}</p>
-                        <p>
+                        <div>
                             <strong>Amenities</strong>
                             <ul className="amenities-list list-group">
                                 {property.amenities.map((amenity, i) =>
@@ -24,7 +24,7 @@ function PropertyOverview({property}) {
                                         key={i}>{amenity}</li>
                                 )}
                             </ul>
-                        </p>
+                        </div>
                     </div>
                 </div>
             </div>

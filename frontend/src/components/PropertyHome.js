@@ -30,11 +30,9 @@ function PropertyHome({property}) {
                         <PropertyPhotoGallery photos={property.photos}/>
                     </div>
                 </div>
-                {/*<div className="col-md-4">*/}
-                    <div className="tenants-view-container border-left">
-                        <TenantView tenants={property.tenants}/>
-                    </div>
-                {/*</div>*/}
+                <div className="tenants-view-container border-left">
+                    <TenantView tenants={property.tenants}/>
+                </div>
             </div>
         </div>
     )
