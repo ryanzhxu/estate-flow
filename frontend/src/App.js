@@ -3,6 +3,7 @@ import './App.css';
 import React from 'react';
 import InputForm from './shared/components/InputForm';
 import LeaseFormInputs from './shared/constants/input/LeaseFormInputs';
+import WorkerLists from "./components/WorkerComponent/WorkerLists";
 
 function App() {
   return (
@@ -22,7 +23,20 @@ function App() {
     //     </a>
     //   </header>
     // </div>
-    <InputForm fields={Object.values(LeaseFormInputs.Required)} />
+
+    // <InputForm fields={Object.values(LeaseFormInputs.Required)} />
+
+
+      /*  for worker component test
+      *
+      * */
+
+      <main className="App">
+      <WorkerLists />
+      </main>
+
+
+
   );
 }
 
