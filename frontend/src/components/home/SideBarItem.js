@@ -1,9 +1,18 @@
 import React from "react";
 import { motion } from "framer-motion";
 import "./SideBarItem.css";
+import { useDispatch } from "react-redux";
+import { logout } from "../../reducers/userSlice";
 
 function SideBarItem({ icon, name }) {
     //partial code were learnd by ZAINKEEPSCODE's tutorial videos: "React js Sidebar | Animated Navigation Menu" from youtube.
+
+    const dispatch = useDispatch();
+
+    const handleLogout = (e) => {
+        dispatch(logout());
+    }
+
     const title = {
         true: {
             opacity: 1,
@@ -25,6 +34,7 @@ function SideBarItem({ icon, name }) {
                 type: "none",
                 duration: 0.1,
             }}
+            onClick={name === "Log out" ? (e) => { handleLogout(e) } : undefined}
         >
             <motion.div className="icon">
                 <i className={icon}></i>
