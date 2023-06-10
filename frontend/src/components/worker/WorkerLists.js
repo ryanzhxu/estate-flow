@@ -10,6 +10,7 @@ import AddWorkerForm from "./AddWorkerForm";
 import { openAddModal } from "./modalWorker";
 import React from "react";
 import './worker.css';
+import { Link } from "react-router-dom";
 
 function WorkerLists() {
     const workers = useSelector(selectAllWorkers)
@@ -29,15 +30,18 @@ function WorkerLists() {
                 onClick={() => {
                     dispatch(selectedWorker(worker));
                     dispatch(openModal());
-                }}>
+                }}
+            >
                 Details
             </button>
         </article>
-
     ))
 
     const addNew = (
         <article className="divItem">
+            <h4 className="single-line">
+                New worker
+            </h4>
             <img src={"https://5b0988e595225.cdn.sohucs.com/images/20171113/0108899329264ee5b833f70945195e66.jpeg"}
                 alt={"Empty Worker"} className="WorkerImg" />
             <button
@@ -47,14 +51,19 @@ function WorkerLists() {
                     dispatch(openAddModal());
                 }}
             >
-                Add New Worker
+                Add worker
             </button>
         </article>
     )
 
     return (
         <div style={{ padding: '25px' }}>
-            <h3>Current Workers</h3>
+            <div className='worker-top-section'>
+                <h3>Current Workers</h3>
+                <Link to="/">
+                    <button className='btn btn-outline-primary'>Back</button>
+                </Link>
+            </div>
             <section className="sectionContainer">
                 {renderedWorkers}
                 {addNew}
