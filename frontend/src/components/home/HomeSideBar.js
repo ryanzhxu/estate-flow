@@ -14,7 +14,7 @@ const HomeSideBar = () => {
   const sidebarShift = {
     true: {},
     false: {
-      width: "3rem",
+      width: "4.5rem",
       transition: {
         delay: 0.4,
       },
