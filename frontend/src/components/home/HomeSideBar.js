@@ -91,10 +91,11 @@ const HomeSideBar = () => {
                     <SideBarItem icon={"bi bi-calendar2-heart"} name="Dashboard" />
                     <SideBarItem icon={"bi bi-house-heart-fill"} name="Property" />{" "}
                     <SideBarItem icon={"bi bi-people"} name="Tenant" />
+                    <SideBarItem icon={"bi bi-wrench"} name="Technican List" />
                 </div>
                 <div className="group">
                     <motion.h3 animate={animate}>
-                        ESTATE-FLOW
+                        ESTATE FLOW
                     </motion.h3>
                     <SideBarItem icon={"bi bi-cup-hot-fill"} name="About" />
                     <SideBarItem icon={"bi bi-microsoft-teams"} name="Team" />
