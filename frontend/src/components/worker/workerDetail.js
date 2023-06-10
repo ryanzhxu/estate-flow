@@ -1,7 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "./modalWorker";
-import { openModal } from "./modalWorker";
-import modalWorker from "./modalWorker";
 import { expSelectedWorker } from "./modalWorker";
 import { deleteWorker } from "./workerSlice";
 import React from "react";
@@ -15,13 +13,24 @@ const WorkerDetail = () => {
         <div className='workerDetail'>
             <div className='details'>
                 <div className='contents'>
-                    <h2 className="single-line">{select.name}</h2>
-                    <h2 className="single-line">{select.email}</h2>
-                    <h2 className="single-line">{select.phone}</h2>
-                    <h2 className="single-line"> {select.address}</h2>
-                    <h2 className="single-line">${select.hRate}/hour</h2>
-                    <h2 className="single-line">Trades: {select.trades}</h2>
-                    <h2 className="single-line">Postal Code: {select.pCode}</h2>
+                    <div>
+                        <p className="single-line">Name:</p>
+                        <p className="single-line">Email:</p>
+                        <p className="single-line">Phone:</p>
+                        <p className="single-line">Address:</p>
+                        <p className="single-line">Hourly rate:</p>
+                        <p className="single-line">Trades:</p>
+                        <p className="single-line">Postal code:</p>
+                    </div>
+                    <div>
+                        <p>{select.name}</p>
+                        <p>{select.email}</p>
+                        <p>{select.phone}</p>
+                        <p>{select.address}</p>
+                        <p>${select.hRate}/hr</p>
+                        <p>{select.trades}</p>
+                        <p>{select.pCode}</p>
+                    </div>
                 </div>
                 <div className="worker-detail-buttons">
                     <button

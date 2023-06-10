@@ -25,7 +25,6 @@
   max-height: 80%;
   width: auto;
   height: auto;
-  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,6 +37,7 @@
   border: 1px solid black;
   max-width: 700px;
   text-align: center;
+  border-radius: 8px;
 }
 
 .form {
@@ -60,10 +60,17 @@
   padding: 10px;
   border-bottom: 1px solid grey;
   margin-bottom: 20px;
+  text-align: left;
+  display: flex;
+  gap: 30px;
 }
 
 .worker-detail-buttons {
   justify-content: space-between;
   display: inline-flex;
   gap: 40px;
+}
+
+.single-line {
+  font-weight: 600;
 }
