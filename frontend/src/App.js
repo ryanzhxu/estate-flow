@@ -3,8 +3,9 @@ import React from 'react';
 import HomeWelcomePage from './components/home/HomeWelcomePage';
 
 function App() {
+  const user = useSelector(selectUser);
+
   return (
-    <HomeWelcomePage />
     // <InputForm fields={Object.values(LeaseFormInputs.Required)} />
   );
 }

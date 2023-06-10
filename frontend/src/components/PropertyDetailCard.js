@@ -1,3 +1,4 @@
+import React from "react";
 import "./PropertyDetailCardHome.css";
 
 function PropertyDetailCard(props) {
