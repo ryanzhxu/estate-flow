@@ -1,11 +1,16 @@
-import './App.css';
-// import logo from './logo.svg';
-import React from 'react';
-import InputForm from './shared/components/InputForm';
-import LeaseFormInputs from './shared/constants/input/LeaseFormInputs';
+import "./App.css";
+import React from "react";
+import InputForm from "./shared/components/InputForm";
+import LeaseFormInputs from "./shared/constants/input/LeaseFormInputs";
 import WorkerLists from "./components/WorkerComponent/WorkerLists";
+import HomeWelcomePage from "./components/home/HomeWelcomePage";
+import { useSelector } from "react-redux";
+import LoginScreen from "./components/login/LoginScreen";
+import { selectUser } from "./reducers/userSlice";
 
 function App() {
+  const user = useSelector(selectUser);
+
   return (
     // <div className="App">
     //   <header className="App-header">
@@ -26,17 +31,16 @@ function App() {
 
     // <InputForm fields={Object.values(LeaseFormInputs.Required)} />
 
+    /*  for worker component test
+     *
+     * */
 
-      /*  for worker component test
-      *
-      * */
-
-      <main className="App">
+    <main className="App">
       <WorkerLists />
-      </main>
+    </main>
 
-
-
+    // <div>{user ? <HomeWelcomePage /> : <LoginScreen />}</div>
+    // <InputForm fields={Object.values(LeaseFormInputs.Required)} />
   );
 }
 
