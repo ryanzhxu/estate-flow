@@ -1,0 +1,44 @@
+.property-card {
+    margin-top: 0;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.property-card .property-address {
+    font-size: 16px;
+}
+
+.property-card .property-zone-info {
+    font-size: 14px;
+}
+
+.property-card small {
+    color: #3e3f40;
+}
+
+.property-card header  {
+    font-size: 35px;
+    font-weight: bold;
+    color: #1F355E;
+    margin-bottom: 5px;
+}
+
+.property-card {
+    color: #58575C;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.property-card .bed-and-bath {
+    display: flex;
+    align-items: center;
+}
+
+.property-card .bed-and-bath span {
+    margin-right: 5px;
+}
+
+.property-card p {
+    margin: 0;
+}
