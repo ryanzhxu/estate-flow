@@ -4,7 +4,6 @@
   font-family: "IBM Plex Sana Thai Looped", sans-serif;
   color: white;
   background: #2e3438;
-  text-shadow: 1px 0px 2px #8dc4f0;
 }
 
 .body_container {
@@ -30,28 +29,20 @@
 
 .sidebar_container {
   height: 100vh;
-  position: sticky;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
 }
 
 .sidebar {
   display: flex;
-  width: 14rem;
-  height: 90%;
-  justify-content: flex-start;
-  align-items: flex-start;
+  margin: 35px 0 0 35px;
+  height: 88.5%;
   flex-direction: column;
-  padding: 15px;
-  margin: 10px;
+  padding: 20px;
   background: rgba(255, 255, 255, 0.3);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(5.5px);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
+  box-sizing: content-box;
 }
 
 .lines_icon {
@@ -81,7 +72,8 @@
 .group {
   display: flex;
   flex-direction: column;
-  width: 100%
+  width: 100%;
+  margin-top: 0.5em;
 }
 
 h3 {

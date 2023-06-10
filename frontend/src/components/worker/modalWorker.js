@@ -1,42 +1,35 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     isDTLOpen: false,
     isAddOpen: false,
-    selected:{}
+    selected: {}
 }
 
 const modalWorker = createSlice({
-    name : 'modal',
+    name: 'modal',
     initialState,
-    reducers:{
-        openModal:(state, action) => {
+    reducers: {
+        openModal: (state, action) => {
             state.isDTLOpen = true;
         },
-        closeModal:(state, action) => {
+        closeModal: (state, action) => {
             state.isDTLOpen = false;
         },
-
-
-
-        openAddModal:(state, action) => {
+        openAddModal: (state, action) => {
             state.isAddOpen = true;
         },
-        closeAddModal:(state, action) => {
+        closeAddModal: (state, action) => {
             state.isAddOpen = false;
         },
-
-
-
-        selectedWorker:(state, action) => {
+        selectedWorker: (state, action) => {
             console.log("the name is " + action.payload.name)
-            state.selected =  action.payload;
+            state.selected = action.payload;
         }
-
     }
 })
 
-export const {openModal, closeModal, selectedWorker, openAddModal, closeAddModal} = modalWorker.actions;//
+export const { openModal, closeModal, selectedWorker, openAddModal, closeAddModal } = modalWorker.actions;//
 
 export default modalWorker.reducer;
 //modalReducer-> store.js
