@@ -34,7 +34,6 @@
 .sidebar {
   display: flex;
   margin: 35px 0 0 35px;
-  height: 88.5%;
   flex-direction: column;
   padding: 20px;
   background: rgba(255, 255, 255, 0.3);
