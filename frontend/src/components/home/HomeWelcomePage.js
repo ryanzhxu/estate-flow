@@ -1,14 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { useState } from "react";
 import HomeApplications from "./HomeApplications";
 import HomeSideBar from "./HomeSideBar";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 function HomeWelcomePage() {
     //partial code were learnd by ZAINKEEPSCODE's tutorial videos: "React js Sidebar | Animated Navigation Menu" from youtube.
-
-    const [open, setOpen] = useState(true);
 
     const sideContainerShift = {
         true: {
@@ -24,10 +21,10 @@ function HomeWelcomePage() {
     return (
         <div className="homepage">
             <motion.div
-                data-Open={open}
+                data-Open={true}
                 variants={sideContainerShift}
-                initial={`${open}`}
-                animate={`${open}`}
+                initial={true}
+                animate={true}
                 className="sidebar_container"
             >
                 <HomeSideBar />

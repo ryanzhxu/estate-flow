@@ -46,6 +46,8 @@ const HomeSideBar = () => {
         },
     };
 
+    const animate = { opacity: open ? 1 : 0, height: open ? "auto" : 0 };
+
     return (
         <>
             <motion.div
@@ -67,15 +69,7 @@ const HomeSideBar = () => {
                     animate={`${open}`}
                     variants={profileShift}
                     className="profile"
-                    transition={{ duration: 0.4 }}
-                    whileHover={{
-                        backgroundColor: "rgba(255, 255, 255, 0.3)",
-                        boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
-                        backdropFilter: "blur(5.5px)",
-                        WebkitBackdropFilter: "blur(5.5px)",
-                        border: "1px solid rgba( 255, 255, 255, 0.18 )",
-                        cursor: "pointer",
-                    }}
+                    whileHover={whiteHoverStyles}
                 >
                     <img
                         src="https://ca.slack-edge.com/T055P35BQH1-U057LMAV8G3-ea64a0b72eb0-512"
@@ -84,14 +78,14 @@ const HomeSideBar = () => {
                 </motion.div>
                 <div className="groups">
                     <div className="group">
-                        <motion.h3 animate={{ opacity: open ? 1 : 0, height: open ? "auto" : 0 }}>
+                        <motion.h3 animate={animate}>
                             Welcome!
                         </motion.h3>
                         <SideBarItem icon={"bi bi-person-bounding-box"} name="My Account" />
                     </div>
                 </div>
                 <div className="group">
-                    <motion.h3 animate={{ opacity: open ? 1 : 0, height: open ? "auto" : 0 }}>
+                    <motion.h3 animate={animate}>
                         MANAGEMENT
                     </motion.h3>
                     <SideBarItem icon={"bi bi-calendar2-heart"} name="Dashboard" />
@@ -99,7 +93,7 @@ const HomeSideBar = () => {
                     <SideBarItem icon={"bi bi-people"} name="Tenant" />
                 </div>
                 <div className="group">
-                    <motion.h3 animate={{ opacity: open ? 1 : 0, height: open ? "auto" : 0 }}>
+                    <motion.h3 animate={animate}>
                         ESTATE-FLOW
                     </motion.h3>
                     <SideBarItem icon={"bi bi-cup-hot-fill"} name="About" />
