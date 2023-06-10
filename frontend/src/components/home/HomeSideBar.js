@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import React from "react";
 import { useState } from "react";
 import SideBarItem from "./SideBarItem";
+import { Link } from "react-router-dom";
 
 const HomeSideBar = () => {
 
@@ -88,9 +89,16 @@ const HomeSideBar = () => {
                     <motion.h3 animate={animate}>
                         MANAGEMENT
                     </motion.h3>
+                    
                     <SideBarItem icon={"bi bi-calendar2-heart"} name="Dashboard" />
-                    <SideBarItem icon={"bi bi-house-heart-fill"} name="Property" />{" "}
-                    <SideBarItem icon={"bi bi-people"} name="Tenant" />
+                    <Link to="/property" style={{ textDecoration: 'none', color: 'white' }}>
+                        <SideBarItem icon={"bi bi-house-heart-fill"} name="Property"/>
+                    </Link>
+                    {" "}
+                    <Link to="/worker" style={{ textDecoration: 'none', color: 'white' }}>
+                        <SideBarItem icon={"bi bi-person-circle"} name="Workers" />
+                    </Link>
+                    <SideBarItem icon={"bi bi-people"} name="Tenants" />
                 </div>
                 <div className="group">
                     <motion.h3 animate={animate}>
