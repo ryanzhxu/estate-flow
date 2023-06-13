@@ -15,9 +15,9 @@ function App() {
 
   return (
     <main className="App">
-      {!user ? (
+      {/* {!user ? (
         <LoginScreen />
-      ) : (
+      ) : ( */}
         <Routes>
           <Route path="/" element={<HomeWelcomePage />} />
           <Route
@@ -26,7 +26,7 @@ function App() {
           />
           <Route path="/worker" element={<WorkerLists />} />
         </Routes>
-      )}
+      {/* )} */}
     </main>
   );
 }
