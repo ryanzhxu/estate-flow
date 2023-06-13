@@ -14,7 +14,7 @@ const HomeSideBar = () => {
   const sidebarShift = {
     true: {},
     false: {
-      width: "5rem"
+      width: "5rem",
     },
   };
 
@@ -81,7 +81,12 @@ const HomeSideBar = () => {
         </div>
         <div className="group">
           <motion.h5 animate={animate}>MANAGEMENT</motion.h5>
+          <Link
+            to="/"
+            style={{ textDecoration: "none", color: "white" }}
+          >
           <SideBarItem icon={"bi bi-calendar2-heart"} name="Dashboard" />
+          </Link>{" "}
           <Link
             to="/property"
             style={{ textDecoration: "none", color: "white" }}

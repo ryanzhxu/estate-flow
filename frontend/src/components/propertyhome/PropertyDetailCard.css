@@ -1,8 +1,14 @@
 .property-card {
-    margin-top: 0;
-    padding: 20px;
-    border-radius: 4px;
+    margin-top: 30px;
+    /* padding: 20px; */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5.5px);
+    border: 1px solid rgba(200, 195, 195, 0.18);
+}
+.property-card .property-detail {
+    padding: 15px;
+    background: rgba(22, 20, 20, 0.3);
 }
 
 .property-card .property-address {
@@ -14,7 +20,7 @@
 }
 
 .property-card small {
-    color: #3e3f40;
+    color: #0d4781;
 }
 
 .property-card header  {
@@ -25,7 +31,7 @@
 }
 
 .property-card {
-    color: #58575C;
+    color: #380de1;
     font-size: 18px;
     margin-bottom: 5px;
 }
