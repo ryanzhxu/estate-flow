@@ -14,7 +14,7 @@ const HomeSideBar = () => {
   const sidebarShift = {
     true: {},
     false: {
-      width: "3rem",
+      width: "4.5rem",
       transition: {
         delay: 0.4,
       },
@@ -76,11 +76,9 @@ const HomeSideBar = () => {
             alt="profile_img"
           />
         </motion.div>
-        <div className="groups">
-          <div className="group">
-            <motion.h3 animate={animate}>Welcome!</motion.h3>
-            <SideBarItem icon={"bi bi-person-bounding-box"} name="My Account" />
-          </div>
+        <div className="group">
+          <motion.h3 animate={animate}>Welcome!</motion.h3>
+          <SideBarItem icon={"bi bi-person-bounding-box"} name="My account" />
         </div>
         <div className="group">
           <motion.h3 animate={animate}>MANAGEMENT</motion.h3>
@@ -89,7 +87,7 @@ const HomeSideBar = () => {
             to="/property"
             style={{ textDecoration: "none", color: "white" }}
           >
-            <SideBarItem icon={"bi bi-house-heart-fill"} name="Property" />
+            <SideBarItem icon={"bi bi-house-heart-fill"} name="Properties" />
           </Link>{" "}
           <Link to="/worker" style={{ textDecoration: "none", color: "white" }}>
             <SideBarItem icon={"bi bi-person-circle"} name="Workers" />

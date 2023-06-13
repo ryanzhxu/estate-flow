@@ -5,15 +5,15 @@ import "./PropertyHome.css";
 import TenantView from "./TenantView";
 import React from "react";
 
+
 function PropertyHome({ property }) {
   return (
     <div className="home-container">
-      <div className="property-card" id="property-home-header">
-        <PropertyDetailCard
-          address={property.address}
-          id={property.id}
-          name={property.name}
-        />
+      <div
+        className="property-card"
+        id="property-home-header"
+      >
+        <PropertyDetailCard address={property.address} id={property.id} name={property.name} />
         <div className="property-actions-container">
           <div className="property-actions">
             <button className="property-action">Edit Tenants</button>
@@ -36,7 +36,7 @@ function PropertyHome({ property }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 export default PropertyHome;

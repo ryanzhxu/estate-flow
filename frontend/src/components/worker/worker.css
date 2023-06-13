@@ -1,0 +1,84 @@
+.sectionContainer {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.divItem {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 15px;
+  box-sizing: border-box;
+  display: grid;
+}
+
+.WorkerImg {
+  width: 100%;
+  height: auto;
+}
+
+.workerDetail {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 80%;
+  max-height: 80%;
+  width: auto;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.details {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid black;
+  max-width: 700px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.contents {
+  padding: 10px;
+  border-bottom: 1px solid grey;
+  margin-bottom: 20px;
+  text-align: left;
+  display: flex;
+  gap: 30px;
+}
+
+.worker-detail-buttons {
+  justify-content: space-between;
+  display: inline-flex;
+  gap: 40px;
+}
+
+.single-line {
+  font-weight: 600;
+}
+
+.worker-top-section {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}

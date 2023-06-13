@@ -40,10 +40,8 @@
 
 .sidebar {
   display: flex;
-  width: 14rem;
+  width: 15rem;
   height: 90%;
-  justify-content: flex-start;
-  align-items: flex-start;
   flex-direction: column;
   padding: 15px;
   margin: 10px;
@@ -67,7 +65,7 @@
   margin-bottom: 1rem;
 }
 
-.profile>img {
+.profile > img {
   width: 100%;
   border-radius: 50%;
 }
@@ -75,18 +73,18 @@
 .groups {
   display: flex;
   flex-direction: column;
-  width: 100%
+  width: 100%;
 }
 
 .group {
   display: flex;
   flex-direction: column;
-  width: 100%
+  width: 100%;
 }
 
 h3 {
   font-size: 1rem;
-  margin: 10px 0px 10px 0px
+  margin: 10px 0px 10px 0px;
 }
 
 /* .App-logo {

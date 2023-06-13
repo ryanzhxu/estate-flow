@@ -1,6 +1,6 @@
 import "./App.css";
 import React from "react";
-import WorkerLists from "./components/WorkerComponent/WorkerLists";
+import WorkerLists from "./components/worker/WorkerLists";
 import HomeWelcomePage from "./components/home/HomeWelcomePage";
 import { useSelector } from "react-redux";
 import LoginScreen from "./components/login/LoginScreen";

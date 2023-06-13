@@ -1,8 +1,9 @@
-import {useState} from "react";
-import {useDispatch} from "react-redux";
-import {addWorker} from "./workerSlice";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addWorker } from "./workerSlice";
 import WorkerTypes from "./workerTypes";
-import {closeAddModal, closeModal} from "./modalWorker";
+import { closeAddModal, closeModal } from "./modalWorker";
+import React from "react";
 
 export default function AddWorkerForm() {
     const dispatch = useDispatch();
@@ -29,14 +30,14 @@ export default function AddWorkerForm() {
 
     const onSaveWorkerClicked = () => {
         let imageUrlInput = imageURL ? imageURL : "https://pic4.zhimg.com/80/v2-32636e587d66426cc682e74eaafd2163_1440w.webp";
-        if (name && email && phone && address && hRate && trades && pCode){
+        if (name && email && phone && address && hRate && trades && pCode) {
             dispatch(
                 addWorker(name, email, phone, address, hRate, trades, pCode, imageUrlInput)
             )
             onClearClicked()
 
-        }else{
-            console.log(name+ email+phone+address+ hRate+trades+pCode)
+        } else {
+            console.log(name + email + phone + address + hRate + trades + pCode)
             alert("All filed must be filled")
         }
     }
@@ -64,7 +65,7 @@ export default function AddWorkerForm() {
     return (
         <div className="form">
             <h4>Add a New Worker</h4>
-            <form id = "AddWorkerForm">
+            <form id="AddWorkerForm">
 
                 <label htmlFor="workerName">Worker Name:</label>
                 <input
@@ -149,7 +150,7 @@ export default function AddWorkerForm() {
                         type="button"
                         onClick={() => {
                             onSaveWorkerClicked();
-                           // dispatch(closeAddModal());
+                            // dispatch(closeAddModal());
                         }}
                     >
                         Add Worker
@@ -162,19 +163,16 @@ export default function AddWorkerForm() {
                     </button>
                     <button
                         className="close"
-                        onClick={ () => {
+                        onClick={() => {
                             dispatch(closeAddModal());
-                        } }>
+                        }}>
                         CLOSE
                     </button>
-
-
 
                 </section>
 
             </form>
         </div>
-
 
     )
 
