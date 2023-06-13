@@ -1,0 +1,80 @@
+.home-container{
+    background-color: #2e3438;
+}
+
+.gallery-container {
+    width: 500px;
+    height: 280px;
+    margin-top: 25px;
+    margin-left: 20px;
+}
+
+.property-overview-container {
+    width: 80%;
+}
+
+.property-home-main-content-container {
+    width: 100%;
+    position: relative;
+}
+
+.tenants-view-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20%;
+    justify-content: center;
+}
+
+.property-home-main-content {
+    position: relative;
+    margin-left: -3%;
+    margin-bottom: 50px;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+#property-home-header {
+    display: absolute;
+    padding: 0 12px 12px;
+    margin-top: 40px;
+    width: 1000px;
+}
+
+.property-actions-container {
+    display: flex;
+    margin-top: 3%;
+}
+
+.property-actions {
+    display: flex;
+    border-radius: 5px;
+}
+
+.property-action {
+    background-color: #1f355e;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    margin: 0 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.property-action:hover {
+    background-color: #2e4a7d;
+}
+
+.tenants-view-container {
+    width: 25%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    border-left: 1px solid #ccc;
+    padding-left: 5px;
+}
