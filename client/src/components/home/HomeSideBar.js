@@ -84,7 +84,7 @@ const HomeSideBar = () => {
           <motion.h3 animate={animate}>MANAGEMENT</motion.h3>
           <SideBarItem icon={"bi bi-calendar2-heart"} name="Dashboard" />
           <Link
-            to="/property"
+            to="/properties"
             style={{ textDecoration: "none", color: "white" }}
           >
             <SideBarItem icon={"bi bi-house-heart-fill"} name="Properties" />
