@@ -5,7 +5,7 @@ const TempProperty = {
     streetAddress: "2366 Main Mall",
     city: "Vancouver",
     province: "BC",
-    zipCode: "V6T 1Z4",
+    postalCode: "V6T 1Z4",
   },
   bed: 2,
   bath: 2,
