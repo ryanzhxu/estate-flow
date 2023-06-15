@@ -75,7 +75,7 @@ const HomeSideBar = () => {
         </motion.div>
         <div className="groups">
           <div className="group">
-            <motion.h3 animate={animate}>Welcome!</motion.h3>
+            <motion.h5 animate={animate}>Welcome!</motion.h5>
             <SideBarItem icon={"bi bi-person-bounding-box"} name="My Account" />
           </div>
         </div>
@@ -99,7 +99,7 @@ const HomeSideBar = () => {
           <SideBarItem icon={"bi bi-people"} name="Tenants" />
         </div>
         <div className="group">
-          <motion.h3 animate={animate}>ESTATE-FLOW</motion.h3>
+          <motion.h5 animate={animate}>ESTATE FLOW</motion.h5>
           <SideBarItem icon={"bi bi-cup-hot-fill"} name="About" />
           <SideBarItem icon={"bi bi-microsoft-teams"} name="Team" />
           <SideBarItem icon={"bi bi-box-arrow-left"} name="Log out" />
