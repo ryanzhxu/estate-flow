@@ -14,10 +14,7 @@ const HomeSideBar = () => {
   const sidebarShift = {
     true: {},
     false: {
-      width: "4.5rem",
-      transition: {
-        delay: 0.4,
-      },
+      width: "5rem",
     },
   };
 
@@ -76,18 +73,25 @@ const HomeSideBar = () => {
             alt="profile_img"
           />
         </motion.div>
-        <div className="group">
-          <motion.h3 animate={animate}>Welcome!</motion.h3>
-          <SideBarItem icon={"bi bi-person-bounding-box"} name="My account" />
+        <div className="groups">
+          <div className="group">
+            <motion.h5 animate={animate}>Welcome!</motion.h5>
+            <SideBarItem icon={"bi bi-person-bounding-box"} name="My Account" />
+          </div>
         </div>
         <div className="group">
-          <motion.h3 animate={animate}>MANAGEMENT</motion.h3>
+          <motion.h5 animate={animate}>MANAGEMENT</motion.h5>
+          <Link
+            to="/"
+            style={{ textDecoration: "none", color: "white" }}
+          >
           <SideBarItem icon={"bi bi-calendar2-heart"} name="Dashboard" />
+          </Link>{" "}
           <Link
             to="/property"
             style={{ textDecoration: "none", color: "white" }}
           >
-            <SideBarItem icon={"bi bi-house-heart-fill"} name="Properties" />
+            <SideBarItem icon={"bi bi-house-heart-fill"} name="Property" />
           </Link>{" "}
           <Link to="/worker" style={{ textDecoration: "none", color: "white" }}>
             <SideBarItem icon={"bi bi-person-circle"} name="Workers" />
@@ -95,7 +99,7 @@ const HomeSideBar = () => {
           <SideBarItem icon={"bi bi-people"} name="Tenants" />
         </div>
         <div className="group">
-          <motion.h3 animate={animate}>ESTATE-FLOW</motion.h3>
+          <motion.h5 animate={animate}>ESTATE FLOW</motion.h5>
           <SideBarItem icon={"bi bi-cup-hot-fill"} name="About" />
           <SideBarItem icon={"bi bi-microsoft-teams"} name="Team" />
           <SideBarItem icon={"bi bi-box-arrow-left"} name="Log out" />
