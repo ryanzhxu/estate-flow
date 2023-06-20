@@ -55,11 +55,11 @@ function LeaseOverviewCard({tenant}) {
                 <hr/>
                 <div className="row row-spacing">
                     <div className="col-sm-6">
-                        <p className="mb-0">Monthly Rent</p>
+                        <p className="mb-0">Lease Type</p>
                     </div>
                     <div className="col-sm-5">
                         <p className="text-muted mb-0">
-                            $1000
+                            Month-to-Month
                         </p>
                     </div>
                 </div>

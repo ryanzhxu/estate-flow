@@ -44,6 +44,17 @@ function TenantOverviewCard( {tenant} ) {
                         </p>
                     </div>
                 </div>
+                <hr/>
+                <div className="row">
+                    <div className="col-sm-4">
+                        <p className="mb-0">Employment</p>
+                    </div>
+                    <div className="col-sm-7">
+                        <p className="text-muted mb-0">
+                            {tenant.employment}
+                        </p>
+                    </div>
+                </div>
             </div>
     )
 }
