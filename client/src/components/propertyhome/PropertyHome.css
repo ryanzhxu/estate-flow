@@ -1,3 +1,7 @@
+.home-container{
+  background-color: #2e3438;
+}
+
 .gallery-container {
   width: 500px;
   height: 280px;
@@ -6,7 +10,7 @@
 }
 
 .property-overview-container {
-  width: 90%;
+  width: 80%;
 }
 
 .property-home-main-content-container {
@@ -34,24 +38,20 @@
 }
 
 #property-home-header {
+  display: absolute;
   padding: 0 12px 12px;
-  margin-top: 0;
+  margin-top: 40px;
+  width: 1000px;
 }
 
 .property-actions-container {
-  width: 400px;
-  position: absolute;
-  top: 4%;
-  right: -3%;
-
+  display: flex;
+  margin-top: 3%;
 }
 
 .property-actions {
   display: flex;
-  /*border: 1px solid #ccc;*/
-  /*padding: 15px;*/
-  /*border-radius: 5px;*/
-  width: fit-content;
+  border-radius: 5px;
 }
 
 .property-action {
