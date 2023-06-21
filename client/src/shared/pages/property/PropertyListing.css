@@ -9,10 +9,11 @@ a {
 
 .property-listing-contents {
   display: flex;
+  gap: 15%;
 }
 
 .property-listing-left {
-  width: 30%;
+  width: 10%;
 }
 
 .property-listing-right {
@@ -21,7 +22,8 @@ a {
 
 .property-listing-header {
   display: flex;
-  align-items: center;
+  gap: 20px;
+  align-items: flex-start;
   flex-wrap: wrap;
   border-bottom: 1px solid #c7cdd1;
   background: rgba(255, 255, 255, 0.95);
@@ -32,12 +34,12 @@ a {
 }
 
 .property-listing-cards {
-  margin-top: 36px;
-  gap: 36px;
-  display: flex;
+  display: block;
+  width: 100%;
 }
 
 .property-listing-card {
+  margin: 30px 30px 0 0;
   box-sizing: border-box;
   border: 1px solid #d8d6d4;
   border-radius: 8px;
@@ -45,8 +47,6 @@ a {
   background: #fff;
   width: 300px;
   display: inline-block;
-  vertical-align: top;
-  /* margin: 36px 0 0 36px; */
 }
 
 .property-listing-card:hover {
@@ -59,7 +59,21 @@ a {
   display: flex;
   height: 100%;
   flex-direction: column;
+  /* overflow-x: auto;
+  white-space: nowrap; */
 }
+
+/* .property-card-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.property-card-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.property-card-content::-webkit-scrollbar-thumb {
+  background: transparent;
+} */
 
 .property-card-footer {
   padding-top: 12px;

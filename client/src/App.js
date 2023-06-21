@@ -5,7 +5,6 @@ import { Routes, Route } from "react-router-dom";
 import HomeDashboardPage from "./components/home/HomeDashboardPage";
 import WorkerLists from "./components/worker/WorkerLists";
 import PropertyListing from "./shared/pages/property/PropertyListing";
-import testProperties from "./shared/data/testProperties";
 
 function App() {
   // const user = useSelector(selectUser);
@@ -19,7 +18,7 @@ function App() {
         <Route path="/" element={<HomeDashboardPage />} />
         <Route
           path="/properties"
-          element={<PropertyListing properties={testProperties} />}
+          element={<PropertyListing />}
         />
         <Route path="/worker" element={<WorkerLists />} />
       </Routes>
