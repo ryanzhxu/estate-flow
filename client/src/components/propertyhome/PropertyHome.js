@@ -4,7 +4,7 @@ import PropertyPhotoGallery from "./PropertyPhotoGallery";
 import "./PropertyHome.css";
 import TenantView from "./TenantView";
 import React from "react";
-
+import AddPropertyForm from "../property/AddPropertyForm";
 
 function PropertyHome({ property }) {
   return (
@@ -19,6 +19,8 @@ function PropertyHome({ property }) {
             <button className="property-action">Edit Tenants</button>
             <button className="property-action">Edit Details</button>
             <button className="property-action">Calculate Profit</button>
+            <button className="property-action">Add Property</button>
+            <AddPropertyForm />
           </div>
         </div>
       </div>
