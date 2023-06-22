@@ -1,4 +1,4 @@
-function TenantProfileCard({tenant, address}) {
+function TenantProfileCard({tenant}) {
     return (
         <div className="card-body text-center">
             <h5 className="my-3">{tenant.firstName} {tenant.middleName ? `${tenant.middleName.charAt(0)}.` : ""} {tenant.lastName}</h5>

@@ -15,7 +15,7 @@ function LeaseOverviewCard({tenant}) {
                     </div>
                     <div className="col-sm-5">
                         <p className="text-muted mb-0">
-                            27 Bayfield Dr.
+                            2366 Main Mall
                         </p>
                     </div>
                 </div>
