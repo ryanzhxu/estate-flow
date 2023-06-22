@@ -4,9 +4,13 @@ import PropertyPhotoGallery from "./PropertyPhotoGallery";
 import "./PropertyHome.css";
 import TenantView from "./TenantView";
 import React from "react";
-
+import AddPropertyForm from "../property/AddPropertyForm";
+import { useDispatch, useSelector } from "react-redux";
+import { openAddModal, isADDOpen } from "../property/modalProperty";
 
 function PropertyHome({ property }) {
+  const dispatch = useDispatch();
+  const addIsOpen = useSelector(isADDOpen)
   return (
     <div className="home-container">
       <div
@@ -19,6 +23,10 @@ function PropertyHome({ property }) {
             <button className="property-action">Edit Tenants</button>
             <button className="property-action">Edit Details</button>
             <button className="property-action">Calculate Profit</button>
+            <button className="property-action"  onClick={() => {
+                    dispatch(openAddModal());
+                }}>Add Property</button>
+                {addIsOpen && <AddPropertyForm />}
           </div>
         </div>
       </div>
