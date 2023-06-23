@@ -88,10 +88,10 @@ const HomeSideBar = () => {
           <SideBarItem icon={"bi bi-calendar2-heart"} name="Dashboard" />
           </Link>{" "}
           <Link
-            to="/property"
+            to="/properties"
             style={{ textDecoration: "none", color: "white" }}
           >
-            <SideBarItem icon={"bi bi-house-heart-fill"} name="Property" />
+            <SideBarItem icon={"bi bi-house-heart-fill"} name="Properties" />
           </Link>{" "}
           <Link to="/worker" style={{ textDecoration: "none", color: "white" }}>
             <SideBarItem icon={"bi bi-person-circle"} name="Workers" />

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addWorker } from "./workerSlice";
 import WorkerTypes from "./workerTypes";
-import { closeAddModal, closeModal } from "./modalWorker";
+import { closeAddModal } from "./modalWorker";
 import React from "react";
 
 export default function AddWorkerForm() {
@@ -26,7 +26,6 @@ export default function AddWorkerForm() {
     const onTradesChanged = e => setTrades(e.target.value)
     const onPCodeChanged = e => setPCode(e.target.value)
     const onImageURLChanged = e => setImageURL(e.target.value)
-
 
     const onSaveWorkerClicked = () => {
         let imageUrlInput = imageURL ? imageURL : "https://pic4.zhimg.com/80/v2-32636e587d66426cc682e74eaafd2163_1440w.webp";

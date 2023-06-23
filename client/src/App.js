@@ -1,31 +1,28 @@
 import "./App.css";
-import React from "react";
-import WorkerLists from "./components/worker/WorkerLists";
-import { useSelector } from "react-redux";
-import LoginScreen from "./components/login/LoginScreen";
-import { selectUser } from "./reducers/userSlice";
-import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
-import HomePropertyPage from "./components/home/HomePropertyPage";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 import HomeDashboardPage from "./components/home/HomeDashboardPage";
+import WorkerLists from "./components/worker/WorkerLists";
+import PropertyListing from "./shared/pages/property/PropertyListing";
 
 function App() {
-  const user = useSelector(selectUser);
+  // const user = useSelector(selectUser);
 
   return (
-    <main className="App">
-      {!user ? (
+    <main className="App" >
+      {/* {!user ? (
         <LoginScreen />
-      ) : (
-        <Routes>
-          <Route path="/" element={<HomeDashboardPage />} />
-          <Route
-            path="/property"
-            element={<HomePropertyPage />}
-          />
-          <Route path="/worker" element={<WorkerLists />} />
-        </Routes>
-      )} 
+      ) : ( */}
+      <Routes>
+        <Route path="/" element={<HomeDashboardPage />} />
+        <Route
+          path="/properties"
+          element={<PropertyListing />}
+        />
+        <Route path="/worker" element={<WorkerLists />} />
+      </Routes>
+      {/* )} */}
     </main>
   );
 }
