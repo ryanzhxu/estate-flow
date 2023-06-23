@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@atlaskit/button": "^16.7.6",
+    "@atlaskit/textfield": "^5.5.2",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.13.5",
@@ -21,6 +22,7 @@
     "react-redux": "^8.0.7",
     "react-router-dom": "^6.12.1",
     "react-scripts": "5.0.1",
+    "react-select": "^5.7.3",
     "redux": "^4.2.1",
     "styled-components": "^5.3.11",
     "web-vitals": "^2.1.4"

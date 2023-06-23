@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import { useState } from "react";
 import React from "react";
 import PropertyTypes from './propertyTypes'
@@ -5,7 +6,11 @@ import "./property.css";
 import AmenitiesChoices from "./AmenitiesChoices";
 import Select from "react-select";
 
-export default function AddPropertyForm() {
+import Button from '@atlaskit/button';
+import { useDispatch } from "react-redux";
+import { addPropertyAsync, getPropertiesAsync } from "../../redux/properties/thunks";
+
+export default function AddPropertyForm({ handleCloseForm }) {
 
     const [unitNumber, setUnitNumber] = useState('')
     const [streetAddress, setStreetAddress] = useState('')
@@ -20,10 +25,11 @@ export default function AddPropertyForm() {
     const [description, setDescription] = useState('')
     const [bedrooms, setBedrooms] = useState('')
     const [bathrooms, setBathrooms] = useState('')
-    const [amenities, setAmenities] = useState('')
+    const [amenities, setAmenities] = useState([])
     const [contactInfo, setContactInfo] = useState('')
     const [imageURLProp, setImageURLProp] = useState('')
 
+    const dispatch = useDispatch();
     
     const onClearClickedProp = () => {
         setUnitNumber('')
@@ -39,24 +45,60 @@ export default function AddPropertyForm() {
         setDescription('')
         setBedrooms('')
         setBathrooms('')
-        setAmenities('')
+        setAmenities([])
         setContactInfo('')
         setImageURLProp('')
     }
     const handleAmenitiesChange = (selectedOptions) => {
         const selectedValues = selectedOptions.map((option) => option.value);
-          setAmenities(selectedValues);
-        };
+        setAmenities(selectedValues);
+        console.log('amenities: ', amenities);
+    };
       
     const amenityOptions = Object.entries(AmenitiesChoices).map(([value, label]) => ({
         value,
         label,
     }));
 
+    const handlePropertyTypeChange = (selectedOption) => {
+          setPropertyType(selectedOption.value);
+    };
+
+    const propertyTypeOptions = Object.entries(PropertyTypes).map(([value, label]) => ({
+        value,
+        label,
+    }))
+
+    const handleAddProperty = () => {
+        const property = {
+            type: propertyType ?? PropertyTypes.Apartment,
+            name: '',
+            address: {
+                streetAddress: streetAddress ?? '123 Main St.',
+                city: city ?? 'Vancouver',
+                province: province ?? 'BC',
+                postalCode: postal ?? 'V7C 2N4',
+            },
+            bed: bedrooms ?? 1,
+            bath: bathrooms ?? 1,
+            description: description ?? '',
+            rent: 2600,
+            amenities: amenities ?? [],
+            photos: ['https://img.freepik.com/free-vector/beautiful-home_24877-50819.jpg?w=2000'],
+            tenants: [],
+        }
+
+        dispatch(addPropertyAsync(property))
+            .then(() => {
+                onClearClickedProp();
+                handleCloseForm();
+                dispatch(getPropertiesAsync());
+            })
+    };
+
     return (
         <div className="form">
-            <h4 className="form-header">Add a New Property</h4>
-            <form id="AddPropertyForm">
+            <form className="add-property-form">
 
                 <label htmlFor="unitNumber">Unit Number:</label>
                 <input
@@ -79,19 +121,13 @@ export default function AddPropertyForm() {
                 />
 
                 <label htmlFor="propertyType">Property Type: </label>
-                <select
+                <Select
                     id="propertyType"
                     name="propertyType"
-                    value={propertyType}
-                    required
-                    onChange={(e) => setPropertyType(e.target.value)}
-                >
-                    {Object.values(PropertyTypes).map((propertyType, index) => (
-                        <option key={index} value={propertyType}>
-                            {propertyType}
-                        </option>
-                    ))}
-                </select>
+                    options={propertyTypeOptions}
+                    value={propertyTypeOptions.find((option) => option.value === propertyType)}
+                    onChange={handlePropertyTypeChange}
+                />
 
                 <label htmlFor="size">Size: </label>
                 <input
@@ -184,9 +220,7 @@ export default function AddPropertyForm() {
                         name="amenities"
                         options={amenityOptions}
                         isMulti
-                        value={amenityOptions.filter((option) =>
-                        amenities.includes(option.value)
-                    )}
+                        value={amenities}
                     onChange={handleAmenitiesChange}
                 />
                 
@@ -208,22 +242,9 @@ export default function AddPropertyForm() {
                     onChange={(e) => setImageURLProp(e.target.value)}
                 />
                 <section className="buttons">
-                    <button
-                    type="button"
-                    onClick={() => {
-                        console.log("Add property");
-                    }}
-                    >
-                        Add Property
-                    </button>
-                    <button
-                    type="button"
-                    onClick={() => {
-                        console.log("Close")
-                    }}
-                    >
-                        Close
-                    </button>
+                    <Button appearance="subtle" onClick={handleAddProperty}>Add property</Button>
+                    <Button appearance="subtle" onClick={onClearClickedProp}>Clear fields</Button>
+                    <Button appearance="subtle" onClick={handleCloseForm}>Close</Button>
                 </section>
             </form>
         </div>

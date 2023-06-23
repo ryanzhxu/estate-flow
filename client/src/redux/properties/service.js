@@ -1,5 +1,7 @@
+const partialUrl = '10.10.9.147';
+
 const addProperty = async (property) => {
-    const resp = await fetch('http://localhost:3001/properties', {
+    const resp = await fetch(`http://${partialUrl}:3001/properties`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(property)
@@ -16,7 +18,7 @@ const addProperty = async (property) => {
 }
 
 const updateProperty = async (property) => {
-    const resp = await fetch('http://localhost:3001/properties', {
+    const resp = await fetch(`http://${partialUrl}:3001/properties`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(property),
@@ -33,7 +35,7 @@ const updateProperty = async (property) => {
 }
 
 const deleteProperty = async (id) => {
-    const resp = await fetch(`http://localhost:3001/properties/${id}`, {
+    const resp = await fetch(`http://${partialUrl}:3001/properties/${id}`, {
         method: 'DELETE',
     });
 
@@ -47,7 +49,7 @@ const deleteProperty = async (id) => {
 }
 
 const getProperties = async () => {
-    const resp = await fetch('http://localhost:3001/properties', {
+    const resp = await fetch(`http://${partialUrl}:3001/properties`, {
         method: 'GET'
     });
     

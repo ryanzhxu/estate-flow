@@ -47,7 +47,7 @@
   }
   
   .form {
-    position: fixed;
+    /* position: fixed;
     top: 190%;
     left: 130%;
     transform: translate(-50%, -50%);
@@ -63,11 +63,22 @@
     z-index: 9999;
     padding: 5px;
     display: grid;
-    grid-template-columns: 1fr 2fr; /* Two columns with equal width */
+    grid-template-columns: 1fr 2fr; */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 40%;
+    height: 70%;
   }
   .form label {
     display: block;
-    color: #FFFFFF;
+    color: black;
   }
 
   .form-header {
@@ -75,8 +86,35 @@
     padding: 9px;
   }
 
-  .form input,
-  .form select {
-  /* Set a width for the input/select fields */
-  width: 200px;
-}
+  .buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .add-property-form {
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    display: grid;
+    gap: 5px;
+  }
+  
+  .add-property-form::-webkit-scrollbar {
+    background-color: transparent;
+    width: 13px;
+  }
+  
+  .add-property-form::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 8px;
+    margin-bottom: 7px;
+    margin-top: 7px;
+  }
+  
+  .add-property-form::-webkit-scrollbar-thumb {
+    background: #666666;
+    background-clip: padding-box;
+    border: 3px solid rgba(0, 0, 0, 0);
+    border-radius: 8px;
+  }
