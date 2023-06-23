@@ -84,7 +84,7 @@ export default function AddPropertyForm({ handleCloseForm }) {
             description: description ?? '',
             rent: 2600,
             amenities: amenities ?? [],
-            photos: ['https://img.freepik.com/free-vector/beautiful-home_24877-50819.jpg?w=2000'],
+            photos: ['https://images.pexels.com/photos/280222/pexels-photo-280222.jpeg?cs=srgb&dl=pexels-pixabay-280222.jpg&fm=jpg'],
             tenants: [],
         }
 
@@ -99,6 +99,8 @@ export default function AddPropertyForm({ handleCloseForm }) {
     return (
         <div className="form">
             <form className="add-property-form">
+
+                <h4>Adding a new property</h4>
 
                 <label htmlFor="unitNumber">Unit Number:</label>
                 <input

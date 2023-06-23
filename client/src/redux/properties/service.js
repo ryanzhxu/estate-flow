@@ -1,4 +1,4 @@
-const partialUrl = '10.10.9.147';
+const partialUrl = 'localhost';
 
 const addProperty = async (property) => {
     const resp = await fetch(`http://${partialUrl}:3001/properties`, {

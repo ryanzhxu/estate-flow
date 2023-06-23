@@ -1,4 +1,4 @@
-const PropertyTypes = {
+export const PropertyTypes = {
     Apartment: 'Apartment',
     Townhouse: 'Townhouse',
     Duplex: 'Duplex',
@@ -8,4 +8,4 @@ const PropertyTypes = {
     Industrial: 'Industrial',
 };
 
-export default PropertyTypes;
+// export default PropertyTypes;

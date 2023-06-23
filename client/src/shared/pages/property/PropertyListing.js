@@ -8,18 +8,18 @@ import AddPropertyForm from '../../../components/property/AddPropertyForm';
 const PropertyListing = () => {
   const properties = useSelector((state) => state.properties.properties);
   const dispatch = useDispatch();
-  const [showForm, setShowForm] = useState(false);
+  const [showAddForm, setShowAddForm] = useState(false);
 
   useEffect(() => {
     dispatch(getPropertiesAsync());
   }, [dispatch]);
 
-  const handleAddItem = () => {
-    setShowForm(true);
+  const handleOpenAddForm = () => {
+    setShowAddForm(true);
   };
 
-  const handleCloseForm = () => {
-    setShowForm(false);
+  const handleCloseAddForm = () => {
+    setShowAddForm(false);
   };
 
   return (
@@ -31,7 +31,7 @@ const PropertyListing = () => {
         <div className="property-listing-right">
           <div className="property-listing-header">
             <h2>Properties</h2>
-            <div className="btn btn-outline-primary" onClick={handleAddItem}>
+            <div className="btn btn-outline-primary" onClick={handleOpenAddForm}>
               Add property
             </div>
           </div>
@@ -42,7 +42,7 @@ const PropertyListing = () => {
           </div>
         </div>
       </div>
-      {showForm && <AddPropertyForm handleCloseForm={handleCloseForm} />}
+      {showAddForm && <AddPropertyForm handleCloseForm={handleCloseAddForm} />}
     </div>
   );
 };
