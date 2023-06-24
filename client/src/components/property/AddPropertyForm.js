@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import { useState } from "react";
+import { useRef, useState } from "react";
 import React from "react";
 import PropertyTypes from './propertyTypes'
 import "./property.css";
@@ -30,7 +30,7 @@ export default function AddPropertyForm({ handleCloseForm }) {
     const [imageURLProp, setImageURLProp] = useState('')
 
     const dispatch = useDispatch();
-    
+
     const onClearClickedProp = () => {
         setUnitNumber('')
         setStreetAddress('')
@@ -54,14 +54,14 @@ export default function AddPropertyForm({ handleCloseForm }) {
         setAmenities(selectedValues);
         console.log('amenities: ', amenities);
     };
-      
+
     const amenityOptions = Object.entries(AmenitiesChoices).map(([value, label]) => ({
         value,
         label,
     }));
 
     const handlePropertyTypeChange = (selectedOption) => {
-          setPropertyType(selectedOption.value);
+        setPropertyType(selectedOption.value);
     };
 
     const propertyTypeOptions = Object.entries(PropertyTypes).map(([value, label]) => ({
@@ -214,18 +214,18 @@ export default function AddPropertyForm({ handleCloseForm }) {
                     name="bathrooms"
                     value={bathrooms}
                     onChange={(e) => setBathrooms(e.target.value)}
-                />  
-                
+                />
+
                 <label htmlFor="amenities">Amenities:</label>
-                    <Select
-                        id="amenities"
-                        name="amenities"
-                        options={amenityOptions}
-                        isMulti
-                        value={amenities}
+                <Select
+                    id="amenities"
+                    name="amenities"
+                    options={amenityOptions}
+                    isMulti
+                    value={amenities}
                     onChange={handleAmenitiesChange}
                 />
-                
+
                 <label htmlFor="contactInfo">Contact Information: </label>
                 <input
                     type="text"
@@ -233,7 +233,7 @@ export default function AddPropertyForm({ handleCloseForm }) {
                     name="contactInfo"
                     value={contactInfo}
                     onChange={(e) => setContactInfo(e.target.value)}
-                />  
+                />
 
                 <label htmlFor="imageURLProp">imageURL: </label>
                 <input

@@ -43,7 +43,7 @@ const EditPropertyForm = ({ property, handleCloseEditForm }) => {
     // setAmenities([]);
   };
   const handleAmenitiesChange = (selectedOptions) => {
-    const selectedValues = selectedOptions.map((option) => option.value);
+    // const selectedValues = selectedOptions.map((option) => option.value);
     // setAmenities(selectedValues);
   };
 

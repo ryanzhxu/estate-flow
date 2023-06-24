@@ -1,13 +1,29 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Button from '@atlaskit/button';
 import { useDispatch } from 'react-redux';
 import { deletePropertyAsync, getPropertiesAsync } from '../../../redux/properties/thunks';
 import EditPropertyForm from '../../../components/property/EditPropertyForm';
 
+import Modal, {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+  ModalTransition,
+} from '@atlaskit/modal-dialog';
+
 const PropertyCardDetails = ({ property }) => {
   const dispatch = useDispatch();
   const [showEditForm, setShowEditForm] = useState(false);
   const [editProperty, setEditProperty] = useState(null);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const openModal = useCallback(() => setIsOpen(true), []);
+  const closeModal = useCallback(() => setIsOpen(false), []);
+
+  const handleOpenModal = () => {
+    openModal();
+  }
 
   const handleDeleteProperty = (id) => {
     dispatch(deletePropertyAsync(id)).then(() => {
@@ -38,12 +54,42 @@ const PropertyCardDetails = ({ property }) => {
           <Button onClick={handleOpenEditForm}>Edit</Button>
           <Button
             appearance="danger"
-            onClick={() => {
-              handleDeleteProperty(property.id);
-            }}
+            onClick={handleOpenModal}
+          // onClick={() => {
+          //   handleDeleteProperty(property.id);
+          // }}
           >
             Delete
           </Button>
+
+          <ModalTransition>
+            {isOpen && (
+              <Modal onClose={closeModal}>
+                <ModalHeader>
+                  <ModalTitle appearance="danger">
+                    You're about to delete this page
+                  </ModalTitle>
+                </ModalHeader>
+                <ModalBody>
+                  <p>
+                    Before you delete it permanently, there's some things you should
+                    know:
+                  </p>
+                  <ul>
+                    <li>4 pages have links to this page that will break</li>
+                    <li>2 child pages will be left behind in the page tree</li>
+                  </ul>
+                </ModalBody>
+                <ModalFooter>
+                  <Button appearance="subtle" onClick={closeModal}>Cancel</Button>
+                  <Button appearance="danger" onClick={() => { handleDeleteProperty(property.id) }} autoFocus>
+                    Delete
+                  </Button>
+                </ModalFooter>
+              </Modal>
+            )}
+          </ModalTransition>
+
         </div>
       </div>
       {showEditForm && <EditPropertyForm property={editProperty} handleCloseEditForm={handleCloseEditForm} />}
