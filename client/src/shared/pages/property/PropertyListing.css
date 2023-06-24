@@ -81,6 +81,11 @@ a {
   --tw-border-opacity: 1;
 }
 
+.property-card-footer-buttons {
+  display: flex;
+  gap: 10px;
+}
+
 .property-image {
   width: 100%;
 }
