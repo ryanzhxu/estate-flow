@@ -1,22 +1,24 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {closeAddForm, closeUpdate, expSelectedWorker, openDetail} from "../../redux/workersRedux/workerDetailsReducer";
+import {updateAsync} from "../../redux/workersRedux/workersThunks";
 import WorkerTypes from "./workerTypes";
-import React from "react";
-import {addWorkerAsync} from "../../redux/workersRedux/workersThunks";
-import {closeAddForm} from "../../redux/workersRedux/workerDetailsReducer";
 
-export default function AddWorkerForm() {
+
+
+export default function UpdateWorkerFrom() {
     const dispatch = useDispatch();
+    const select = useSelector(expSelectedWorker)
 
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [phone, setPhone] = useState('')
-    const [address, setAddress] = useState('')
-    const [hRate, setHRate] = useState('')
-    const [trades, setTrades] = useState('')
-    const [pCode, setPCode] = useState('')
-    const [imageURL, setImageURL] = useState('')
-
+    const id = select.id;
+    const [name, setName] = useState(select.name)
+    const [email, setEmail] = useState(select.email)
+    const [phone, setPhone] = useState(select.phone)
+    const [address, setAddress] = useState(select.address)
+    const [hRate, setHRate] = useState(select.hRate)
+    const [trades, setTrades] = useState(select.trades)
+    const [pCode, setPCode] = useState(select.pCode)
+    const [imageURL, setImageURL] = useState(select.imageURL)
 
     const onNameChanged = e => setName(e.target.value)
     const onEmailChanged = e => setEmail(e.target.value)
@@ -27,37 +29,23 @@ export default function AddWorkerForm() {
     const onPCodeChanged = e => setPCode(e.target.value)
     const onImageURLChanged = e => setImageURL(e.target.value)
 
-    const onSaveWorkerClicked = () => {
-        let imageUrlInput = imageURL ? imageURL : "https://pic4.zhimg.com/80/v2-32636e587d66426cc682e74eaafd2163_1440w.webp";
-        if (name && email && phone && address && hRate && trades && pCode) {
-
+    const onUpdateWorkerClicked = () => {
+        if (name && email && phone && address && hRate && trades && pCode && imageURL){
             dispatch(
-                addWorkerAsync({name, email, phone, address, hRate, trades, pCode, imageUrlInput})
-
+                updateAsync({id,name, email, phone, address, hRate, trades, pCode, imageURL})
             )
-            //onClearClicked()
-
-        } else {
+            dispatch(closeUpdate())
+            dispatch(openDetail())
+        }else{
             alert("All filed must be filled")
         }
     }
-    const onClearClicked = () => {
-        setName('')
-        setEmail('')
-        setPhone('')
-        setAddress('')
-        setHRate('')
-        setTrades('')
-        setPCode('')
-        setImageURL('')
+    const onCloseClicked = () => {
+        dispatch(closeUpdate())
+        dispatch(openDetail())
     }
 
-    /*const onDeleteClicked = () => {
-        dispatch(
-            deleteAll()
-        )
 
-    }*/
 
     return (
         <div className="form">
@@ -146,22 +134,17 @@ export default function AddWorkerForm() {
                     <button
                         type="button"
                         onClick={() => {
-                            onSaveWorkerClicked();
-                            //dispatch(closeAddForm());
+                            onUpdateWorkerClicked();
+                            dispatch(closeAddForm());
                         }}
                     >
-                        Add Worker
+                        SUBMIT Worker
                     </button>
 
                     <button
-                        type="button"
-                        onClick={onClearClicked}
-                    >Clear
-                    </button>
-                    <button
                         className="close"
                         onClick={() => {
-                            dispatch(closeAddForm());
+                            onCloseClicked();
                         }}>
                         CLOSE
                     </button>
