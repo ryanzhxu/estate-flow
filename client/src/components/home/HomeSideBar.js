@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from "react";
 import SideBarItem from "./SideBarItem";
 import { Link } from "react-router-dom";
+import logo from "./logo.png";
 
 const HomeSideBar = () => {
   const [open, setOpen] = useState(true);
@@ -43,8 +44,6 @@ const HomeSideBar = () => {
     },
   };
 
-  const animate = { opacity: open ? 1 : 0, height: open ? "auto" : 0 };
-
   return (
     <>
       <motion.div
@@ -73,19 +72,15 @@ const HomeSideBar = () => {
             alt="profile_img"
           />
         </motion.div>
+        <br></br>
         <div className="groups">
           <div className="group">
-            <motion.h5 animate={animate}>Welcome!</motion.h5>
             <SideBarItem icon={"bi bi-person-bounding-box"} name="My Account" />
           </div>
         </div>
         <div className="group">
-          <motion.h5 animate={animate}>MANAGEMENT</motion.h5>
-          <Link
-            to="/"
-            style={{ textDecoration: "none", color: "white" }}
-          >
-          <SideBarItem icon={"bi bi-calendar2-heart"} name="Dashboard" />
+          <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+            <SideBarItem icon={"bi bi-calendar2-heart"} name="Dashboard" />
           </Link>{" "}
           <Link
             to="/property"
@@ -99,11 +94,16 @@ const HomeSideBar = () => {
           <SideBarItem icon={"bi bi-people"} name="Tenants" />
         </div>
         <div className="group">
-          <motion.h5 animate={animate}>ESTATE FLOW</motion.h5>
           <SideBarItem icon={"bi bi-cup-hot-fill"} name="About" />
           <SideBarItem icon={"bi bi-microsoft-teams"} name="Team" />
           <SideBarItem icon={"bi bi-box-arrow-left"} name="Log out" />
         </div>
+        <br></br>
+        <br></br>
+
+        {open && <div className="sideLogo">
+          <img src={logo} alt="logo" width="200" height="40" />
+        </div>}
       </motion.div>
     </>
   );
