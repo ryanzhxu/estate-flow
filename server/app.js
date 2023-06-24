@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const propertiesRouter = require('./routes/properties');
+const workersRouter = require('./routes/workers');
 
 const app = express();
 
@@ -22,5 +23,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/properties', propertiesRouter);
+app.use('/workers', workersRouter);
 
 module.exports = app;
