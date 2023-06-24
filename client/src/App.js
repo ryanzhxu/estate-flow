@@ -20,7 +20,7 @@ function App() {
           path="/properties"
           element={<PropertyListing />}
         />
-        <Route path="/worker" element={<WorkerLists />} />
+        <Route path="/workers" element={<WorkerLists />} />
       </Routes>
       {/* )} */}
     </main>
