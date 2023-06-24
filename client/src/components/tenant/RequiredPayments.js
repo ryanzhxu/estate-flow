@@ -1,4 +1,4 @@
-function RequiredPayments() {
+function RequiredPayments({fees}) {
     return (
         <div>
             <div className="card-header">
@@ -14,21 +14,14 @@ function RequiredPayments() {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Rent</td>
-                        <td>$1000</td>
-                        <td>May 1</td>
-                    </tr>
-                    <tr>
-                        <td>Hydro</td>
-                        <td>$30</td>
-                        <td>May 1</td>
-                    </tr>
-                    <tr>
-                        <td>Electricity</td>
-                        <td>$30</td>
-                        <td>May 1</td>
-                    </tr>
+                        {fees.map((payment) =>
+                            <tr>
+                                <td>{payment.type}</td>
+                                <td>${payment.amount}</td>
+                                <td>{payment.dueDate}</td>
+                            </tr>
+
+                        )}
                     </tbody>
                 </table>
             </div>

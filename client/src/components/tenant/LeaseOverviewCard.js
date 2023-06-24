@@ -1,6 +1,6 @@
 import "./LeaseOverviewCard.css";
 
-function LeaseOverviewCard({tenant}) {
+function LeaseOverviewCard({lease, address}) {
     return (
         <div className="tenant-lease-overview card">
             <div className="card-header">
@@ -14,9 +14,7 @@ function LeaseOverviewCard({tenant}) {
                         <p className="mb-0">Residence</p>
                     </div>
                     <div className="col-sm-5">
-                        <p className="text-muted mb-0">
-                            2366 Main Mall
-                        </p>
+                        <p className="text-muted mb-0">{address.streetAddress}</p>
                     </div>
                 </div>
                 <hr/>
@@ -26,7 +24,7 @@ function LeaseOverviewCard({tenant}) {
                     </div>
                     <div className="col-sm-5">
                         <p className="text-muted mb-0">
-                            2022-10-11
+                            {lease.startDate}
                         </p>
                     </div>
                 </div>
@@ -37,7 +35,7 @@ function LeaseOverviewCard({tenant}) {
                     </div>
                     <div className="col-sm-5">
                         <p className="text-muted mb-0">
-                            2022-12-01
+                            {lease.endDate}
                         </p>
                     </div>
                 </div>
@@ -48,7 +46,7 @@ function LeaseOverviewCard({tenant}) {
                     </div>
                     <div className="col-sm-5">
                         <p className="text-muted mb-0">
-                            12 months
+                            {lease.term}
                         </p>
                     </div>
                 </div>
@@ -59,7 +57,7 @@ function LeaseOverviewCard({tenant}) {
                     </div>
                     <div className="col-sm-5">
                         <p className="text-muted mb-0">
-                            Month-to-Month
+                            {lease.type}
                         </p>
                     </div>
                 </div>

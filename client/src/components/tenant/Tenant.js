@@ -5,31 +5,14 @@ import PaymentHistory from "./PaymentHistory";
 import "./Tenant.css";
 import RequiredPayments from "./RequiredPayments";
 
-function Tenant( {tenant} ) {
-
-    const demo = [];
-    const example =
-        {
-            date: "2022-01-01",
-            type: "Rent",
-            charge: 1000,
-            paid: 500
-        };
-
-    for (let i = 0; i < 6; i++) {
-        demo.push(example);
-    }
-
+function Tenant( {tenant, address} ) {
     return (
         <div className="container py-5 tenant-container">
             <div className="row">
                 <div className="col-lg-4">
                     <div className="tenant-profile-container card mb-4">
                         <TenantProfileCard tenant={tenant}
-                                           address={{
-                                               city: "Vancouver",
-                                               province: "BC"
-                                           }}
+                                           address={address}
                         />
                     </div>
                     <div className="tenant-overview-container card mb-4">
@@ -39,16 +22,16 @@ function Tenant( {tenant} ) {
                 <div className="col-lg-8">
                     <div className="row mb-4">
                         <div className="col-sm-7 tenant-property-info-container">
-                            <LeaseOverviewCard tenant={tenant}/>
+                            <LeaseOverviewCard address={address} lease={tenant.lease}/>
                         </div>
                         <div className="required-payments-container col-sm-5 card">
-                            <RequiredPayments/>
+                            <RequiredPayments fees={tenant.lease.fees}/>
                         </div>
                     </div>
                     <div className="row">
                         <h6>Payment History</h6>
                         <div className="card payment-history-container">
-                            <PaymentHistory paymentHistory={demo}/>
+                            <PaymentHistory paymentHistory={tenant.paymentHistory}/>
                         </div>
                     </div>
                 </div>
