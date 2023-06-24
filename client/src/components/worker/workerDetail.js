@@ -1,12 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal } from "./modalWorker";
-import { expSelectedWorker } from "./modalWorker";
-import { deleteWorker } from "./workerSlice";
+import {closeDetail, expSelectedWorker, openUpdate} from "../../redux/workersRedux/workerDetailsReducer";
 import React from "react";
 import './worker.css';
+import {deleteWorkerAsync} from "../../redux/workersRedux/workersThunks";
+
 
 const WorkerDetail = () => {
     const select = useSelector(expSelectedWorker)
+
     const dispatch = useDispatch();
 
     return (
@@ -36,19 +37,31 @@ const WorkerDetail = () => {
                     <button
                         className="btn btn-outline-secondary"
                         onClick={() => {
-                            dispatch(closeModal());
+                            dispatch(closeDetail());
                         }}>
                         CLOSE
                     </button>
+
                     <button
                         className="btn btn-outline-danger"
                         onClick={() => {
-                            dispatch(deleteWorker(select.id))
-                            dispatch(closeModal())
+                            dispatch(closeDetail())
+                            dispatch(openUpdate())
+                        }}
+                    >
+                        UPDATE
+                    </button>
+
+                    <button
+                        className="btn btn-outline-danger"
+                        onClick={() => {
+                            dispatch(deleteWorkerAsync(select.id))
+                            dispatch(closeDetail())
                         }}
                     >
                         DELETE
                     </button>
+
                 </div>
             </div>
 

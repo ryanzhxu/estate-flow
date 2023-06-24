@@ -1,22 +1,31 @@
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { selectAllWorkers } from "./workerSlice";
-import { openModal } from "./modalWorker";
-import { selectedWorker } from "./modalWorker";
-import { isDetailOpen } from "./modalWorker";
+import { useSelector, useDispatch } from "react-redux";
 import WorkerDetail from "./workerDetail";
-import { isADDOpen } from "./modalWorker";
 import AddWorkerForm from "./AddWorkerForm";
-import { openAddModal } from "./modalWorker";
 import React from "react";
+import {useEffect} from "react";
 import './worker.css';
 import { Link } from "react-router-dom";
+import {getDetailAsync, getWorkersAsync} from "../../redux/workersRedux/workersThunks";
+import {
+    openAddForm,
+    openDetail,
+    isDetailOpen,
+    isADDOpen,
+    isUpdateOpen, expSelectedWorker
+} from "../../redux/workersRedux/workerDetailsReducer";
+import UpdateWorkerFrom from "./UpdateWorkerFrom";
 
 function WorkerLists() {
-    const workers = useSelector(selectAllWorkers)
+    const select = useSelector(expSelectedWorker)
+    useEffect(() => {
+        dispatch(getWorkersAsync());
+    },[select])
+    const workers = useSelector(state => state.workers.list)
     const dispatch = useDispatch();
     const detailIsOpen = useSelector(isDetailOpen)
+    const UpdateIsOpen = useSelector(isUpdateOpen)
     const addIsOpen = useSelector(isADDOpen)
+
 
     const renderedWorkers = workers.map((worker) => (
         <article className="divItem" key={worker.id}>
@@ -28,8 +37,8 @@ function WorkerLists() {
                 className="btn btn-outline-dark"
                 style={{ marginTop: '10px' }}
                 onClick={() => {
-                    dispatch(selectedWorker(worker));
-                    dispatch(openModal());
+                    dispatch(getDetailAsync(worker.id));
+                    dispatch(openDetail());
                 }}
             >
                 Details
@@ -48,7 +57,7 @@ function WorkerLists() {
                 className="btn btn-primary"
                 style={{ marginTop: '10px' }}
                 onClick={() => {
-                    dispatch(openAddModal());
+                    dispatch(openAddForm());
                 }}
             >
                 Add worker
@@ -69,6 +78,8 @@ function WorkerLists() {
                 {addNew}
                 {detailIsOpen && <WorkerDetail />}
                 {addIsOpen && <AddWorkerForm />}
+                {UpdateIsOpen && <UpdateWorkerFrom />}
+
                 {/*add form*/}
             </section>
         </div>
