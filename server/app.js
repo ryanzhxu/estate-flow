@@ -11,9 +11,9 @@ const propertiesRouter = require('./routes/properties');
 const workersRouter = require('./routes/workers');
 
 const app = express();
-
 app.use(cors());
 app.use(bodyParser.json());
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
