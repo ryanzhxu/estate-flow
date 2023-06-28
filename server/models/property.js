@@ -16,8 +16,8 @@ const propertySchema = new mongoose.Schema(
                 required: true
             },
             city: {
-                type: "String",
-                required: "true"
+                type: String,
+                required: true
             },
             province: {
                 type: String,
