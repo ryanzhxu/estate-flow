@@ -30,7 +30,7 @@ connectToDB()
       server.listen(port);
       server.on('error', onError);
       server.on('listening', onListening);
-      console.log(`Listening on port" ${port}`);
+      console.log(`Listening on port ${port}`);
     })
     .catch((e) => {
       console.error('Error connecting to server', e);

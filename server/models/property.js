@@ -42,11 +42,7 @@ const propertySchema = new mongoose.Schema(
             photos: {
                 type: [String],
                 default: []
-            },
-            tenants: [{
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Tenant"
-            }]
+            }
         }
     },
     {
