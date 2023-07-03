@@ -63,12 +63,12 @@ const tenantSchema = new mongoose.Schema(
             date: {
                 type: Date,
                 required: true
-            },
-            propertyId: {
-                type: Schema.Types.ObjectId,
-                ref: "Property"
             }
-        }]
+        }],
+        propertyId: {
+            type: Schema.Types.ObjectId,
+            ref: "Property"
+        }
     },
     {
         collection: "tenants"
