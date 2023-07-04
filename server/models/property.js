@@ -22,31 +22,27 @@ const propertySchema = new mongoose.Schema(
             province: {
                 type: String,
                 required: true
-            },
-            bed: {
-                type: Number,
-                required: true
-            },
-            bath: {
-                type: Number,
-                required: true
-            },
-            description: {
-                type: String,
-                default: ""
-            },
-            amenities: {
-                type: [String],
-                default: []
-            },
-            photos: {
-                type: [String],
-                default: []
-            },
-            tenants: [{
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Tenant"
-            }]
+            }
+        },
+        bed: {
+            type: Number,
+            required: true
+        },
+        bath: {
+            type: Number,
+            required: true
+        },
+        description: {
+            type: String,
+            default: ""
+        },
+        amenities: {
+            type: [String],
+            default: []
+        },
+        photos: {
+            type: [String],
+            default: []
         }
     },
     {

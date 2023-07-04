@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const {Schema} = require("mongoose");
 
 const tenantSchema = new mongoose.Schema(
     {
@@ -63,7 +64,11 @@ const tenantSchema = new mongoose.Schema(
                 type: Date,
                 required: true
             }
-        }]
+        }],
+        propertyId: {
+            type: Schema.Types.ObjectId,
+            ref: "Property"
+        }
     },
     {
         collection: "tenants"
