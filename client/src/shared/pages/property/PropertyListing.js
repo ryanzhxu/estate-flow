@@ -4,6 +4,8 @@ import { getPropertiesAsync } from '../../../redux/properties/thunks';
 import PropertyCard from './PropertyCard';
 import './PropertyListing.css';
 import AddPropertyForm from '../../../components/property/AddPropertyForm';
+import { Routes, Route } from 'react-router-dom';
+import PropertyHome from '../../../components/propertyhome/PropertyHome';
 
 const PropertyListing = () => {
   const properties = useSelector((state) => state.properties.properties);
@@ -11,7 +13,9 @@ const PropertyListing = () => {
   const [showAddForm, setShowAddForm] = useState(false);
 
   useEffect(() => {
-    dispatch(getPropertiesAsync());
+    dispatch(getPropertiesAsync()).then((resp) => {
+      console.log('resp: ', resp);
+    });
   }, [dispatch]);
 
   const handleOpenAddForm = () => {
@@ -36,6 +40,10 @@ const PropertyListing = () => {
             </div>
           </div>
           <div className="property-listing-cards">
+            <Routes>
+              <Route path="/" element={<PropertyHome />} />
+              <Route path="/properties/:id" element={<PropertyHome />} />
+            </Routes>
             {properties.map((property) => (
               <PropertyCard key={property.id} property={property} />
             ))}

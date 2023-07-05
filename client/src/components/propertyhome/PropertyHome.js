@@ -1,18 +1,33 @@
-import PropertyDetailCard from "./PropertyDetailCard";
-import PropertyOverview from "./PropertyOverview";
-import PropertyPhotoGallery from "./PropertyPhotoGallery";
-import "./PropertyHome.css";
-import TenantView from "./TenantView";
-import React from "react";
-import AddPropertyForm from "../property/AddPropertyForm";
+import PropertyDetailCard from './PropertyDetailCard';
+import PropertyOverview from './PropertyOverview';
+import PropertyPhotoGallery from './PropertyPhotoGallery';
+import './PropertyHome.css';
+import TenantView from './TenantView';
+import React, { useEffect, useState } from 'react';
+import AddPropertyForm from '../property/AddPropertyForm';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPropertyAsync } from '../../redux/properties/thunks';
 
-function PropertyHome({ property }) {
+function PropertyHome() {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const [property, setProperty] = useState<Object>({});
+
+  useEffect(() => {
+    dispatch(getPropertyAsync(id)).then((resp) => {
+      console.log('resp: ', resp);
+      setProperty(resp);
+    });
+  }, [dispatch, id]);
+
+  if (!property) {
+    return <div>Loading ...</div>;
+  }
+
   return (
     <div className="home-container">
-      <div
-        className="property-card"
-        id="property-home-header"
-      >
+      <div className="property-card" id="property-home-header">
         <PropertyDetailCard address={property.address} id={property.id} name={property.name} />
         <div className="property-actions-container">
           <div className="property-actions">
@@ -20,7 +35,7 @@ function PropertyHome({ property }) {
             <button className="property-action">Edit Details</button>
             <button className="property-action">Calculate Profit</button>
             <button className="property-action">Add Property</button>
-            <AddPropertyForm />
+            {/* <AddPropertyForm /> */}
           </div>
         </div>
       </div>
@@ -38,7 +53,7 @@ function PropertyHome({ property }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default PropertyHome;

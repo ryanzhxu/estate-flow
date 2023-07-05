@@ -16,6 +16,13 @@ export const getPropertiesAsync = createAsyncThunk(
     }
 );
 
+export const getPropertyAsync = createAsyncThunk(
+    actionTypes.GET_PROPERTY,
+    async (id) => {
+        return await PropertyService.getProperty(id);
+    }
+);
+
 export const updatePropertyAsync = createAsyncThunk(
     actionTypes.UPDATE_PROPERTY,
     async (property) => {
