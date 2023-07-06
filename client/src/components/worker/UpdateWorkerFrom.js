@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -32,7 +31,6 @@ export default function UpdateWorkerFrom() {
   const onHRateChanged = (e) => setHRate(e.target.value);
   const onTradesChanged = (e) => setTrades(e.target.value);
   const onPCodeChanged = (e) => setPCode(e.target.value);
-//   const onImageURLChanged = (e) => setImageURL(e.target.value);
 
   const onUpdateWorkerClicked = () => {
     if (name && email && phone && address && hRate && trades && pCode && imageURL) {
