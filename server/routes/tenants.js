@@ -56,7 +56,7 @@ router.post("/properties/:id/tenant", async(req, res) => {
 router.put('/', async(req, res, next) => {
     const { id, firstName, lastName, email, lease, propertyId } = req.body;
     try {
-    const foundTenant = await Tenant.updateOne({tenantid: id}, {$set: 
+    const foundTenant = await Tenant.updateOne({_id: id}, {$set: 
         {firstName: firstName,
         lastName: lastName,
         email: email,
