@@ -10,7 +10,7 @@ const Tenant = require("../models/tenant")
 router.get('/:tenantId', async(req, res, next) => {
     const tenantId = req.params.tenantId;
     try {
-    const foundTenant = await Tenant.find({tenantId: tenantId});
+    const foundTenant = await Tenant.findById(tenantId);
     res.status(200).json(foundTenant);
     } catch(e) {
         console.error(e);
