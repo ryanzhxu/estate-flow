@@ -85,7 +85,6 @@ export default function UpdateWorkerFrom() {
 
         <label htmlFor="imageURL">Image: </label>
         <ImageUploader imageURL={imageURL} onImageSelected={handleImageSelected} />
-        {/* <input type="url" id="imageURL" name="imageURL" value={imageURL} onChange={onImageURLChanged} />; */}
 
         <section className="button-container">
           <button
