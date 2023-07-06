@@ -74,7 +74,7 @@ router.put('/', async(req, res, next) => {
 router.delete('/:tenantId', async(req, res, next) => {
     const id = req.params.tenantId;
     try {
-        const deleteTenant = await Tenant.deleteOne({tenantId: id})
+        const deleteTenant = await Tenant.deleteOne({_id: id})
         res.status(200).json(deleteTenant);
     } catch(e) {
         console.error(e);
