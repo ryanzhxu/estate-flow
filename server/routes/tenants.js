@@ -1,67 +1,85 @@
 var express = require('express');
 var router = express.Router();
-const { v4: uuid } = require('uuid');
 
-const tenants = [];
+const Tenant = require("../models/tenant")
 
-router.get('/', (rewq, res, next) => {
-    return res.send(tenants);
-})
+// const tenants = [];
 
-router.get('./:tenantId', (req, res, next) => {
-    const foundTenant = tenants.find((tenant) => tenant.id === req.params.tenantId);
-
-    if (!foundTenant) {
+// idk if i did this right, might have to debug?
+// gets tenant that matches tenant ID provided
+router.get('/:tenantId', async(req, res, next) => {
+    const tenantId = req.params.tenantId;
+    try {
+    const foundTenant = await Tenant.find({tenantId: tenantId});
+    res.status(200).json(foundTenant);
+    } catch(e) {
+        console.error(e);
         res.status(404).send("Could not find Tenant");
     }
-
-    return res.send(foundTenant);
 }) 
 
-router.post('/', (req, res, next) => {
-    const { firstName, lastName, email, lease } = req.body;
+// gets list of all tenants
+router.get("/tenants", async(req, res) => {
+    try {
+        res.status(200).json(await Tenant.find());
+    } catch(e) {
+        console.error(e);
+        res.status(500).json({error: "Error accessing tenants"})
+    }
+})
 
-    const tenant = {
-        id: uuid(),
-        firstName: firstName,
+// gets all tenants that match property ID
+router.get("/properties/:id/tenants", async(req, res) => {
+    const propertyId = req.params.id;
+    try {
+        const tenants = await Tenant.find({propertyId: propertyId});
+        res.status(200).json(tenants);
+    } catch(e) {
+        console.error(e);
+        res.status(500).json({error: "Error accessing tenants"});
+    }
+})
+
+// add tenant with associated property id
+// as of right now, property ID is not an argument when we click add tenant
+router.post("/properties/:id/tenant", async(req, res) => {
+    const tenant = new Tenant(req.body);
+    try {
+        res.status(201).json(await tenant.save());
+    } catch(e) {
+        console.error("What's the problem?", e);
+        res.status(500).json({error: "Error saving tenant to property"})
+    }
+})
+
+// update Tenant
+router.put('/', async(req, res, next) => {
+    const { id, firstName, lastName, email, lease, propertyId } = req.body;
+    try {
+    const foundTenant = await Tenant.updateOne({tenantid: id}, {$set: 
+        {firstName: firstName,
         lastName: lastName,
         email: email,
         lease: lease,
-        paymentHistory: [],
-        propertyId: 0
+        propertyId: propertyId}});
+
+        res.status(200).json(foundTenant);
+    } catch(e) {
+        console.error("What's the problem?", e);
+        res.status(500).json({error: "Error updating tenant"})
     }
-    tenants.push(tenant);
-    return res.send(tenants);
-})
+    });
 
-router.put('/', (req, res, next) => {
-    const { id, firstName, lastName, email, lease, propertyId } = req.body;
-    const foundTenant = tenants.find((tenant) => tenant.id === id);
-
-    if (!foundTenant) {
-        return res.status(404).send("Could not find Tenant");
+// remove tenant
+router.delete('/:tenantId', async(req, res, next) => {
+    const id = req.params.tenantId;
+    try {
+        const deleteTenant = await Tenant.deleteOne({tenantId: id})
+        res.status(200).json(deleteTenant);
+    } catch(e) {
+        console.error(e);
+        res.status(500).json({error: "Error deleting tenant"});
     }
-
-    foundTenant.firstName = firstName;
-    foundTenant.lastName = lastName;
-    foundTenant.email = email;
-    foundTenant.lease = lease;
-    foundTenant.propertyId = propertyId;
-
-    return res.send(tenants);
-})
-
-router.delete('/:tenantId', (req, res, next) => {
-    const tenantIndex = tenants.findIndex((tenant) => tenant.id === req.params.tenantId);
-
-    if (tenantIndex === -1) {
-        return res.status(404).send("Could not find Tenant");
-    }
-
-    const deleteTenant = tenants[tenantIndex];
-    tenants.splice(tenantIndex, 1);
-
-    return res.send(deleteTenant);
 })
 
 module.exports = router;

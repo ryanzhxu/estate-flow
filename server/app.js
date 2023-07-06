@@ -9,6 +9,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const propertiesRouter = require('./routes/properties');
 const workersRouter = require('./routes/workers');
+const tenantsRouter = require('./routes/tenants')
 
 const app = express();
 app.use(cors());
@@ -24,5 +25,6 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/properties', propertiesRouter);
 app.use('/workers', workersRouter);
+app.use(tenantsRouter)
 
 module.exports = app;
