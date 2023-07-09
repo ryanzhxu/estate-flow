@@ -1,6 +1,8 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const { v4: uuid } = require('uuid');
+
+const Property = require("../models/property")
 
 // TO BE REMOVED:
 const PropertyTypes = {
@@ -200,42 +202,41 @@ const properties = [
   },
 ];
 
-router.get('/', (req, res, next) => {
-  return res.send(properties);
+router.get('/', async(req, res, next) => {
+  try {
+    res.status(200).json(await Property.find());
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({error: "Error accessing properties"})
+  }
 });
 
-router.get('/:propertyId', (req, res, next) => {
-  const foundproperty = properties.find((property) => property.id === req.params.propertyId);
-
-  if (!foundproperty) {
-    res.status(404).send('Could not find property!');
+router.get('/:propertyId', async(req, res, next) => {
+  const id = req.params.propertyId;
+  try {
+    const property = await Property.findById(id);
+    if (property) {
+      res.status(200).json(property);
+    } else {
+      res.status(400).json({error: `Property with id ${id} does not exist`})
+    }
+  } catch(e) {
+    console.error(e);
+    res.status(500).json({error: `Error finding property with id ${id}`})
   }
-
-  return res.send(foundproperty);
 });
 
-router.post('/', (req, res, next) => {
-  const { type, name, address, bed, bath, description, rent, amenities, photos, tenants } = req.body;
-
-  if (!address) {
-    return res.status(400).send({ message: 'property must have an address!' });
+router.post('/', async(req, res, next) => {
+  if (!req.body.address) {
+    res.status(400).json({message: "Property must have an address"})
   }
-
-  const property = {
-    id: uuid(),
-    type: type,
-    name: name,
-    address: address,
-    bed: bed,
-    bath: bath,
-    description: description,
-    rent: rent,
-    amenities: amenities,
-    photos: photos,
-    tenants: tenants,
-  };
-  properties.push(property);
-  return res.send(properties);
+  const property = new Property(req.body);
+  try {
+    res.status(201).json(await property.save());
+  } catch(e) {
+    console.error(e);
+    res.status(500).json({error: "Error saving property"});
+  }
 });
 
 router.put('/', (req, res, next) => {
@@ -261,17 +262,15 @@ router.put('/', (req, res, next) => {
   return res.send(properties);
 });
 
-router.delete('/:propertyId', (req, res, next) => {
-  const propertyIndex = properties.findIndex((property) => property.id === req.params.propertyId);
-
-  if (propertyIndex === -1) {
-    return res.status(404).send('Could not find property!');
+router.delete('/:propertyId', async(req, res, next) => {
+  const id = req.params.propertyId;
+  try {
+    const deletedProperty = await Property.deleteOne({_id: id})
+    res.status(200).json(deletedProperty);
+  } catch(e) {
+    console.error(e);
+    res.status(500).json({error: "Error deleting propertyt"});
   }
-
-  const deleteproperty = properties[propertyIndex];
-  properties.splice(propertyIndex, 1);
-
-  return res.send(deleteproperty);
 });
 
 module.exports = router;
