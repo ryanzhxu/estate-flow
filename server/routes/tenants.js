@@ -7,14 +7,19 @@ const Tenant = require("../models/tenant")
 
 // idk if i did this right, might have to debug?
 // gets tenant that matches tenant ID provided
-router.get('/:tenantId', async(req, res, next) => {
+router.get('/tenants/:tenantId', async(req, res, next) => {
     const tenantId = req.params.tenantId;
     try {
-    const foundTenant = await Tenant.findById(tenantId);
-    res.status(200).json(foundTenant);
+        const foundTenant = await Tenant.findById(tenantId);
+        if (foundTenant) {
+            res.status(200).json(foundTenant);
+        } else {
+            res.status(400).json({error: `Tenant with id ${tenantId} does not exist`})
+        }
+
     } catch(e) {
         console.error(e);
-        res.status(404).send("Could not find Tenant");
+        res.status(500).json({error: `Unable to retrieve tenant with id ${tenantId}`});
     }
 }) 
 
@@ -53,7 +58,7 @@ router.post("/properties/:id/tenant", async(req, res) => {
 })
 
 // update Tenant
-router.put('/', async(req, res, next) => {
+router.put('/tenants', async(req, res, next) => {
     const { id, firstName, lastName, email, lease, propertyId } = req.body;
     try {
     const foundTenant = await Tenant.updateOne({_id: id}, {$set: 
@@ -71,7 +76,7 @@ router.put('/', async(req, res, next) => {
     });
 
 // remove tenant
-router.delete('/:tenantId', async(req, res, next) => {
+router.delete('/tenants/:tenantId', async(req, res, next) => {
     const id = req.params.tenantId;
     try {
         const deleteTenant = await Tenant.deleteOne({_id: id})
