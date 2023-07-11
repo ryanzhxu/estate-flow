@@ -68,7 +68,7 @@ const HomeSideBar = () => {
           whileHover={whiteHoverStyles}
         >
           <img
-            src="https://ca.slack-edge.com/T055P35BQH1-U057LMAV8G3-ea64a0b72eb0-512"
+            src= "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6Jyle-GgR9UCOX9zH0cKMTuSqmHvBa5JnPA&usqp=CAU"
             alt="profile_img"
           />
         </motion.div>
