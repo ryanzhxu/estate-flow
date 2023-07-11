@@ -15,7 +15,7 @@ router.get('/tenants/:tenantId', async(req, res, next) => {
         if (foundTenant) {
             res.status(StatusCodes.OK).json(foundTenant);
         } else {
-            res.status(StatusCodes.NOT_FOUND).json({error: `Tenant with id ${tenantId} does not exist`})
+            res.status(StatusCodes.BAD_REQUEST).json({error: `Tenant with id ${tenantId} does not exist`})
         }
 
     } catch(e) {
