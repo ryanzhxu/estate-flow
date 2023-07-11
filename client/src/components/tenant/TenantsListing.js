@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {deleteTenantAsync, getDetailAsync, getTenantsAsync} from "../../redux/tenants/tenantsThunks";
-import {expSelectedTenant, isTenantDetailOpen, openTenantDetail} from "../../redux/tenants/tenantsReducer";
+import {
+    expSelectedTenant, isTenantAddOpen,
+    isTenantDetailOpen,
+    openTenantADD,
+    openTenantDetail
+} from "../../redux/tenants/tenantsReducer";
 import TenantDetails from "./TenantDetail";
 // need to change css
 import '../worker/worker.css';
+import AddPropertyForm from "./AddTenantForm";
 
 const TenantsListing = () => {
     const select = useSelector(expSelectedTenant)
     const dispatch = useDispatch();
     const tenantDetailIsOpen = useSelector(isTenantDetailOpen)
+    const tenantAddIsOpen = useSelector(isTenantAddOpen)
     useEffect(() => {
         dispatch(getTenantsAsync());
     });
@@ -52,10 +59,6 @@ const TenantsListing = () => {
 
 
 
-
-
-
-
     return (
         <div className="property-listing-page">
             <div className="property-listing-contents">
@@ -65,12 +68,15 @@ const TenantsListing = () => {
                 <div className="property-listing-right">
                     <div className="property-listing-header">
                         <h2>Tenants</h2>
-
+                        <div className="btn btn-outline-primary" onClick={() => dispatch(openTenantADD())}>
+                            Add property
+                        </div>
                     </div>
                     <section className="sectionContainer">
                         {renderedPosts}
 
                         {tenantDetailIsOpen && <TenantDetails />}
+                        {tenantAddIsOpen && <AddPropertyForm />}
 
 
                     </section>

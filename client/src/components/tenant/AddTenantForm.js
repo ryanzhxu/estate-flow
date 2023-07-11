@@ -1,7 +1,9 @@
 // eslint-disable-next-line
 import { useState } from "react";
 import React from "react";
-import "./property.css";
+
+import "../property/property.css";
+//import "./property.css";
 
 import Button from '@atlaskit/button';
 import { useDispatch } from "react-redux";

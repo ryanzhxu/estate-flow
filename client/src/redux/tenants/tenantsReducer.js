@@ -4,6 +4,7 @@ import {getDetailAsync, getTenantsAsync} from './tenantsThunks';
 const INITIAL_STATE = {
     tenants: [],
     isTenantDetailOpen: false,
+    isTenantAddOpen: false,
     tenantSelected:{}
 
 };
@@ -18,6 +19,12 @@ const tenantsSlice = createSlice({
         closeTenantDetail:(state, action) => {
             state.isTenantDetailOpen = false;
         },
+        openTenantADD:(state, action) => {
+            state.isTenantAddOpen = true;
+        },
+        closeTenantADD:(state, action) => {
+            state.isTenantAddOpen = false;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -35,6 +42,7 @@ const tenantsSlice = createSlice({
 // export const { addProperty } = propertiesSlice.actions;
 
 export default tenantsSlice.reducer;
-export const {openTenantDetail, closeTenantDetail} = tenantsSlice.actions;// selectedItem,closeModal->Modal.js,
+export const {openTenantDetail, closeTenantDetail,openTenantADD, closeTenantADD} = tenantsSlice.actions;// selectedItem,closeModal->Modal.js,
 export const isTenantDetailOpen = (state) => state.tenants.isTenantDetailOpen;
 export const expSelectedTenant = (state) => state.tenants.tenantSelected;
+export const isTenantAddOpen = (state) => state.tenants.isTenantAddOpen;
