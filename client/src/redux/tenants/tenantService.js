@@ -1,7 +1,10 @@
-const partialUrl = 'localhost';
+import axios from "axios";
+
+const port = '3001';
+const partialUrl = `http://localhost:${port}`;
 
 const addTenant = async (tenant) => {
-    const resp = await fetch(`http://${partialUrl}:3001/tenants`, {
+    const resp = await fetch(`${partialUrl}/tenants`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(tenant)
@@ -18,7 +21,7 @@ const addTenant = async (tenant) => {
 }
 
 const updateTenant = async (tenant) => {
-    const resp = await fetch(`http://${partialUrl}:3001/tenants`, {
+    const resp = await fetch(`${partialUrl}/tenants`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(tenant),
@@ -37,7 +40,7 @@ const updateTenant = async (tenant) => {
 const deleteTenant = async (id) => {
     console.log("delete id type is " + typeof id);
     console.log("delete id is: " + id);
-    const resp = await fetch(`http://${partialUrl}:3001/tenants/${id}`, {
+    const resp = await fetch(`${partialUrl}/tenants/${id}`, {
         method: 'DELETE',
     });
     const data = await resp.json();
@@ -49,24 +52,33 @@ const deleteTenant = async (id) => {
 }
 
 const getTenants = async () => {
-    const resp = await fetch(`http://${partialUrl}:3001/tenants`, {
+    const resp = await fetch(`${partialUrl}/tenants`, {
         method: 'GET'
     });
     
     return resp.json();
 };
 
-
-// need to check
-const getSingleTenant = async (id) => {
-    console.log("id type is " + typeof id);
-    console.log("id is: " + id);
-    const resp = await fetch(`http://${partialUrl}:3001/tenants/${id}`, {
-        method: 'GET'
-    });
-
-    return resp.json();
+const getSingleTenant = async(id) => {
+    try {
+        const resp = await axios.get(`${partialUrl}/tenants/${id}`)
+        return resp.data;
+    } catch (e) {
+        console.error(e);
+        throw new Error(e.response.data.error);
+    }
 };
+
+
+const getTenantsFromProperty = async(propertyId) => {
+    try {
+        const resp = await axios(`${partialUrl}/properties/${propertyId}/tenants`)
+        return resp.data;
+    } catch(e) {
+        console.error(e);
+        throw new Error(e.response.data.error);
+    }
+}
 
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -75,5 +87,6 @@ export default {
     updateTenant,
     deleteTenant,
     getTenants,
-    getSingleTenant
+    getSingleTenant,
+    getTenantsFromProperty
 };
