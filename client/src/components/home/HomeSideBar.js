@@ -68,7 +68,7 @@ const HomeSideBar = () => {
           whileHover={whiteHoverStyles}
         >
           <img
-            src= "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6Jyle-GgR9UCOX9zH0cKMTuSqmHvBa5JnPA&usqp=CAU"
+            src= "https://hips.hearstapps.com/hmg-prod/images/russian-blue-royalty-free-image-1658451809.jpg?crop=0.667xw:1.00xh;0.120xw,0&resize=1200:*"
             alt="profile_img"
           />
         </motion.div>

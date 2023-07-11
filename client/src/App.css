@@ -66,9 +66,8 @@
 }
 
 .profile > img {
-  margin-left:-10%;
-  width: 120%;
-  border-radius: 50%;
+  width: 110%;
+  border-radius: 100%;
 }
 
 .groups {

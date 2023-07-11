@@ -32,7 +32,7 @@ function SideBarItem({ icon, name }) {
       }}
       transition={{
         type: "none",
-        duration: 0.1,
+        duration: 0.01,
       }}
       onClick={
         name === "Log out"
