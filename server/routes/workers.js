@@ -1,6 +1,8 @@
 const express = require('express');
-const router = express.Router();
 const { v4: uuid } = require('uuid');
+const { StatusCodes } = require('http-status-codes');
+
+const router = express.Router();
 
 let workers = [
     {
@@ -39,7 +41,7 @@ router.get('/', (req, res, next) => {
     return res.send(workers);
 });
 router.post('/', function (req, res, next) {
-    if (!req.body.name) {return res.status(400).send({ message: 'User must have a name!' })}
+    if (!req.body.name) {return res.status(StatusCodes.BAD_REQUEST).send({ message: 'User must have a name!' })}
     const worker = { id: uuid(),
         name: req.body.name,
         email: req.body.email,
@@ -77,7 +79,7 @@ router.put('/:userId', function(req, res, next){
 });
 router.get('/:workerId', (req, res, next) => {
     const foundWorker = workers.find(workers => workers.id === req.params.workerId);
-    if (!foundWorker) return res.status(404).send({ message: 'User not found 46 404' });
+    if (!foundWorker) return res.status(StatusCodes.NOT_FOUND).send({ message: 'User not found 46 404' });
     return res.send(foundWorker);
 });
 
