@@ -18,7 +18,7 @@ function RequiredPayments({fees}) {
                             <tr>
                                 <td>{payment.type}</td>
                                 <td>${payment.amount}</td>
-                                <td>{payment.dueDate}</td>
+                                <td>{new Date(payment.dueDate).toLocaleDateString()}</td>
                             </tr>
 
                         )}

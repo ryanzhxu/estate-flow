@@ -24,7 +24,7 @@ function LeaseOverviewCard({lease, address}) {
                     </div>
                     <div className="col-sm-5">
                         <p className="text-muted mb-0">
-                            {lease.startDate}
+                            {new Date(lease.startDate).toLocaleDateString()}
                         </p>
                     </div>
                 </div>
@@ -35,7 +35,7 @@ function LeaseOverviewCard({lease, address}) {
                     </div>
                     <div className="col-sm-5">
                         <p className="text-muted mb-0">
-                            {lease.endDate}
+                            {new Date(lease.endDate).toLocaleDateString()}
                         </p>
                     </div>
                 </div>
