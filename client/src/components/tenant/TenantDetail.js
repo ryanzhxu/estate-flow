@@ -15,6 +15,7 @@ const TenantDetails = () => {
         <div className='workerDetail'>
             <div className='details'>
                 <div className='contents'>
+                    {/*not sure what info to display here, need to change later*/}
                     <div>
                         <p className="single-line">Name:</p>
                         <p className="single-line">Email:</p>
