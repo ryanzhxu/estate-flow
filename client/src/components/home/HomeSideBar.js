@@ -107,6 +107,7 @@ const HomeSideBar = () => {
         </div>
         <br></br>
         <br></br>
+        <br></br>
 
         {open && <div className="sideLogo">
           <img src={logo} alt="logo" width="200" height="40" />
