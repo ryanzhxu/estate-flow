@@ -1,0 +1,16 @@
+{
+  "scripts": {
+    "client": "cd client && npm run start",
+    "server": "cd server && npm run start",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server_dev": "cd server && npm run dev",
+    "dev": "concurrently \"npm run server_dev\" \"npm run client\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "dependencies": {
+    "uuid": "^9.0.0",
+    "web-vitals": "^3.3.2"
+  }
+}

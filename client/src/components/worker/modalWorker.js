@@ -29,16 +29,10 @@ const modalWorker = createSlice({
     }
 })
 
-export const { openModal, closeModal, selectedWorker, openAddModal, closeAddModal } = modalWorker.actions;//
 
 export default modalWorker.reducer;
 //modalReducer-> store.js
 
-export const isDetailOpen = (state) => state.modal.isDTLOpen;
-
-export const isADDOpen = (state) => state.modal.isAddOpen;
-
-export const expSelectedWorker = (state) => state.modal.selected;
 
 
 
