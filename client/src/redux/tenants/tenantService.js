@@ -35,16 +35,16 @@ const updateTenant = async (tenant) => {
 }
 
 const deleteTenant = async (id) => {
+    console.log("delete id type is " + typeof id);
+    console.log("delete id is: " + id);
     const resp = await fetch(`http://${partialUrl}:3001/tenants/${id}`, {
         method: 'DELETE',
     });
-
     const data = await resp.json();
     if (!resp.ok) {
         const errorMsg = data?.message;
         throw new Error(errorMsg)
     }
-
     return data;
 }
 
@@ -56,10 +56,24 @@ const getTenants = async () => {
     return resp.json();
 };
 
+
+// need to check
+const getSingleTenant = async (id) => {
+    console.log("id type is " + typeof id);
+    console.log("id is: " + id);
+    const resp = await fetch(`http://${partialUrl}:3001/tenants/${id}`, {
+        method: 'GET'
+    });
+
+    return resp.json();
+};
+
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     addTenant,
     updateTenant,
     deleteTenant,
-    getTenants
+    getTenants,
+    getSingleTenant
 };

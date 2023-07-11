@@ -88,10 +88,17 @@ const HomeSideBar = () => {
           >
             <SideBarItem icon={"bi bi-house-heart-fill"} name="Properties" />
           </Link>{" "}
+
+          <Link to="/tenants" style={{ textDecoration: "none", color: "white" }}>
+            <SideBarItem icon={"bi bi-people"} name="Tenants" />
+          </Link>
+
+
           <Link to="/workers" style={{ textDecoration: "none", color: "white" }}>
             <SideBarItem icon={"bi bi-person-circle"} name="Workers" />
           </Link>
-          <SideBarItem icon={"bi bi-people"} name="Tenants" />
+
+
         </div>
         <div className="group">
           <SideBarItem icon={"bi bi-cup-hot-fill"} name="About" />

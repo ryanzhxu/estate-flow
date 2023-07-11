@@ -5,7 +5,7 @@ import "./property.css";
 
 import Button from '@atlaskit/button';
 import { useDispatch } from "react-redux";
-import { addTenantAsync, getTenantsAsync } from "../../redux/tenants/thunks";
+import { addTenantAsync, getTenantsAsync } from "../../redux/tenants/tenantsThunks";
 
 export default function AddPropertyForm({ handleCloseForm }) {
 

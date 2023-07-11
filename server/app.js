@@ -25,6 +25,6 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/properties', propertiesRouter);
 app.use('/workers', workersRouter);
-app.use(tenantsRouter)
+app.use('/tenants', tenantsRouter);
 
 module.exports = app;
