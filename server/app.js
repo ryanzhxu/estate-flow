@@ -12,6 +12,9 @@ const workersRouter = require('./routes/workers');
 const tenantsRouter = require('./routes/tenants')
 const mongoose = require('mongoose');
 
+const uri = ``
+mongoose.connect(uri);
+
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
