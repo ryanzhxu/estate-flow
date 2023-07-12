@@ -33,9 +33,6 @@ export const deletePropertyAsync = createAsyncThunk(
 export const getPropertyAsync = createAsyncThunk(
     actionTypes.GET_PROPERTY,
     async (_id) => {
-        console.log('GOT HERE!');
-        const res = await PropertyService.getProperty(_id);
-        console.log('res: ', res);
-        return res;
+        return await PropertyService.getProperty(_id);
     }
 );
