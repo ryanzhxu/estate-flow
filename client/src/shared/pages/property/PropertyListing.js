@@ -37,7 +37,7 @@ const PropertyListing = () => {
           </div>
           <div className="property-listing-cards">
             {properties.map((property) => (
-              <PropertyCard key={property.id} property={property} />
+              <PropertyCard key={property._id} property={property} />
             ))}
           </div>
         </div>
