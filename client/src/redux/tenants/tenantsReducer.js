@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {getSingleTenantAsync, getTenantsAsync, getTenantsFromProperty} from './tenantsThunks';
+import {getSingleTenantAsync, getTenantsAsync, getTenantsFromPropertyAsync} from './tenantsThunks';
 
 const INITIAL_STATE = {
     tenants: [],
@@ -33,7 +33,7 @@ const tenantsSlice = createSlice({
             .addCase(getSingleTenantAsync.fulfilled, (state, action) => {
                 state.tenantSelected = action.payload
             })
-            .addCase(getTenantsFromProperty.fulfilled, (state, action) => {
+            .addCase(getTenantsFromPropertyAsync.fulfilled, (state, action) => {
                 state.tenants = action.payload;
             });
     }

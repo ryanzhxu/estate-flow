@@ -18,12 +18,6 @@ function Tenant() {
         dispatch(getSingleTenantAsync(id));
     }, [id, dispatch]);
 
-    const address = {
-        streetAddress: "111 Maple St",
-        city: "Vancouver",
-        province: "BC",
-        zipCode: "M12 4J1",
-    };
 
     return (
         <div className="container py-5 tenant-container">
@@ -31,7 +25,7 @@ function Tenant() {
                 <div className="row">
                     <div className="col-lg-4">
                         <div className="tenant-profile-container card mb-4">
-                            <TenantProfileCard tenant={tenant} address={address} />
+                            <TenantProfileCard tenant={tenant} address={tenant.address} />
                         </div>
                         <div className="tenant-overview-container card mb-4">
                             <TenantOverviewCard tenant={tenant} />
@@ -40,7 +34,7 @@ function Tenant() {
                     <div className="col-lg-8">
                         <div className="row mb-4">
                             <div className="col-sm-7 tenant-property-info-container">
-                                <LeaseOverviewCard address={address} lease={tenant.lease} />
+                                <LeaseOverviewCard address={tenant.address} lease={tenant.lease} />
                             </div>
                             <div className="required-payments-container col-sm-5 card">
                                 <RequiredPayments fees={tenant.lease.fees} />

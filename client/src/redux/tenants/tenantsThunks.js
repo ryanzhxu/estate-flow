@@ -38,7 +38,7 @@ export const getSingleTenantAsync = createAsyncThunk(
     }
 );
 
-export const getTenantsFromProperty = createAsyncThunk(
+export const getTenantsFromPropertyAsync = createAsyncThunk(
     actionTypes.GET_PROPERTIES_TENANTS,
     async(propertyId) => {
         return await TenantService.getTenantsFromProperty(propertyId);
