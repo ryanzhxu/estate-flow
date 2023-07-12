@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import Button from '@atlaskit/button';
+// import Button from '@atlaskit/button';
+import Button from 'react-bootstrap/Button';
 import { useDispatch } from 'react-redux';
 import { deletePropertyAsync, getPropertiesAsync } from '../../../redux/properties/thunks';
 import EditPropertyForm from '../../../components/property/EditPropertyForm';

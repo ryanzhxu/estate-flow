@@ -34,7 +34,7 @@ function PropertyHome({ property }) {
           </div>
         </div>
         <div className="tenants-view-container border-left">
-          <TenantView tenants={property.tenants} />
+          <TenantView propertyId={property._id} />
         </div>
       </div>
     </div>

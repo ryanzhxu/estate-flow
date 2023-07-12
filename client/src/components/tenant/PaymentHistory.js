@@ -12,7 +12,7 @@ function PaymentHistory({paymentHistory}) {
             <tbody>
                 {paymentHistory.map((item) =>
                     (<tr>
-                        <td>{item.date}</td>
+                        <td>{new Date(item.date).toLocaleDateString()}</td>
                         <td>{item.type}</td>
                         <td>${item.charge}</td>
                         <td>${item.paid}</td>

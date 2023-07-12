@@ -6,7 +6,8 @@ import "./property.css";
 import AmenitiesChoices from "./AmenitiesChoices";
 import Select from "react-select";
 
-import Button from '@atlaskit/button';
+// import Button from '@atlaskit/button';
+import Button from 'react-bootstrap/Button';
 import { useDispatch } from "react-redux";
 import { addPropertyAsync, getPropertiesAsync } from "../../redux/properties/thunks";
 

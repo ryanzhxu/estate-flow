@@ -5,7 +5,8 @@ import React from "react";
 import "../property/property.css";
 //import "./property.css";
 
-import Button from '@atlaskit/button';
+// import Button from '@atlaskit/button';
+import Button from 'react-bootstrap/Button';
 import { useDispatch } from "react-redux";
 import { addTenantAsync, getTenantsAsync } from "../../redux/tenants/tenantsThunks";
 

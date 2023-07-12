@@ -68,7 +68,7 @@ const HomeSideBar = () => {
           whileHover={whiteHoverStyles}
         >
           <img
-            src="https://ca.slack-edge.com/T055P35BQH1-U057LMAV8G3-ea64a0b72eb0-512"
+            src= "https://hips.hearstapps.com/hmg-prod/images/russian-blue-royalty-free-image-1658451809.jpg?crop=0.667xw:1.00xh;0.120xw,0&resize=1200:*"
             alt="profile_img"
           />
         </motion.div>
@@ -105,6 +105,7 @@ const HomeSideBar = () => {
           <SideBarItem icon={"bi bi-microsoft-teams"} name="Team" />
           <SideBarItem icon={"bi bi-box-arrow-left"} name="Log out" />
         </div>
+        <br></br>
         <br></br>
         <br></br>
 

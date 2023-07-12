@@ -1,12 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {getDetailAsync, getTenantsAsync} from './tenantsThunks';
+import {getSingleTenantAsync, getTenantsAsync, getTenantsFromPropertyAsync} from './tenantsThunks';
 
 const INITIAL_STATE = {
     tenants: [],
     isTenantDetailOpen: false,
     isTenantAddOpen: false,
-    tenantSelected:{}
-
+    tenantSelected: null
 };
 
 const tenantsSlice = createSlice({
@@ -31,11 +30,12 @@ const tenantsSlice = createSlice({
             .addCase(getTenantsAsync.fulfilled, (state, action) => {
                 state.tenants = action.payload
             })
-            .addCase(getDetailAsync.fulfilled, (state, action) => {
+            .addCase(getSingleTenantAsync.fulfilled, (state, action) => {
                 state.tenantSelected = action.payload
+            })
+            .addCase(getTenantsFromPropertyAsync.fulfilled, (state, action) => {
+                state.tenants = action.payload;
             });
-
-
     }
 });
 
