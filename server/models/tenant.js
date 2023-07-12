@@ -15,6 +15,10 @@ const tenantSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        phoneNumber: {
+            type: String,
+            required: true
+        },
         lease: {
             startDate: {
                 type: Date,
