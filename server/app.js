@@ -10,6 +10,7 @@ const usersRouter = require('./routes/users');
 const propertiesRouter = require('./routes/properties');
 const workersRouter = require('./routes/workers');
 const tenantsRouter = require('./routes/tenants')
+const mongoose = require('mongoose');
 
 const app = express();
 app.use(cors());
