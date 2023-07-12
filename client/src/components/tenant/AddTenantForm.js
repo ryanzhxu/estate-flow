@@ -9,8 +9,9 @@ import "../property/property.css";
 import Button from 'react-bootstrap/Button';
 import { useDispatch } from "react-redux";
 import { addTenantAsync, getTenantsAsync } from "../../redux/tenants/tenantsThunks";
+import { closeTenantADD } from "../../redux/tenants/tenantsReducer";
 
-export default function AddPropertyForm({ handleCloseForm }) {
+export default function AddPropertyForm() {
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -29,7 +30,9 @@ export default function AddPropertyForm({ handleCloseForm }) {
         setLease('')
         // setPaymentHistory('')
     }
-
+    const handleCloseForm = () => {
+        dispatch(closeTenantADD());
+    }
     const handleAddTenant = () => {
         const tenant = {
             firstName: '',
