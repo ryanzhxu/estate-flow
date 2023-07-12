@@ -81,11 +81,11 @@ router.delete('/', async function (req, res, next) {
 //     workers = newWorkers;
 //     return res.send(worker);
 // });
-// router.get('/:workerId', (req, res, next) => {
-//     const foundWorker = workers.find(workers => workers.id === req.params.workerId);
-//     if (!foundWorker) return res.status(StatusCodes.NOT_FOUND).send({ message: 'User not found 46 404' });
-//     return res.send(foundWorker);
-// });
+router.get('/:workerId', async (req, res, next) => {
+    const foundWorker = await Worker.findOne({ id: req.params.workerId });
+    if (!foundWorker) return res.status(StatusCodes.NOT_FOUND).send({ message: 'User not found 46 404' });
+    return res.send(foundWorker);
+});
 
 
 
