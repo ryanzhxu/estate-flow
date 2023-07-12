@@ -12,7 +12,7 @@ const workersRouter = require('./routes/workers');
 const tenantsRouter = require('./routes/tenants')
 const mongoose = require('mongoose');
 
-const uri = ``
+const uri = ``;
 mongoose.connect(uri);
 
 const app = express();
