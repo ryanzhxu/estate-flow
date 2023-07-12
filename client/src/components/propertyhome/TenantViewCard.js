@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {Modal} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 function TenantViewCard({tenant}) {
     const [isOpen, setIsOpen] = useState(false);
@@ -39,7 +40,9 @@ function TenantViewCard({tenant}) {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <button className="tenant-modal-button">More Details</button>
+                    <Link to={`/tenants/${tenant._id}`}>
+                        <button className="tenant-modal-button">More Details</button>
+                    </Link>
                     <button onClick={() => setIsOpen(false)}>Close</button>
                 </Modal.Footer>
             </Modal>

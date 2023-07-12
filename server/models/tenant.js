@@ -15,6 +15,10 @@ const tenantSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        phoneNumber: {
+            type: String,
+            required: true
+        },
         lease: {
             startDate: {
                 type: Date,
@@ -67,7 +71,8 @@ const tenantSchema = new mongoose.Schema(
         }],
         propertyId: {
             type: Schema.Types.ObjectId,
-            ref: "Property"
+            ref: "Property",
+            required: true
         }
     },
     {

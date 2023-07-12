@@ -6,7 +6,7 @@ function PropertyDetailCard({ id, name, address }) {
             <div className="property-detail">
                 <header>{name ? name : id}</header>
                 <p className="property-address">{address.streetAddress}</p>
-                <p className="property-zone-info"><small>{address.city}, {address.province} {address.zipCode}</small></p>
+                <p className="property-zone-info"><small>{address.city}, {address.province} {address.postalCode}</small></p>
             </div>
         </div>
     );

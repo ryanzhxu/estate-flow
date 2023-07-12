@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {deleteTenantAsync, getDetailAsync, getTenantsAsync} from "../../redux/tenants/tenantsThunks";
+import {deleteTenantAsync, getSingleTenantAsync, getTenantsAsync} from "../../redux/tenants/tenantsThunks";
 import {
     expSelectedTenant, isTenantAddOpen,
     isTenantDetailOpen,
@@ -37,7 +37,7 @@ const TenantsListing = () => {
                             className="btn btn-outline-dark"
                             style={{ marginTop: '10px' }}
                             onClick={ () => {
-                                dispatch(getDetailAsync(allTenants.id));
+                                dispatch(getSingleTenantAsync(allTenants.id));
                                 dispatch(openTenantDetail());
                             } }>
                             DETAIL
