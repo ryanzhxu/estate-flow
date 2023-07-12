@@ -22,6 +22,10 @@ const propertySchema = new mongoose.Schema(
             province: {
                 type: String,
                 required: true
+            },
+            postalCode: {
+                type: String,
+                required: true
             }
         },
         bed: {
