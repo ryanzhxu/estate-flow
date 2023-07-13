@@ -69,7 +69,7 @@ const TenantsListing = () => {
                     <div className="property-listing-header">
                         <h2>Tenants</h2>
                         <div className="btn btn-outline-primary" onClick={() => dispatch(openTenantADD())}>
-                            Add Tenants
+                            Add a Tenant
                         </div>
                     </div>
                     <section className="sectionContainer">
