@@ -15,19 +15,13 @@ export const addWorkerAsync = createAsyncThunk(
     }
 );
 
-export const deleteWorkerAsync = createAsyncThunk(
-    "deleteWorker",
-    async(id) => {
-        return await workersService.deleteWorker({id});
-    }
-);
+export const deleteWorkerAsync = createAsyncThunk('deleteWorker', async (id) => {
+  return await workersService.deleteWorker({ id });
+});
 
-export const getDetailAsync = createAsyncThunk(
-    "getDetail",
-    async(id) => {
-        return await workersService.getWorker({id});
-    }
-);
+export const getDetailAsync = createAsyncThunk('getDetail', async (id) => {
+  return await workersService.getWorker({ id });
+});
 
 export const updateAsync = createAsyncThunk(
     "updateAsync",
