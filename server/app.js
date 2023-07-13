@@ -10,10 +10,6 @@ const usersRouter = require('./routes/users');
 const propertiesRouter = require('./routes/properties');
 const workersRouter = require('./routes/workers');
 const tenantsRouter = require('./routes/tenants')
-const mongoose = require('mongoose');
-
-const uri = `mongodb+srv://m001-student:m001-mongodb-basics@sandbox.ivcdn8h.mongodb.net/estateflow`;
-mongoose.connect(uri);
 
 const app = express();
 app.use(cors());

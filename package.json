@@ -10,9 +10,6 @@
     "concurrently": "^8.2.0"
   },
   "dependencies": {
-    "mongodb": "^5.7.0",
-    "mongoose": "^7.3.3",
-    "uuid": "^9.0.0",
     "web-vitals": "^3.3.2"
   }
 }
