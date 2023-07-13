@@ -89,107 +89,107 @@ const EditPropertyForm = ({ property, handleCloseEditForm }) => {
   };
 
   return (
-    <div className="form">
-      <form className="add-property-form" onSubmit={handleEditProperty}>
+    <div className='form'>
+      <form className='add-property-form' onSubmit={handleEditProperty}>
         <h4>Editing property</h4>
 
         <label>Property Id: {property.id}</label>
 
-        <label htmlFor="streetAddress">Street Address: </label>
+        <label htmlFor='streetAddress'>Street Address: </label>
         <input
-          type="text"
-          id="streetAddress"
-          name="streetAddress"
+          type='text'
+          id='streetAddress'
+          name='streetAddress'
           value={streetAddress}
           required
           onChange={(e) => setStreetAddress(e.target.value)}
         />
 
-        <label htmlFor="propertyType">Property Type: </label>
+        <label htmlFor='propertyType'>Property Type: </label>
         <Select
-          id="propertyType"
-          name="propertyType"
+          id='propertyType'
+          name='propertyType'
           options={propertyTypeOptions}
           defaultValue={propertyTypeOptions.find((option) => option.value === propertyType)}
           onChange={handlePropertyTypeChange}
         />
 
-        <label htmlFor="size">Size: </label>
-        <input type="number" id="size" name="size" value={size} required onChange={(e) => setSize(e.target.value)} />
+        <label htmlFor='size'>Size: </label>
+        <input type='number' id='size' name='size' value={size} required onChange={(e) => setSize(e.target.value)} />
 
-        <label htmlFor="city">City: </label>
-        <input type="text" id="city" name="city" required value={city} onChange={(e) => setCity(e.target.value)} />
+        <label htmlFor='city'>City: </label>
+        <input type='text' id='city' name='city' required value={city} onChange={(e) => setCity(e.target.value)} />
 
-        <label htmlFor="province">Province: </label>
-        <input id="province" name="province" required value={province} onChange={(e) => setProvince(e.target.value)} />
+        <label htmlFor='province'>Province: </label>
+        <input id='province' name='province' required value={province} onChange={(e) => setProvince(e.target.value)} />
 
-        <label htmlFor="country">Country: </label>
-        <input type="text" id="country" name="country" required />
+        <label htmlFor='country'>Country: </label>
+        <input type='text' id='country' name='country' required />
 
-        <label htmlFor="postal">Postal Code: </label>
+        <label htmlFor='postal'>Postal Code: </label>
         <input
-          type="text"
-          id="postal"
-          name="postal"
+          type='text'
+          id='postal'
+          name='postal'
           required
           value={postalCode}
           onChange={(e) => setPostalCode(e.target.value)}
         />
 
-        <label htmlFor="propertyName">Property Name: </label>
+        <label htmlFor='propertyName'>Property Name: </label>
         <input
-          type="text"
-          id="propertyName"
-          name="propertyName"
+          type='text'
+          id='propertyName'
+          name='propertyName'
           value={propertyName}
           onChange={(e) => setPropertyName(e.target.value)}
         />
 
-        <label htmlFor="description">Description: </label>
+        <label htmlFor='description'>Description: </label>
         <input
-          type="text"
-          id="description"
-          name="description"
+          type='text'
+          id='description'
+          name='description'
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
 
-        <label htmlFor="bedrooms">Number of Bedrooms: </label>
+        <label htmlFor='bedrooms'>Number of Bedrooms: </label>
         <input
-          type="number"
-          id="bedrooms"
-          name="bedrooms"
+          type='number'
+          id='bedrooms'
+          name='bedrooms'
           value={bedrooms}
           onChange={(e) => setBedrooms(e.target.value)}
         />
 
-        <label htmlFor="bathrooms">Number of Bathrooms: </label>
+        <label htmlFor='bathrooms'>Number of Bathrooms: </label>
         <input
-          type="number"
-          id="bathrooms"
-          name="bathrooms"
+          type='number'
+          id='bathrooms'
+          name='bathrooms'
           value={bathrooms}
           onChange={(e) => setBathrooms(e.target.value)}
         />
 
-        <label htmlFor="amenities">Amenities:</label>
+        <label htmlFor='amenities'>Amenities:</label>
         <Select
-          id="amenities"
-          name="amenities"
+          id='amenities'
+          name='amenities'
           options={amenityOptions}
           isMulti
           value={[]}
           onChange={handleAmenitiesChange}
         />
 
-        <section className="buttons">
-          <Button appearance="subtle" type="submit" onClick={handleEditProperty}>
+        <section className='buttons'>
+          <Button appearance='subtle' type='submit' onClick={handleEditProperty}>
             Submit changes
           </Button>
-          <Button appearance="subtle" onClick={onClearClickedProp}>
+          <Button appearance='subtle' onClick={onClearClickedProp}>
             Clear fields
           </Button>
-          <Button appearance="subtle" onClick={handleCloseEditForm}>
+          <Button appearance='subtle' onClick={handleCloseEditForm}>
             Close
           </Button>
         </section>
