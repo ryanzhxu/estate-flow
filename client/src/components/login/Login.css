@@ -1,66 +1,66 @@
 .login {
-    display: grid;
-    gap: 1px;
-    padding: 120px;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    height: 100vh;
-    align-items: center;
-    background: #2e3438;
-    grid-template-columns: auto;
+  display: grid;
+  gap: 1px;
+  padding: 120px;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  align-items: center;
+  background: #2e3438;
+  grid-template-columns: auto;
 }
 
 .login-form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
-.login-form>h1 {
-    font-size: 35px;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    letter-spacing: -1px;
+.login-form > h1 {
+  font-size: 35px;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  letter-spacing: -1px;
 }
 
-.login-form>input {
-    min-width: 380px;
-    padding: 20px 0;
-    padding-left: 15px;
-    margin-bottom: 10px;
-    outline: none;
-    border: 1px solid rgba(0, 0, 0, 0.24);
-    border-radius: 2px;
-    font-size: 16px;
+.login-form > input {
+  min-width: 380px;
+  padding: 20px 0;
+  padding-left: 15px;
+  margin-bottom: 10px;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.24);
+  border-radius: 2px;
+  font-size: 16px;
 }
 
-.login-form>input:hover {
-    background-color: #e5f0e8;
+.login-form > input:hover {
+  background-color: #e5f0e8;
 }
 
-.login-form>input:focus {
-    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-    border: 1px solid rgba(81, 203, 238, 1);
-    transition: box-shadow 0.3s ease-in-out;
+.login-form > input:focus {
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  border: 1px solid rgba(81, 203, 238, 1);
+  transition: box-shadow 0.3s ease-in-out;
 }
 
 .login-btn {
-    padding: 17px 30px;
-    margin-top: 10px;
-    background: black;
-    border: none;
-    color: white;
-    font-size: 14px;
-    font-family: "Inter";
-    border-radius: 3px;
-    cursor: pointer;
+  padding: 17px 30px;
+  margin-top: 10px;
+  background: black;
+  border: none;
+  color: white;
+  font-size: 14px;
+  font-family: 'Inter';
+  border-radius: 3px;
+  cursor: pointer;
 }
 
 .login-btn:hover {
-    background-color: #004c45;
+  background-color: #004c45;
 }
-.img{
-    width: 100%;
-    height: 70%;
-    justify-content: center;
+.img {
+  width: 100%;
+  height: 70%;
+  justify-content: center;
 }

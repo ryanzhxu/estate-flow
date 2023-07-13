@@ -51,26 +51,26 @@ export default function UpdateWorkerFrom() {
   };
 
   return (
-    <div className="form">
+    <div className='form'>
       <h4>Add a New Worker</h4>
-      <form id="AddWorkerForm">
-        <label htmlFor="workerName">Worker Name:</label>
-        <input type="text" id="workerName" name="workerName" value={name} onChange={onNameChanged} />
+      <form id='AddWorkerForm'>
+        <label htmlFor='workerName'>Worker Name:</label>
+        <input type='text' id='workerName' name='workerName' value={name} onChange={onNameChanged} />
 
-        <label htmlFor="email">Email: </label>
-        <input type="text" id="email" name="email" value={email} onChange={onEmailChanged} />
+        <label htmlFor='email'>Email: </label>
+        <input type='text' id='email' name='email' value={email} onChange={onEmailChanged} />
 
-        <label htmlFor="phone">phone: </label>
-        <input type="text" id="phone" name="phone" value={phone} onChange={onPhoneChanged} />
+        <label htmlFor='phone'>phone: </label>
+        <input type='text' id='phone' name='phone' value={phone} onChange={onPhoneChanged} />
 
-        <label htmlFor="address">Address: </label>
-        <input type="text" id="address" name="address" value={address} onChange={onAddressChanged} />
+        <label htmlFor='address'>Address: </label>
+        <input type='text' id='address' name='address' value={address} onChange={onAddressChanged} />
 
-        <label htmlFor="hRate">Hourly Rate: </label>
-        <input type="number" step="5" min="0" id="hRate" name="hRate" value={hRate} onChange={onHRateChanged} />
+        <label htmlFor='hRate'>Hourly Rate: </label>
+        <input type='number' step='5' min='0' id='hRate' name='hRate' value={hRate} onChange={onHRateChanged} />
 
-        <label htmlFor="trades">Trades: </label>
-        <select id="trades" name="trades" value={trades} onChange={onTradesChanged}>
+        <label htmlFor='trades'>Trades: </label>
+        <select id='trades' name='trades' value={trades} onChange={onTradesChanged}>
           {Object.values(WorkerTypes).map((workerType, index) => (
             <option key={index} value={workerType}>
               {workerType}
@@ -78,29 +78,27 @@ export default function UpdateWorkerFrom() {
           ))}
         </select>
 
-        <label htmlFor="pCode">Postal Code: </label>
-        <input type="text" id="pCode" name="pCode" value={pCode} onChange={onPCodeChanged} />
+        <label htmlFor='pCode'>Postal Code: </label>
+        <input type='text' id='pCode' name='pCode' value={pCode} onChange={onPCodeChanged} />
 
-        <label htmlFor="imageURL">Image: </label>
+        <label htmlFor='imageURL'>Image: </label>
         <ImageUploader imageURL={imageURL} onImageSelected={handleImageSelected} />
 
-        <section className="button-container">
+        <section className='button-container'>
           <button
-            type="button"
+            type='button'
             onClick={() => {
               onUpdateWorkerClicked();
               dispatch(closeAddForm());
-            }}
-          >
+            }}>
             SUBMIT Worker
           </button>
 
           <button
-            className="close"
+            className='close'
             onClick={() => {
               onCloseClicked();
-            }}
-          >
+            }}>
             CLOSE
           </button>
         </section>

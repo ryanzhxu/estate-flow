@@ -23,21 +23,21 @@ const PropertyListing = () => {
   };
 
   return (
-    <div className="property-listing-page">
-      <div className="property-listing-contents">
-        <div className="property-listing-left">
+    <div className='property-listing-page'>
+      <div className='property-listing-contents'>
+        <div className='property-listing-left'>
           <h2>Search</h2>
         </div>
-        <div className="property-listing-right">
-          <div className="property-listing-header">
+        <div className='property-listing-right'>
+          <div className='property-listing-header'>
             <h2>Properties</h2>
-            <div className="btn btn-outline-primary" onClick={handleOpenAddForm}>
+            <div className='btn btn-outline-primary' onClick={handleOpenAddForm}>
               Add property
             </div>
           </div>
-          <div className="property-listing-cards">
+          <div className='property-listing-cards'>
             {properties.map((property) => (
-              <PropertyCard key={property.id} property={property} />
+              <PropertyCard key={property._id} property={property} />
             ))}
           </div>
         </div>
