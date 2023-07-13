@@ -26,7 +26,6 @@ export const updateTenantAsync = createAsyncThunk(
 export const deleteTenantAsync = createAsyncThunk(
     actionTypes.DEL_TENANT,
     async (id) => {
-        console.log("deleteTenantAsync id is: " + id)
         return await TenantService.deleteTenant(id);
     }
 );
@@ -34,7 +33,6 @@ export const deleteTenantAsync = createAsyncThunk(
 export const getSingleTenantAsync = createAsyncThunk(
     actionTypes.GET_SINGLE_TENANT,
     async(id) => {
-        console.log("getSingleTenantAsync id is: " + id)
         return await TenantService.getSingleTenant(id);
     }
 );
