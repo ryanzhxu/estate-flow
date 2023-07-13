@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {deleteTenantAsync, getSingleTenantAsync, getTenantsAsync} from "../../redux/tenants/tenantsThunks";
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteTenantAsync, getSingleTenantAsync, getTenantsAsync } from '../../redux/tenants/tenantsThunks';
 import {
-    expSelectedTenant, isTenantAddOpen,
-    isTenantDetailOpen,
-    openTenantADD,
-    openTenantDetail
-} from "../../redux/tenants/tenantsReducer";
-import TenantDetails from "./TenantDetail";
+  expSelectedTenant,
+  isTenantAddOpen,
+  isTenantDetailOpen,
+  openTenantADD,
+  openTenantDetail,
+} from '../../redux/tenants/tenantsReducer';
+import TenantDetails from './TenantDetail';
 // need to change css
 import '../worker/worker.css';
-import AddPropertyForm from "./AddTenantForm";
+import AddPropertyForm from './AddTenantForm';
 
 const TenantsListing = () => {
     const select = useSelector(expSelectedTenant)
@@ -56,35 +57,31 @@ const TenantsListing = () => {
             ))
         }
     }
+  }
 
 
-
-    return (
-        <div className="property-listing-page">
-            <div className="property-listing-contents">
-                <div className="property-listing-left">
-                    <h2>Search</h2>
-                </div>
-                <div className="property-listing-right">
-                    <div className="property-listing-header">
-                        <h2>Tenants</h2>
-                        <div className="btn btn-outline-primary" onClick={() => dispatch(openTenantADD())}>
-                            Add a Tenant
-                        </div>
-                    </div>
-                    <section className="sectionContainer">
-                        {renderedPosts}
-
-                        {tenantDetailIsOpen && <TenantDetails />}
-                        {tenantAddIsOpen && <AddPropertyForm />}
-
-
-                    </section>
-                </div>
-            </div>
+  return (
+    <div className='property-listing-page'>
+      <div className='property-listing-contents'>
+        <div className='property-listing-left'>
+          <h2>Search</h2>
         </div>
-    )
-
-}
+        <div className='property-listing-right'>
+          <div className='property-listing-header'>
+            <h2>Tenants</h2>
+            <div className='btn btn-outline-primary' onClick={() => dispatch(openTenantADD())}>
+              Add a Tenant
+            </div>
+          </div>
+          <section className='sectionContainer'>
+            {renderedPosts}
+            {tenantDetailIsOpen && <TenantDetails />}
+            {tenantAddIsOpen && <AddPropertyForm />}
+          </section>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default TenantsListing;

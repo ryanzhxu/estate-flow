@@ -29,19 +29,18 @@ const PropertyCardDetails = ({ property }) => {
   };
 
   return (
-    <div className="property-card-content">
+    <div className='property-card-content'>
       <span>{property.type}</span>
       <h4 style={{ whiteSpace: 'nowrap' }}>{property.address.streetAddress}</h4>
       <p>{`${property.address.city}, ${property.address.province} ${property.address.postalCode}`}</p>
-      <div className="property-card-footer">
-        <div className="property-card-footer-buttons">
+      <div className='property-card-footer'>
+        <div className='property-card-footer-buttons'>
           <Button onClick={handleOpenEditForm}>Edit</Button>
           <Button
-            appearance="danger"
+            appearance='danger'
             onClick={() => {
               handleDeleteProperty(property._id);
-            }}
-          >
+            }}>
             Delete
           </Button>
         </div>
