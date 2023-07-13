@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getPropertyAsync } from "../../redux/properties/thunks";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,14 +7,25 @@ import PropertyOverview from "./PropertyOverview";
 import PropertyPhotoGallery from "./PropertyPhotoGallery";
 import "./PropertyHome.css";
 import TenantView from "./TenantView";
+import Loading from "../loading/Loading";
+import searching from '../loading/loading-lottie.json';
 
 function PropertyHome() {
   const { _id } = useParams();
   const dispatch = useDispatch();
   const property = useSelector((state) => state.properties.propertySelected);
+  const [showLoading, setShowLoading] = useState(true);
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowLoading(false);
+    }, 1500);
+
     dispatch(getPropertyAsync(_id));
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [dispatch, _id]);
 
   const getContent = () => {
@@ -52,8 +63,11 @@ function PropertyHome() {
   };
 
   return (
-    // TODO: create a loading component that renders while property is still being retrived
-    property ? getContent() : <></>
+    <>
+      {(showLoading || !property) ? <Loading animationData={searching} />
+        : getContent()
+      }
+    </>
   )
 }
 

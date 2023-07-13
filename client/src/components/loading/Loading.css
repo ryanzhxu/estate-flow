@@ -1,0 +1,24 @@
+.loading-div {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 100vh;
+  }
+
+.loading {
+    gap: 12px;
+    display: grid;
+    text-align: center;
+}
+
+.loading-heading {
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 28px;
+}
+
+.loading-text {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+}
