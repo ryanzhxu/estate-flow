@@ -45,3 +45,13 @@ export const updateAsync = createAsyncThunk(
         return await workersService.updateWorker({id,name, email, phone, address, hRate, trades, pCode, imageURL});
     }
 );
+
+export const sortFilterWorkerAsync = createAsyncThunk(
+    "getSortFilter",
+    async({tradeType, sortOption}) => {
+        const result = await workersService.getSortFilter({tradeType, sortOption});
+        console.log("workerThunk result: " + result[0].name);
+
+        return result
+    }
+);

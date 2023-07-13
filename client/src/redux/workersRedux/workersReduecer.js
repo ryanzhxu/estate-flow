@@ -1,5 +1,5 @@
 import {createSlice, nanoid} from "@reduxjs/toolkit";
-import {addWorkerAsync, deleteWorkerAsync, getWorkersAsync} from "./workersThunks";
+import {addWorkerAsync, deleteWorkerAsync, getWorkersAsync, sortFilterWorkerAsync} from "./workersThunks";
 
 const INITIAL_STATE  = {
     list: [],
@@ -44,6 +44,18 @@ const workersSlice = createSlice({
             .addCase(deleteWorkerAsync.rejected, (state, action) => {
                 state.error = "fail to deleteWorker";
             })
+
+            //sortFilterWorkerAsync
+            .addCase(sortFilterWorkerAsync.pending, (state) => {
+                state.error = null;
+            })
+            .addCase(sortFilterWorkerAsync.fulfilled, (state, action) => {
+                state.list = action.payload;
+            })
+            .addCase(sortFilterWorkerAsync.rejected, (state, action) => {
+                state.error = "fail to deleteWorker";
+            })
+
     }
 });
 export default workersSlice.reducer;

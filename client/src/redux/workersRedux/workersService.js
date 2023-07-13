@@ -61,11 +61,19 @@ const getWorker = async (id) => {
     return response.json();
 };
 
+const getSortFilter = async ({tradeType, sortOption}) => {
+    const response = await fetch(`http://localhost:3001/workers/sort?query=query&Trades=${tradeType}&sort=${sortOption}`, {
+        method: 'GET'                //http://localhost:9000/cars/sort?query=query&Tow= 1000          &sort=Ascending
+    });
+    return response.json();
+};
+
 
 export default {
     getWorkers,
     addWorker,
     deleteWorker,
     updateWorker,
-    getWorker
+    getWorker,
+    getSortFilter
 };

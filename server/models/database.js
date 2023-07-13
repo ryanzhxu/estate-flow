@@ -3,7 +3,8 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const uri = process.env.NODE_ENV ? process.env.DB_HOST_REMOTE : process.env.DB_HOST;
+//const uri = process.env.NODE_ENV ? process.env.DB_HOST_REMOTE : process.env.DB_HOST;
+const uri = `mongodb+srv://m001-student:m001-mongodb-basics@sandbox.ivcdn8h.mongodb.net/estateflow`;
 
 const connectToDB = async() => {
     try {
