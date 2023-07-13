@@ -34,8 +34,8 @@ const updateProperty = async (property) => {
     return data;
 }
 
-const deleteProperty = async (id) => {
-    const resp = await fetch(`http://${partialUrl}:3001/properties/${id}`, {
+const deleteProperty = async (_id) => {
+    const resp = await fetch(`http://${partialUrl}:3001/properties/${_id}`, {
         method: 'DELETE',
     });
 
@@ -52,14 +52,24 @@ const getProperties = async () => {
     const resp = await fetch(`http://${partialUrl}:3001/properties`, {
         method: 'GET'
     });
-    
+
     return resp.json();
 };
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
+const getProperty = async (_id) => {
+    const resp = await fetch(`http://${partialUrl}:3001/properties/${_id}`, {
+        method: 'GET',
+    });
+
+    return resp.json();
+};
+
+const propertyService = {
     addProperty,
     updateProperty,
     deleteProperty,
-    getProperties
+    getProperties,
+    getProperty,
 };
+
+export default propertyService;

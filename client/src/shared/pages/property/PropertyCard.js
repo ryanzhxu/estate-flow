@@ -1,15 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropertyCardDetails from './PropertyCardDetails';
 import './PropertyListing.css';
 
 const PropertyCard = ({ property }) => {
   return (
     <div className="property-listing-card">
-      <a href={`properties/${property.id}`}>
+      <Link to={`/properties/${property._id}`}>
         <span>
-          <img alt={property.id} className={`property-image`} src={property.photos[0]} />
+          <img alt={property._id} className={`property-image`} src={property.photos[0]} />
         </span>
-      </a>
+      </Link>
       <PropertyCardDetails property={property} />
     </div>
   );

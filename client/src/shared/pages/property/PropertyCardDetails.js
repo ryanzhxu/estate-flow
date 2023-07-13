@@ -10,8 +10,8 @@ const PropertyCardDetails = ({ property }) => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [editProperty, setEditProperty] = useState(null);
 
-  const handleDeleteProperty = (id) => {
-    dispatch(deletePropertyAsync(id)).then(() => {
+  const handleDeleteProperty = (_id) => {
+    dispatch(deletePropertyAsync(_id)).then(() => {
       dispatch(getPropertiesAsync());
     });
   };
@@ -34,13 +34,12 @@ const PropertyCardDetails = ({ property }) => {
       <h4 style={{ whiteSpace: 'nowrap' }}>{property.address.streetAddress}</h4>
       <p>{`${property.address.city}, ${property.address.province} ${property.address.postalCode}`}</p>
       <div className="property-card-footer">
-        {/* <p>{`id: ${property.id}`}</p> */}
         <div className="property-card-footer-buttons">
           <Button onClick={handleOpenEditForm}>Edit</Button>
           <Button
             appearance="danger"
             onClick={() => {
-              handleDeleteProperty(property.id);
+              handleDeleteProperty(property._id);
             }}
           >
             Delete
