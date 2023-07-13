@@ -45,7 +45,7 @@ const tenantsSlice = createSlice({
                 state.tenants = action.payload;
             })
             .addCase(deleteTenantAsync.rejected, (state, action) => {
-                state.error = "fail to deleteCar";
+                state.error = "fail to delete tenant";
             });
     }
 });
