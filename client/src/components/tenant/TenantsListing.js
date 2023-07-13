@@ -19,7 +19,7 @@ const TenantsListing = () => {
     const tenantAddIsOpen = useSelector(isTenantAddOpen)
     useEffect(() => {
         dispatch(getTenantsAsync());
-    },[select]);
+    },[dispatch]);
     const allTenants = useSelector((state) => state.tenants.tenants);
     let renderedPosts = [];
     // all styles need to be changed after here.
