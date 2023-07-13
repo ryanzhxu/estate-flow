@@ -1,3 +1,3 @@
 const PropertySearch = () => {
-    // TODO
-}
+  // TODO
+};
