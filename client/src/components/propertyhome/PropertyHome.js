@@ -38,10 +38,9 @@ function PropertyHome() {
           <PropertyDetailCard address={property.address} id={property._id} name={property.name} />
           <div className="property-actions-container">
             <div className="property-actions">
-              <button className="property-action">Edit Tenants</button>
+              <button className="property-action">Add Tenants</button>
               <button className="property-action">Edit Details</button>
               <button className="property-action">Calculate Profit</button>
-              <button className="property-action">Add Property</button>
             </div>
           </div>
         </div>
