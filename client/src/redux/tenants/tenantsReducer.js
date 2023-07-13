@@ -37,7 +37,7 @@ const tenantsSlice = createSlice({
                 state.tenants = action.payload;
             })
 
-        //deleteCarAsync
+        //deleteAsync
            .addCase(deleteTenantAsync.pending, (state) => {
             state.error = null;
         })
