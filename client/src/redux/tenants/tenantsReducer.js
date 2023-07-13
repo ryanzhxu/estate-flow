@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {getSingleTenantAsync, getTenantsAsync, getTenantsFromPropertyAsync} from './tenantsThunks';
+import {deleteTenantAsync, getSingleTenantAsync, getTenantsAsync, getTenantsFromPropertyAsync} from './tenantsThunks';
 
 const INITIAL_STATE = {
     tenants: [],
     isTenantDetailOpen: false,
     isTenantAddOpen: false,
-    tenantSelected: null
+    tenantSelected: {}
 };
 
 const tenantsSlice = createSlice({
@@ -35,6 +35,17 @@ const tenantsSlice = createSlice({
             })
             .addCase(getTenantsFromPropertyAsync.fulfilled, (state, action) => {
                 state.tenants = action.payload;
+            })
+
+        //deleteCarAsync
+           .addCase(deleteTenantAsync.pending, (state) => {
+            state.error = null;
+        })
+            .addCase(deleteTenantAsync.fulfilled, (state, action) => {
+                state.tenants = action.payload;
+            })
+            .addCase(deleteTenantAsync.rejected, (state, action) => {
+                state.error = "fail to deleteCar";
             });
     }
 });

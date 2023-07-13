@@ -19,25 +19,25 @@ const TenantsListing = () => {
     const tenantAddIsOpen = useSelector(isTenantAddOpen)
     useEffect(() => {
         dispatch(getTenantsAsync());
-    });
+    },[select]);
     const allTenants = useSelector((state) => state.tenants.tenants);
     let renderedPosts = [];
     // all styles need to be changed after here.
 
     if(Array.isArray(allTenants)){
         if(allTenants.length !== 0){
-            renderedPosts = allTenants.map((allTenants) => (
-                <article className="divItem" key={allTenants.id}>
+            renderedPosts = allTenants.map((singleTenant) => (
+                <article className="divItem" key={singleTenant._id}>
 
                     {/*not sure what info to display here, need to change later*/}
-                    <h4 className="single-line" id = {allTenants.id} >{allTenants.name}</h4>
-                    <img src={allTenants.imageURL} alt={allTenants.name} className="WorkerImg" />
+                    <h4 className="single-line" id = {singleTenant._id} >{singleTenant.name}</h4>
+                    <img src={singleTenant.imageURL} alt={singleTenant.name} className="WorkerImg" />
 
                         <button
                             className="btn btn-outline-dark"
                             style={{ marginTop: '10px' }}
                             onClick={ () => {
-                                dispatch(getSingleTenantAsync(allTenants.id));
+                                dispatch(getSingleTenantAsync(singleTenant._id));
                                 dispatch(openTenantDetail());
                             } }>
                             DETAIL
@@ -47,7 +47,7 @@ const TenantsListing = () => {
                             className="btn btn-outline-dark"
                             style={{ marginTop: '10px' }}
                             onClick={ () => {
-                                dispatch(deleteTenantAsync(allTenants.id));
+                                dispatch(deleteTenantAsync(singleTenant._id));
                             } }>
                             DELETE
                         </button>
@@ -69,7 +69,7 @@ const TenantsListing = () => {
                     <div className="property-listing-header">
                         <h2>Tenants</h2>
                         <div className="btn btn-outline-primary" onClick={() => dispatch(openTenantADD())}>
-                            Add property
+                            Add Tenants
                         </div>
                     </div>
                     <section className="sectionContainer">

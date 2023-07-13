@@ -82,7 +82,10 @@ router.delete('/tenants/:tenantId', async(req, res, next) => {
     const id = req.params.tenantId;
     try {
         const deleteTenant = await Tenant.deleteOne({_id: id})
-        res.status(StatusCodes.OK).json(deleteTenant);
+        console.log(deleteTenant)// deleteTenant is: { acknowledged: true, deletedCount: 1 }
+        const tenants = await Tenant.find()
+
+        res.status(StatusCodes.OK).json(tenants); //
     } catch(e) {
         console.error(e);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Error deleting tenant"});
