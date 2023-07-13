@@ -1,7 +1,7 @@
 const express = require('express');
 const { v4: uuid } = require('uuid');
 const { StatusCodes } = require('http-status-codes');
-const Worker = require('../mongodb/workersDB');
+const Worker = require('../models/workersDB');
 
 const router = express.Router();
 
@@ -43,8 +43,10 @@ router.put('/:userId', async function(req, res, next){
             trades: req.body.trades,
             pCode: req.body.pCode,
             imageURL: req.body.imageURL}});
+            console.log("ans",foundWorker);
 
-        res.status(StatusCodes.OK).json(foundWorker);
+        const worker = await Worker.findOne({ id: req.params.userId})
+        return  res.status(StatusCodes.OK).send(worker);
     } catch(e) {
         console.error("What's the problem?", e);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Error updating worker"})
