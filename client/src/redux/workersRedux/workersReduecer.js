@@ -9,8 +9,8 @@ const INITIAL_STATE  = {
 const workersSlice = createSlice({
     name: 'workers',
     initialState: INITIAL_STATE,
-    reducers: {},// 同步
-    extraReducers: (builder) => {//异步
+    reducers: {},
+    extraReducers: (builder) => {
         builder
             //getWorkersAsync
             .addCase(getWorkersAsync.pending, (state) => {

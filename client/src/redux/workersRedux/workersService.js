@@ -6,7 +6,6 @@ const getWorkers = async () => {
 };
 
 const addWorker = async ({name, email, phone, address, hRate, trades, pCode, imageURL}) => {
-    console.log(JSON.stringify({name, email, phone, address, hRate, trades, pCode, imageURL}))
     const response = await fetch('http://localhost:3001/workers', {
         method: 'POST',
         headers: {
@@ -55,7 +54,7 @@ const updateWorker = async ({id, name, email, phone, address, hRate, trades, pCo
 };
 
 const getWorker = async (id) => {
-    const response = await fetch(`http://localhost:3001/workers/${id.id}`, {//使用反引号 ` 来包裹字符串
+    const response = await fetch(`http://localhost:3001/workers/${id.id}`, {
         method: 'GET'
     });
     return response.json();
@@ -63,7 +62,7 @@ const getWorker = async (id) => {
 
 const getSortFilter = async ({tradeType, sortOption}) => {
     const response = await fetch(`http://localhost:3001/workers/sort?query=query&Trades=${tradeType}&sort=${sortOption}`, {
-        method: 'GET'                //http://localhost:9000/cars/sort?query=query&Tow= 1000          &sort=Ascending
+        method: 'GET'
     });
     return response.json();
 };

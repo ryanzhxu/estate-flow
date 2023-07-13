@@ -75,7 +75,6 @@ function WorkerLists() {
         console.log("trades is " + trades + ", sortOption is " + sortOption)
         if (trades){
             dispatch(sortFilterWorkerAsync({ tradeType: trades, sortOption }))
-            // need to update the workerReducer
         }else{
             alert("All filed must be filled")
         }
@@ -124,7 +123,6 @@ function WorkerLists() {
                 {detailIsOpen && <WorkerDetail />}
                 {addIsOpen && <AddWorkerForm />}
                 {UpdateIsOpen && <UpdateWorkerFrom />}
-                {/*add form*/}
             </section>
         </div>
     )

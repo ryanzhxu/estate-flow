@@ -1,15 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import workersService from "./workersService";
-/*
-{name, email, phone, address, hRate, trades, pCode, imageURL}
-export default {
-    getWorkers,
-    addWorker,
-    deleteWorker,
-    updateWorker,
-    getWorker
-};
-*/
+
 export const getWorkersAsync = createAsyncThunk(
     "getWorkers",
     async () => {
@@ -20,7 +11,6 @@ export const getWorkersAsync = createAsyncThunk(
 export const addWorkerAsync = createAsyncThunk(
     "addWorkers",
     async({name, email, phone, address, hRate, trades, pCode, imageURL}) => {
-        //console.log(name + email + phone + address + hRate + trades + pCode + imageURL)
         return await workersService.addWorker({name, email, phone, address, hRate, trades, pCode, imageURL});
     }
 );
@@ -50,8 +40,6 @@ export const sortFilterWorkerAsync = createAsyncThunk(
     "getSortFilter",
     async({tradeType, sortOption}) => {
         const result = await workersService.getSortFilter({tradeType, sortOption});
-        console.log("workerThunk result: " + result[0].name);
-
         return result
     }
 );

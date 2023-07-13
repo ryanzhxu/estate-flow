@@ -89,13 +89,13 @@ router.get('/sort', async function (req, res, next) {
       if(tradeType === "Selections"){
         workersFiltered = await Worker.find({}).sort({ hRate: 1 });
       }else{
-        workersFiltered = await Worker.find({ trades: tradeType }).sort({ hRate: 1 }); // 升序
+        workersFiltered = await Worker.find({ trades: tradeType }).sort({ hRate: 1 });
       }
     } else if (sortOption === "Descending") {
       if(tradeType === "Selections"){
         workersFiltered = await Worker.find({}).sort({ hRate: -1 });
       }else{
-        workersFiltered = await Worker.find({ trades: tradeType }).sort({ hRate: -1 }); // 降序
+        workersFiltered = await Worker.find({ trades: tradeType }).sort({ hRate: -1 });
       }
     }else{
       if(tradeType === "Selections"){
