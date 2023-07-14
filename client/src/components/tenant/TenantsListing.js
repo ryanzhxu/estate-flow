@@ -14,49 +14,51 @@ import '../worker/worker.css';
 import AddPropertyForm from './AddTenantForm';
 
 const TenantsListing = () => {
-  const select = useSelector(expSelectedTenant);
-  const dispatch = useDispatch();
-  const tenantDetailIsOpen = useSelector(isTenantDetailOpen);
-  const tenantAddIsOpen = useSelector(isTenantAddOpen);
-  useEffect(() => {
-    dispatch(getTenantsAsync());
-  });
-  const allTenants = useSelector((state) => state.tenants.tenants);
-  let renderedPosts = [];
-  // all styles need to be changed after here.
+    const select = useSelector(expSelectedTenant)
+    const dispatch = useDispatch();
+    const tenantDetailIsOpen = useSelector(isTenantDetailOpen)
+    const tenantAddIsOpen = useSelector(isTenantAddOpen)
+    useEffect(() => {
+        dispatch(getTenantsAsync());
+    },[dispatch]);
+    const allTenants = useSelector((state) => state.tenants.tenants);
+    let renderedPosts = [];
+    // all styles need to be changed after here.
 
-  if (Array.isArray(allTenants)) {
-    if (allTenants.length !== 0) {
-      renderedPosts = allTenants.map((allTenants) => (
-        <article className='divItem' key={allTenants.id}>
-          {/*not sure what info to display here, need to change later*/}
-          <h4 className='single-line' id={allTenants.id}>
-            {allTenants.name}
-          </h4>
-          <img src={allTenants.imageURL} alt={allTenants.name} className='WorkerImg' />
+    if(Array.isArray(allTenants)){
+        if(allTenants.length !== 0){
+            renderedPosts = allTenants.map((singleTenant) => (
+                <article className="divItem" key={singleTenant._id}>
 
-          <button
-            className='btn btn-outline-dark'
-            style={{ marginTop: '10px' }}
-            onClick={() => {
-              dispatch(getSingleTenantAsync(allTenants.id));
-              dispatch(openTenantDetail());
-            }}>
-            DETAIL
-          </button>
+                    {/*not sure what info to display here, need to change later*/}
+                    <h4 className="single-line" id = {singleTenant._id} >{singleTenant.name}</h4>
+                    <img src={singleTenant.imageURL} alt={singleTenant.name} className="WorkerImg" />
 
-          <button
-            className='btn btn-outline-dark'
-            style={{ marginTop: '10px' }}
-            onClick={() => {
-              dispatch(deleteTenantAsync(allTenants.id));
-            }}>
-            DELETE
-          </button>
-        </article>
-      ));
+                        <button
+                            className="btn btn-outline-dark"
+                            style={{ marginTop: '10px' }}
+                            onClick={ () => {
+                                dispatch(getSingleTenantAsync(singleTenant._id));
+                                dispatch(openTenantDetail());
+                            } }>
+                            DETAIL
+                        </button>
+
+                        <button
+                            className="btn btn-outline-dark"
+                            style={{ marginTop: '10px' }}
+                            onClick={ () => {
+                                dispatch(deleteTenantAsync(singleTenant._id));
+                            } }>
+                            DELETE
+                        </button>
+
+                </article>
+            ))
+        }
     }
   }
+
 
   return (
     <div className='property-listing-page'>
@@ -68,12 +70,11 @@ const TenantsListing = () => {
           <div className='property-listing-header'>
             <h2>Tenants</h2>
             <div className='btn btn-outline-primary' onClick={() => dispatch(openTenantADD())}>
-              Add property
+              Add a Tenant
             </div>
           </div>
           <section className='sectionContainer'>
             {renderedPosts}
-
             {tenantDetailIsOpen && <TenantDetails />}
             {tenantAddIsOpen && <AddPropertyForm />}
           </section>

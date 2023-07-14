@@ -75,15 +75,16 @@ router.put('/tenants', async (req, res, next) => {
 });
 
 // remove tenant
-router.delete('/tenants/:tenantId', async (req, res, next) => {
-  const id = req.params.tenantId;
-  try {
-    const deleteTenant = await Tenant.deleteOne({ _id: id });
-    res.status(StatusCodes.OK).json(deleteTenant);
-  } catch (e) {
-    console.error(e);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Error deleting tenant' });
-  }
-});
+router.delete('/tenants/:tenantId', async(req, res, next) => {
+    const id = req.params.tenantId;
+    try {
+        const deleteTenant = await Tenant.deleteOne({_id: id})
+        const tenants = await Tenant.find()
+        res.status(StatusCodes.OK).json(tenants); //
+    } catch(e) {
+        console.error(e);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Error deleting tenant"});
+    }
+})
 
 module.exports = router;
