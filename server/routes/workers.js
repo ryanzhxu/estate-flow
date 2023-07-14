@@ -79,6 +79,46 @@ router.put('/:userId', async function (req, res, next) {
   }
 });
 
+router.get('/sort', async function (req, res, next) {
+
+  const tradeType = req.query.Trades;
+  const sortOption = req.query.sort;
+  try {
+    let workersFiltered;
+    if (sortOption === "Ascending") {
+      if(tradeType === "Selections"){
+        workersFiltered = await Worker.find({}).sort({ hRate: 1 });
+      }else{
+        workersFiltered = await Worker.find({ trades: tradeType }).sort({ hRate: 1 });
+      }
+    } else if (sortOption === "Descending") {
+      if(tradeType === "Selections"){
+        workersFiltered = await Worker.find({}).sort({ hRate: -1 });
+      }else{
+        workersFiltered = await Worker.find({ trades: tradeType }).sort({ hRate: -1 });
+      }
+    }else{
+      if(tradeType === "Selections"){
+        workersFiltered = await Worker.find({});
+      }else{
+        workersFiltered = await Worker.find({trades: tradeType});
+      }
+    }
+    const renderedPosts = [];
+    for(let i = 0; i < workersFiltered.length; ++i){
+      const tmp = {id: workersFiltered[i]._id,
+        name: workersFiltered[i].name,
+        imageURL: workersFiltered[i].imageURL
+      };
+      renderedPosts.push(tmp)
+    }
+    return res.send(workersFiltered);
+  } catch (error) {
+    console.error('Failed to query MongoDB in workerSort', error);
+  }
+});
+
+
 router.get('/:workerId', async function (req, res, next) {
   try {
     const foundWorker = await Worker.findOne({ id: req.params.workerId });
