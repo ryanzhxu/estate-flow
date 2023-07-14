@@ -1,45 +1,45 @@
 .photo-gallery {
-  height: 100%;
-  position: relative;
+    height: 100%;
+    position: relative;
 }
 
 .property-photo {
-  width: 100%;
-  height: 100%;
-  background-position: center;
-  background-size: cover;
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
 }
 
 .photo-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translate(0, -50%);
-  font-size: 45px;
-  color: #fff;
-  z-index: 1;
-  cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    font-size: 45px;
+    color: #fff;
+    z-index: 1;
+    cursor: pointer;
 }
 
 #left-arrow {
-  left: 32px;
+    left: 32px;
 }
 
 #right-arrow {
-  right: 32px;
+    right: 32px;
 }
 
 .nav-dots {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 .nav-dot {
-  margin: 0 3px;
-  font-size: 20px;
-  cursor: pointer;
-  color: #010c38;
+    margin: 0 3px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #010c38;
 }
 
 .nav-dot.active {
-  color: #2e4a7d;
+    color: #2e4a7d;
 }

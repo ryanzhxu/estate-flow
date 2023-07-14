@@ -5,7 +5,7 @@ import './PropertyListing.css';
 
 const PropertyCard = ({ property }) => {
   return (
-    <div className='property-listing-card'>
+    <div className="property-listing-card">
       <Link to={`/properties/${property._id}`}>
         <span>
           <img alt={property._id} className={`property-image`} src={property.photos[0]} />

@@ -1,7 +1,7 @@
 /* partial code were learnd by ZAINKEEPSCODE's tutorial videos: "React js Sidebar | Animated Navigation Menu" from youtube. */
 .homepage {
   display: flex;
-  font-family: 'IBM Plex Sana Thai Looped', sans-serif;
+  font-family: "IBM Plex Sana Thai Looped", sans-serif;
   color: white;
   background: #2e3438;
   text-shadow: 1px 0px 2px #8dc4f0;
