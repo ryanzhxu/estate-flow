@@ -31,5 +31,4 @@ function PropertyOverview({property}) {
         </div>
     );
 }
-
 export default PropertyOverview;
