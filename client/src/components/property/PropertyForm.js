@@ -66,8 +66,6 @@ export default function PropertyForm({ handleCloseForm, editProperty }) {
     });
   };
 
-  console.log('property[amenities]: ', property.amenities);
-
   return (
     <div className='form'>
       <form className='add-property-form'>
