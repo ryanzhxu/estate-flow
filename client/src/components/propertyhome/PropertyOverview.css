@@ -1,6 +1,8 @@
 .property-overview {
   margin: 20px;
   padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
   width: 100%;
 }
 
@@ -13,7 +15,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 5px;
+  margin-top: 20px;
 }
 
 .property-photo {
@@ -21,7 +23,7 @@
   height: 200px;
   object-fit: cover;
   margin-right: 10px;
-  border: 1px solid #090606;
+  border: 1px solid #ccc;
   border-radius: 5px;
 }
 
