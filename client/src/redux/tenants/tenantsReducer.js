@@ -5,7 +5,7 @@ const INITIAL_STATE = {
     tenants: [],
     isTenantDetailOpen: false,
     isTenantAddOpen: false,
-    tenantSelected: {}
+    tenantSelected: null
 };
 
 const tenantsSlice = createSlice({
