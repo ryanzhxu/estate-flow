@@ -18,7 +18,7 @@ const addProperty = async (property) => {
 };
 
 const updateProperty = async (property) => {
-  const resp = await fetch(`http://${partialUrl}:3001/properties`, {
+  const resp = await fetch(`http://${partialUrl}:3001/properties/${property._id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(property),
