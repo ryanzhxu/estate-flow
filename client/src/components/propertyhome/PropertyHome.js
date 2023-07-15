@@ -19,7 +19,7 @@ function PropertyHome() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowLoading(false);
-    }, 1500);
+    }, 1800);
 
     dispatch(getPropertyAsync(_id));
 

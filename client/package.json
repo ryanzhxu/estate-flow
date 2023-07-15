@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@atlaskit/analytics-next-stable-react-context": "^1.0.1",
+    "@atlaskit/button": "^16.8.2",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.13.6",
@@ -25,6 +27,7 @@
     "react-scripts": "5.0.1",
     "react-select": "^5.7.3",
     "redux": "^4.2.1",
+    "source-map-loader": "^4.0.1",
     "styled-components": "^5.3.11",
     "web-vitals": "^2.1.4"
   },

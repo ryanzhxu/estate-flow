@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const uri = process.env.NODE_ENV ? process.env.DB_HOST_REMOTE : process.env.DB_HOST;
+const uri = !process.env.NODE_ENV ? process.env.DB_HOST_REMOTE : process.env.DB_HOST;
 
 const connectToDB = async() => {
     try {
