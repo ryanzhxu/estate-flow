@@ -1,0 +1,35 @@
+.property-form {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  background-color: #2e3438;
+}
+
+.form-input {
+  align-items: middle;
+  vertical-align: middle;
+  justify-content: center;
+}
+.inputText,
+.inputFile,
+.inputOptions {
+  text-align: center;
+}
+.sectionTitle {
+  text-align: center;
+  color: #ffffff;
+}
+.submitButton {
+  max-width: 80px;
+}
+.submitButtonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem; /* Adjust margin as needed */
+}
+
+.textLabel,
+.fileLabel,
+.optionsLabel {
+  color: #ffffff;
+}

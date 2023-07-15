@@ -1,88 +1,133 @@
 const express = require('express');
 const { v4: uuid } = require('uuid');
 const { StatusCodes } = require('http-status-codes');
+const Worker = require('../models/workersDB');
 
 const router = express.Router();
 
-let workers = [
-    {
-        id: '0', name: "Worker1", email: "1231@123.com", phone: "(778) 123-4561", address: "123 1st St., Vancouver",
-        hRate: 40, trades: "Electrician", pCode: "V6T 1Z4",
-        imageURL: "https://pic4.zhimg.com/80/v2-32636e587d66426cc682e74eaafd2163_1440w.webp",
-    },
-    {
-        id: '1', name: "Worker2", email: "1232@123.com", phone: "(778) 123-4561", address: "123 2nd St., Vancouver",
-        hRate: 40, trades: "Electrician", pCode: "V6T 1Z4",
-        imageURL: "https://pic4.zhimg.com/80/v2-32636e587d66426cc682e74eaafd2163_1440w.webp",
-    },
-    {
-        id: '2', name: "Worker3", email: "1233@123.com", phone: "(778) 123-4561", address: "123 3rd St., Vancouver",
-        hRate: 40, trades: "Electrician", pCode: "V6T 1Z4",
-        imageURL: "https://pic4.zhimg.com/80/v2-32636e587d66426cc682e74eaafd2163_1440w.webp",
-    },
-    {
-        id: '3', name: "Worker4", email: "1234@123.com", phone: "(778) 123-4561", address: "123 4th St., Vancouver",
-        hRate: 40, trades: "Electrician", pCode: "V6T 1Z4",
-        imageURL: "https://pic4.zhimg.com/80/v2-32636e587d66426cc682e74eaafd2163_1440w.webp",
-    },
-    {
-        id: '4', name: "Worker5", email: "1235@123.com", phone: "(778) 123-4561", address: "123 5th St., Vancouver",
-        hRate: 40, trades: "Electrician", pCode: "V6T 1Z4",
-        imageURL: "https://pic4.zhimg.com/80/v2-32636e587d66426cc682e74eaafd2163_1440w.webp",
-    },
-    {
-        id: '5', name: "Worker6", email: "1235@123.com", phone: "(778) 123-4561", address: "123 6th St., Vancouver",
-        hRate: 40, trades: "Electrician", pCode: "V6T 1Z4",
-        imageURL: "https://pic4.zhimg.com/80/v2-32636e587d66426cc682e74eaafd2163_1440w.webp",
-    }
-]
+router.get('/', async (req, res, next) => {
+  try {
+    const workers = await Worker.find({});
+    return res.send(workers);
+  } catch (e) {
+    console.error("What's the problem?", e);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Error finding workers' });
+  }
+});
 
-router.get('/', (req, res, next) => {
+router.post('/', async function (req, res, next) {
+  try {
+    if (!req.body.name) {
+      return res.status(StatusCodes.BAD_REQUEST).send({ message: 'User must have a name!' });
+    }
+    const worker = new Worker({
+      id: uuid(),
+      name: req.body.name,
+      email: req.body.email,
+      phone: req.body.phone,
+      address: req.body.address,
+      hRate: req.body.hRate,
+      trades: req.body.trades,
+      pCode: req.body.pCode,
+      imageURL: req.body.imageURL,
+    });
+    await worker.save();
+    const workers = await Worker.find({});
     return res.send(workers);
+  } catch (e) {
+    console.error("What's the problem?", e);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Error adding worker' });
+  }
 });
-router.post('/', function (req, res, next) {
-    if (!req.body.name) {return res.status(StatusCodes.BAD_REQUEST).send({ message: 'User must have a name!' })}
-    const worker = { id: uuid(),
-        name: req.body.name,
-        email: req.body.email,
-        phone: req.body.phone,
-        address: req.body.address,
-        hRate: req.body.hRate,
-        trades: req.body.trades,
-        pCode: req.body.pCode,
-        imageURL: req.body.imageURL
-    };
-    workers.push(worker);
-    return res.send(worker);
-});
-router.delete('/', function (req, res, next) {
+
+router.delete('/', async function (req, res, next) {
+  try {
     const workerId = req.body.id;
-    workers = workers.filter(car => car.id !== workerId);
+    await Worker.deleteOne({ id: workerId });
+    const workers = await Worker.find({});
     return res.send(workers);
+  } catch (e) {
+    console.error("What's the problem?", e);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Error deleting worker' });
+  }
 });
-router.put('/:userId', function(req, res, next){
-    const worker = { id: req.params.userId,
-        name: req.body.name,
-        email: req.body.email,
-        phone: req.body.phone,
-        address: req.body.address,
-        hRate: req.body.hRate,
-        trades: req.body.trades,
-        pCode: req.body.pCode,
-        imageURL: req.body.imageURL
-    };
-    const newWorkers = [...workers];
-    const index = workers.findIndex(workers => workers.id === req.params.userId);
-    newWorkers[index] = worker;
-    workers = newWorkers;
-    return res.send(worker);
+
+router.put('/:userId', async function (req, res, next) {
+  try {
+    const foundWorker = await Worker.updateOne(
+      { id: req.params.userId },
+      {
+        $set: {
+          name: req.body.name,
+          email: req.body.email,
+          phone: req.body.phone,
+          address: req.body.address,
+          hRate: req.body.hRate,
+          trades: req.body.trades,
+          pCode: req.body.pCode,
+          imageURL: req.body.imageURL,
+        },
+      }
+    );
+    console.log('ans', foundWorker);
+
+    const worker = await Worker.findOne({ id: req.params.userId });
+    return res.status(StatusCodes.OK).send(worker);
+  } catch (e) {
+    console.error("What's the problem?", e);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Error updating worker' });
+  }
 });
-router.get('/:workerId', (req, res, next) => {
-    const foundWorker = workers.find(workers => workers.id === req.params.workerId);
+
+router.get('/sort', async function (req, res, next) {
+
+  const tradeType = req.query.Trades;
+  const sortOption = req.query.sort;
+  try {
+    let workersFiltered;
+    if (sortOption === "Ascending") {
+      if(tradeType === "Selections"){
+        workersFiltered = await Worker.find({}).sort({ hRate: 1 });
+      }else{
+        workersFiltered = await Worker.find({ trades: tradeType }).sort({ hRate: 1 });
+      }
+    } else if (sortOption === "Descending") {
+      if(tradeType === "Selections"){
+        workersFiltered = await Worker.find({}).sort({ hRate: -1 });
+      }else{
+        workersFiltered = await Worker.find({ trades: tradeType }).sort({ hRate: -1 });
+      }
+    }else{
+      if(tradeType === "Selections"){
+        workersFiltered = await Worker.find({});
+      }else{
+        workersFiltered = await Worker.find({trades: tradeType});
+      }
+    }
+    const renderedPosts = [];
+    for(let i = 0; i < workersFiltered.length; ++i){
+      const tmp = {id: workersFiltered[i]._id,
+        name: workersFiltered[i].name,
+        imageURL: workersFiltered[i].imageURL
+      };
+      renderedPosts.push(tmp)
+    }
+    return res.send(workersFiltered);
+  } catch (error) {
+    console.error('Failed to query MongoDB in workerSort', error);
+  }
+});
+
+
+router.get('/:workerId', async function (req, res, next) {
+  try {
+    const foundWorker = await Worker.findOne({ id: req.params.workerId });
     if (!foundWorker) return res.status(StatusCodes.NOT_FOUND).send({ message: 'User not found 46 404' });
     return res.send(foundWorker);
+  } catch (e) {
+    console.error("What's the problem?", e);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Error finding the worker' });
+  }
 });
-
-
 
 module.exports = router;
