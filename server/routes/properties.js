@@ -1,70 +1,65 @@
 const express = require('express');
 const Property = require('../models/property');
 const { StatusCodes } = require('http-status-codes');
+const { response } = require('../app');
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/properties', async (req, resp) => {
   try {
-    res.status(StatusCodes.OK).json(await Property.find());
+    resp.status(StatusCodes.OK).json(await Property.find());
   } catch (e) {
-    console.error(e);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Error accessing properties' });
+    resp.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });
 
-router.get('/:propertyId', async (req, res) => {
-  const id = req.params.propertyId;
+router.get('/properties/:id', async (req, resp) => {
+  const id = req.params.id;
+
   try {
-    const property = await Property.findById(id);
-    if (property) {
-      res.status(StatusCodes.OK).json(property);
+    const foundProperty = await Property.findById(id);
+
+    if (foundProperty) {
+      resp.status(StatusCodes.OK).json(foundProperty);
     } else {
-      res.status(StatusCodes.NOT_FOUND).json({ error: `Property with id ${id} does not exist` });
+      resp.status(StatusCodes.NOT_FOUND).json({ error: `Property with id ${id} does not exist` });
     }
   } catch (e) {
-    console.error(e);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: `Error finding property with id ${id}` });
+    resp.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });
 
-router.post('/', async (req, res) => {
-  if (!req.body.address) {
-    res.status(StatusCodes.BAD_REQUEST).json({ message: 'Property must have an address' });
-  }
-  const property = new Property(req.body);
+router.post('/properties', async (req, resp) => {
+  const newProperty = new Property(req.body);
+
   try {
-    res.status(StatusCodes.CREATED).json(await property.save());
+    await newProperty.save();
+    resp.status(StatusCodes.CREATED).send(newProperty);
   } catch (e) {
-    console.error(e);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Error saving property' });
+    resp.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });
 
-router.put('/', async (req, res) => {
-  const { _id, ...updatedProperty } = req.body;
-
+router.put('/properties/:id', async (req, resp) => {
   try {
-    const result = await Property.updateOne({ _id }, updatedProperty);
-    if (result.modifiedCount === 0) {
-      res.status(StatusCodes.NOT_FOUND).json({ error: `Property with id ${_id} does not exist` });
-    } else {
-      res.status(StatusCodes.OK).json(result);
+    await Property.findByIdAndUpdate(req.params.id, req.body);
+    resp.status(StatusCodes.OK).send();
+  } catch (e) {
+    resp.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+  }
+});
+
+router.delete('/properties/:id', async (req, resp) => {
+  try {
+    const property = await Property.findByIdAndDelete(req.params.id);
+
+    if (!property) {
+      resp.status(StatusCodes.NO_CONTENT).send('No property found.');
     }
-  } catch (e) {
-    console.error(e);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Error updating property' });
-  }
-});
 
-router.delete('/:propertyId', async (req, res) => {
-  const id = req.params.propertyId;
-  try {
-    const deletedProperty = await Property.deleteOne({ _id: id });
-    res.status(StatusCodes.OK).json(deletedProperty);
+    resp.status(StatusCodes.OK).send();
   } catch (e) {
-    console.error(e);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Error deleting propertyt' });
+    resp.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });
 

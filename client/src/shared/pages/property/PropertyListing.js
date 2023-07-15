@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPropertiesAsync } from '../../../redux/properties/thunks';
 import PropertyCard from './PropertyCard';
 import './PropertyListing.css';
-import AddPropertyForm from '../../../components/property/AddPropertyForm';
+import PropertyForm from '../../../components/property/PropertyForm';
 
 const PropertyListing = () => {
   const properties = useSelector((state) => state.properties.properties);
@@ -42,7 +42,7 @@ const PropertyListing = () => {
           </div>
         </div>
       </div>
-      {showAddForm && <AddPropertyForm handleCloseForm={handleCloseAddForm} />}
+      {showAddForm && <PropertyForm handleCloseForm={handleCloseAddForm} editProperty={null} />}
     </div>
   );
 };
