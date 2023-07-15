@@ -9,6 +9,7 @@ import './PropertyHome.css';
 import TenantView from './TenantView';
 import Loading from '../loading/Loading';
 import searching from '../loading/loading-lottie.json';
+import sandGlass from '../loading/loading_sand_glass.json';
 
 function PropertyHome() {
   const { _id } = useParams();
@@ -19,7 +20,7 @@ function PropertyHome() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowLoading(false);
-    }, 1800);
+    }, 2000);
 
     dispatch(getPropertyAsync(_id));
 
@@ -58,7 +59,7 @@ function PropertyHome() {
     );
   };
 
-  return <>{showLoading || !property ? <Loading animationData={searching} /> : getContent()}</>;
+  return <>{showLoading || !property ? <Loading animationData={sandGlass} /> : getContent()}</>;
 }
 
 export default PropertyHome;
