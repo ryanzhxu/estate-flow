@@ -12,9 +12,9 @@ const InputField = ({
   options = [],
 }) => {
   return (
-    <>
+    <div style={{ padding: '0 25px 0 1px' }}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        {isRequired && <span style={{ color: '#02687D' }}>* &nbsp;</span>}
+        {isRequired && <span style={{ color: '#02687D' }}>*&nbsp;</span>}
         <label>{field.charAt(0).toUpperCase() + field.slice(1)}:</label>
       </div>
 
@@ -38,7 +38,7 @@ const InputField = ({
           onChange={onChangeHandler}
         />
       )}
-    </>
+    </div>
   );
 };
 
