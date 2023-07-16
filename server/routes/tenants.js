@@ -11,19 +11,61 @@ const router = express.Router();
 router.get('/tenants/:tenantId', async (req, res, next) => {
   const tenantId = req.params.tenantId;
   try {
-    const foundTenant = await Tenant.findById(tenantId).populate('propertyId');
-    if (foundTenant) {
-      const { address } = foundTenant.propertyId;
-      res.status(StatusCodes.OK).json({ ...foundTenant.toObject(), address });
+    const findtenant = await Tenant.findById(tenantId);
+    if (findtenant.propertyId) {
+      const findTenantWithpropertyId = await Tenant.findById(tenantId).populate('propertyId');
+      if (findTenantWithpropertyId) {
+        const { address } = findTenantWithpropertyId.propertyId;
+        res.status(StatusCodes.OK).json({ ...findTenantWithpropertyId.toObject(), address });
+      } else {
+        res.status(StatusCodes.BAD_REQUEST).json({ error: `Tenant with id ${tenantId} does not exist` });
+      }
     } else {
-      res.status(StatusCodes.BAD_REQUEST).json({ error: `Tenant with id ${tenantId} does not exist` });
+      const customJson = {
+        lease: {
+          startDate: "",
+          endDate: "",
+          term: "",
+          type: "",
+          fees: [
+            {
+              type: "",
+              amount: 0,
+              dueDate: "",
+              _id: ""
+            }
+          ]
+        },
+        _id: tenantId,
+        firstName: findtenant.firstName,
+        lastName: findtenant.lastName,
+        email: findtenant.email,
+        phoneNumber: findtenant.phoneNumber,
+        paymentHistory: [
+          {
+            type: "",
+            charge: 0,
+            paid: 0,
+            date: "",
+            _id: ""
+          }
+        ],
+        propertyId: null,
+        __v: 0,
+        address: {
+          streetAddress: "",
+          city: "",
+          province: "",
+          postalCode: ""
+        }
+      };
+      res.status(StatusCodes.OK).json(customJson);
     }
   } catch (e) {
     console.error(e);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: `Unable to retrieve tenant with id ${tenantId}` });
   }
 });
-
 // gets list of all tenants
 router.get('/tenants', async (req, res) => {
   try {
