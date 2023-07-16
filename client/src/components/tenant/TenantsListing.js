@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteTenantAsync, getSingleTenantAsync, getTenantsAsync } from '../../redux/tenants/tenantsThunks';
+import { deleteTenantAsync, getTenantsAsync } from '../../redux/tenants/tenantsThunks';
 import {
-    expSelectedTenant,
     isTenantAddOpen,
     isTenantDetailOpen,
     openTenantADD,
-    openTenantDetail,
 } from '../../redux/tenants/tenantsReducer';
 import TenantDetails from './TenantDetail';
 // need to change css
@@ -17,7 +15,6 @@ import { Link } from 'react-router-dom';
 
 
 const TenantsListing = () => {
-    const select = useSelector(expSelectedTenant);
     const dispatch = useDispatch();
     const tenantDetailIsOpen = useSelector(isTenantDetailOpen);
     const tenantAddIsOpen = useSelector(isTenantAddOpen);
@@ -39,8 +36,6 @@ const TenantsListing = () => {
                         {singleTenant.email}
                         <br />
                         {singleTenant.phoneNumber}
-                        <br />
-                        {singleTenant._id }
                         <br />
                         {singleTenant.propertyId ? `Property Rented` : 'No Property Rented'}
                     </h4>
