@@ -57,14 +57,18 @@ const PropertyCardDetails = ({ property }) => {
               <Modal.Title>You're about to delete this property</Modal.Title>
             </Modal.Header>
             <Modal.Body className='modal-content panel-warning'>
-              <p>Before you delete it permanently, there's some things you should know:</p>
+              <p>Before you delete this property, a friendly reminder that:</p>
               <ul>
+                <li>
+                  Property address: {property.address.streetAddress} {property.address.city},{' '}
+                  {property.address.province} {property.address.postalCode}
+                </li>
                 {property.tenants.length === 0 ? (
                   <li>There is currently no tenants living in this property</li>
                 ) : (
                   <li>
-                    There are currently {property.tenants?.length} tenant{property.tenants?.length > 1 && 's'} attached
-                    to this property.
+                    There {property.tenants.length === 1 ? 'is' : 'are'} currently {property.tenants.length} tenant
+                    {property.tenants.length > 1 && 's'} attached to this property.
                   </li>
                 )}
               </ul>

@@ -1,12 +1,14 @@
 import React from 'react';
 import Lottie from 'lottie-react';
 import './Loading.css';
-
-const loadingStyle = {
-  height: '190px',
-};
+import sandGlass from './loading_sand_glass.json';
 
 const Loading = ({ animationData }) => {
+  const loadingStyle = {
+    height: '190px',
+    marginBottom: animationData === sandGlass ? '-50px' : '0',
+  };
+
   return (
     <div className='loading-div'>
       <div className='loading'>

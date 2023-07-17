@@ -1,5 +1,4 @@
 import React from 'react';
-import PropertyTypes from './propertyTypes';
 import './property.css';
 import Amenities from '../../shared/constants/property/Amenities';
 import { useDispatch } from 'react-redux';
@@ -12,6 +11,7 @@ import {
   saveValueToObject,
 } from '../../shared/services/Helpers';
 import InputField from '../../shared/components/InputField';
+import { PropertyTypes } from '../../shared/constants/property/PropertyTypes';
 
 export default function PropertyForm({ handleCloseForm, editProperty }) {
   const property = {

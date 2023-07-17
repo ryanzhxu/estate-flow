@@ -7,5 +7,3 @@ export const PropertyTypes = {
   Retail: 'Retail',
   Industrial: 'Industrial',
 };
-
-// export default PropertyTypes;
