@@ -51,4 +51,4 @@ const tenantsSlice = createSlice({
 });
 
 export default tenantsSlice.reducer;
-export const { openTenantDetail, closeTenantDetail, openTenantADD, closeTenantADD } = tenantsSlice.actions; // selectedItem,closeModal->Modal.js,
+export const { openTenantDetail, closeTenantDetail, openTenantADD, closeTenantADD } = tenantsSlice.actions;
