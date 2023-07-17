@@ -1,5 +1,6 @@
-# Estate Flow
 ![estate-flow-high-resolution-logo-color-on-transparent-background](https://github.com/ryanzhxu/estate-flow/assets/77415930/a851f7a6-6647-416b-a667-c1ddba61217d)
+
+# Estate Flow
 
 ## Developers:
 
