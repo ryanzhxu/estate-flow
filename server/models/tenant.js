@@ -22,33 +22,33 @@ const tenantSchema = new mongoose.Schema(
     lease: {
       startDate: {
         type: Date,
-        required: true,
+        required: false,
       },
       endDate: {
         type: Date,
-        required: true,
+        required: false,
       },
       term: {
         type: String,
-        required: true,
+        required: false,
       },
       type: {
         type: String,
-        required: true,
+        required: false,
       },
       fees: [
         {
           type: {
             type: String,
-            required: true,
+            required: false,
           },
           amount: {
             type: Number,
-            required: true,
+            required: false,
           },
           dueDate: {
             type: Date,
-            required: true,
+            required: false,
           },
         },
       ],
@@ -57,19 +57,19 @@ const tenantSchema = new mongoose.Schema(
       {
         type: {
           type: String,
-          required: true,
+          required: false,
         },
         charge: {
           type: Number,
-          required: true,
+          required: false,
         },
         paid: {
           type: Number,
-          required: true,
+          required: false,
         },
         date: {
           type: Date,
-          required: true,
+          required: false,
         },
       },
     ],

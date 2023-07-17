@@ -4,7 +4,7 @@ const port = '3001';
 const partialUrl = `http://localhost:${port}`;
 
 const addTenant = async (tenant) => {
-  const resp = await fetch(`${partialUrl}/tenants`, {
+  const resp = await fetch(`${partialUrl}/properties/${tenant.propertyId.propertyId}/tenant`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(tenant),
