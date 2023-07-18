@@ -10,12 +10,30 @@ import TenantView from './TenantView';
 import Loading from '../loading/Loading';
 import searching from '../loading/loading-lottie.json';
 import sandGlass from '../loading/loading_sand_glass.json';
+import { openTenantADD, isTenantAddOpen } from '../../redux/tenants/tenantsReducer';
+import AddTenantForm from '../tenant/AddTenantForm';
+import PropertyForm from '../property/PropertyForm';
 
 function PropertyHome() {
   const { _id } = useParams();
   const dispatch = useDispatch();
   const property = useSelector((state) => state.properties.propertySelected);
   const [showLoading, setShowLoading] = useState(true);
+  const tenantAddIsOpen = useSelector(isTenantAddOpen);
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [editProperty, setEditProperty] = useState(null);
+
+  const handleOpenEditForm = () => {
+    if (!editProperty || editProperty.Id !== property.id) {
+      setEditProperty(property);
+      setShowEditForm(true);
+    }
+  };
+
+  const handleCloseEditForm = () => {
+    setShowEditForm(false);
+    setEditProperty(null);
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -36,8 +54,8 @@ function PropertyHome() {
           <PropertyDetailCard address={property.address} id={property._id} name={property.name} />
           <div className='property-actions-container'>
             <div className='property-actions'>
-              <button className='property-action'>Add Tenant</button>
-              <button className='property-action'>Edit Details</button>
+              <button className='property-action'  onClick={() => dispatch(openTenantADD())}>Add Tenant</button>
+              <button className='property-action' onClick={() => {handleOpenEditForm()}}>Edit Details</button>
               <button className='property-action'>Calculate Profit</button>
             </div>
           </div>
@@ -53,6 +71,10 @@ function PropertyHome() {
           </div>
           <div className='tenants-view-container border-left'>
             <TenantView propertyId={property._id} />
+            <section className='sectionContainer'>
+            {tenantAddIsOpen && <AddTenantForm propertyId={property._id}/>}
+            {showEditForm && <PropertyForm editProperty={editProperty} handleCloseForm={handleCloseEditForm} />}
+          </section>
           </div>
         </div>
       </div>
