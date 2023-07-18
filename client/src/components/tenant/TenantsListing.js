@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteTenantAsync, getSingleTenantAsync, getTenantsAsync } from '../../redux/tenants/tenantsThunks';
 import {
-  expSelectedTenant,
   isTenantAddOpen,
   isTenantDetailOpen,
   openTenantADD,
@@ -14,7 +13,7 @@ import '../worker/worker.css';
 import AddPropertyForm from './AddTenantForm';
 
 const TenantsListing = () => {
-  const select = useSelector(expSelectedTenant);
+  // const select = useSelector(expSelectedTenant);
   const dispatch = useDispatch();
   const tenantDetailIsOpen = useSelector(isTenantDetailOpen);
   const tenantAddIsOpen = useSelector(isTenantAddOpen);

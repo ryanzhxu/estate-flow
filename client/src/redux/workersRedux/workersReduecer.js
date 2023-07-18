@@ -1,4 +1,4 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import {addWorkerAsync, deleteWorkerAsync, getWorkersAsync, sortFilterWorkerAsync} from './workersThunks';
 
 const INITIAL_STATE = {

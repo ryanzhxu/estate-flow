@@ -18,11 +18,11 @@ import WorkerTypes from "./workerTypes";
 
 function WorkerLists() {
   const select = useSelector(expSelectedWorker);
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getWorkersAsync());
-  }, [select]);
+  }, [select, dispatch]);
   const workers = useSelector((state) => state.workers.list);
-  const dispatch = useDispatch();
   const detailIsOpen = useSelector(isDetailOpen);
   const UpdateIsOpen = useSelector(isUpdateOpen);
   const addIsOpen = useSelector(isADDOpen);
