@@ -1,7 +1,7 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import React, { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import HomeDashboardPage from './components/home/HomeDashboardPage';
 import WorkerLists from './components/worker/WorkerLists';
 import PropertyListing from './shared/pages/property/PropertyListing';
@@ -15,9 +15,18 @@ import './components/login/Login.css';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedLoginStatus = localStorage.getItem('isLoggedIn');
+    if (storedLoginStatus === 'true') {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const responseMessage = (response) => {
     setIsLoggedIn(true);
+    localStorage.setItem('isLoggedIn', 'true');
     console.log(response);
   };
 
@@ -28,9 +37,16 @@ function App() {
   const authHandler = (err, data) => {
     if (!err) {
       setIsLoggedIn(true);
+      localStorage.setItem('isLoggedIn', 'true');
     }
 
     console.log(err, data);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    localStorage.setItem('isLoggedIn', 'false');
+    navigate('/');
   };
 
   return (
@@ -50,7 +66,7 @@ function App() {
         </div>
       ) : (
         <Routes>
-          <Route path='/' element={<HomeDashboardPage />} />
+          <Route path='/' element={<HomeDashboardPage handleLogout={handleLogout} />} />
           <Route path='/properties' element={<PropertyListing />} />
           <Route path='/properties/:_id' element={<PropertyHome />} />
           <Route path='/tenants' element={<TenantsListing />} />
