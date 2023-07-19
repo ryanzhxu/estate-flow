@@ -1,10 +1,12 @@
 /* partial code were learnd by ZAINKEEPSCODE's tutorial videos: "React js Sidebar | Animated Navigation Menu" from youtube. */
 .homepage {
   display: flex;
+  width: 100%;
   font-family: 'IBM Plex Sana Thai Looped', sans-serif;
   color: white;
-  background: #2e3438;
+  background:  #000000;
   text-shadow: 1px 0px 2px #8dc4f0;
+  min-height: 100vh;
 }
 
 .body_container {
@@ -29,19 +31,14 @@
 }
 
 .sidebar_container {
-  height: 100vh;
-  position: sticky;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  margin-top: 20px;
 }
 
 .sidebar {
   display: flex;
+  flex: 1;
+  height: 95%;
   width: 15rem;
-  height: 90%;
   flex-direction: column;
   padding: 15px;
   margin: 10px;
