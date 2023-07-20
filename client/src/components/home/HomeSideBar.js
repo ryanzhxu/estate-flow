@@ -25,23 +25,13 @@ const HomeSideBar = () => {
       width: '4rem',
     },
     false: {
-      alignSelf: 'flex-start',
       marginTop: '2rem',
       width: '3rem',
     },
   };
 
   const whiteHoverStyles = {
-    scale: 1.2,
     rotate: 180,
-    backgroundColor: 'rgba(255, 255, 255, 0.3)',
-    backdropFilter: 'blur(3.5px)',
-    WebkitBackdropFilter: 'blur(3.5px)',
-    border: '1px solid rgba( 255, 255, 255, 0.18 )',
-    transition: {
-      delay: 0.2,
-      duration: 0.4,
-    },
   };
 
   return (
@@ -51,7 +41,6 @@ const HomeSideBar = () => {
           <i className={'bi bi-card-list'}></i>
         </motion.div>
         <motion.div
-          layout
           initial={`${open}`}
           animate={`${open}`}
           variants={profileShift}
