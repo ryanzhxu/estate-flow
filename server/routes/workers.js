@@ -20,8 +20,9 @@ router.post('/', async function (req, res, next) {
     if (!req.body.name) {
       return res.status(StatusCodes.BAD_REQUEST).send({ message: 'User must have a name!' });
     }
+    console.log(req.body.imageUrlInput)
     const worker = new Worker({
-      id: uuid(),
+//      id: uuid(),
       name: req.body.name,
       email: req.body.email,
       phone: req.body.phone,
@@ -29,7 +30,7 @@ router.post('/', async function (req, res, next) {
       hRate: req.body.hRate,
       trades: req.body.trades,
       pCode: req.body.pCode,
-      imageURL: req.body.imageURL,
+      imageUrlInput: req.body.imageUrlInput,
     });
     await worker.save();
     const workers = await Worker.find({});
@@ -43,7 +44,7 @@ router.post('/', async function (req, res, next) {
 router.delete('/', async function (req, res, next) {
   try {
     const workerId = req.body.id;
-    await Worker.deleteOne({ id: workerId });
+    await Worker.deleteOne({ _id: workerId });
     const workers = await Worker.find({});
     return res.send(workers);
   } catch (e) {
@@ -55,7 +56,7 @@ router.delete('/', async function (req, res, next) {
 router.put('/:userId', async function (req, res, next) {
   try {
     const foundWorker = await Worker.updateOne(
-      { id: req.params.userId },
+      { _id: req.params.userId },
       {
         $set: {
           name: req.body.name,
@@ -65,13 +66,13 @@ router.put('/:userId', async function (req, res, next) {
           hRate: req.body.hRate,
           trades: req.body.trades,
           pCode: req.body.pCode,
-          imageURL: req.body.imageURL,
+          imageUrlInput: req.body.imageUrlInput,
         },
       }
     );
     console.log('ans', foundWorker);
 
-    const worker = await Worker.findOne({ id: req.params.userId });
+    const worker = await Worker.findOne({ _id: req.params.userId });
     return res.status(StatusCodes.OK).send(worker);
   } catch (e) {
     console.error("What's the problem?", e);
@@ -108,7 +109,7 @@ router.get('/sort', async function (req, res, next) {
     for(let i = 0; i < workersFiltered.length; ++i){
       const tmp = {id: workersFiltered[i]._id,
         name: workersFiltered[i].name,
-        imageURL: workersFiltered[i].imageURL
+        imageUrlInput: workersFiltered[i].imageUrlInput
       };
       renderedPosts.push(tmp)
     }
@@ -121,7 +122,7 @@ router.get('/sort', async function (req, res, next) {
 
 router.get('/:workerId', async function (req, res, next) {
   try {
-    const foundWorker = await Worker.findOne({ id: req.params.workerId });
+    const foundWorker = await Worker.findOne({ _id: req.params.workerId });
     if (!foundWorker) return res.status(StatusCodes.NOT_FOUND).send({ message: 'User not found 46 404' });
     return res.send(foundWorker);
   } catch (e) {

@@ -5,13 +5,13 @@ const getWorkers = async () => {
     return response.json();
 };
 
-const addWorker = async ({name, email, phone, address, hRate, trades, pCode, imageURL}) => {
+const addWorker = async ({name, email, phone, address, hRate, trades, pCode, imageUrlInput}) => {
     const response = await fetch('http://localhost:3001/workers', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({name, email, phone, address, hRate, trades, pCode, imageURL})
+        body: JSON.stringify({name, email, phone, address, hRate, trades, pCode, imageUrlInput})
     });
     const data = await response.json();
     if (!response.ok) {

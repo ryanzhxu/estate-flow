@@ -10,8 +10,8 @@ export const getWorkersAsync = createAsyncThunk(
 
 export const addWorkerAsync = createAsyncThunk(
     "addWorkers",
-    async({name, email, phone, address, hRate, trades, pCode, imageURL}) => {
-        return await workersService.addWorker({name, email, phone, address, hRate, trades, pCode, imageURL});
+    async({name, email, phone, address, hRate, trades, pCode, imageUrlInput}) => {
+        return await workersService.addWorker({name, email, phone, address, hRate, trades, pCode, imageUrlInput});
     }
 );
 

@@ -27,14 +27,13 @@ export default function AddWorkerForm() {
   const onImageURLChanged = (e) => setImageURL(e.target.value);
 
   const onSaveWorkerClicked = () => {
-    let imageUrlInput = imageURL
-      ? imageURL
-      : 'https://pic4.zhimg.com/80/v2-32636e587d66426cc682e74eaafd2163_1440w.webp';
+    let imageUrlInput = imageURL? imageURL: 'https://pic4.zhimg.com/80/v2-32636e587d66426cc682e74eaafd2163_1440w.webp';
     if (name && email && phone && address && hRate && trades && pCode) {
+      console.log(imageUrlInput)
       dispatch(addWorkerAsync({ name, email, phone, address, hRate, trades, pCode, imageUrlInput }));
-      //onClearClicked()
+      dispatch(closeAddForm());
     } else {
-      alert('All filed must be filled');
+      alert('All filed must be filled!!!!!');
     }
   };
   const onClearClicked = () => {
@@ -47,13 +46,6 @@ export default function AddWorkerForm() {
     setPCode('');
     setImageURL('');
   };
-
-  /*const onDeleteClicked = () => {
-        dispatch(
-            deleteAll()
-        )
-
-    }*/
 
   return (
     <div className='form'>
@@ -94,7 +86,6 @@ export default function AddWorkerForm() {
             type='button'
             onClick={() => {
               onSaveWorkerClicked();
-              //dispatch(closeAddForm());
             }}>
             Add Worker
           </button>
