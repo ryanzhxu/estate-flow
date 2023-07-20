@@ -67,11 +67,13 @@ const getSortFilter = async ({tradeType, sortOption}) => {
     return response.json();
 };
 
-export default {
+const workerService = {
     getWorkers,
     addWorker,
     deleteWorker,
     updateWorker,
     getWorker,
     getSortFilter
-};
+}
+
+export default workerService
