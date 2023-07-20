@@ -55,7 +55,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-let colStartClasses = [''];
+let colStartClasses = ['', 'col-start-2', 'col-start-3', 'col-start-4', 'col-start-5', 'col-start-6', 'col-start-7'];
 
 export default function Calendar() {
   let today = startOfToday();
@@ -86,7 +86,7 @@ export default function Calendar() {
         <div className='md:grid md:grid-cols-2 md:divide-x '>
           <div className='md:pr-14'>
             <div className='flex items-center'>
-              <h2 className='flex-auto'>{format(firstDayCurrentMonth, 'MMMM yyyy')}</h2>
+              <h2 className='flex-auto font-semibold'>{format(firstDayCurrentMonth, 'MMMM yyyy')}</h2>
               <button
                 type='button'
                 onClick={previousMonth}
@@ -149,7 +149,7 @@ export default function Calendar() {
             </div>
           </div>
           <section className='mt-12 md:mt-0 md:pl-14'>
-            <h2>Reminder</h2>
+            <h2 className='font-semibold'>Reminder</h2>
             <ol className='mt-4 space-y-1 text-sm leading-6'>
               {selectedDayDues.length > 0 ? (
                 selectedDayDues.map((due) => (
