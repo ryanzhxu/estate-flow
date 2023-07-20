@@ -8,7 +8,7 @@ import PropertyPhotoGallery from './PropertyPhotoGallery';
 import './PropertyHome.css';
 import TenantView from './TenantView';
 import Loading from '../loading/Loading';
-import searching from '../loading/loading-lottie.json';
+// import searching from '../loading/loading-lottie.json';
 import sandGlass from '../loading/loading_sand_glass.json';
 
 function PropertyHome() {
