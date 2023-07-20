@@ -1,7 +1,5 @@
 import SERVER_BASE_URL from "../config";
 
-console.log(SERVER_BASE_URL);
-
 const addProperty = async (property) => {
   const resp = await fetch(`${SERVER_BASE_URL}/properties`, {
     method: 'POST',
