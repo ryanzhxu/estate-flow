@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import React from 'react';
 import Calendar from './Calendar';
 
-const HomeApplications = () => {
+const Dashboard = () => {
   return (
     <div className='body_container'>
       <motion.div className='body_card'>
@@ -24,4 +24,4 @@ const HomeApplications = () => {
   );
 };
 
-export default HomeApplications;
+export default Dashboard;
