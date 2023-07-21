@@ -5,7 +5,7 @@ import SideBarItem from './SideBarItem';
 import { Link } from 'react-router-dom';
 import logo from './logo.png';
 
-const HomeSideBar = () => {
+const HomeSideBar = ({ handleLogout = undefined }) => {
   const [open, setOpen] = useState(true);
 
   const handleToggle = () => {
@@ -74,7 +74,7 @@ const HomeSideBar = () => {
         <div className='group'>
           <SideBarItem icon={'bi bi-cup-hot-fill'} name='About' />
           <SideBarItem icon={'bi bi-microsoft-teams'} name='Team' />
-          <SideBarItem icon={'bi bi-box-arrow-left'} name='Log out' />
+          <SideBarItem icon={'bi bi-box-arrow-left'} name='Log out' onClick={handleLogout} />
         </div>
         <br></br>
         <br></br>
