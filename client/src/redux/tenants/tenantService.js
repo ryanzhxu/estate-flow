@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const port = '3001';
-const partialUrl = `http://localhost:${port}`;
+const partialUrl = `http://172.31.0.1:${port}`;
 
 const addTenant = async (tenant) => {
   const resp = await fetch(`${partialUrl}/tenants`, {
@@ -21,13 +21,16 @@ const addTenant = async (tenant) => {
 };
 
 const updateTenant = async (tenant) => {
-  const resp = await fetch(`${partialUrl}/tenants`, {
+  console.log('tenant: ', tenant);
+  const resp = await fetch(`http://172.31.0.1:3001/tenants/${tenant._id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(tenant),
   });
 
   const data = await resp.json();
+
+  console.log('data: ', data);
 
   if (!resp.ok) {
     const errorMsg = data?.message;

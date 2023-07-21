@@ -64,3 +64,7 @@ export const getSelectedIndex = (selections, value) => {
 
   return '';
 };
+
+export const getCapitalized = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};

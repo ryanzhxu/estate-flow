@@ -59,32 +59,48 @@ router.post('/properties/:id/tenant', async (req, res) => {
 });
 
 // update Tenant
-router.put('/tenants', async (req, res, next) => {
-  const { id, firstName, lastName, email, lease, propertyId } = req.body;
+router.put('/tenants/:_id', async (req, res) => {
   try {
-    const foundTenant = await Tenant.updateOne(
-      { _id: id },
-      { $set: { firstName: firstName, lastName: lastName, email: email, lease: lease, propertyId: propertyId } }
-    );
-
-    res.status(StatusCodes.OK).json(foundTenant);
+    await Tenant.findByIdAndUpdate(req.params._id, req.body);
+    res.status(StatusCodes.OK).send();
   } catch (e) {
-    console.error("What's the problem?", e);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Error updating tenant' });
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
+
+  // const { _id, firstName, lastName, email, lease, paymentHistory, propertyId } = req.body;
+  // try {
+  //   const foundTenant = await Tenant.updateOne(
+  //     { _id: _id },
+  //     {
+  //       $set: {
+  //         firstName: firstName,
+  //         lastName: lastName,
+  //         email: email,
+  //         lease: lease,
+  //         paymentHistory: paymentHistory,
+  //         propertyId: propertyId,
+  //       },
+  //     }
+  //   );
+
+  //   res.status(StatusCodes.OK).json(foundTenant);
+  // } catch (e) {
+  //   console.error("What's the problem?", e);
+  //   res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Error updating tenant' });
+  // }
 });
 
 // remove tenant
-router.delete('/tenants/:tenantId', async(req, res, next) => {
-    const id = req.params.tenantId;
-    try {
-        const deleteTenant = await Tenant.deleteOne({_id: id})
-        const tenants = await Tenant.find()
-        res.status(StatusCodes.OK).json(tenants); //
-    } catch(e) {
-        console.error(e);
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Error deleting tenant"});
-    }
-})
+router.delete('/tenants/:tenantId', async (req, res, next) => {
+  const id = req.params.tenantId;
+  try {
+    const deleteTenant = await Tenant.deleteOne({ _id: id });
+    const tenants = await Tenant.find();
+    res.status(StatusCodes.OK).json(tenants); //
+  } catch (e) {
+    console.error(e);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Error deleting tenant' });
+  }
+});
 
 module.exports = router;
