@@ -22,7 +22,6 @@ router.post('/', async function (req, res, next) {
     }
     console.log(req.body.imageUrlInput)
     const worker = new Worker({
-//      id: uuid(),
       name: req.body.name,
       email: req.body.email,
       phone: req.body.phone,
@@ -70,8 +69,6 @@ router.put('/:userId', async function (req, res, next) {
         },
       }
     );
-    console.log('ans', foundWorker);
-
     const worker = await Worker.findOne({ _id: req.params.userId });
     return res.status(StatusCodes.OK).send(worker);
   } catch (e) {
