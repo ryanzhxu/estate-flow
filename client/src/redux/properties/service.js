@@ -35,7 +35,7 @@ const updateProperty = async (property) => {
 };
 
 const deleteProperty = async (_id) => {
-  const resp = await fetch(`${SERVER_BASE_URL}:3001/properties/${_id}`, {
+  const resp = await fetch(`${SERVER_BASE_URL}/properties/${_id}`, {
     method: 'DELETE',
   });
 
@@ -49,7 +49,7 @@ const deleteProperty = async (_id) => {
 };
 
 const getProperties = async () => {
-  const resp = await fetch(`${SERVER_BASE_URL}:3001/properties`, {
+  const resp = await fetch(`${SERVER_BASE_URL}/properties`, {
     method: 'GET',
   });
 
