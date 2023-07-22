@@ -1,8 +1,8 @@
 const getWorkers = async () => {
-    const response = await fetch('http://localhost:3001/workers', {
+  const response = await fetch('http://localhost:3001/workers', {
     method: 'GET',
-    });
-    return response.json();
+  });
+  return response.json();
 };
 
 const addWorker = async ({name, email, phone, address, hRate, trades, pCode, imageUrlInput}) => {
@@ -54,17 +54,17 @@ const updateWorker = async ({ id, name, email, phone, address, hRate, trades, pC
 };
 
 const getWorker = async (id) => {
-    const response = await fetch(`http://localhost:3001/workers/${id.id}`, {
-        method: 'GET'
-    });
-    return response.json();
+  const response = await fetch(`http://localhost:3001/workers/${id.id}`, {
+    method: 'GET',
+  });
+  return response.json();
 };
 
-const getSortFilter = async ({tradeType, sortOption}) => {
-    const response = await fetch(`http://localhost:3001/workers/sort?query=query&Trades=${tradeType}&sort=${sortOption}`, {
-        method: 'GET'
+const getSortFilter = async ({ tradeType, sortOption }) => {
+  const response = await fetch(`http://localhost:3001/workers/sort?query=query&Trades=${tradeType}&sort=${sortOption}`, {
+      method: 'GET',
     });
-    return response.json();
+  return response.json();
 };
 
 const workerService = {
@@ -76,4 +76,4 @@ const workerService = {
     getSortFilter
 }
 
-export default workerService
+export default workerService;

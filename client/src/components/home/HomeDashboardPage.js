@@ -3,11 +3,11 @@ import Dashboard from './Dashboard';
 import HomeSideBar from './HomeSideBar';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-function HomeDashboardPage() {
+function HomeDashboardPage({ handleLogout = undefined }) {
   return (
     <div className='homepage'>
       <div className='sidebar_container'>
-        <HomeSideBar />
+        <HomeSideBar handleLogout={handleLogout} />
       </div>
       <Dashboard />
     </div>
