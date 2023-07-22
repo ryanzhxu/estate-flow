@@ -14,7 +14,7 @@ export default function UpdateWorkerFrom() {
   const dispatch = useDispatch();
   const select = useSelector(expSelectedWorker);
 
-  const id = select._id;
+  const _id = select._id;
   const [name, setName] = useState(select.name);
   const [email, setEmail] = useState(select.email);
   const [phone, setPhone] = useState(select.phone);
@@ -35,7 +35,7 @@ export default function UpdateWorkerFrom() {
   const onUpdateWorkerClicked = () => {
     let imageUrlInput = imageURL? imageURL: 'https://pic4.zhimg.com/80/v2-32636e587d66426cc682e74eaafd2163_1440w.webp';
     if (name && email && phone && address && hRate && trades && pCode && imageUrlInput) {
-      dispatch(updateAsync({ id, name, email, phone, address, hRate, trades, pCode, imageUrlInput }));
+      dispatch(updateAsync({ _id, name, email, phone, address, hRate, trades, pCode, imageUrlInput }));
       dispatch(closeUpdate());
       dispatch(openDetail());
     } else {

@@ -37,8 +37,8 @@ const deleteWorker = async ({ _id }) => {
   return data;
 };
 
-const updateWorker = async ({ id, name, email, phone, address, hRate, trades, pCode, imageURL }) => {
-  const response = await fetch(`http://localhost:3001/workers/${id}`, {
+const updateWorker = async ({ _id, name, email, phone, address, hRate, trades, pCode, imageURL }) => {
+  const response = await fetch(`http://localhost:3001/workers/${_id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -53,8 +53,8 @@ const updateWorker = async ({ id, name, email, phone, address, hRate, trades, pC
   return data;
 };
 
-const getWorker = async (id) => {
-    const response = await fetch(`http://localhost:3001/workers/${id._id}`, {
+const getWorker = async (_id) => {
+    const response = await fetch(`http://localhost:3001/workers/${_id._id}`, {
         method: 'GET'
     });
     return response.json();

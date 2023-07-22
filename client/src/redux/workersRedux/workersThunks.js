@@ -25,8 +25,8 @@ export const getDetailAsync = createAsyncThunk('getDetail', async (_id) => {
 
 export const updateAsync = createAsyncThunk(
     "updateAsync",
-    async({id,name, email, phone, address, hRate, trades, pCode, imageURL}) => {
-        return await workersService.updateWorker({id,name, email, phone, address, hRate, trades, pCode, imageURL});
+    async({_id,name, email, phone, address, hRate, trades, pCode, imageURL}) => {
+        return await workersService.updateWorker({_id,name, email, phone, address, hRate, trades, pCode, imageURL});
     }
 );
 
