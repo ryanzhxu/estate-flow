@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const port = '3001';
-const partialUrl = `http://localhost:${port}`;
+const partialUrl = `http://172.31.0.1:${port}`;
 
 const addTenant = async (tenant) => {
   const resp = await fetch(`${partialUrl}/properties/${tenant.propertyId}/tenant`, {

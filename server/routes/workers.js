@@ -122,7 +122,7 @@ router.get('/sort', async function (req, res, next) {
 router.get('/:workerId', async function (req, res, next) {
   try {
     const foundWorker = await Worker.findOne({ id: req.params.workerId });
-    if (!foundWorker) return res.status(StatusCodes.NOT_FOUND).send({ message: 'User not found 46 404' });
+    if (!foundWorker) return res.status(StatusCodes.BAD_REQUEST).send({ message: 'User not found 46 404' });
     return res.send(foundWorker);
   } catch (e) {
     console.error("What's the problem?", e);

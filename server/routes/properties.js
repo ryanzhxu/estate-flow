@@ -21,7 +21,7 @@ router.get('/properties/:_id', async (req, res) => {
     if (foundProperty) {
       res.status(StatusCodes.OK).json(foundProperty);
     } else {
-      res.status(StatusCodes.NOT_FOUND).json({ error: `Property with id ${id} does not exist` });
+      res.status(StatusCodes.BAD_REQUEST).json({ error: `Property with id ${id} does not exist` });
     }
   } catch (e) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
@@ -53,7 +53,7 @@ router.delete('/properties/:_id', async (req, res) => {
     const property = await Property.findByIdAndDelete(req.params._id);
 
     if (!property) {
-      res.status(StatusCodes.NO_CONTENT).send('No property found.');
+      res.status(StatusCodes.BAD_REQUEST).send('No property found.');
     }
 
     res.status(StatusCodes.OK).send();
