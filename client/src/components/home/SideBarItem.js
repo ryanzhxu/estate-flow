@@ -37,12 +37,10 @@ function SideBarItem({ icon, name, onClick = undefined }) {
       <motion.div
         className='sideBarItem'
         whileHover={{
-          boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
           backdropFilter: 'blur(5.5px)',
           cursor: 'pointer',
         }}
         transition={{
-          type: 'none',
           duration: 0.01,
         }}
         onClick={name === 'Log out' ? handleLogoutClick : undefined}>
