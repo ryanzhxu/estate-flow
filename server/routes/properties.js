@@ -1,65 +1,64 @@
 const express = require('express');
 const Property = require('../models/property');
 const { StatusCodes } = require('http-status-codes');
-const { response } = require('../app');
 
 const router = express.Router();
 
-router.get('/properties', async (req, resp) => {
+router.get('/properties', async (req, res) => {
   try {
-    resp.status(StatusCodes.OK).json(await Property.find());
+    res.status(StatusCodes.OK).json(await Property.find());
   } catch (e) {
-    resp.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });
 
-router.get('/properties/:id', async (req, resp) => {
-  const id = req.params.id;
+router.get('/properties/:_id', async (req, res) => {
+  const id = req.params._id;
 
   try {
     const foundProperty = await Property.findById(id);
 
     if (foundProperty) {
-      resp.status(StatusCodes.OK).json(foundProperty);
+      res.status(StatusCodes.OK).json(foundProperty);
     } else {
-      resp.status(StatusCodes.NOT_FOUND).json({ error: `Property with id ${id} does not exist` });
+      res.status(StatusCodes.NOT_FOUND).json({ error: `Property with id ${id} does not exist` });
     }
   } catch (e) {
-    resp.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });
 
-router.post('/properties', async (req, resp) => {
+router.post('/properties', async (req, res) => {
   const newProperty = new Property(req.body);
 
   try {
     await newProperty.save();
-    resp.status(StatusCodes.CREATED).send(newProperty);
+    res.status(StatusCodes.CREATED).send(newProperty);
   } catch (e) {
-    resp.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });
 
-router.put('/properties/:id', async (req, resp) => {
+router.put('/properties/:_id', async (req, res) => {
   try {
-    await Property.findByIdAndUpdate(req.params.id, req.body);
-    resp.status(StatusCodes.OK).send();
+    await Property.findByIdAndUpdate(req.params._id, req.body);
+    res.status(StatusCodes.OK).send();
   } catch (e) {
-    resp.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });
 
-router.delete('/properties/:id', async (req, resp) => {
+router.delete('/properties/:_id', async (req, res) => {
   try {
-    const property = await Property.findByIdAndDelete(req.params.id);
+    const property = await Property.findByIdAndDelete(req.params._id);
 
     if (!property) {
-      resp.status(StatusCodes.NO_CONTENT).send('No property found.');
+      res.status(StatusCodes.NO_CONTENT).send('No property found.');
     }
 
-    resp.status(StatusCodes.OK).send();
+    res.status(StatusCodes.OK).send();
   } catch (e) {
-    resp.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });
 

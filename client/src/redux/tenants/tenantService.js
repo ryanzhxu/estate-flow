@@ -21,16 +21,13 @@ const addTenant = async (tenant) => {
 };
 
 const updateTenant = async (tenant) => {
-  console.log('tenant: ', tenant);
-  const resp = await fetch(`http://172.31.0.1:3001/tenants/${tenant._id}`, {
+  const resp = await fetch(`${partialUrl}/tenants/${tenant._id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(tenant),
   });
 
   const data = await resp.json();
-
-  console.log('data: ', data);
 
   if (!resp.ok) {
     const errorMsg = data?.message;
@@ -41,8 +38,6 @@ const updateTenant = async (tenant) => {
 };
 
 const deleteTenant = async (id) => {
-  console.log('delete id type is ' + typeof id);
-  console.log('delete id is: ' + id);
   const resp = await fetch(`${partialUrl}/tenants/${id}`, {
     method: 'DELETE',
   });
@@ -82,8 +77,7 @@ const getTenantsFromProperty = async (propertyId) => {
   }
 };
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
+const tenantService = {
   addTenant,
   updateTenant,
   deleteTenant,
@@ -91,3 +85,5 @@ export default {
   getSingleTenant,
   getTenantsFromProperty,
 };
+
+export default tenantService;

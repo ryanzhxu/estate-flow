@@ -30,6 +30,26 @@ function PaymentHistory({ tenant }) {
     setIsOpen(false);
   };
 
+  const handleDeletePaymentHistory = (_id) => {
+    const paymentHistoryIndex = tenant.paymentHistory.findIndex((item) => item._id === _id);
+
+    if (paymentHistoryIndex !== -1) {
+      const updatedPaymentHistory = [
+        ...tenant.paymentHistory.slice(0, paymentHistoryIndex),
+        ...tenant.paymentHistory.slice(paymentHistoryIndex + 1),
+      ];
+
+      const tenantToBeUpdated = {
+        ...tenant,
+        paymentHistory: updatedPaymentHistory,
+      };
+
+      dispatch(updateTenantAsync(tenantToBeUpdated)).then(() => {
+        dispatch(getSingleTenantAsync(tenantToBeUpdated._id));
+      });
+    }
+  };
+
   return (
     <div style={{ width: '100%', paddingRight: '0' }}>
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', gap: '10px' }}>
@@ -114,15 +134,25 @@ function PaymentHistory({ tenant }) {
               <th scope='col'>Type</th>
               <th scope='col'>Charges</th>
               <th scope='col'>Paid</th>
+              <th />
             </tr>
           </thead>
           <tbody>
             {tenant.paymentHistory.map((item, index) => (
-              <tr key={`payment-${index}`}>
+              <tr key={`payment-${index}`} style={{ verticalAlign: 'middle' }}>
                 <td>{new Date(item.date).toLocaleDateString()}</td>
-                <td>{item.type}</td>
+                <td>{PaymentTypes[item.type]}</td>
                 <td>${item.charge}</td>
                 <td>${item.paid}</td>
+                <td width='1px'>
+                  <Button
+                    appearance='subtle'
+                    onClick={() => {
+                      handleDeletePaymentHistory(item._id);
+                    }}>
+                    Delete
+                  </Button>
+                </td>
               </tr>
             ))}
           </tbody>

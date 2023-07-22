@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { Schema } = require('mongoose');
 
 const tenantSchema = new mongoose.Schema(
   {
@@ -74,8 +73,7 @@ const tenantSchema = new mongoose.Schema(
       },
     ],
     propertyId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Property',
+      type: String,
       required: true,
     },
   },

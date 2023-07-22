@@ -40,7 +40,7 @@ export default function AddPropertyForm() {
       phoneNumber: phoneNumber ?? '604-123-4567',
       lease: lease,
       paymentHistory: [],
-      propertyID: '',
+      propertyID: '', // need to map propertyId to this field
     };
 
     dispatch(addTenantAsync(tenant)).then(() => {

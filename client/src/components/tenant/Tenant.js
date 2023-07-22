@@ -46,7 +46,7 @@ function Tenant() {
             <div className='row mb-4 tenant-home-page-right-section'>
               <div style={{ display: 'flex', gap: '10px' }}>
                 <div className='col-sm-7 tenant-property-info-container'>
-                  <LeaseOverviewCard address={tenant.address} lease={tenant.lease} />
+                  <LeaseOverviewCard lease={tenant.lease} />
                 </div>
                 <div className='required-payments-container col-sm-5 card'>
                   <RequiredPayments fees={tenant.lease.fees} />
