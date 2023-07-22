@@ -38,7 +38,7 @@ function PropertyHome() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowLoading(false);
-    }, 2000);
+    }, 1500);
 
     dispatch(getPropertyAsync(_id));
 

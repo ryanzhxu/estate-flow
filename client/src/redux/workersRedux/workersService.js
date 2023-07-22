@@ -1,12 +1,15 @@
+const port = '3001';
+const partialUrl = `http://localhost:${port}`;
+
 const getWorkers = async () => {
-  const response = await fetch('http://localhost:3001/workers', {
+  const response = await fetch(`${partialUrl}/workers`, {
     method: 'GET',
   });
   return response.json();
 };
 
 const addWorker = async ({ name, email, phone, address, hRate, trades, pCode, imageURL }) => {
-  const response = await fetch('http://localhost:3001/workers', {
+  const response = await fetch(`${partialUrl}/workers`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -22,7 +25,7 @@ const addWorker = async ({ name, email, phone, address, hRate, trades, pCode, im
 };
 
 const deleteWorker = async ({ id }) => {
-  const response = await fetch('http://localhost:3001/workers', {
+  const response = await fetch(`${partialUrl}/workers`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -38,7 +41,7 @@ const deleteWorker = async ({ id }) => {
 };
 
 const updateWorker = async ({ id, name, email, phone, address, hRate, trades, pCode, imageURL }) => {
-  const response = await fetch(`http://localhost:3001/workers/${id}`, {
+  const response = await fetch(`${partialUrl}/workers/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -54,19 +57,16 @@ const updateWorker = async ({ id, name, email, phone, address, hRate, trades, pC
 };
 
 const getWorker = async (id) => {
-  const response = await fetch(`http://localhost:3001/workers/${id.id}`, {
+  const response = await fetch(`${partialUrl}/workers/${id.id}`, {
     method: 'GET',
   });
   return response.json();
 };
 
 const getSortFilter = async ({ tradeType, sortOption }) => {
-  const response = await fetch(
-    `http://localhost:3001/workers/sort?query=query&Trades=${tradeType}&sort=${sortOption}`,
-    {
-      method: 'GET',
-    }
-  );
+  const response = await fetch(`${partialUrl}/workers/sort?query=query&Trades=${tradeType}&sort=${sortOption}`, {
+    method: 'GET',
+  });
   return response.json();
 };
 

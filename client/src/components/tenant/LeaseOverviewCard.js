@@ -1,6 +1,6 @@
 import './LeaseOverviewCard.css';
 
-function LeaseOverviewCard({ lease }) {
+function LeaseOverviewCard({ lease, address }) {
   return (
     <div className='tenant-lease-overview card'>
       <div className='card-header'>
@@ -12,6 +12,9 @@ function LeaseOverviewCard({ lease }) {
         <div className='row row-spacing'>
           <div className='col-sm-6'>
             <p className='mb-0'>Residence</p>
+          </div>
+          <div className='col-sm-5'>
+            <p className='text-muted mb-0'>{address.streetAddress}</p>
           </div>
         </div>
         <hr />

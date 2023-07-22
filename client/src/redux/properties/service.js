@@ -1,7 +1,8 @@
-const partialUrl = 'localhost';
+const port = '3001';
+const partialUrl = `http://localhost:${port}`;
 
 const addProperty = async (property) => {
-  const resp = await fetch(`http://${partialUrl}:3001/properties`, {
+  const resp = await fetch(`${partialUrl}/properties`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(property),
@@ -18,7 +19,7 @@ const addProperty = async (property) => {
 };
 
 const updateProperty = async (property) => {
-  const resp = await fetch(`http://${partialUrl}:3001/properties/${property._id}`, {
+  const resp = await fetch(`${partialUrl}/properties/${property._id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(property),
@@ -35,7 +36,7 @@ const updateProperty = async (property) => {
 };
 
 const deleteProperty = async (_id) => {
-  const resp = await fetch(`http://${partialUrl}:3001/properties/${_id}`, {
+  const resp = await fetch(`${partialUrl}/properties/${_id}`, {
     method: 'DELETE',
   });
 
@@ -49,7 +50,7 @@ const deleteProperty = async (_id) => {
 };
 
 const getProperties = async () => {
-  const resp = await fetch(`http://${partialUrl}:3001/properties`, {
+  const resp = await fetch(`${partialUrl}/properties`, {
     method: 'GET',
   });
 
@@ -57,7 +58,7 @@ const getProperties = async () => {
 };
 
 const getProperty = async (_id) => {
-  const resp = await fetch(`http://${partialUrl}:3001/properties/${_id}`, {
+  const resp = await fetch(`${partialUrl}/properties/${_id}`, {
     method: 'GET',
   });
 
