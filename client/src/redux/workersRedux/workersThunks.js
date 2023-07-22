@@ -19,8 +19,8 @@ export const deleteWorkerAsync = createAsyncThunk('deleteWorker', async (_id) =>
   return await workersService.deleteWorker({ _id });
 });
 
-export const getDetailAsync = createAsyncThunk('getDetail', async (id) => {
-  return await workersService.getWorker({ id });
+export const getDetailAsync = createAsyncThunk('getDetail', async (_id) => {
+  return await workersService.getWorker({ _id });
 });
 
 export const updateAsync = createAsyncThunk(

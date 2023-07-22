@@ -54,7 +54,7 @@ const updateWorker = async ({ id, name, email, phone, address, hRate, trades, pC
 };
 
 const getWorker = async (id) => {
-    const response = await fetch(`http://localhost:3001/workers/${id.id}`, {
+    const response = await fetch(`http://localhost:3001/workers/${id._id}`, {
         method: 'GET'
     });
     return response.json();
