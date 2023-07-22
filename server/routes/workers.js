@@ -42,7 +42,7 @@ router.post('/', async function (req, res, next) {
 
 router.delete('/', async function (req, res, next) {
   try {
-    const workerId = req.body.id;
+    const workerId = req.body._id;
     await Worker.deleteOne({ _id: workerId });
     const workers = await Worker.find({});
     return res.send(workers);

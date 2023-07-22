@@ -21,13 +21,13 @@ const addWorker = async ({name, email, phone, address, hRate, trades, pCode, ima
     return data;
 };
 
-const deleteWorker = async ({ id }) => {
+const deleteWorker = async ({ _id }) => {
   const response = await fetch('http://localhost:3001/workers', {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ id: id }),
+    body: JSON.stringify({ _id: _id }),
   });
   const data = await response.json();
   if (!response.ok) {
