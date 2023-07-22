@@ -32,7 +32,7 @@ export default function AddWorkerForm() {
       dispatch(addWorkerAsync({ name, email, phone, address, hRate, trades, pCode, imageUrlInput }));
       dispatch(closeAddForm());
     } else {
-      alert('All filed must be filled!!!!!');
+      alert('All filed must be filled');
     }
   };
   const onClearClicked = () => {
