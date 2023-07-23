@@ -37,19 +37,18 @@ router.post('/tenants', async (req, res) => {
     res.status(StatusCodes.BAD_REQUEST).json({ error: 'Invalid propertyId format' });
   }
 
-  const foundProperty = await Property.findById(propertyId);
-  if (!foundProperty) {
-    res.status(StatusCodes.BAD_REQUEST).json({ error: `Property with id ${propertyId} does not exist` });
-  }
-
-  let newTenantBody = req.body;
-  if (newTenantBody.propertyId !== propertyId) {
-    newTenantBody.propertyId = propertyId;
-  }
-
-  const newTenant = new Tenant(newTenantBody);
-
   try {
+    const foundProperty = await Property.findById(propertyId);
+    if (!foundProperty) {
+      res.status(StatusCodes.BAD_REQUEST).json({ error: `Property with id ${propertyId} does not exist` });
+    }
+
+    let newTenantBody = req.body;
+    if (newTenantBody.propertyId !== propertyId) {
+      newTenantBody.propertyId = propertyId;
+    }
+
+    const newTenant = new Tenant(newTenantBody);
     await newTenant.save();
     res.status(StatusCodes.CREATED).send(newTenant);
   } catch (e) {

@@ -1,3 +1,4 @@
+const { Schema } = require('mongoose');
 const mongoose = require('mongoose');
 
 const tenantSchema = new mongoose.Schema(
@@ -73,7 +74,8 @@ const tenantSchema = new mongoose.Schema(
       },
     ],
     propertyId: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: 'Property',
       required: true,
     },
   },
