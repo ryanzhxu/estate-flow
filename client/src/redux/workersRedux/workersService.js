@@ -26,9 +26,6 @@ const addWorker = async ({name, email, phone, address, hRate, trades, pCode, ima
 const deleteWorker = async ({ _id }) => {
   const response = await fetch('${SERVER_BASE_URL}/workers', {
     method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify({ _id: _id }),
   });
   const data = await response.json();
