@@ -52,10 +52,6 @@ const propertySchema = new mongoose.Schema(
       type: [String],
       default: [],
     },
-    tenants: {
-      type: [{}],
-      default: [],
-    },
   },
   {
     collection: 'properties',

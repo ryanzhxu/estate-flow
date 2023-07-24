@@ -10,6 +10,8 @@ const PropertyListing = () => {
   const dispatch = useDispatch();
   const [showAddForm, setShowAddForm] = useState(false);
 
+  const propertiesArray = Object.values(properties);
+
   useEffect(() => {
     dispatch(getPropertiesAsync());
   }, [dispatch]);
@@ -36,7 +38,7 @@ const PropertyListing = () => {
             </div>
           </div>
           <div className='property-listing-cards'>
-            {properties.map((property) => (
+            {propertiesArray.map((property) => (
               <PropertyCard key={property._id} property={property} />
             ))}
           </div>

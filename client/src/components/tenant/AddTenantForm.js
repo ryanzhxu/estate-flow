@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import { addTenantAsync, getTenantsAsync } from '../../redux/tenants/tenantsThunks';
 import { closeTenantADD } from '../../redux/tenants/tenantsReducer';
 
-export default function AddPropertyForm() {
+export default function AddPropertyForm(propertyId) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -34,13 +34,13 @@ export default function AddPropertyForm() {
   };
   const handleAddTenant = () => {
     const tenant = {
-      firstName: '',
-      lastName: '',
+      firstName: firstName,
+      lastName: lastName,
       email: email ?? 'guest@estateflow.ca',
       phoneNumber: phoneNumber ?? '604-123-4567',
       lease: lease,
       paymentHistory: [],
-      propertyID: '',
+      propertyId: propertyId,
     };
 
     dispatch(addTenantAsync(tenant)).then(() => {

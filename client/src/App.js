@@ -51,7 +51,7 @@ function App() {
 
   return (
     <main className='App'>
-      {!isLoggedIn ? (
+      {/* {!isLoggedIn ? (
         <div className='login'>
           <img src={logo} alt='logo' />
           <div className='login-btns'>
@@ -64,7 +64,7 @@ function App() {
             />
           </div>
         </div>
-      ) : (
+      ) : ( */}
         <Routes>
           <Route path='/' element={<HomeDashboardPage handleLogout={handleLogout} />} />
           <Route path='/properties' element={<PropertyListing />} />
@@ -73,7 +73,7 @@ function App() {
           <Route path='/tenants/:id' element={<Tenant />} />
           <Route path='/workers' element={<WorkerLists />} />
         </Routes>
-      )}
+      {/* )} */}
     </main>
   );
 }

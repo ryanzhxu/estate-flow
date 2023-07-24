@@ -1,10 +1,8 @@
 import axios from 'axios';
-
-const port = '3001';
-const partialUrl = `http://localhost:${port}`;
+import SERVER_BASE_URL from '../config';
 
 const addTenant = async (tenant) => {
-  const resp = await fetch(`${partialUrl}/tenants`, {
+  const resp = await fetch(`${SERVER_BASE_URL}/properties/${tenant.propertyId}/tenant`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(tenant),
@@ -21,7 +19,7 @@ const addTenant = async (tenant) => {
 };
 
 const updateTenant = async (tenant) => {
-  const resp = await fetch(`${partialUrl}/tenants`, {
+  const resp = await fetch(`${SERVER_BASE_URL}/tenants`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(tenant),
@@ -40,7 +38,7 @@ const updateTenant = async (tenant) => {
 const deleteTenant = async (id) => {
   console.log('delete id type is ' + typeof id);
   console.log('delete id is: ' + id);
-  const resp = await fetch(`${partialUrl}/tenants/${id}`, {
+  const resp = await fetch(`${SERVER_BASE_URL}/tenants/${id}`, {
     method: 'DELETE',
   });
   const data = await resp.json();
@@ -52,7 +50,7 @@ const deleteTenant = async (id) => {
 };
 
 const getTenants = async () => {
-  const resp = await fetch(`${partialUrl}/tenants`, {
+  const resp = await fetch(`${SERVER_BASE_URL}/tenants`, {
     method: 'GET',
   });
 
@@ -61,7 +59,7 @@ const getTenants = async () => {
 
 const getSingleTenant = async (id) => {
   try {
-    const resp = await axios.get(`${partialUrl}/tenants/${id}`);
+    const resp = await axios.get(`${SERVER_BASE_URL}/tenants/${id}`);
     return resp.data;
   } catch (e) {
     console.error(e);
@@ -71,7 +69,7 @@ const getSingleTenant = async (id) => {
 
 const getTenantsFromProperty = async (propertyId) => {
   try {
-    const resp = await axios(`${partialUrl}/properties/${propertyId}/tenants`);
+    const resp = await axios(`${SERVER_BASE_URL}/properties/${propertyId}/tenants`);
     return resp.data;
   } catch (e) {
     console.error(e);
@@ -79,8 +77,7 @@ const getTenantsFromProperty = async (propertyId) => {
   }
 };
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
+const tenantService = {
   addTenant,
   updateTenant,
   deleteTenant,
@@ -88,3 +85,5 @@ export default {
   getSingleTenant,
   getTenantsFromProperty,
 };
+
+export default tenantService;
