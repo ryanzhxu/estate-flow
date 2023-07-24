@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal } from 'react-bootstrap';
 import Button from '@atlaskit/button';
 
-const ConfirmationModal = ({ isOpen, onCancel, onConfirm, modalTitle, modalContent }) => {
+const DeleteConfirmationModal = ({ isOpen, onCancel, onDelete, modalTitle, modalContent }) => {
     return (
         <Modal show={isOpen} onHide={onCancel} centered>
             <Modal.Header className='bg-danger text-white'>
@@ -15,7 +15,7 @@ const ConfirmationModal = ({ isOpen, onCancel, onConfirm, modalTitle, modalConte
                 <Button appearance='subtle' onClick={onCancel}>
                     Cancel
                 </Button>
-                <Button appearance='danger' onClick={onConfirm}>
+                <Button appearance='danger' onClick={onDelete}>
                     Delete
                 </Button>
             </Modal.Footer>
@@ -23,4 +23,4 @@ const ConfirmationModal = ({ isOpen, onCancel, onConfirm, modalTitle, modalConte
     );
 };
 
-export default ConfirmationModal;
+export default DeleteConfirmationModal;

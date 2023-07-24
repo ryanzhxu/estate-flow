@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {deletePropertyAsync, getPropertiesAsync} from '../../../redux/properties/thunks';
 import PropertyForm from '../../../components/property/PropertyForm';
-import ConfirmationModal from "./ConfirmationModal";
+import DeleteConfirmationModal from "./DeleteConfirmationModal";
 
 const PropertyCardDetails = ({ property }) => {
   const dispatch = useDispatch();
@@ -73,11 +73,10 @@ const PropertyCardDetails = ({ property }) => {
         </div>
       </div>
       {showEditForm && <PropertyForm editProperty={editProperty} handleCloseForm={handleCloseEditForm} />}
-      <ConfirmationModal
+      <DeleteConfirmationModal
           isOpen={isOpen}
           onCancel={() => setIsOpen(false)}
-          onConfirm={handleDeleteProperty}
-          property={property}
+          onDelete={handleDeleteProperty}
           modalContent={modalContent}
           modalTitle="You're about to delete this property"
       />
