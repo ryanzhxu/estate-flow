@@ -28,6 +28,7 @@ const deleteWorker = async ({ _id }) => {
     method: 'DELETE',
     body: JSON.stringify({ _id: _id }),
   });
+  
   const data = await response.json();
   if (!response.ok) {
     const error = data?.message;
