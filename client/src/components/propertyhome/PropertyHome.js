@@ -38,7 +38,7 @@ function PropertyHome() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowLoading(false);
-    }, 2000);
+    }, 1500);
 
     dispatch(getPropertyAsync(_id));
 
@@ -54,8 +54,16 @@ function PropertyHome() {
           <PropertyDetailCard address={property.address} id={property._id} name={property.name} />
           <div className='property-actions-container'>
             <div className='property-actions'>
-              <button className='property-action'  onClick={() => dispatch(openTenantADD())}>Add Tenant</button>
-              <button className='property-action' onClick={() => {handleOpenEditForm()}}>Edit Details</button>
+              <button className='property-action' onClick={() => dispatch(openTenantADD())}>
+                Add Tenant
+              </button>
+              <button
+                className='property-action'
+                onClick={() => {
+                  handleOpenEditForm();
+                }}>
+                Edit Details
+              </button>
               <button className='property-action'>Calculate Profit</button>
             </div>
           </div>
@@ -72,9 +80,9 @@ function PropertyHome() {
           <div className='tenants-view-container border-left'>
             <TenantView propertyId={property._id} />
             <section className='sectionContainer'>
-            {tenantAddIsOpen && <AddTenantForm propertyId={property._id}/>}
-            {showEditForm && <PropertyForm editProperty={editProperty} handleCloseForm={handleCloseEditForm} />}
-          </section>
+              {tenantAddIsOpen && <AddTenantForm propertyId={property._id} />}
+              {showEditForm && <PropertyForm editProperty={editProperty} handleCloseForm={handleCloseEditForm} />}
+            </section>
           </div>
         </div>
       </div>

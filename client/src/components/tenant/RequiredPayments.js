@@ -1,6 +1,6 @@
 function RequiredPayments({ fees }) {
   return (
-    <div>
+    <div key='required-payments'>
       <div className='card-header'>
         <h5 className='card-title mb-0'>Required Payments</h5>
       </div>
@@ -14,8 +14,8 @@ function RequiredPayments({ fees }) {
             </tr>
           </thead>
           <tbody>
-            {fees.map((payment) => (
-              <tr>
+            {fees.map((payment, index) => (
+              <tr key={`req-payment-${index}`}>
                 <td>{payment.type}</td>
                 <td>${payment.amount}</td>
                 <td>{new Date(payment.dueDate).toLocaleDateString()}</td>

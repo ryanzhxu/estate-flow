@@ -1,13 +1,19 @@
 const express = require('express');
 const Tenant = require('../models/tenant');
+const Property = require('../models/property');
 const { StatusCodes } = require('http-status-codes');
+const mongoose = require('mongoose');
 
 const router = express.Router();
 
-// const tenants = [];
+router.get('/tenants', async (req, res) => {
+  try {
+    res.status(StatusCodes.OK).json(await Tenant.find());
+  } catch (e) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+  }
+});
 
-// idk if i did this right, might have to debug?
-// gets tenant that matches tenant ID provided
 router.get('/tenants/:tenantId', async (req, res, next) => {
   const tenantId = req.params.tenantId;
   try {
@@ -24,67 +30,73 @@ router.get('/tenants/:tenantId', async (req, res, next) => {
   }
 });
 
-// gets list of all tenants
-router.get('/tenants', async (req, res) => {
+router.post('/tenants', async (req, res) => {
+  const propertyId = req.body.propertyId;
+
+  if (!mongoose.isValidObjectId(propertyId)) {
+    res.status(StatusCodes.BAD_REQUEST).json({ error: 'Invalid propertyId format' });
+  }
+
   try {
-    res.status(StatusCodes.OK).json(await Tenant.find());
+    const foundProperty = await Property.findById(propertyId);
+    if (!foundProperty) {
+      res.status(StatusCodes.BAD_REQUEST).json({ error: `Property with id ${propertyId} does not exist` });
+    }
+
+    let newTenantBody = req.body;
+    if (newTenantBody.propertyId !== propertyId) {
+      newTenantBody.propertyId = propertyId;
+    }
+
+    const newTenant = new Tenant(newTenantBody);
+    await newTenant.save();
+    res.status(StatusCodes.CREATED).send(newTenant);
   } catch (e) {
-    console.error(e);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Error accessing tenants' });
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });
 
-// gets all tenants that match property ID
-router.get('/properties/:id/tenants', async (req, res) => {
-  const propertyId = req.params.id;
+router.get('/properties/:_id/tenants', async (req, res) => {
+  const propertyId = req.params._id;
+
+  if (!mongoose.isValidObjectId(propertyId)) {
+    res.status(StatusCodes.BAD_REQUEST).json({ error: 'Invalid propertyId format' });
+  }
+
+  const foundProperty = await Property.findById(propertyId);
+  if (!foundProperty) {
+    res.status(StatusCodes.BAD_REQUEST).json({ error: `Property with id ${propertyId} does not exist` });
+  }
+
   try {
     const tenants = await Tenant.find({ propertyId: propertyId });
     res.status(StatusCodes.OK).json(tenants);
   } catch (e) {
-    console.error(e);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Error accessing tenants' });
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });
 
-// add tenant with associated property id
-// as of right now, property ID is not an argument when we click add tenant
-router.post('/properties/:id/tenant', async (req, res) => {
-  const tenant = new Tenant(req.body);
+router.put('/tenants/:_id', async (req, res) => {
   try {
-    res.status(StatusCodes.CREATED).json(await tenant.save());
+    await Tenant.findByIdAndUpdate(req.params._id, req.body);
+    res.status(StatusCodes.OK).send();
   } catch (e) {
-    console.error("What's the problem?", e);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Error saving tenant to property' });
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });
 
-// update Tenant
-router.put('/tenants', async (req, res, next) => {
-  const { id, firstName, lastName, email, lease, propertyId } = req.body;
+router.delete('/tenants/:_id', async (req, res) => {
   try {
-    const foundTenant = await Tenant.updateOne(
-      { _id: id },
-      { $set: { firstName: firstName, lastName: lastName, email: email, lease: lease, propertyId: propertyId } }
-    );
+    const tenant = await Tenant.findByIdAndDelete(req.params._id);
 
-    res.status(StatusCodes.OK).json(foundTenant);
-  } catch (e) {
-    console.error("What's the problem?", e);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Error updating tenant' });
-  }
-});
-
-// remove tenant
-router.delete('/tenants/:tenantId', async(req, res, next) => {
-    const id = req.params.tenantId;
-    try {
-        const deleteTenant = await Tenant.deleteOne({_id: id})
-        const tenants = await Tenant.find()
-        res.status(StatusCodes.OK).json(tenants); //
-    } catch(e) {
-        console.error(e);
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Error deleting tenant"});
+    if (!tenant) {
+      res.status(StatusCodes.BAD_REQUEST).send('No tenant found.');
     }
-})
+
+    res.status(StatusCodes.OK).send();
+  } catch (e) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+  }
+});
 
 module.exports = router;

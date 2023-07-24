@@ -10,7 +10,7 @@
 .payment-history-container {
   max-height: 250px;
   overflow-y: auto;
-  margin-left: 14px;
+  padding: 0;
 }
 
 .payment-history thead {
@@ -21,4 +21,13 @@
 
 .col-sm-custom {
   width: 35%;
+}
+
+.required-payments-container {
+  padding: 0;
+}
+
+.tenant-home-page-right-section {
+  display: grid;
+  gap: 1.5rem !important;
 }

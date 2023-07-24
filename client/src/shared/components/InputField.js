@@ -1,11 +1,13 @@
 import React from 'react';
 import Select from 'react-select';
+import './inputField/InputField.css';
+import { getCapitalized } from '../services/Helpers';
 
 const InputField = ({
   field,
   defaultValue,
   onChange: onChangeHandler,
-  isNumeric = false,
+  type = null,
   isRequired = false,
   isSelect = false,
   isMulti = false,
@@ -15,7 +17,7 @@ const InputField = ({
     <div style={{ padding: '0 25px 0 1px' }}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
         {isRequired && <span style={{ color: '#02687D' }}>*&nbsp;</span>}
-        <label>{field.charAt(0).toUpperCase() + field.slice(1)}:</label>
+        <label>{getCapitalized(field)}:</label>
       </div>
 
       {isSelect ? (
@@ -30,7 +32,7 @@ const InputField = ({
         />
       ) : (
         <input
-          type={isNumeric ? 'number' : 'text'}
+          type={type ?? 'text'}
           id={field}
           key={field}
           name={field}

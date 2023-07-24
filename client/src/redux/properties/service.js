@@ -1,4 +1,4 @@
-import SERVER_BASE_URL from "../config";
+import SERVER_BASE_URL from '../config';
 
 const addProperty = async (property) => {
   const resp = await fetch(`${SERVER_BASE_URL}/properties`, {

@@ -125,7 +125,7 @@ export default function PropertyForm({ handleCloseForm, editProperty }) {
                   <InputField
                     field={field}
                     defaultValue={field !== 'photos' ? property[field] : ''}
-                    isNumeric={field === 'bed' || field === 'bath' || field === 'rent'}
+                    type={field === 'bed' || field === 'bath' || field === 'rent' ? 'number' : 'text'}
                     isRequired={requiredFields.indexOf(field) > -1}
                     onChange={(e) => saveValueToObject(property, field, e.target.value)}
                   />

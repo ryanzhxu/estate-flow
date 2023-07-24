@@ -1,5 +1,5 @@
 import axios from 'axios';
-import SERVER_BASE_URL from "../config";
+import SERVER_BASE_URL from '../config';
 
 const addTenant = async (tenant) => {
   const resp = await fetch(`${SERVER_BASE_URL}/properties/${tenant.propertyId}/tenant`, {
@@ -77,8 +77,7 @@ const getTenantsFromProperty = async (propertyId) => {
   }
 };
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
+const tenantService = {
   addTenant,
   updateTenant,
   deleteTenant,
@@ -86,3 +85,5 @@ export default {
   getSingleTenant,
   getTenantsFromProperty,
 };
+
+export default tenantService;
