@@ -2,9 +2,11 @@ import {useDispatch} from "react-redux";
 import DeleteConfirmationModal from "../../shared/pages/property/DeleteConfirmationModal";
 import {useState} from "react";
 import {deleteTenantAsync} from "../../redux/tenants/tenantsThunks";
+import {useNavigate} from "react-router-dom";
 
 function TenantProfileCard({ tenant }) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const tenantFullName = `${tenant.firstName} ${tenant.middleName ? `${tenant.middleName.charAt(0)}.` : ''} ${tenant.lastName}`;
@@ -26,9 +28,8 @@ function TenantProfileCard({ tenant }) {
 
     const handleDelete = () => {
         dispatch(deleteTenantAsync(tenant._id))
-        // TODO
+        navigate(`/properties/${tenant.propertyId}`)
     }
-
 
   return (
     <div className='card-body text-center'>
