@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
+const Property = require('../models/property');
 
 const tenantSchema = new mongoose.Schema(
   {

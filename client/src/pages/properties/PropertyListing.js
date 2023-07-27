@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPropertiesAsync } from '../../../redux/properties/thunks';
-import PropertyCard from './PropertyCard';
-import './PropertyListing.css';
-import PropertyForm from '../../../components/property/PropertyForm';
+import { getPropertiesAsync } from '../../redux/properties/thunks';
+import PropertyForm from '../../components/property/PropertyForm';
+import '../../shared/styles/listing.css';
+import PropertyCard from '../../components/property/PropertyCard';
 
 const PropertyListing = () => {
-  const properties = useSelector((state) => state.properties.properties);
   const dispatch = useDispatch();
+  const properties = useSelector((state) => state.properties.properties);
   const [showAddForm, setShowAddForm] = useState(false);
 
   const propertiesArray = Object.values(properties);
@@ -25,19 +25,19 @@ const PropertyListing = () => {
   };
 
   return (
-    <div className='property-listing-page'>
-      <div className='property-listing-contents'>
-        <div className='property-listing-left'>
+    <div className='listing-page'>
+      <div className='listing-contents'>
+        <div className='listing-left'>
           <h2>Search</h2>
         </div>
-        <div className='property-listing-right'>
-          <div className='property-listing-header'>
+        <div className='listing-right'>
+          <div className='listing-header'>
             <h2>Properties</h2>
             <div className='btn btn-outline-primary' onClick={handleOpenAddForm}>
               Add property
             </div>
           </div>
-          <div className='property-listing-cards'>
+          <div className='listing-cards'>
             {propertiesArray.map((property) => (
               <PropertyCard key={property._id} property={property} />
             ))}

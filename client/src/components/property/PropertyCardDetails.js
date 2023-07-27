@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
-import {deletePropertyAsync, getPropertiesAsync} from '../../../redux/properties/thunks';
-import PropertyForm from '../../../components/property/PropertyForm';
-import DeleteConfirmationModal from "./DeleteConfirmationModal";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import DeleteConfirmationModal from './DeleteConfirmationModal';
+import { deletePropertyAsync, getPropertiesAsync } from '../../redux/properties/thunks';
+import PropertyForm from './PropertyForm';
+import '../../shared/styles/listing.css';
 
 const PropertyCardDetails = ({ property }) => {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ const PropertyCardDetails = ({ property }) => {
   const handleDeleteProperty = () => {
     dispatch(deletePropertyAsync(property._id)).then(() => {
       dispatch(getPropertiesAsync());
-      setIsOpen(false)
+      setIsOpen(false);
     });
   };
 
@@ -30,32 +31,21 @@ const PropertyCardDetails = ({ property }) => {
   };
 
   const modalContent = (
-      <div>
-        <p>Before you delete this property, a friendly reminder that:</p>
-        <ul>
-          <li>
-            Property address: {property.address.streetAddress} {property.address.city},{' '}
-            {property.address.province} {property.address.postalCode}
-          </li>
-          {property.tenants.length === 0 ? (
-              <li>There is currently no tenants living in this property</li>
-          ) : (
-              <li>
-                There {property.tenants.length === 1 ? 'is' : 'are'} currently {property.tenants.length} tenant
-                {property.tenants.length > 1 && 's'} attached to this property.
-              </li>
-          )}
-        </ul>
-      </div>
+    <div>
+      <p>
+        Before you delete this property, a friendly reminder that all tenants associated with this property will also be
+        removed.
+      </p>
+    </div>
   );
 
   return (
-    <div className='property-card-content'>
+    <div className='listing-card-content'>
       <span>{property.type}</span>
       <h4 style={{ whiteSpace: 'nowrap' }}>{property.address.streetAddress}</h4>
       <p>{`${property.address.city}, ${property.address.province} ${property.address.postalCode}`}</p>
-      <div className='property-card-footer'>
-        <div className='property-card-footer-buttons'>
+      <div className='listing-card-footer'>
+        <div className='listing-card-footer-buttons'>
           <button
             className='btn btn-outline-primary'
             onClick={() => {
@@ -74,11 +64,11 @@ const PropertyCardDetails = ({ property }) => {
       </div>
       {showEditForm && <PropertyForm editProperty={editProperty} handleCloseForm={handleCloseEditForm} />}
       <DeleteConfirmationModal
-          isOpen={isOpen}
-          onCancel={() => setIsOpen(false)}
-          onDelete={handleDeleteProperty}
-          modalContent={modalContent}
-          modalTitle="You're about to delete this property"
+        isOpen={isOpen}
+        onCancel={() => setIsOpen(false)}
+        onDelete={handleDeleteProperty}
+        modalContent={modalContent}
+        modalTitle="You're about to delete this property"
       />
     </div>
   );

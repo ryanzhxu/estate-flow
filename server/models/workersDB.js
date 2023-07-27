@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// create schema
 const workerSchema = new mongoose.Schema({
   id: String,
   name: String,
@@ -13,7 +12,6 @@ const workerSchema = new mongoose.Schema({
   imageUrlInput: String,
 });
 
-// create model
 const Worker = mongoose.model('Worker', workerSchema);
 
 module.exports = Worker;

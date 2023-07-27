@@ -11,7 +11,6 @@ const workerDetailReducer = createSlice({
   name: 'workerDetail',
   initialState,
   reducers: {
-    // 同步
     openDetail: (state, action) => {
       state.isDetailOpen = true;
     },
@@ -32,9 +31,7 @@ const workerDetailReducer = createSlice({
     },
   },
   extraReducers: (builder) => {
-    //异步
     builder
-      //getDetailAsync
       .addCase(getDetailAsync.pending, (state) => {
         state.error = null;
       })
@@ -45,7 +42,6 @@ const workerDetailReducer = createSlice({
         state.error = 'fail to getWorker';
       })
 
-      //updateAsync
       .addCase(updateAsync.pending, (state) => {
         state.error = null;
       })
@@ -62,8 +58,8 @@ export default workerDetailReducer.reducer;
 
 export const { openDetail, closeDetail, openUpdate, closeUpdate, openAddForm, closeAddForm } =
   workerDetailReducer.actions;
+
 export const isDetailOpen = (state) => state.workerDetails.isDetailOpen;
 export const isUpdateOpen = (state) => state.workerDetails.isUpdateOpen;
 export const expSelectedWorker = (state) => state.workerDetails.selected;
-
 export const isADDOpen = (state) => state.workerDetails.isAddOpen;

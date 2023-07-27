@@ -3,9 +3,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import HomeDashboardPage from './components/home/HomeDashboardPage';
-import WorkerLists from './components/worker/WorkerLists';
-import PropertyListing from './shared/pages/property/PropertyListing';
-import TenantsListing from './components/tenant/TenantsListing';
+import WorkerLists from './pages/workers/WorkerLists';
+import PropertyListing from './pages/properties/PropertyListing';
+import TenantsListing from './pages/tenants/TenantsListing';
 import Tenant from './components/tenant/Tenant';
 import PropertyHome from './components/propertyhome/PropertyHome';
 import { GoogleLogin } from '@react-oauth/google';
@@ -53,7 +53,7 @@ function App() {
     <main className='App'>
       {/* {!isLoggedIn ? (
         <div className='login'>
-          <img src={logo} alt='logo' />
+          <img className='login-img' src={logo} alt='logo' />
           <div className='login-btns'>
             <GoogleLogin onSuccess={responseMessage} onError={errorMessage} theme='outline' />
             <MicrosoftLogin

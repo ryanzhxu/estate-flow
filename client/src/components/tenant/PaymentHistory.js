@@ -24,9 +24,11 @@ function PaymentHistory({ tenant }) {
       ...tenant,
       paymentHistory: [...tenant.paymentHistory, { ...paymentHistory }],
     };
+
     dispatch(updateTenantAsync(tenantToBeUpdated)).then(() => {
       dispatch(getSingleTenantAsync(tenantToBeUpdated._id));
     });
+
     setIsOpen(false);
   };
 
