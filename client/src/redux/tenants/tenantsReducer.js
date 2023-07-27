@@ -1,11 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {deleteTenantAsync, getSingleTenantAsync, getTenantsAsync, getTenantsFromPropertyAsync} from './tenantsThunks';
+import {
+  deleteTenantAsync,
+  getDueDaysForMonth,
+  getSingleTenantAsync,
+  getTenantsAsync,
+  getTenantsFromPropertyAsync,
+  getTenantsWithDuesByDate,
+} from './tenantsThunks';
 
 const INITIAL_STATE = {
-    tenants: [],
-    isTenantDetailOpen: false,
-    isTenantAddOpen: false,
-    tenantSelected: null
+  tenants: [],
+  isTenantDetailOpen: false,
+  isTenantAddOpen: false,
+  tenantSelected: null,
+  tenantsWithDues: [],
+  dueDaysForSelectedMonth: [],
 };
 
 const tenantsSlice = createSlice({
@@ -23,31 +32,37 @@ const tenantsSlice = createSlice({
     },
     closeTenantADD: (state, action) => {
       state.isTenantAddOpen = false;
-    }
+    },
   },
-    extraReducers: (builder) => {
-        builder
-            .addCase(getTenantsAsync.fulfilled, (state, action) => {
-                state.tenants = action.payload
-            })
-            .addCase(getSingleTenantAsync.fulfilled, (state, action) => {
-                state.tenantSelected = action.payload
-            })
-            .addCase(getTenantsFromPropertyAsync.fulfilled, (state, action) => {
-                state.tenants = action.payload;
-            })
+  extraReducers: (builder) => {
+    builder
+      .addCase(getTenantsAsync.fulfilled, (state, action) => {
+        state.tenants = action.payload;
+      })
+      .addCase(getSingleTenantAsync.fulfilled, (state, action) => {
+        state.tenantSelected = action.payload;
+      })
+      .addCase(getTenantsFromPropertyAsync.fulfilled, (state, action) => {
+        state.tenants = action.payload;
+      })
+      .addCase(getTenantsWithDuesByDate.fulfilled, (state, action) => {
+        state.tenantsWithDues = action.payload;
+      })
+      .addCase(getDueDaysForMonth.fulfilled, (state, action) => {
+        state.dueDaysForSelectedMonth = action.payload;
+      })
 
-        //deleteAsync
-           .addCase(deleteTenantAsync.pending, (state) => {
-            state.error = null;
-        })
-            .addCase(deleteTenantAsync.fulfilled, (state, action) => {
-                state.tenants = action.payload;
-            })
-            .addCase(deleteTenantAsync.rejected, (state, action) => {
-                state.error = "fail to delete tenant";
-            });
-    }
+      //deleteAsync
+      .addCase(deleteTenantAsync.pending, (state) => {
+        state.error = null;
+      })
+      .addCase(deleteTenantAsync.fulfilled, (state, action) => {
+        state.tenants = action.payload;
+      })
+      .addCase(deleteTenantAsync.rejected, (state, action) => {
+        state.error = 'fail to delete tenant';
+      });
+  },
 });
 
 export default tenantsSlice.reducer;

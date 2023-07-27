@@ -77,6 +77,23 @@ const getTenantsFromProperty = async (propertyId) => {
   }
 };
 
+const getTenantsWithDuesByDate = async (date) => {
+  const resp = await fetch(`${SERVER_BASE_URL}/tenants/dues/${date}`, {
+    method: 'GET',
+  });
+
+  return resp.json();
+};
+
+const getDueDaysForMonth = async (yearMonth) => {
+  const [year, month] = yearMonth.split('-');
+  const resp = await fetch(`${SERVER_BASE_URL}/tenants/dues/${year}/${month}`, {
+    method: 'GET',
+  });
+
+  return resp.json();
+};
+
 const tenantService = {
   addTenant,
   updateTenant,
@@ -84,6 +101,8 @@ const tenantService = {
   getTenants,
   getSingleTenant,
   getTenantsFromProperty,
+  getTenantsWithDuesByDate,
+  getDueDaysForMonth,
 };
 
 export default tenantService;

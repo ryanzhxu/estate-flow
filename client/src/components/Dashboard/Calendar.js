@@ -7,49 +7,19 @@ import {
   format,
   getDay,
   isEqual,
-  isSameDay,
   isSameMonth,
   isToday,
   parse,
-  parseISO,
   startOfToday,
 } from 'date-fns';
-import React from 'react';
-import { useState } from 'react';
-import Reminder from './Reminder';
+import React, { useEffect, useState } from 'react';
+import DueReminder from './DueReminder';
 
-const dues = [
-  {
-    id: 1,
-    name: 'Leslie Alexander',
-    imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-Pnt1rnG5_oeghvwAVvVBhcLrR5yZRqLRFw&usqp=CAU',
-    startDatetime: '2023-07-11T13:00',
-  },
-  {
-    id: 2,
-    name: 'Michael Foster',
-    imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-Pnt1rnG5_oeghvwAVvVBhcLrR5yZRqLRFw&usqp=CAU',
-    startDatetime: '2023-07-20T09:00',
-  },
-  {
-    id: 3,
-    name: 'Dries Vincent',
-    imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-Pnt1rnG5_oeghvwAVvVBhcLrR5yZRqLRFw&usqp=CAU',
-    startDatetime: '2023-07-20T17:00',
-  },
-  {
-    id: 4,
-    name: 'Leslie Alexander',
-    imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-Pnt1rnG5_oeghvwAVvVBhcLrR5yZRqLRFw&usqp=CAU',
-    startDatetime: '2023-07-09T13:00',
-  },
-  {
-    id: 5,
-    name: 'Michael Foster',
-    imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-Pnt1rnG5_oeghvwAVvVBhcLrR5yZRqLRFw&usqp=CAU',
-    startDatetime: '2023-07-13T14:00',
-  },
-];
+import './Calendar.css';
+import { Weekdays } from '../../shared/constants/Weekdays';
+import { useDispatch, useSelector } from 'react-redux';
+import { getDueDaysForMonth, getTenantsWithDuesByDate } from '../../redux/tenants/tenantsThunks';
+import { dayHasDue, getConvertedDate } from '../../shared/services/Helpers';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -58,10 +28,10 @@ function classNames(...classes) {
 let colStartClasses = ['', 'col-start-2', 'col-start-3', 'col-start-4', 'col-start-5', 'col-start-6', 'col-start-7'];
 
 export default function Calendar() {
-  let today = startOfToday();
-  let [selectedDay, setSelectedDay] = useState(today);
-  let [currentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'));
-  let firstDayCurrentMonth = parse(currentMonth, 'MMM-yyyy', new Date());
+  const today = startOfToday();
+  const [selectedDay, setSelectedDay] = useState(today);
+  const [currentMonth, setCurrentMonth] = useState(format(today, 'yyyy-MM'));
+  const firstDayCurrentMonth = parse(currentMonth, 'yyyy-MM', new Date());
 
   let days = eachDayOfInterval({
     start: firstDayCurrentMonth,
@@ -70,102 +40,99 @@ export default function Calendar() {
 
   function previousMonth() {
     let firstDayNextMonth = add(firstDayCurrentMonth, { months: -1 });
-    setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'));
+    setCurrentMonth(format(firstDayNextMonth, 'yyyy-MM'));
   }
 
   function nextMonth() {
     let firstDayNextMonth = add(firstDayCurrentMonth, { months: 1 });
-    setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'));
+    setCurrentMonth(format(firstDayNextMonth, 'yyyy-MM'));
   }
 
-  let selectedDayDues = dues.filter((due) => isSameDay(parseISO(due.startDatetime), selectedDay));
+  const dispatch = useDispatch();
+  const dueDaysForSelectedMonth = useSelector((state) => state.tenants.dueDaysForSelectedMonth);
+  const tenantsWithDues = useSelector((state) => state.tenants.tenantsWithDues);
+  const [formattedDueDays, setFormattedDueDays] = useState([]);
+
+  useEffect(() => {
+    dispatch(getDueDaysForMonth(currentMonth)).then(() => {});
+  }, [currentMonth, dispatch]);
+
+  useEffect(() => {
+    dispatch(getTenantsWithDuesByDate(getConvertedDate(selectedDay)));
+  }, [selectedDay, dispatch]);
+
+  useEffect(() => {
+    setFormattedDueDays(dueDaysForSelectedMonth.map((date) => date.substring(8, 10)));
+  }, [dueDaysForSelectedMonth]);
 
   return (
-    <div className='pt-16'>
-      <div className='max-w-md px-4 mx-auto sm:px-7 md:max-w-4xl md:px-6'>
-        <div className='md:grid md:grid-cols-2 md:divide-x '>
-          <div className='md:pr-14'>
-            <div className='flex items-center'>
-              <h2 className='flex-auto font-semibold'>{format(firstDayCurrentMonth, 'MMMM yyyy')}</h2>
-              <button
-                type='button'
-                onClick={previousMonth}
-                className='-my-1.5 flex flex-none items-center justify-center p-1.5 text-white hover:text-gray-500'>
-                <span className='sr-only'>Previous month</span>
-                <ChevronLeftIcon className='w-5 h-5' aria-hidden='true' />
-              </button>
-              <button
-                onClick={nextMonth}
-                type='button'
-                className='-my-1.5 -mr-1.5 ml-2 flex flex-none items-center justify-center p-1.5 text-white hover:text-gray-500'>
-                <span className='sr-only'>Next month</span>
-                <ChevronRightIcon className='w-5 h-5' aria-hidden='true' />
-              </button>
-            </div>
-            <div className='grid grid-cols-7 mt-10 text-xs leading-6 text-center text-white'>
-              <div>S</div>
-              <div>M</div>
-              <div>T</div>
-              <div>W</div>
-              <div>T</div>
-              <div>F</div>
-              <div>S</div>
-            </div>
-            <div className='grid grid-cols-7 mt-2 text-sm'>
-              {days.map((day, dayIdx) => (
-                <div
-                  key={day.toString()}
-                  className={classNames(dayIdx === 0 && colStartClasses[getDay(day)], 'py-1.5')}>
-                  <button
-                    type='button'
-                    onClick={() => setSelectedDay(day)}
-                    className={classNames(
-                      isEqual(day, selectedDay) && 'text-white',
-                      !isEqual(day, selectedDay) && isToday(day) && 'text-red-500',
-                      !isEqual(day, selectedDay) &&
-                        !isToday(day) &&
-                        isSameMonth(day, firstDayCurrentMonth) &&
-                        'text-white',
-                      !isEqual(day, selectedDay) &&
-                        !isToday(day) &&
-                        !isSameMonth(day, firstDayCurrentMonth) &&
-                        'text-gray-400',
-                      isEqual(day, selectedDay) && isToday(day) && 'bg-red-500',
-                      isEqual(day, selectedDay) && !isToday(day) && 'bg-gray-900',
-                      !isEqual(day, selectedDay) && 'hover:bg-gray-900',
-                      (isEqual(day, selectedDay) || isToday(day)) && 'font-semibold',
-                      'mx-auto flex h-8 w-8 items-center justify-center rounded-full'
-                    )}>
-                    <time dateTime={format(day, 'yyyy-MM-dd')}>{format(day, 'd')}</time>
-                  </button>
-
-                  <div className='w-1 h-1 mx-auto mt-1'>
-                    {dues.some((due) => isSameDay(parseISO(due.startDatetime), day)) && (
-                      <div className='w-1 h-1 rounded-full bg-sky-500'></div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
+    <div className='calendar-reminder'>
+      <div className='calendar'>
+        <div className='calendar-header'>
+          <h2>{format(firstDayCurrentMonth, 'MMMM yyyy')}</h2>
+          <div className='button-container'>
+            <button
+              type='button'
+              onClick={previousMonth}
+              className='-my-1.5 flex flex-none items-center justify-center p-1.5 text-white hover:text-gray-500'>
+              <span className='sr-only'>Previous month</span>
+              <ChevronLeftIcon className='w-5 h-5' aria-hidden='true' />
+            </button>
+            <button
+              onClick={nextMonth}
+              type='button'
+              className='-my-1.5 -mr-1.5 ml-2 flex flex-none items-center justify-center p-1.5 text-white hover:text-gray-500'>
+              <span className='sr-only'>Next month</span>
+              <ChevronRightIcon className='w-5 h-5' aria-hidden='true' />
+            </button>
           </div>
-          <section className='mt-12 md:mt-0 md:pl-14'>
-            <h2 className='font-semibold'>Reminder</h2>
-            <ol className='mt-4 space-y-1 text-sm leading-6'>
-              {selectedDayDues.length > 0 ? (
-                selectedDayDues.map((due) => (
-                  <Reminder
-                    due={due}
-                    key={due.id}
-                    date={
-                      <time dateTime={format(selectedDay, 'yyyy-MM-dd')}>{format(selectedDay, 'MMM dd, yyy')}</time>
-                    }
-                  />
-                ))
-              ) : (
-                <p>No Due for today</p>
-              )}
-            </ol>
-          </section>
+        </div>
+
+        <div className='calendar-container'>
+          {Object.values(Weekdays).map((day) => (
+            <h5 key={day}>{day}</h5>
+          ))}
+
+          {days.map((day, dayIdx) => (
+            <div key={day.toString()} className={classNames(dayIdx === 0 && colStartClasses[getDay(day)], 'py-1.5')}>
+              <button
+                type='button'
+                onClick={() => setSelectedDay(day)}
+                className={classNames(
+                  isEqual(day, selectedDay) && 'text-white',
+                  !isEqual(day, selectedDay) && isToday(day) && 'text-red-500',
+                  !isEqual(day, selectedDay) && !isToday(day) && isSameMonth(day, firstDayCurrentMonth) && 'text-white',
+                  !isEqual(day, selectedDay) &&
+                    !isToday(day) &&
+                    !isSameMonth(day, firstDayCurrentMonth) &&
+                    'text-gray-400',
+                  isEqual(day, selectedDay) && isToday(day) && 'bg-red-500',
+                  isEqual(day, selectedDay) && !isToday(day) && 'bg-gray-900',
+                  !isEqual(day, selectedDay) && 'hover:bg-gray-900',
+                  (isEqual(day, selectedDay) || isToday(day)) && 'font-semibold',
+                  'mx-auto flex h-8 w-8 items-center justify-center rounded-full day-button'
+                )}>
+                <time dateTime={format(day, 'yyyy-MM-dd')}>{format(day, 'd')}</time>
+              </button>
+
+              <div className='day-marker-container'>
+                {dayHasDue(formattedDueDays, day) && <div className='day-marker w-1 h-1 rounded-full bg-sky-500' />}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className='reminder'>
+        <h2>Reminder</h2>
+        <div className='dues text-sm leading-6'>
+          {tenantsWithDues.length > 0 ? (
+            tenantsWithDues.map((tenantWithDue) => (
+              <DueReminder tenantWithDue={tenantWithDue} key={`tenant-${tenantWithDue._id}`} />
+            ))
+          ) : (
+            <p>No due for today</p>
+          )}
         </div>
       </div>
     </div>

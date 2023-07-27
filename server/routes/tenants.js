@@ -30,6 +30,87 @@ router.get('/tenants/:tenantId', async (req, res, next) => {
   }
 });
 
+router.get('/tenants/dues/:year/:month', async (req, res) => {
+  const year = parseInt(req.params.year);
+  const month = parseInt(req.params.month) - 1;
+  const startDate = new Date(year, month, 0);
+  const endDate = new Date(year, month + 1, 0);
+
+  try {
+    const duesDates = await Tenant.aggregate([
+      {
+        $match: {
+          'lease.fees.dueDate': { $gte: startDate, $lte: endDate },
+        },
+      },
+      {
+        $unwind: '$lease.fees',
+      },
+      {
+        $match: {
+          'lease.fees.dueDate': { $gte: startDate, $lte: endDate },
+        },
+      },
+      {
+        $group: {
+          _id: '$lease.fees.dueDate',
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          dueDate: '$_id',
+        },
+      },
+    ]);
+
+    const duesDatesArray = duesDates.map((item) => item.dueDate);
+    res.status(StatusCodes.OK).send(duesDatesArray);
+  } catch (error) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Unable to fetch dues dates.' });
+  }
+});
+
+router.get('/tenants/dues/:date', async (req, res) => {
+  const date = new Date(req.params.date);
+
+  try {
+    const tenantsWithDues = await Tenant.aggregate([
+      {
+        $match: {
+          'lease.fees.dueDate': date,
+        },
+      },
+      {
+        $lookup: {
+          from: 'properties',
+          localField: 'propertyId',
+          foreignField: '_id',
+          as: 'property',
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          fullName: { $concat: ['$firstName', ' ', '$lastName'] },
+          address: { $arrayElemAt: ['$property.address', 0] },
+          fees: {
+            $filter: {
+              input: '$lease.fees',
+              as: 'fee',
+              cond: { $eq: ['$$fee.dueDate', date] },
+            },
+          },
+        },
+      },
+    ]);
+
+    res.status(StatusCodes.OK).send(tenantsWithDues);
+  } catch (error) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Unable to fetch tenants with dues.' });
+  }
+});
+
 router.post('/tenants', async (req, res) => {
   const propertyId = req.body.propertyId;
 

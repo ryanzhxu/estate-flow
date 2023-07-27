@@ -15,7 +15,6 @@ export const updateTenantAsync = createAsyncThunk(actionTypes.UPDATE_TENANT, asy
 });
 
 export const deleteTenantAsync = createAsyncThunk(actionTypes.DEL_TENANT, async (id) => {
-  console.log('Executing in tenantsThunk');
   return await TenantService.deleteTenant(id);
 });
 
@@ -25,4 +24,12 @@ export const getSingleTenantAsync = createAsyncThunk(actionTypes.GET_SINGLE_TENA
 
 export const getTenantsFromPropertyAsync = createAsyncThunk(actionTypes.GET_PROPERTIES_TENANTS, async (propertyId) => {
   return await TenantService.getTenantsFromProperty(propertyId);
+});
+
+export const getTenantsWithDuesByDate = createAsyncThunk(actionTypes.GET_TENANTS_WITH_DUES_BY_DATE, async (date) => {
+  return await TenantService.getTenantsWithDuesByDate(date);
+});
+
+export const getDueDaysForMonth = createAsyncThunk(actionTypes.GET_DUE_DAYS_FOR_MONTH, async (yearMonth) => {
+  return await TenantService.getDueDaysForMonth(yearMonth);
 });

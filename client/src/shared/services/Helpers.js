@@ -68,3 +68,23 @@ export const getSelectedIndex = (selections, value) => {
 export const getCapitalized = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
+
+export const getConvertedDate = (dateString) => {
+  const dateObject = new Date(dateString);
+
+  const year = dateObject.getFullYear();
+  const month = dateObject.getMonth() + 1;
+  const day = dateObject.getDate();
+
+  const formattedMonth = month.toString().padStart(2, '0');
+  const formattedDay = day.toString().padStart(2, '0');
+
+  const formattedDate = `${year}-${formattedMonth}-${formattedDay}`;
+
+  return formattedDate;
+};
+
+export const dayHasDue = (formattedDueDays, unformattedDay) => {
+  const day = getConvertedDate(unformattedDay).slice(-2);
+  return formattedDueDays.includes(day);
+};
