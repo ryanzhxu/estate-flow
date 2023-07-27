@@ -1,17 +1,20 @@
 // eslint-disable-next-line
-import { useState } from 'react';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import '../property/property.css';
 //import "./property.css";
+import Button from '@atlaskit/button';
+// import Button from 'react-bootstrap/Button';
+import {useDispatch} from 'react-redux';
+import {
+  addTenantAsync,
+  getSingleTenantAsync,
+  getTenantsFromPropertyAsync,
+  updateTenantAsync
+} from '../../redux/tenants/tenantsThunks';
+import {closeTenantADD} from '../../redux/tenants/tenantsReducer';
 
-// import Button from '@atlaskit/button';
-import Button from 'react-bootstrap/Button';
-import { useDispatch } from 'react-redux';
-import { addTenantAsync, getTenantsAsync } from '../../redux/tenants/tenantsThunks';
-import { closeTenantADD } from '../../redux/tenants/tenantsReducer';
-
-export default function AddPropertyForm(propertyId) {
+export default function AddTenantForm({propertyId, editingTenant}) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -20,6 +23,17 @@ export default function AddPropertyForm(propertyId) {
   // const [paymentHistory, setPaymentHistory] = useState('')
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (editingTenant) {
+      setFirstName(editingTenant.firstName);
+      setLastName(editingTenant.lastName);
+      setEmail(editingTenant.email);
+      setPhoneNumber(editingTenant.phoneNumber);
+      // setLease("");
+    }
+  }, [editingTenant]);
+
 
   const onClearClickedProp = () => {
     setFirstName('');
@@ -32,23 +46,40 @@ export default function AddPropertyForm(propertyId) {
   const handleCloseForm = () => {
     dispatch(closeTenantADD());
   };
-  const handleAddTenant = () => {
-    const tenant = {
-      firstName: firstName,
-      lastName: lastName,
-      email: email ?? 'guest@estateflow.ca',
-      phoneNumber: phoneNumber ?? '604-123-4567',
-      lease: lease,
-      paymentHistory: [],
-      propertyId: propertyId,
-    };
 
-    dispatch(addTenantAsync(tenant)).then(() => {
-      onClearClickedProp();
-      handleCloseForm();
-      dispatch(getTenantsAsync());
-    });
-  };
+  const handleSubmit = () => {
+    if (editingTenant) {
+      const updatedTenant = {
+        ...editingTenant,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        phoneNumber: phoneNumber
+      }
+      dispatch(updateTenantAsync(updatedTenant)).then(() => {
+        onClearClickedProp();
+        handleCloseForm();
+        dispatch(getSingleTenantAsync(editingTenant._id));
+      });
+    } else {
+      const tenant = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email ?? 'guest@estateflow.ca',
+        phoneNumber: phoneNumber ?? '604-123-4567',
+        lease: lease,
+        paymentHistory: [],
+        propertyId: propertyId,
+      };
+      console.log("adding tenant")
+      console.log(tenant)
+      dispatch(addTenantAsync(tenant)).then(() => {
+        onClearClickedProp();
+        handleCloseForm();
+        dispatch(getTenantsFromPropertyAsync(propertyId));
+      });
+    }
+  }
 
   return (
     <div className='form'>
@@ -94,8 +125,8 @@ export default function AddPropertyForm(propertyId) {
         <input type='file' id='lease' name='lease' value={lease} required onChange={(e) => setLease(e.target.value)} />
 
         <section className='buttons'>
-          <Button appearance='subtle' onClick={handleAddTenant}>
-            Add tenant
+          <Button appearance='subtle' onClick={handleSubmit}>
+            Submit
           </Button>
           <Button appearance='subtle' onClick={onClearClickedProp}>
             Clear fields
