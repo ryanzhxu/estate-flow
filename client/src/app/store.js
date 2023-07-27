@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from '../reducers/userSlice';
 import propertiesReducer from '../redux/properties/reducer';
-import workersReducer from '../redux/workersRedux/workersReduecer';
-import workerDetailsReducer from '../redux/workersRedux/workerDetailsReducer';
+import workersReducer from '../redux/workers/reducer';
+import workerDetailsReducer from '../redux/workers/workerDetailsReducer';
 import tenantsReducer from '../redux/tenants/tenantsReducer';
 export default configureStore({
   reducer: {

@@ -3,8 +3,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import HomeDashboardPage from './components/home/HomeDashboardPage';
-import WorkerLists from './pages/workers/WorkerLists';
-import PropertyListing from './pages/properties/PropertyListing';
+import WorkersListing from './pages/workers/WorkersListing';
+import PropertiesListing from './pages/properties/PropertiesListing';
 import TenantsListing from './pages/tenants/TenantsListing';
 import Tenant from './components/tenant/Tenant';
 import PropertyHome from './components/propertyhome/PropertyHome';
@@ -65,14 +65,14 @@ function App() {
           </div>
         </div>
       ) : ( */}
-        <Routes>
-          <Route path='/' element={<HomeDashboardPage handleLogout={handleLogout} />} />
-          <Route path='/properties' element={<PropertyListing />} />
-          <Route path='/properties/:_id' element={<PropertyHome />} />
-          <Route path='/tenants' element={<TenantsListing />} />
-          <Route path='/tenants/:id' element={<Tenant />} />
-          <Route path='/workers' element={<WorkerLists />} />
-        </Routes>
+      <Routes>
+        <Route path='/' element={<HomeDashboardPage handleLogout={handleLogout} />} />
+        <Route path='/properties' element={<PropertiesListing />} />
+        <Route path='/properties/:_id' element={<PropertyHome />} />
+        <Route path='/tenants' element={<TenantsListing />} />
+        <Route path='/tenants/:id' element={<Tenant />} />
+        <Route path='/workers' element={<WorkersListing />} />
+      </Routes>
       {/* )} */}
     </main>
   );

@@ -56,6 +56,7 @@ const deleteProperty = async (_id) => {
   });
 
   const data = await resp.json();
+
   if (!resp.ok) {
     const errorMsg = data?.message;
     throw new Error(errorMsg);
@@ -65,11 +66,11 @@ const deleteProperty = async (_id) => {
 };
 
 const propertyService = {
+  getProperties,
+  getProperty,
   addProperty,
   updateProperty,
   deleteProperty,
-  getProperties,
-  getProperty,
 };
 
 export default propertyService;

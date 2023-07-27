@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getDetailAsync, updateAsync } from './workersThunks';
+import { getWorkerAsync, updateWorkerAsync } from './thunks';
 
 const initialState = {
   isDetailOpen: false,
@@ -32,23 +32,23 @@ const workerDetailReducer = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getDetailAsync.pending, (state) => {
+      .addCase(getWorkerAsync.pending, (state) => {
         state.error = null;
       })
-      .addCase(getDetailAsync.fulfilled, (state, action) => {
+      .addCase(getWorkerAsync.fulfilled, (state, action) => {
         state.selected = action.payload;
       })
-      .addCase(getDetailAsync.rejected, (state, action) => {
+      .addCase(getWorkerAsync.rejected, (state, action) => {
         state.error = 'fail to getWorker';
       })
 
-      .addCase(updateAsync.pending, (state) => {
+      .addCase(updateWorkerAsync.pending, (state) => {
         state.error = null;
       })
-      .addCase(updateAsync.fulfilled, (state, action) => {
+      .addCase(updateWorkerAsync.fulfilled, (state, action) => {
         state.selected = action.payload;
       })
-      .addCase(updateAsync.rejected, (state, action) => {
+      .addCase(updateWorkerAsync.rejected, (state, action) => {
         state.error = 'fail to getCars';
       });
   },

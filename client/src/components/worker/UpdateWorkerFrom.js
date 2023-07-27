@@ -1,12 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  closeAddForm,
-  closeUpdate,
-  expSelectedWorker,
-  openDetail,
-} from '../../redux/workersRedux/workerDetailsReducer';
-import { updateAsync } from '../../redux/workersRedux/workersThunks';
+import { closeAddForm, closeUpdate, expSelectedWorker, openDetail } from '../../redux/workers/workerDetailsReducer';
+import { updateWorkerAsync } from '../../redux/workers/thunks';
 import WorkerTypes from './workerTypes';
 import ImageUploader from '../ImageUploader';
 
@@ -33,9 +28,11 @@ export default function UpdateWorkerFrom() {
   const onPCodeChanged = (e) => setPCode(e.target.value);
 
   const onUpdateWorkerClicked = () => {
-    let imageUrlInput = imageURL? imageURL: 'https://pic4.zhimg.com/80/v2-32636e587d66426cc682e74eaafd2163_1440w.webp';
+    let imageUrlInput = imageURL
+      ? imageURL
+      : 'https://pic4.zhimg.com/80/v2-32636e587d66426cc682e74eaafd2163_1440w.webp';
     if (name && email && phone && address && hRate && trades && pCode && imageUrlInput) {
-      dispatch(updateAsync({ _id, name, email, phone, address, hRate, trades, pCode, imageUrlInput }));
+      dispatch(updateWorkerAsync({ _id, name, email, phone, address, hRate, trades, pCode, imageUrlInput }));
       dispatch(closeUpdate());
       dispatch(openDetail());
     } else {

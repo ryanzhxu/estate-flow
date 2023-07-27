@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import WorkerTypes from './workerTypes';
 import React from 'react';
-import { addWorkerAsync } from '../../redux/workersRedux/workersThunks';
-import { closeAddForm } from '../../redux/workersRedux/workerDetailsReducer';
+import { addWorkerAsync } from '../../redux/workers/thunks';
+import { closeAddForm } from '../../redux/workers/workerDetailsReducer';
 
 export default function AddWorkerForm() {
   const dispatch = useDispatch();
@@ -27,7 +27,9 @@ export default function AddWorkerForm() {
   const onImageURLChanged = (e) => setImageURL(e.target.value);
 
   const onSaveWorkerClicked = () => {
-    let imageUrlInput = imageURL? imageURL: 'https://pic4.zhimg.com/80/v2-32636e587d66426cc682e74eaafd2163_1440w.webp';
+    let imageUrlInput = imageURL
+      ? imageURL
+      : 'https://pic4.zhimg.com/80/v2-32636e587d66426cc682e74eaafd2163_1440w.webp';
     if (name && email && phone && address && hRate && trades && pCode) {
       dispatch(addWorkerAsync({ name, email, phone, address, hRate, trades, pCode, imageUrlInput }));
       dispatch(closeAddForm());

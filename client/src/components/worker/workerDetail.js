@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { closeDetail, expSelectedWorker, openUpdate } from '../../redux/workersRedux/workerDetailsReducer';
+import { closeDetail, expSelectedWorker, openUpdate } from '../../redux/workers/workerDetailsReducer';
 import React from 'react';
 import './worker.css';
-import { deleteWorkerAsync } from '../../redux/workersRedux/workersThunks';
+import { deleteWorkerAsync } from '../../redux/workers/thunks';
 
 const WorkerDetail = () => {
   const select = useSelector(expSelectedWorker);

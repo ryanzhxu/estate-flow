@@ -5,12 +5,11 @@ import PropertyForm from '../../components/property/PropertyForm';
 import '../../shared/styles/listing.css';
 import PropertyCard from '../../components/property/PropertyCard';
 
-const PropertyListing = () => {
+const PropertiesListing = () => {
   const dispatch = useDispatch();
   const properties = useSelector((state) => state.properties.properties);
-  const [showAddForm, setShowAddForm] = useState(false);
-
   const propertiesArray = Object.values(properties);
+  const [showAddForm, setShowAddForm] = useState(false);
 
   useEffect(() => {
     dispatch(getPropertiesAsync());
@@ -49,4 +48,4 @@ const PropertyListing = () => {
   );
 };
 
-export default PropertyListing;
+export default PropertiesListing;

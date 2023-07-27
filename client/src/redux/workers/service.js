@@ -16,49 +16,52 @@ const getWorker = async (_id) => {
   return response.json();
 };
 
-const addWorker = async ({ name, email, phone, address, hRate, trades, pCode, imageUrlInput }) => {
+const addWorker = async (worker) => {
   const response = await fetch(`${SERVER_BASE_URL}/workers`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ name, email, phone, address, hRate, trades, pCode, imageUrlInput }),
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(worker),
   });
+
   const data = await response.json();
+
   if (!response.ok) {
     const errorMsg = data?.message;
     throw new Error(errorMsg);
   }
+
   return data;
 };
 
-const deleteWorker = async ({ _id }) => {
+const updateWorker = async (worker) => {
   const response = await fetch(`${SERVER_BASE_URL}/workers`, {
-    method: 'DELETE',
-    body: JSON.stringify({ _id: _id }),
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(worker),
   });
 
   const data = await response.json();
+
+  if (!response.ok) {
+    const errorMsg = data?.message;
+    throw new Error(errorMsg);
+  }
+
+  return data;
+};
+
+const deleteWorker = async (_id) => {
+  const response = await fetch(`${SERVER_BASE_URL}/workers/${_id}`, {
+    method: 'DELETE',
+  });
+
+  const data = await response.json();
+
   if (!response.ok) {
     const error = data?.message;
     throw new Error(error);
   }
-  return data;
-};
 
-const updateWorker = async ({ _id, name, email, phone, address, hRate, trades, pCode, imageURL }) => {
-  const response = await fetch(`${SERVER_BASE_URL}/workers/${_id}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ name, email, phone, address, hRate, trades, pCode, imageURL }),
-  });
-  const data = await response.json();
-  if (!response.ok) {
-    const errorMsg = data?.message;
-    throw new Error(errorMsg);
-  }
   return data;
 };
 
@@ -71,10 +74,10 @@ const getSortFilter = async ({ tradeType, sortOption }) => {
 
 const workerService = {
   getWorkers,
-  addWorker,
-  deleteWorker,
-  updateWorker,
   getWorker,
+  addWorker,
+  updateWorker,
+  deleteWorker,
   getSortFilter,
 };
 
