@@ -16,27 +16,28 @@ import {
 import UpdateWorkerFrom from "./UpdateWorkerFrom";
 import WorkerTypes from "./workerTypes";
 
+
 function WorkerLists() {
-  const select = useSelector(expSelectedWorker);
+  const selected = useSelector(expSelectedWorker);
   const dispatch = useDispatch();
+  const workers = useSelector((state) => state.workers.list);
   useEffect(() => {
     dispatch(getWorkersAsync());
-  }, [select, dispatch]);
-  const workers = useSelector((state) => state.workers.list);
+  }, [dispatch, selected]);
   const detailIsOpen = useSelector(isDetailOpen);
   const UpdateIsOpen = useSelector(isUpdateOpen);
   const addIsOpen = useSelector(isADDOpen);
   const renderedWorkers = workers.map((worker) => (
-    <article className='divItem' key={worker.id}>
-      <h4 className='single-line' id={worker.id}>
+    <article className='divItem' key={worker._id}>
+      <h4 className='single-line' id={worker._id}>
         {worker.name}
       </h4>
-      <img src={worker.imageURL} alt={worker.name} className='WorkerImg' />
+      <img src={worker.imageUrlInput} alt={worker.name} className='WorkerImg' />
       <button
         className='btn btn-outline-dark'
         style={{ marginTop: '10px' }}
         onClick={() => {
-          dispatch(getDetailAsync(worker.id));
+          dispatch(getDetailAsync(worker._id));
           dispatch(openDetail());
         }}
       >
@@ -69,7 +70,6 @@ function WorkerLists() {
     const [trades, setTrades] = useState('')
     const [sortOption, setSortOption] = useState('')
     const onFilterClicked = () => {
-        console.log("trades is " + trades + ", sortOption is " + sortOption)
         if (trades){
             dispatch(sortFilterWorkerAsync({ tradeType: trades, sortOption }))
         }else{

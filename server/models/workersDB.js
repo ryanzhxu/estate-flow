@@ -10,7 +10,7 @@ const workerSchema = new mongoose.Schema({
   hRate: Number,
   trades: String,
   pCode: String,
-  imageURL: String,
+  imageUrlInput: String,
 });
 
 // create model

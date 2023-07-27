@@ -53,7 +53,7 @@ const WorkerDetail = () => {
           <button
             className='btn btn-outline-danger'
             onClick={() => {
-              dispatch(deleteWorkerAsync(select.id));
+              dispatch(deleteWorkerAsync(select._id));
               dispatch(closeDetail());
             }}>
             DELETE

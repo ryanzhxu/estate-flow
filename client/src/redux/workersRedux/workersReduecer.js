@@ -28,7 +28,7 @@ const workersSlice = createSlice({
             state.error = null;
         })
         .addCase(addWorkerAsync.fulfilled, (state, action) => {
-            state.list.push(action.payload);
+            state.list = action.payload;
         })
         .addCase(addWorkerAsync.rejected, (state, action) => {
             state.error = 'fail to addWorker';

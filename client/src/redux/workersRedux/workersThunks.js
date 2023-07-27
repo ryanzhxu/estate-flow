@@ -10,23 +10,23 @@ export const getWorkersAsync = createAsyncThunk(
 
 export const addWorkerAsync = createAsyncThunk(
     "addWorkers",
-    async({name, email, phone, address, hRate, trades, pCode, imageURL}) => {
-        return await workersService.addWorker({name, email, phone, address, hRate, trades, pCode, imageURL});
+    async({name, email, phone, address, hRate, trades, pCode, imageUrlInput}) => {
+        return await workersService.addWorker({name, email, phone, address, hRate, trades, pCode, imageUrlInput});
     }
 );
 
-export const deleteWorkerAsync = createAsyncThunk('deleteWorker', async (id) => {
-  return await workersService.deleteWorker({ id });
+export const deleteWorkerAsync = createAsyncThunk('deleteWorker', async (_id) => {
+  return await workersService.deleteWorker({ _id });
 });
 
-export const getDetailAsync = createAsyncThunk('getDetail', async (id) => {
-  return await workersService.getWorker({ id });
+export const getDetailAsync = createAsyncThunk('getDetail', async (_id) => {
+  return await workersService.getWorker({ _id });
 });
 
 export const updateAsync = createAsyncThunk(
     "updateAsync",
-    async({id,name, email, phone, address, hRate, trades, pCode, imageURL}) => {
-        return await workersService.updateWorker({id,name, email, phone, address, hRate, trades, pCode, imageURL});
+    async({_id,name, email, phone, address, hRate, trades, pCode, imageURL}) => {
+        return await workersService.updateWorker({_id,name, email, phone, address, hRate, trades, pCode, imageURL});
     }
 );
 
