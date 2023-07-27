@@ -1,0 +1,47 @@
+.reminder-card {
+  background-color: rgba(153, 173, 207, 0.3);
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.reminder-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.left-column {
+  flex: 1;
+}
+
+.right-column {
+  flex: 1;
+}
+
+.name {
+  margin-bottom: 10px;
+}
+
+.fees {
+  color: white;
+  padding-bottom: 5px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li.even {
+  background-color: #f2f2f225;
+}
+
+li.odd {
+  background-color: #ffffff54;
+}
+
+.reminder-card-top-section {
+  text-align: left;
+  color: white;
+  padding: 10px 10px 0 10px;
+}
