@@ -40,6 +40,13 @@ const HomeSideBar = ({ handleLogout = undefined }) => {
         <motion.div whileHover={whiteHoverStyles} onClick={handleToggle} className='lines_icon'>
           <i className={'bi bi-card-list'}></i>
         </motion.div>
+        {open && (
+          <div className='sideLogo'>
+            <img src={logo} alt='logo' width='200' height='40' />
+          </div>
+        )}
+        <br></br>
+        <br></br>
         <motion.div
           initial={`${open}`}
           animate={`${open}`}
@@ -76,15 +83,6 @@ const HomeSideBar = ({ handleLogout = undefined }) => {
           <SideBarItem icon={'bi bi-microsoft-teams'} name='Team' />
           <SideBarItem icon={'bi bi-box-arrow-left'} name='Log out' onClick={handleLogout} />
         </div>
-        <br></br>
-        <br></br>
-        <br></br>
-
-        {open && (
-          <div className='sideLogo'>
-            <img src={logo} alt='logo' width='200' height='40' />
-          </div>
-        )}
       </motion.div>
     </>
   );

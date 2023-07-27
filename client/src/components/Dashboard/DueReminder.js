@@ -12,7 +12,7 @@ export default function DueReminder({ tenantWithDue }) {
           {!tenantWithDue.address ? (
             'propertyId is invalid'
           ) : (
-            <p>{`${tenantWithDue.address.streetAddress}, ${tenantWithDue.address.city}, ${tenantWithDue.address.province} ${tenantWithDue.address.postalCode}`}</p>
+            <p className='address'>{`${tenantWithDue.address.streetAddress}, ${tenantWithDue.address.city}, ${tenantWithDue.address.province} ${tenantWithDue.address.postalCode}`}</p>
           )}
         </div>
         <div className='fees'>
