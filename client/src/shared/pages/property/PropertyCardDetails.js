@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { deletePropertyAsync, getPropertiesAsync } from '../../../redux/properties/thunks';
+import React, {useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {deletePropertyAsync, getPropertiesAsync} from '../../../redux/properties/thunks';
 import PropertyForm from '../../../components/property/PropertyForm';
-import { Modal } from 'react-bootstrap';
-
-import Button from '@atlaskit/button';
+import DeleteConfirmationModal from "./DeleteConfirmationModal";
 
 const PropertyCardDetails = ({ property }) => {
   const dispatch = useDispatch();
@@ -15,6 +13,7 @@ const PropertyCardDetails = ({ property }) => {
   const handleDeleteProperty = () => {
     dispatch(deletePropertyAsync(property._id)).then(() => {
       dispatch(getPropertiesAsync());
+      setIsOpen(false)
     });
   };
 
@@ -30,6 +29,26 @@ const PropertyCardDetails = ({ property }) => {
     setEditProperty(null);
   };
 
+  const modalContent = (
+      <div>
+        <p>Before you delete this property, a friendly reminder that:</p>
+        <ul>
+          <li>
+            Property address: {property.address.streetAddress} {property.address.city},{' '}
+            {property.address.province} {property.address.postalCode}
+          </li>
+          {property.tenants.length === 0 ? (
+              <li>There is currently no tenants living in this property</li>
+          ) : (
+              <li>
+                There {property.tenants.length === 1 ? 'is' : 'are'} currently {property.tenants.length} tenant
+                {property.tenants.length > 1 && 's'} attached to this property.
+              </li>
+          )}
+        </ul>
+      </div>
+  );
+
   return (
     <div className='property-card-content'>
       <span>{property.type}</span>
@@ -44,47 +63,23 @@ const PropertyCardDetails = ({ property }) => {
             }}>
             Edit
           </button>
-          <div
+          <button
             className='btn btn-outline-danger'
             onClick={() => {
               setIsOpen(true);
             }}>
             Delete
-          </div>
-
-          <Modal show={isOpen} onHide={() => setIsOpen(false)} centered>
-            <Modal.Header className='bg-danger text-white'>
-              <Modal.Title>You're about to delete this property</Modal.Title>
-            </Modal.Header>
-            <Modal.Body className='modal-content panel-warning'>
-              <p>Before you delete this property, a friendly reminder that:</p>
-              <ul>
-                <li>
-                  Property address: {property.address.streetAddress} {property.address.city},{' '}
-                  {property.address.province} {property.address.postalCode}
-                </li>
-                {property.tenants.length === 0 ? (
-                  <li>There is currently no tenants living in this property</li>
-                ) : (
-                  <li>
-                    There {property.tenants.length === 1 ? 'is' : 'are'} currently {property.tenants.length} tenant
-                    {property.tenants.length > 1 && 's'} attached to this property.
-                  </li>
-                )}
-              </ul>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button appearance='subtle' onClick={() => setIsOpen(false)}>
-                Cancel
-              </Button>
-              <Button appearance='danger' onClick={handleDeleteProperty}>
-                Delete
-              </Button>
-            </Modal.Footer>
-          </Modal>
+          </button>
         </div>
       </div>
       {showEditForm && <PropertyForm editProperty={editProperty} handleCloseForm={handleCloseEditForm} />}
+      <DeleteConfirmationModal
+          isOpen={isOpen}
+          onCancel={() => setIsOpen(false)}
+          onDelete={handleDeleteProperty}
+          modalContent={modalContent}
+          modalTitle="You're about to delete this property"
+      />
     </div>
   );
 };

@@ -17,10 +17,10 @@ router.get('/tenants', async (req, res) => {
 router.get('/tenants/:tenantId', async (req, res, next) => {
   const tenantId = req.params.tenantId;
   try {
-    const foundTenant = await Tenant.findById(tenantId).populate('propertyId');
+    const foundTenant = await Tenant.findById(tenantId).populate('propertyId', 'address');
     if (foundTenant) {
-      const { address } = foundTenant.propertyId;
-      res.status(StatusCodes.OK).json({ ...foundTenant.toObject(), address });
+      const { address, _id } = foundTenant.propertyId;
+      res.status(StatusCodes.OK).json({ ...foundTenant.toObject(), address: address, propertyId: _id });
     } else {
       res.status(StatusCodes.BAD_REQUEST).json({ error: `Tenant with id ${tenantId} does not exist` });
     }
