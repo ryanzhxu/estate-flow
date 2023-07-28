@@ -19,22 +19,34 @@ const tenantSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    birthDate: {
+      type: Date,
+      required: false,
+    },
+    occupation: {
+      type: String,
+      required: false,
+    },
+    leaseFile: {
+      type: JSON,
+      required: false,
+    },
     lease: {
       startDate: {
         type: Date,
-        required: false,
+        required: true,
       },
       endDate: {
         type: Date,
-        required: false,
+        required: true,
       },
       term: {
         type: String,
-        required: false,
+        required: true,
       },
       type: {
         type: String,
-        required: false,
+        required: true,
       },
       fees: [
         {

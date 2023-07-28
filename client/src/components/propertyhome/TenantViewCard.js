@@ -10,7 +10,7 @@ function TenantViewCard({ tenant }) {
     <div>
       <div onClick={() => setIsOpen(true)} className='list-group-item list-group-item-action py-2 lh-tight tenant-card'>
         <h6 className='mb-0'>
-          {tenant.firstName} {tenant.middleName ? `${tenant.middleName.charAt(0)}.` : ''} {tenant.lastName}
+          {tenant.firstName} {tenant.lastName}
         </h6>
         <p className='mb-0 text-muted small'>
           <small>
@@ -28,7 +28,7 @@ function TenantViewCard({ tenant }) {
               <strong>Name</strong>
             </p>
             <p className='col-sm-8'>
-              {tenant.firstName} {tenant.middleName ? `${tenant.middleName.charAt(0)}.` : ''} {tenant.lastName}
+              {tenant.firstName} {tenant.lastName}
             </p>
           </div>
           <div className='row'>
@@ -47,7 +47,7 @@ function TenantViewCard({ tenant }) {
             <p className='col-sm-4'>
               <strong>Lease Term</strong>
             </p>
-            <p className='col-sm-8'>12 months</p>
+            <p className='col-sm-8'>{tenant.lease.term}</p>
           </div>
           <div className='row'>
             <p className='col-sm-4'>

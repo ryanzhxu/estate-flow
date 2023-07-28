@@ -7,7 +7,7 @@ function TenantOverviewCard({ tenant }) {
         </div>
         <div className='col-sm-7'>
           <p className='text-muted mb-0'>
-            {tenant.firstName} {tenant.middleName ? tenant.middleName : ''} {tenant.lastName}
+            {tenant.firstName} {tenant.lastName}
           </p>
         </div>
       </div>
@@ -35,7 +35,7 @@ function TenantOverviewCard({ tenant }) {
           <p className='mb-0'>Date of Birth</p>
         </div>
         <div className='col-sm-7'>
-          <p className='text-muted mb-0'>{tenant.birthdate}</p>
+          <p className='text-muted mb-0'>{new Date(tenant.birthDate).toLocaleDateString()}</p>
         </div>
       </div>
       <hr />
@@ -44,7 +44,7 @@ function TenantOverviewCard({ tenant }) {
           <p className='mb-0'>Employment</p>
         </div>
         <div className='col-sm-7'>
-          <p className='text-muted mb-0'>{tenant.employment}</p>
+          <p className='text-muted mb-0'>{tenant.occupation}</p>
         </div>
       </div>
     </div>

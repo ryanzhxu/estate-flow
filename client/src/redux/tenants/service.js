@@ -58,7 +58,7 @@ const addTenant = async (tenant) => {
 
 const updateTenant = async (tenant) => {
   try {
-    const res = await axios.put(`${SERVER_BASE_URL}/tenants/${tenant._id}`, tenant);
+    const res = await axios.put(`${SERVER_BASE_URL}/tenants`, tenant);
     return res.data;
   } catch(e) {
     console.error(e);
