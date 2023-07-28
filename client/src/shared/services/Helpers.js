@@ -88,3 +88,57 @@ export const dayHasDue = (formattedDueDays, unformattedDay) => {
   const day = getConvertedDate(unformattedDay).slice(-2);
   return formattedDueDays.includes(day);
 };
+
+export const getFormattedPhoneNum = (number) => {
+  const cleanedNumber = number.replace(/\D/g, '');
+
+  if (cleanedNumber.length === 10) {
+    return `(${cleanedNumber.slice(0, 3)}) ${cleanedNumber.slice(3, 6)}-${cleanedNumber.slice(6)}`;
+  }
+
+  return number;
+};
+
+export const getTenantFullName = (firstName, middleName, lastName) => {
+  return `${firstName} ${middleName ? `${middleName.charAt(0)}.` : ''} ${lastName}`;
+};
+
+export const getStandardizedObject = (object) => {
+  const { streetAddress, city, province, postalCode } = object;
+
+  const address = {
+    streetAddress,
+    city,
+    province,
+    postalCode,
+  };
+
+  const updatedObject = { ...object, address };
+
+  delete updatedObject.streetAddress;
+  delete updatedObject.city;
+  delete updatedObject.province;
+  delete updatedObject.postalCode;
+
+  return updatedObject;
+};
+
+export const getMappedEditObject = (object) => {
+  const editObject = {};
+
+  for (const field in object) {
+    if (field === '_id' || field === '__v') {
+      continue;
+    }
+
+    if (field === 'address') {
+      for (const addressField in object[field]) {
+        editObject[addressField] = object[field][addressField];
+      }
+    } else {
+      editObject[field] = object[field] || '';
+    }
+  }
+
+  return editObject;
+};

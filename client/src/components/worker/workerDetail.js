@@ -29,7 +29,7 @@ const WorkerDetail = () => {
             <p>{select.address}</p>
             <p>${select.hRate}/hr</p>
             <p>{select.trades}</p>
-            <p>{select.pCode}</p>
+            <p>{select.postalCode}</p>
           </div>
         </div>
         <div className='worker-detail-buttons'>

@@ -1,17 +1,18 @@
 import { useDispatch } from 'react-redux';
 import DeleteConfirmationModal from '../property/DeleteConfirmationModal';
 import { useState } from 'react';
-import { deleteTenantAsync } from '../../redux/tenants/tenantsThunks';
+import { deleteTenantAsync } from '../../redux/tenants/thunks';
 import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { getTenantFullName } from '../../shared/services/Helpers';
 
 function TenantProfileCard({ tenant }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const tenantFullName = `${tenant.firstName} ${tenant.middleName ? `${tenant.middleName.charAt(0)}.` : ''} ${
-    tenant.lastName
-  }`;
+  const tenantFullName = getTenantFullName(tenant.firstName, tenant.middleName, tenant.lastName);
+
   const deleteModalContent = (
     <div>
       <p>You are about to delete the tenant {tenantFullName}. This action cannot be undone.</p>
@@ -50,7 +51,7 @@ function TenantProfileCard({ tenant }) {
         isOpen={isDeleteModalOpen}
         onCancel={() => setIsDeleteModalOpen(false)}
         onDelete={handleDelete}
-        modalTitle='Warning: Deleting a tenant'
+        type='tenant'
         modalContent={deleteModalContent}
       />
     </div>

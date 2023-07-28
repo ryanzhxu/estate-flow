@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getTenantsAsync } from '../../redux/tenants/tenantsThunks';
+import { getTenantsAsync } from '../../redux/tenants/thunks';
 import TenantCard from '../../components/tenant/TenantCard';
 import '../../shared/styles/listing.css';
 

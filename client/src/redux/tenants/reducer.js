@@ -6,7 +6,7 @@ import {
   getTenantsAsync,
   getTenantsFromPropertyAsync,
   getTenantsWithDuesByDate,
-} from './tenantsThunks';
+} from './thunks';
 
 const INITIAL_STATE = {
   tenants: [],

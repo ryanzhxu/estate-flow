@@ -8,8 +8,8 @@ import '../property/property.css';
 // import Button from '@atlaskit/button';
 import Button from 'react-bootstrap/Button';
 import { useDispatch } from 'react-redux';
-import { addTenantAsync, getTenantsAsync } from '../../redux/tenants/tenantsThunks';
-import { closeTenantADD } from '../../redux/tenants/tenantsReducer';
+import { addTenantAsync, getTenantsAsync } from '../../redux/tenants/thunks';
+import { closeTenantADD } from '../../redux/tenants/reducer';
 
 export default function AddPropertyForm(propertyId) {
   const [firstName, setFirstName] = useState('');

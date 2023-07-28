@@ -1,33 +1,37 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import DeleteConfirmationModal from './DeleteConfirmationModal';
-import { deletePropertyAsync, getPropertiesAsync } from '../../redux/properties/thunks';
+import { deletePropertyAsync, getPropertiesAsync, updatePropertyAsync } from '../../redux/properties/thunks';
 import PropertyForm from './PropertyForm';
 import '../../shared/styles/listing.css';
+import { Tables } from '../../shared/constants/Tables';
+import { clearNestedObjectValues, getMappedEditObject, getStandardizedObject } from '../../shared/services/Helpers';
+import InputFormModal from '../../shared/components/InputFormModal';
+import { RequiredFields } from '../../shared/constants/property/RequiredFields';
 
 const PropertyCardDetails = ({ property }) => {
   const dispatch = useDispatch();
-  const [showEditForm, setShowEditForm] = useState(false);
-  const [editProperty, setEditProperty] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const editProperty = getMappedEditObject(property);
+
+  const handleEditProperty = () => {
+    if (!editProperty._id) {
+      editProperty._id = property._id;
+    }
+
+    dispatch(updatePropertyAsync(getStandardizedObject(editProperty))).then(() => {
+      clearNestedObjectValues(editProperty);
+      setIsEditModalOpen(false);
+      dispatch(getPropertiesAsync());
+    });
+  };
 
   const handleDeleteProperty = () => {
     dispatch(deletePropertyAsync(property._id)).then(() => {
       dispatch(getPropertiesAsync());
-      setIsOpen(false);
+      setIsDeleteModalOpen(false);
     });
-  };
-
-  const handleOpenEditForm = () => {
-    if (!editProperty || editProperty.Id !== property.id) {
-      setEditProperty(property);
-      setShowEditForm(true);
-    }
-  };
-
-  const handleCloseEditForm = () => {
-    setShowEditForm(false);
-    setEditProperty(null);
   };
 
   const modalContent = (
@@ -46,30 +50,32 @@ const PropertyCardDetails = ({ property }) => {
       <p>{`${property.address.city}, ${property.address.province} ${property.address.postalCode}`}</p>
       <div className='listing-card-footer'>
         <div className='listing-card-footer-buttons'>
-          <button
-            className='btn btn-outline-primary'
-            onClick={() => {
-              handleOpenEditForm();
-            }}>
+          <button className='btn btn-outline-primary' onClick={() => setIsEditModalOpen(true)}>
             Edit
           </button>
-          <button
-            className='btn btn-outline-danger'
-            onClick={() => {
-              setIsOpen(true);
-            }}>
+          <button className='btn btn-outline-danger' onClick={() => setIsDeleteModalOpen(true)}>
             Delete
           </button>
         </div>
       </div>
-      {showEditForm && <PropertyForm editProperty={editProperty} handleCloseForm={handleCloseEditForm} />}
       <DeleteConfirmationModal
-        isOpen={isOpen}
-        onCancel={() => setIsOpen(false)}
+        isOpen={isDeleteModalOpen}
+        onCancel={() => setIsDeleteModalOpen(false)}
         onDelete={handleDeleteProperty}
         modalContent={modalContent}
-        modalTitle="You're about to delete this property"
+        type={Tables.Property}
       />
+      {isEditModalOpen && (
+        <InputFormModal
+          isModalOpen={isEditModalOpen}
+          setIsModalOpen={setIsEditModalOpen}
+          type={Tables.Property}
+          object={editProperty}
+          requiredFields={RequiredFields}
+          onSubmit={handleEditProperty}
+          isEdit
+        />
+      )}
     </div>
   );
 };

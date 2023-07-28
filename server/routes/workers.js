@@ -1,5 +1,5 @@
 const express = require('express');
-const Worker = require('../models/workersDB');
+const Worker = require('../models/worker');
 const { StatusCodes } = require('http-status-codes');
 
 const router = express.Router();
@@ -8,7 +8,7 @@ router.get('/workers', async (req, res) => {
   try {
     res.status(StatusCodes.OK).send(await Worker.find({}));
   } catch (e) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
   }
 });
 
@@ -24,7 +24,7 @@ router.get('/workers/:_id', async (req, res) => {
       res.status(StatusCodes.BAD_REQUEST).json({ error: `Worker with id ${id} does not exist` });
     }
   } catch (e) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
   }
 });
 
@@ -35,7 +35,7 @@ router.post('/workers', async (req, res) => {
     await newWorker.save();
     res.status(StatusCodes.CREATED).send(newWorker);
   } catch (e) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
   }
 });
 
@@ -44,7 +44,7 @@ router.put('/workers', async (req, res) => {
     await Worker.findByIdAndUpdate(req.body._id, req.body);
     res.status(StatusCodes.OK).send();
   } catch (e) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
   }
 });
 
@@ -58,7 +58,16 @@ router.delete('/workers/:_id', async (req, res) => {
 
     res.status(StatusCodes.OK).send();
   } catch (e) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
+  }
+});
+
+router.delete('/workers', async (req, res) => {
+  try {
+    await Worker.deleteMany({});
+    res.status(StatusCodes.OK).json({ message: 'All workers deleted successfully.' });
+  } catch (e) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
   }
 });
 

@@ -2,7 +2,7 @@ import './TenantView.css';
 import TenantViewCard from './TenantViewCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getTenantsFromPropertyAsync } from '../../redux/tenants/tenantsThunks';
+import { getTenantsFromPropertyAsync } from '../../redux/tenants/thunks';
 import React from 'react';
 
 function TenantView({ propertyId }) {

@@ -16,7 +16,7 @@ export default function UpdateWorkerFrom() {
   const [address, setAddress] = useState(select.address);
   const [hRate, setHRate] = useState(select.hRate);
   const [trades, setTrades] = useState(select.trades);
-  const [pCode, setPCode] = useState(select.pCode);
+  const [postalCode, setPostalCode] = useState(select.postalCode);
   const [imageURL, setImageURL] = useState(select.imageURL);
 
   const onNameChanged = (e) => setName(e.target.value);
@@ -25,14 +25,14 @@ export default function UpdateWorkerFrom() {
   const onAddressChanged = (e) => setAddress(e.target.value);
   const onHRateChanged = (e) => setHRate(e.target.value);
   const onTradesChanged = (e) => setTrades(e.target.value);
-  const onPCodeChanged = (e) => setPCode(e.target.value);
+  const onPostalCodeChanged = (e) => setPostalCode(e.target.value);
 
   const onUpdateWorkerClicked = () => {
     let imageUrlInput = imageURL
       ? imageURL
       : 'https://pic4.zhimg.com/80/v2-32636e587d66426cc682e74eaafd2163_1440w.webp';
-    if (name && email && phone && address && hRate && trades && pCode && imageUrlInput) {
-      dispatch(updateWorkerAsync({ _id, name, email, phone, address, hRate, trades, pCode, imageUrlInput }));
+    if (name && email && phone && address && hRate && trades && postalCode && imageUrlInput) {
+      dispatch(updateWorkerAsync({ _id, name, email, phone, address, hRate, trades, postalCode, imageUrlInput }));
       dispatch(closeUpdate());
       dispatch(openDetail());
     } else {
@@ -76,8 +76,8 @@ export default function UpdateWorkerFrom() {
           ))}
         </select>
 
-        <label htmlFor='pCode'>Postal Code: </label>
-        <input type='text' id='pCode' name='pCode' value={pCode} onChange={onPCodeChanged} />
+        <label htmlFor='postalCode'>Postal Code: </label>
+        <input type='text' id='postalCode' name='postalCode' value={postalCode} onChange={onPostalCodeChanged} />
 
         <label htmlFor='imageURL'>Image: </label>
         <ImageUploader imageURL={imageURL} onImageSelected={handleImageSelected} />

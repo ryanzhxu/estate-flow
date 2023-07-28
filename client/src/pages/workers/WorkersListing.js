@@ -1,33 +1,75 @@
 import { useSelector, useDispatch } from 'react-redux';
-import WorkerDetail from '../../components/worker/workerDetail';
-import AddWorkerForm from '../../components/worker/AddWorkerForm';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-// import '../../components/worker/worker.css';
-import { Link } from 'react-router-dom';
-import { getWorkerAsync, getWorkersAsync, sortFilterWorkerAsync } from '../../redux/workers/thunks';
-import {
-  openAddForm,
-  openDetail,
-  isDetailOpen,
-  isADDOpen,
-  isUpdateOpen,
-  expSelectedWorker,
-} from '../../redux/workers/workerDetailsReducer';
-import UpdateWorkerFrom from '../../components/worker/UpdateWorkerFrom';
-import WorkerTypes from '../../components/worker/workerTypes';
-
+import { addWorkerAsync, getWorkersAsync, sortFilterWorkerAsync } from '../../redux/workers/thunks';
+import { expSelectedWorker } from '../../redux/workers/workerDetailsReducer';
 import '../../shared/styles/listing.css';
+import WorkerCard from '../../components/worker/WorkerCard';
+import InputFormModal from '../../shared/components/InputFormModal';
+import { Tables } from '../../shared/constants/Tables';
+import { clearNestedObjectValues, getStandardizedObject } from '../../shared/services/Helpers';
+import { RequiredFields } from '../../shared/constants/worker/RequiredFields';
 
 function WorkersListing() {
   const dispatch = useDispatch();
   const workers = useSelector((state) => state.workers.workers);
   const workersArray = Object.values(workers);
-  const selectedWorker = useSelector(expSelectedWorker);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+
+  const worker = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    streetAddress: '',
+    city: '',
+    province: '',
+    postalCode: '',
+    hourlyRate: '',
+    trades: '',
+  };
 
   useEffect(() => {
     dispatch(getWorkersAsync());
   }, [dispatch]);
+
+  const handleAddWorker = () => {
+    dispatch(addWorkerAsync(getStandardizedObject(worker))).then(() => {
+      clearNestedObjectValues(worker);
+      setIsAddModalOpen(false);
+      dispatch(getWorkersAsync());
+    });
+  };
+
+  return (
+    <div className='listing-page'>
+      <div className='listing-contents'>
+        <div className='listing-right'>
+          <div className='listing-header'>
+            <h2>Workers</h2>
+            <div className='btn btn-outline-primary' onClick={() => setIsAddModalOpen(true)}>
+              Add worker
+            </div>
+          </div>
+          <div className='listing-cards'>
+            {workersArray.map((worker) => (
+              <WorkerCard key={`worker-${worker._id}-card`} worker={worker} />
+            ))}
+          </div>
+        </div>
+      </div>
+      {isAddModalOpen && (
+        <InputFormModal
+          isModalOpen={isAddModalOpen}
+          setIsModalOpen={setIsAddModalOpen}
+          type={Tables.Worker}
+          object={worker}
+          onSubmit={handleAddWorker}
+          requiredFields={RequiredFields}
+        />
+      )}
+    </div>
+  );
 
   // const detailIsOpen = useSelector(isDetailOpen);
   // const UpdateIsOpen = useSelector(isUpdateOpen);
@@ -81,91 +123,6 @@ function WorkersListing() {
   //     alert('All filed must be filled');
   //   }
   // };
-
-  return (
-    <div className='listing-page'>
-      <div className='listing-contents'>
-        <div className='listing-right'>
-          <div className='listing-header'>
-            <h2>Workers</h2>
-            <div className='btn btn-outline-primary' onClick={undefined}>
-              Add worker
-            </div>
-          </div>
-          <div className='listing-cards'>
-            {workersArray.map((worker) => (
-              <div className='listing-card'>
-                <span>
-                  <img
-                    alt={worker.id}
-                    className='listing-card-image'
-                    src='https://pic4.zhimg.com/80/v2-32636e587d66426cc682e74eaafd2163_1440w.webp'
-                  />
-                </span>
-                <div className='listing-card-content'>
-                  <span>{worker.trades}</span>
-                  <h4 className='scrollable-text'>{worker.name}</h4>
-                  <p>
-                    <span>Phone: {worker.phone}</span>
-                    <br />
-                    <span>Hourly rate: ${worker.hRate}/hr</span>
-                  </p>
-                  <div className='listing-card-footer'>
-                    <div className='listing-card-footer-buttons'>
-                      <button className='btn btn-outline-primary' onClick={undefined}>
-                        Edit
-                      </button>
-                      <button className='btn btn-outline-danger' onClick={undefined}>
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-
-    // <div style={{ padding: '25px' }}>
-    //   <div className='worker-top-section'>
-    //     <h3>Current Workers</h3>
-    //     <Link to='/'>
-    //       <button className='btn btn-outline-primary'>Back</button>
-    //     </Link>
-    //   </div>
-
-    //   <label htmlFor='trades'>Trades: </label>
-    //   <select id='trades' name='trades' value={trades} onChange={onTradesChanged}>
-    //     {Object.values(WorkerTypes).map((workerType, index) => (
-    //       <option key={index} value={workerType}>
-    //         {workerType}
-    //       </option>
-    //     ))}
-    //   </select>
-
-    //   <select value={sortOption} onChange={onSortOption}>
-    //     <option value=''>No Sorting</option>
-    //     <option value='Ascending'>Hourly Rate Ascending</option>
-    //     <option value='Descending'>Hourly Rate Descending</option>
-    //   </select>
-
-    //   <section className='button-container'>
-    //     <button type='button' onClick={onFilterClicked}>
-    //       Filter & Sort
-    //     </button>
-    //   </section>
-
-    //   <section className='sectionContainer'>
-    //     {renderedWorkers}
-    //     {addNew}
-    //     {detailIsOpen && <WorkerDetail />}
-    //     {addIsOpen && <AddWorkerForm />}
-    //     {UpdateIsOpen && <UpdateWorkerFrom />}
-    //   </section>
-    // </div>
-  );
 }
 
 export default WorkersListing;

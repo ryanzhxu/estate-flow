@@ -6,7 +6,7 @@ import HomeDashboardPage from './components/home/HomeDashboardPage';
 import WorkersListing from './pages/workers/WorkersListing';
 import PropertiesListing from './pages/properties/PropertiesListing';
 import TenantsListing from './pages/tenants/TenantsListing';
-import Tenant from './components/tenant/Tenant';
+import TenantHome from './components/tenant/TenantHome';
 import PropertyHome from './components/propertyhome/PropertyHome';
 import { GoogleLogin } from '@react-oauth/google';
 import MicrosoftLogin from 'react-microsoft-login';
@@ -70,7 +70,7 @@ function App() {
         <Route path='/properties' element={<PropertiesListing />} />
         <Route path='/properties/:_id' element={<PropertyHome />} />
         <Route path='/tenants' element={<TenantsListing />} />
-        <Route path='/tenants/:id' element={<Tenant />} />
+        <Route path='/tenants/:id' element={<TenantHome />} />
         <Route path='/workers' element={<WorkersListing />} />
       </Routes>
       {/* )} */}

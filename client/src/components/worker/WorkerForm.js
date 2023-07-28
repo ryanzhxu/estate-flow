@@ -5,7 +5,7 @@ import React from 'react';
 import { addWorkerAsync } from '../../redux/workers/thunks';
 import { closeAddForm } from '../../redux/workers/workerDetailsReducer';
 
-export default function AddWorkerForm() {
+export default function WorkerForm() {
   const dispatch = useDispatch();
 
   const [name, setName] = useState('');
@@ -14,7 +14,7 @@ export default function AddWorkerForm() {
   const [address, setAddress] = useState('');
   const [hRate, setHRate] = useState('');
   const [trades, setTrades] = useState('');
-  const [pCode, setPCode] = useState('');
+  const [postalCode, setPostalCode] = useState('');
   const [imageURL, setImageURL] = useState('');
 
   const onNameChanged = (e) => setName(e.target.value);
@@ -23,15 +23,15 @@ export default function AddWorkerForm() {
   const onAddressChanged = (e) => setAddress(e.target.value);
   const onHRateChanged = (e) => setHRate(e.target.value);
   const onTradesChanged = (e) => setTrades(e.target.value);
-  const onPCodeChanged = (e) => setPCode(e.target.value);
+  const onPostalCodeChanged = (e) => setPostalCode(e.target.value);
   const onImageURLChanged = (e) => setImageURL(e.target.value);
 
   const onSaveWorkerClicked = () => {
     let imageUrlInput = imageURL
       ? imageURL
       : 'https://pic4.zhimg.com/80/v2-32636e587d66426cc682e74eaafd2163_1440w.webp';
-    if (name && email && phone && address && hRate && trades && pCode) {
-      dispatch(addWorkerAsync({ name, email, phone, address, hRate, trades, pCode, imageUrlInput }));
+    if (name && email && phone && address && hRate && trades && postalCode) {
+      dispatch(addWorkerAsync({ name, email, phone, address, hRate, trades, postalCode, imageUrlInput }));
       dispatch(closeAddForm());
     } else {
       alert('All filed must be filled');
@@ -44,7 +44,7 @@ export default function AddWorkerForm() {
     setAddress('');
     setHRate('');
     setTrades('');
-    setPCode('');
+    setPostalCode('');
     setImageURL('');
   };
 
@@ -76,8 +76,8 @@ export default function AddWorkerForm() {
           ))}
         </select>
 
-        <label htmlFor='pCode'>Postal Code: </label>
-        <input type='text' id='pCode' name='pCode' value={pCode} onChange={onPCodeChanged} />
+        <label htmlFor='postalCode'>Postal Code: </label>
+        <input type='text' id='postalCode' name='postalCode' value={postalCode} onChange={onPostalCodeChanged} />
 
         <label htmlFor='imageURL'>imageURL: </label>
         <input type='url' id='imageURL' name='imageURL' value={imageURL} onChange={onImageURLChanged} />
