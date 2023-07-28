@@ -12,7 +12,7 @@ function TenantProfileCard({ tenant }) {
   const navigate = useNavigate();
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const tenantFullName = getTenantFullName(tenant.firstName, tenant.middleName, tenant.lastName);
+  const tenantFullName = getTenantFullName(tenant.firstName, tenant.lastName);
 
   const deleteModalContent = (
     <div>
