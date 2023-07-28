@@ -39,6 +39,7 @@ function SideBarItem({ icon, name, onClick = undefined }) {
         whileHover={{
           backdropFilter: 'blur(5.5px)',
           cursor: 'pointer',
+          color:'orange',
         }}
         transition={{
           duration: 0.01,

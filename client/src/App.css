@@ -2,10 +2,7 @@
 .homepage {
   display: flex;
   width: 100%;
-  font-family: 'IBM Plex Sana Thai Looped', sans-serif;
-  color: white;
-  background:  #000000;
-  text-shadow: 1px 0px 2px #8dc4f0;
+  color:black;
   min-height: 100vh;
 }
 
@@ -19,15 +16,15 @@
 }
 
 .body_card {
-  background: rgba(153, 173, 207, 0.3);
+  background-color: #dee2e6;
   border: 1px solid rgba(0, 0, 0, 0.8);
   padding: 20px;
   font-size: 30px;
   text-align: center;
-  border-radius: 10px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  border-radius: 2px;
   backdrop-filter: blur(5.5px);
   border: 1px solid rgba(255, 255, 255, 0.18);
+  font-family: 'Bradley Hand';
 }
 
 .sidebar_container {
@@ -42,10 +39,9 @@
   flex-direction: column;
   padding: 15px;
   margin: 10px;
-  background: rgba(255, 255, 255, 0.3);
+  background-color: #032b43;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(5.5px);
-  border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
@@ -53,6 +49,7 @@
   display: flex;
   align-self: flex-end;
   border-radius: 5px;
+  color: white;
 }
 
 .profile {
@@ -67,19 +64,10 @@
   border-radius: 100%;
 }
 
-.groups {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
 .group {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+  color:white;
 }
 
-.sidebarlogo {
-  display: flex;
-  align-items: center;
+.sideLogo {
+  width: 210%;
 }

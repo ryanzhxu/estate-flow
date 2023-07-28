@@ -1,9 +1,10 @@
 .reminder-card {
-  background-color: rgba(153, 173, 207, 0.3);
+  background-color: rgb(235, 235, 167);
   border-radius: 5px;
   padding: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
+  border-radius: 10px;
 }
 
 .reminder-card:hover {
@@ -23,7 +24,6 @@
 }
 
 .fees {
-  color: white;
   padding-bottom: 5px;
 }
 
@@ -42,6 +42,6 @@ li.odd {
 
 .reminder-card-top-section {
   text-align: left;
-  color: white;
+  color: black;
   padding: 10px 10px 0 10px;
 }
