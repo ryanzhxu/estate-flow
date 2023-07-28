@@ -3,5 +3,5 @@ export const actionTypes = {
   GET_PROPERTY: 'properties/getProperty',
   ADD_PROPERTY: 'properties/addProperty',
   UPDATE_PROPERTY: 'properties/updateProperty',
-  DEL_PROPERTY: 'properties/deleteProperty',
+  DELETE_PROPERTY: 'properties/deleteProperty',
 };

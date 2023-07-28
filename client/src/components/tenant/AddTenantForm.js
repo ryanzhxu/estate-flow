@@ -1,20 +1,20 @@
 // eslint-disable-next-line
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 import '../property/property.css';
 //import "./property.css";
 import Button from '@atlaskit/button';
 // import Button from 'react-bootstrap/Button';
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { closeTenantADD } from '../../redux/tenants/reducer';
 import {
-  addTenantAsync,
+  updateTenantAsync,
   getSingleTenantAsync,
+  addTenantAsync,
   getTenantsFromPropertyAsync,
-  updateTenantAsync
-} from '../../redux/tenants/tenantsThunks';
-import {closeTenantADD} from '../../redux/tenants/tenantsReducer';
+} from '../../redux/tenants/thunks';
 
-export default function AddTenantForm({propertyId, editingTenant}) {
+export default function AddTenantForm({ propertyId, editingTenant }) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -33,7 +33,6 @@ export default function AddTenantForm({propertyId, editingTenant}) {
       // setLease("");
     }
   }, [editingTenant]);
-
 
   const onClearClickedProp = () => {
     setFirstName('');
@@ -54,8 +53,8 @@ export default function AddTenantForm({propertyId, editingTenant}) {
         firstName: firstName,
         lastName: lastName,
         email: email,
-        phoneNumber: phoneNumber
-      }
+        phoneNumber: phoneNumber,
+      };
       dispatch(updateTenantAsync(updatedTenant)).then(() => {
         onClearClickedProp();
         handleCloseForm();
@@ -71,15 +70,15 @@ export default function AddTenantForm({propertyId, editingTenant}) {
         paymentHistory: [],
         propertyId: propertyId,
       };
-      console.log("adding tenant")
-      console.log(tenant)
+      console.log('adding tenant');
+      console.log(tenant);
       dispatch(addTenantAsync(tenant)).then(() => {
         onClearClickedProp();
         handleCloseForm();
         dispatch(getTenantsFromPropertyAsync(propertyId));
       });
     }
-  }
+  };
 
   return (
     <div className='form'>

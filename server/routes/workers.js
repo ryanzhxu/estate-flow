@@ -1,130 +1,112 @@
 const express = require('express');
-const { v4: uuid } = require('uuid');
+const Worker = require('../models/worker');
 const { StatusCodes } = require('http-status-codes');
-const Worker = require('../models/workersDB');
 
 const router = express.Router();
 
-router.get('/', async (req, res, next) => {
+router.get('/workers', async (req, res) => {
   try {
-    const workers = await Worker.find({});
-    return res.send(workers);
+    res.status(StatusCodes.OK).send(await Worker.find({}));
   } catch (e) {
-    console.error("What's the problem?", e);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Error finding workers' });
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
   }
 });
 
-router.post('/', async function (req, res, next) {
+router.get('/workers/:_id', async (req, res) => {
+  const id = req.params._id;
+
   try {
-    if (!req.body.name) {
-      return res.status(StatusCodes.BAD_REQUEST).send({ message: 'User must have a name!' });
+    const foundWorker = await Worker.findById(id);
+
+    if (foundWorker) {
+      res.status(StatusCodes.OK).json(foundWorker);
+    } else {
+      res.status(StatusCodes.BAD_REQUEST).json({ error: `Worker with id ${id} does not exist` });
     }
-    console.log(req.body.imageUrlInput)
-    const worker = new Worker({
-      name: req.body.name,
-      email: req.body.email,
-      phone: req.body.phone,
-      address: req.body.address,
-      hRate: req.body.hRate,
-      trades: req.body.trades,
-      pCode: req.body.pCode,
-      imageUrlInput: req.body.imageUrlInput,
-    });
-    await worker.save();
-    const workers = await Worker.find({});
-    return res.send(workers);
   } catch (e) {
-    console.error("What's the problem?", e);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Error adding worker' });
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
   }
 });
 
-router.delete('/', async function (req, res, next) {
+router.post('/workers', async (req, res) => {
+  const newWorker = new Worker(req.body);
+
   try {
-    const workerId = req.body._id;
-    await Worker.deleteOne({ _id: workerId });
-    const workers = await Worker.find({});
-    return res.send(workers);
+    await newWorker.save();
+    res.status(StatusCodes.CREATED).send(newWorker);
   } catch (e) {
-    console.error("What's the problem?", e);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Error deleting worker' });
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
   }
 });
 
-router.put('/:userId', async function (req, res, next) {
+router.put('/workers', async (req, res) => {
   try {
-    const foundWorker = await Worker.updateOne(
-      { _id: req.params.userId },
-      {
-        $set: {
-          name: req.body.name,
-          email: req.body.email,
-          phone: req.body.phone,
-          address: req.body.address,
-          hRate: req.body.hRate,
-          trades: req.body.trades,
-          pCode: req.body.pCode,
-          imageUrlInput: req.body.imageUrlInput,
-        },
-      }
-    );
-    const worker = await Worker.findOne({ _id: req.params.userId });
-    return res.status(StatusCodes.OK).send(worker);
+    await Worker.findByIdAndUpdate(req.body._id, req.body);
+    res.status(StatusCodes.OK).send();
   } catch (e) {
-    console.error("What's the problem?", e);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Error updating worker' });
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
   }
 });
 
-router.get('/sort', async function (req, res, next) {
+router.delete('/workers/:_id', async (req, res) => {
+  try {
+    const worker = await Worker.findByIdAndDelete(req.params._id);
 
+    if (!worker) {
+      res.status(StatusCodes.BAD_REQUEST).send('No worker found.');
+    }
+
+    res.status(StatusCodes.OK).send();
+  } catch (e) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
+  }
+});
+
+router.delete('/workers', async (req, res) => {
+  try {
+    await Worker.deleteMany({});
+    res.status(StatusCodes.OK).json({ message: 'All workers deleted successfully.' });
+  } catch (e) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
+  }
+});
+
+router.get('/workers/sort', async function (req, res, next) {
   const tradeType = req.query.Trades;
   const sortOption = req.query.sort;
   try {
     let workersFiltered;
-    if (sortOption === "Ascending") {
-      if(tradeType === "Selections"){
+    if (sortOption === 'Ascending') {
+      if (tradeType === 'Selections') {
         workersFiltered = await Worker.find({}).sort({ hRate: 1 });
-      }else{
+      } else {
         workersFiltered = await Worker.find({ trades: tradeType }).sort({ hRate: 1 });
       }
-    } else if (sortOption === "Descending") {
-      if(tradeType === "Selections"){
+    } else if (sortOption === 'Descending') {
+      if (tradeType === 'Selections') {
         workersFiltered = await Worker.find({}).sort({ hRate: -1 });
-      }else{
+      } else {
         workersFiltered = await Worker.find({ trades: tradeType }).sort({ hRate: -1 });
       }
-    }else{
-      if(tradeType === "Selections"){
+    } else {
+      if (tradeType === 'Selections') {
         workersFiltered = await Worker.find({});
-      }else{
-        workersFiltered = await Worker.find({trades: tradeType});
+      } else {
+        workersFiltered = await Worker.find({ trades: tradeType });
       }
     }
     const renderedPosts = [];
-    for(let i = 0; i < workersFiltered.length; ++i){
-      const tmp = {id: workersFiltered[i]._id,
+    for (let i = 0; i < workersFiltered.length; ++i) {
+      const tmp = {
+        id: workersFiltered[i]._id,
         name: workersFiltered[i].name,
-        imageUrlInput: workersFiltered[i].imageUrlInput
+        imageUrlInput: workersFiltered[i].imageUrlInput,
       };
-      renderedPosts.push(tmp)
+      renderedPosts.push(tmp);
     }
     return res.send(workersFiltered);
   } catch (error) {
     console.error('Failed to query MongoDB in workerSort', error);
-  }
-});
-
-
-router.get('/:workerId', async function (req, res, next) {
-  try {
-    const foundWorker = await Worker.findOne({ _id: req.params.workerId });
-    if (!foundWorker) return res.status(StatusCodes.NOT_FOUND).send({ message: 'User not found 404' });
-    return res.send(foundWorker);
-  } catch (e) {
-    console.error("What's the problem?", e);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Error finding the worker' });
   }
 });
 

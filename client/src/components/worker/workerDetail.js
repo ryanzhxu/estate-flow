@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { closeDetail, expSelectedWorker, openUpdate } from '../../redux/workersRedux/workerDetailsReducer';
+import { closeDetail, expSelectedWorker, openUpdate } from '../../redux/workers/workerDetailsReducer';
 import React from 'react';
 import './worker.css';
-import { deleteWorkerAsync } from '../../redux/workersRedux/workersThunks';
+import { deleteWorkerAsync } from '../../redux/workers/thunks';
 
 const WorkerDetail = () => {
   const select = useSelector(expSelectedWorker);
@@ -29,7 +29,7 @@ const WorkerDetail = () => {
             <p>{select.address}</p>
             <p>${select.hRate}/hr</p>
             <p>{select.trades}</p>
-            <p>{select.pCode}</p>
+            <p>{select.postalCode}</p>
           </div>
         </div>
         <div className='worker-detail-buttons'>

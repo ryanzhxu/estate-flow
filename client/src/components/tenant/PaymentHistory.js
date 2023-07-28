@@ -2,7 +2,7 @@ import Button from '@atlaskit/button';
 import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { getSingleTenantAsync, updateTenantAsync } from '../../redux/tenants/tenantsThunks';
+import { getSingleTenantAsync, updateTenantAsync } from '../../redux/tenants/thunks';
 import InputField from '../../shared/components/InputField';
 import { getSelectOptions, getSelectedIndex, saveValueToObject } from '../../shared/services/Helpers';
 import { PaymentTypes } from '../../shared/constants/tenant/PaymentTypes';
@@ -24,9 +24,11 @@ function PaymentHistory({ tenant }) {
       ...tenant,
       paymentHistory: [...tenant.paymentHistory, { ...paymentHistory }],
     };
+
     dispatch(updateTenantAsync(tenantToBeUpdated)).then(() => {
       dispatch(getSingleTenantAsync(tenantToBeUpdated._id));
     });
+
     setIsOpen(false);
   };
 

@@ -1,22 +1,28 @@
 import React from 'react';
-import '../../shared/pages/property/PropertyListing.css';
 import { Link } from 'react-router-dom';
+import '../../shared/styles/listing.css';
 
 const TenantCard = ({ tenant }) => {
   return (
-    <div className='property-listing-card'>
+    <div className='listing-card'>
       <Link to={`/tenants/${tenant._id}`}>
         <span>
-          <img src='https://cdn-icons-png.flaticon.com/512/65/65581.png' alt='avatar' className='property-image' />
+          <img alt='avatar' className='listing-card-image' src='https://cdn-icons-png.flaticon.com/512/65/65581.png' />
         </span>
       </Link>
-      <div className='property-card-content'>
+      <div className='listing-card-content'>
         <span>Tenant</span>
-        <h4>
+        <h4 className='scrollable-text'>
           {tenant.firstName} {tenant.lastName}
         </h4>
-        <p>{`Address: TBD`}</p>
-        <div className='property-card-footer' />
+        <p>
+          <span>{tenant.address.streetAddress}</span>
+          <br />
+          <span>
+            {tenant.address.city} {tenant.address.province} {tenant.address.postalCode}
+          </span>
+        </p>
+        <div className='listing-card-footer' />
       </div>
     </div>
   );

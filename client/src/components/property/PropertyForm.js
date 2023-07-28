@@ -8,6 +8,7 @@ import {
   clearNestedObjectValues,
   getSelectedIndex,
   getSelectOptions,
+  getStandardizedObject,
   saveValueToObject,
 } from '../../shared/services/Helpers';
 import InputField from '../../shared/components/InputField';
@@ -17,19 +18,10 @@ export default function PropertyForm({ handleCloseForm, editProperty }) {
   const property = {
     type: editProperty?.type ?? '',
     name: editProperty?.name ?? '',
-    address: editProperty?.address
-      ? {
-          streetAddress: editProperty.address.streetAddress ?? '',
-          city: editProperty.address.city ?? '',
-          province: editProperty.address.province ?? '',
-          postalCode: editProperty.address.postalCode ?? '',
-        }
-      : {
-          streetAddress: '',
-          city: '',
-          province: '',
-          postalCode: '',
-        },
+    streetAddress: editProperty.address.streetAddress ?? '',
+    city: editProperty.address.city ?? '',
+    province: editProperty.address.province ?? '',
+    postalCode: editProperty.address.postalCode ?? '',
     bed: editProperty?.bed ?? '',
     bath: editProperty?.bath ?? '',
     description: editProperty?.description ?? '',
@@ -47,7 +39,7 @@ export default function PropertyForm({ handleCloseForm, editProperty }) {
   const dispatch = useDispatch();
 
   const handleAddProperty = () => {
-    dispatch(addPropertyAsync(property)).then(() => {
+    dispatch(addPropertyAsync(getStandardizedObject(property))).then(() => {
       clearNestedObjectValues(property);
       handleCloseForm();
       dispatch(getPropertiesAsync());
@@ -59,7 +51,7 @@ export default function PropertyForm({ handleCloseForm, editProperty }) {
       property._id = editProperty._id;
     }
 
-    dispatch(updatePropertyAsync(property)).then(() => {
+    dispatch(updatePropertyAsync(getStandardizedObject(property))).then(() => {
       clearNestedObjectValues(property);
       handleCloseForm();
       dispatch(getPropertiesAsync());

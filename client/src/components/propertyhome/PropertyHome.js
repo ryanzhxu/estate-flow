@@ -10,7 +10,7 @@ import TenantView from './TenantView';
 import Loading from '../loading/Loading';
 // import searching from '../loading/loading-lottie.json';
 import sandGlass from '../loading/loading_sand_glass.json';
-import { openTenantADD, isTenantAddOpen } from '../../redux/tenants/tenantsReducer';
+import { openTenantADD, isTenantAddOpen } from '../../redux/tenants/reducer';
 import AddTenantForm from '../tenant/AddTenantForm';
 import PropertyForm from '../property/PropertyForm';
 

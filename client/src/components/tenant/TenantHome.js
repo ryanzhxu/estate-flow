@@ -7,12 +7,12 @@ import RequiredPayments from './RequiredPayments';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getSingleTenantAsync } from '../../redux/tenants/tenantsThunks';
+import { getSingleTenantAsync } from '../../redux/tenants/thunks';
 import React from 'react';
 import sandGlass from '../loading/loading_sand_glass.json';
 import Loading from '../loading/Loading';
 
-function Tenant() {
+function TenantHome() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const tenant = useSelector((state) => state.tenants.tenantSelected);
@@ -63,4 +63,4 @@ function Tenant() {
   return <>{showLoading || !tenant ? <Loading animationData={sandGlass} /> : getContents()}</>;
 }
 
-export default Tenant;
+export default TenantHome;

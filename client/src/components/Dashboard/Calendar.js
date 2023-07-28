@@ -18,7 +18,7 @@ import DueReminder from './DueReminder';
 import './Calendar.css';
 import { Weekdays } from '../../shared/constants/Weekdays';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDueDaysForMonth, getTenantsWithDuesByDate } from '../../redux/tenants/tenantsThunks';
+import { getDueDaysForMonth, getTenantsWithDuesByDate } from '../../redux/tenants/thunks';
 import { dayHasDue, getConvertedDate } from '../../shared/services/Helpers';
 
 function classNames(...classes) {

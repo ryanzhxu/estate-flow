@@ -1,39 +1,37 @@
-import {useDispatch, useSelector} from "react-redux";
-import DeleteConfirmationModal from "../../shared/pages/property/DeleteConfirmationModal";
-import {useState} from "react";
-import {deleteTenantAsync} from "../../redux/tenants/tenantsThunks";
-import {useNavigate} from "react-router-dom";
-import AddTenantForm from "./AddTenantForm";
-import {isTenantAddOpen, openTenantADD} from "../../redux/tenants/tenantsReducer";
+import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import AddTenantForm from './AddTenantForm';
+import { isTenantAddOpen, openTenantADD } from '../../redux/tenants/reducer';
+import { deleteTenantAsync } from '../../redux/tenants/thunks';
+import { getTenantFullName } from '../../shared/services/Helpers';
+import DeleteConfirmationModal from '../property/DeleteConfirmationModal';
 
 function TenantProfileCard({ tenant }) {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-    const tenantFullName = `${tenant.firstName} ${tenant.middleName ? `${tenant.middleName.charAt(0)}.` : ''} ${tenant.lastName}`;
-    const deleteModalContent = (
-      <div>
-          <p>You are about to delete the tenant {tenantFullName}. This action cannot be undone.</p>
-          <p>Before proceeding, please consider the following:</p>
-          <ul>
-              <li>
-                All data associated with this tenant will be deleted, including lease agreement, payment history, etc.
-              </li>
-              <li>
-                The tenant will be removed from any properties it is registered under
-              </li>
-          </ul>
-          <p>Are you sure you want to proceed with this deletion?</p>
-      </div>
-    );
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const tenantFullName = getTenantFullName(tenant.firstName, tenant.middleName, tenant.lastName);
 
-    const handleDelete = () => {
-        dispatch(deleteTenantAsync(tenant._id))
-        navigate(`/properties/${tenant.propertyId}`)
-    }
+  const deleteModalContent = (
+    <div>
+      <p>You are about to delete the tenant {tenantFullName}. This action cannot be undone.</p>
+      <p>Before proceeding, please consider the following:</p>
+      <ul>
+        <li>All data associated with this tenant will be deleted, including lease agreement, payment history, etc.</li>
+        <li>The tenant will be removed from any properties it is registered under</li>
+      </ul>
+      <p>Are you sure you want to proceed with this deletion?</p>
+    </div>
+  );
 
-    const tenantFormIsOpen = useSelector(isTenantAddOpen);
+  const handleDelete = () => {
+    dispatch(deleteTenantAsync(tenant._id));
+    navigate(`/properties/${tenant.propertyId}`);
+  };
+
+  const tenantFormIsOpen = useSelector(isTenantAddOpen);
 
   return (
     <div className='card-body text-center'>
@@ -52,13 +50,13 @@ function TenantProfileCard({ tenant }) {
           Delete
         </button>
       </div>
-      {tenantFormIsOpen  &&  <AddTenantForm propertyId={tenant.propertyId} editingTenant={tenant}/>}
+      {tenantFormIsOpen && <AddTenantForm propertyId={tenant.propertyId} editingTenant={tenant} />}
       <DeleteConfirmationModal
-          isOpen={isDeleteModalOpen}
-          onCancel={() => setIsDeleteModalOpen(false)}
-          onDelete={handleDelete}
-          modalTitle="Warning: Deleting a tenant"
-          modalContent={deleteModalContent}
+        isOpen={isDeleteModalOpen}
+        onCancel={() => setIsDeleteModalOpen(false)}
+        onDelete={handleDelete}
+        type='tenant'
+        modalContent={deleteModalContent}
       />
     </div>
   );

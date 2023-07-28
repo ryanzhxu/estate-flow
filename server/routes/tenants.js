@@ -8,7 +8,34 @@ const router = express.Router();
 
 router.get('/tenants', async (req, res) => {
   try {
-    res.status(StatusCodes.OK).json(await Tenant.find());
+    const tenants = await Tenant.aggregate([
+      {
+        $lookup: {
+          from: 'properties',
+          localField: 'propertyId',
+          foreignField: '_id',
+          as: 'property',
+        },
+      },
+      {
+        $unwind: '$property',
+      },
+      {
+        $project: {
+          _id: 1,
+          firstName: 1,
+          lastName: 1,
+          email: 1,
+          phoneNumber: 1,
+          lease: 1,
+          paymentHistory: 1,
+          address: '$property.address',
+          propertyId: 1,
+        },
+      },
+    ]);
+
+    res.status(StatusCodes.OK).json(tenants);
   } catch (e) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
@@ -156,9 +183,9 @@ router.get('/properties/:_id/tenants', async (req, res) => {
   }
 });
 
-router.put('/tenants/:_id', async (req, res) => {
+router.put('/tenants', async (req, res) => {
   try {
-    await Tenant.findByIdAndUpdate(req.params._id, req.body);
+    await Tenant.findByIdAndUpdate(req.body._id, req.body);
     res.status(StatusCodes.OK).send();
   } catch (e) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);

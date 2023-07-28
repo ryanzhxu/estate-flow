@@ -14,7 +14,11 @@ function LeaseOverviewCard({ lease, address }) {
             <p className='mb-0'>Residence</p>
           </div>
           <div className='col-sm-5'>
-            <p className='text-muted mb-0'>{address.streetAddress}</p>
+            <span className='text-muted mb-0'>{address.streetAddress}</span>
+            <br />
+            <span className='text-muted mb-0'>
+              {address.city} {address.province} {address.postalCode}
+            </span>
           </div>
         </div>
         <hr />
