@@ -113,7 +113,6 @@ router.get('/tenants/dues/:date', async (req, res) => {
 
 router.post('/tenants', async (req, res) => {
   const propertyId = req.body.propertyId;
-
   if (!mongoose.isValidObjectId(propertyId)) {
     return res.status(StatusCodes.BAD_REQUEST).json({ error: 'Invalid propertyId format' });
   }
