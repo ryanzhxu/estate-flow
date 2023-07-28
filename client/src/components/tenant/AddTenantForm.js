@@ -9,10 +9,12 @@ import {
   clearNestedObjectValues,
   getSelectedIndex,
   getSelectOptions,
+  getStandardizedObject,
   saveValueToObject,
 } from '../../shared/services/Helpers';
 import {
   addTenantAsync,
+  getSingleTenantAsync,
   getTenantsFromPropertyAsync,
   updateTenantAsync
 } from '../../redux/tenants/thunks';
@@ -63,7 +65,7 @@ export default function AddTenantForm({propertyId, editingTenant}) {
       propertyId: propertyId,
       leaseFile: tenant.leaseFile,
     } 
-    dispatch(addTenantAsync(tenant2)).then(() => {
+    dispatch(addTenantAsync(getStandardizedObject(tenant2))).then(() => {
       clearNestedObjectValues(tenant2);
       clearNestedObjectValues(tenant);
       handleCloseForm();
@@ -80,10 +82,10 @@ export default function AddTenantForm({propertyId, editingTenant}) {
       tenant._id = editingTenant._id;
     }
 
-    dispatch(updateTenantAsync(tenant)).then(() => {
+    dispatch(updateTenantAsync(getStandardizedObject(tenant))).then(() => {
       clearNestedObjectValues(tenant);
       handleCloseForm();
-      dispatch(getTenantsFromPropertyAsync(propertyId));
+      dispatch(getSingleTenantAsync(editingTenant._id));
     });
   };
 
