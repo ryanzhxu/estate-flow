@@ -1,10 +1,11 @@
-import { useDispatch } from 'react-redux';
-import DeleteConfirmationModal from '../property/DeleteConfirmationModal';
-import { useState } from 'react';
-import { deleteTenantAsync } from '../../redux/tenants/thunks';
+import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import React from 'react';
+import AddTenantForm from './AddTenantForm';
+import { isTenantAddOpen, openTenantADD } from '../../redux/tenants/reducer';
+import { deleteTenantAsync } from '../../redux/tenants/thunks';
 import { getTenantFullName } from '../../shared/services/Helpers';
+import DeleteConfirmationModal from '../property/DeleteConfirmationModal';
 
 function TenantProfileCard({ tenant }) {
   const dispatch = useDispatch();
@@ -30,6 +31,8 @@ function TenantProfileCard({ tenant }) {
     navigate(`/properties/${tenant.propertyId}`);
   };
 
+  const tenantFormIsOpen = useSelector(isTenantAddOpen);
+
   return (
     <div className='card-body text-center'>
       <h5 className='my-3'>{tenantFullName}</h5>
@@ -40,13 +43,14 @@ function TenantProfileCard({ tenant }) {
         style={{ width: '150px' }}
       />
       <div className='d-flex justify-content-center mt-3 mb-2'>
-        <button className='btn btn-primary' type='button'>
+        <button className='btn btn-primary' type='button' onClick={() => dispatch(openTenantADD())}>
           Edit
         </button>
         <button className='btn btn-outline-primary ms-1' type='button' onClick={() => setIsDeleteModalOpen(true)}>
           Delete
         </button>
       </div>
+      {tenantFormIsOpen && <AddTenantForm propertyId={tenant.propertyId} editingTenant={tenant} />}
       <DeleteConfirmationModal
         isOpen={isDeleteModalOpen}
         onCancel={() => setIsDeleteModalOpen(false)}

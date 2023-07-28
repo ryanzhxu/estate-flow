@@ -47,37 +47,23 @@ const getDueDaysForMonth = async (yearMonth) => {
 };
 
 const addTenant = async (tenant) => {
-  const resp = await fetch(`${SERVER_BASE_URL}/properties/${tenant.propertyId}/tenant`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(tenant),
-  });
-
-  const data = await resp.json();
-
-  if (!resp.ok) {
-    const errorMsg = data?.message;
-    throw new Error(errorMsg);
+  try {
+    const res = await axios.post(`${SERVER_BASE_URL}/tenants`, tenant)
+    return res.data;
+  } catch(e) {
+    console.error(e);
+    throw new Error(e.message);
   }
-
-  return data;
 };
 
 const updateTenant = async (tenant) => {
-  const resp = await fetch(`${SERVER_BASE_URL}/tenants`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(tenant),
-  });
-
-  const data = await resp.json();
-
-  if (!resp.ok) {
-    const errorMsg = data?.message;
-    throw new Error(errorMsg);
+  try {
+    const res = await axios.put(`${SERVER_BASE_URL}/tenants/${tenant._id}`, tenant);
+    return res.data;
+  } catch(e) {
+    console.error(e);
+    throw new Error(e.message);
   }
-
-  return data;
 };
 
 const deleteTenant = async (id) => {

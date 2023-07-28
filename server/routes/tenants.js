@@ -142,13 +142,13 @@ router.post('/tenants', async (req, res) => {
   const propertyId = req.body.propertyId;
 
   if (!mongoose.isValidObjectId(propertyId)) {
-    res.status(StatusCodes.BAD_REQUEST).json({ error: 'Invalid propertyId format' });
+    return res.status(StatusCodes.BAD_REQUEST).json({ error: 'Invalid propertyId format' });
   }
 
   try {
     const foundProperty = await Property.findById(propertyId);
     if (!foundProperty) {
-      res.status(StatusCodes.BAD_REQUEST).json({ error: `Property with id ${propertyId} does not exist` });
+      return res.status(StatusCodes.BAD_REQUEST).json({ error: `Property with id ${propertyId} does not exist` });
     }
 
     let newTenantBody = req.body;
@@ -158,9 +158,9 @@ router.post('/tenants', async (req, res) => {
 
     const newTenant = new Tenant(newTenantBody);
     await newTenant.save();
-    res.status(StatusCodes.CREATED).send(newTenant);
+    return res.status(StatusCodes.CREATED).send(newTenant);
   } catch (e) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });
 
@@ -168,19 +168,18 @@ router.get('/properties/:_id/tenants', async (req, res) => {
   const propertyId = req.params._id;
 
   if (!mongoose.isValidObjectId(propertyId)) {
-    res.status(StatusCodes.BAD_REQUEST).json({ error: 'Invalid propertyId format' });
-  }
-
-  const foundProperty = await Property.findById(propertyId);
-  if (!foundProperty) {
-    res.status(StatusCodes.BAD_REQUEST).json({ error: `Property with id ${propertyId} does not exist` });
+    return res.status(StatusCodes.BAD_REQUEST).json({ error: 'Invalid propertyId format' });
   }
 
   try {
+    const foundProperty = await Property.findById(propertyId);
+    if (!foundProperty) {
+      return res.status(StatusCodes.BAD_REQUEST).json({ error: `Property with id ${propertyId} does not exist` });
+    }
     const tenants = await Tenant.find({ propertyId: propertyId });
-    res.status(StatusCodes.OK).json(tenants);
-  } catch (e) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+    return res.status(StatusCodes.OK).json(tenants);
+  } catch(e) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });
 

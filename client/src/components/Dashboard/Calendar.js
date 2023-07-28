@@ -90,7 +90,7 @@ export default function Calendar() {
 
         <div className='calendar-container'>
           {Object.values(Weekdays).map((day) => (
-            <h5 key={day}>{day}</h5>
+            <h5 key={day} >{day}</h5>
           ))}
 
           {days.map((day, dayIdx) => (
@@ -116,7 +116,7 @@ export default function Calendar() {
               </button>
 
               <div className='day-marker-container'>
-                {dayHasDue(formattedDueDays, day) && <div className='day-marker w-1 h-1 rounded-full bg-sky-500' />}
+                {dayHasDue(formattedDueDays, day) && <div className='day-marker w-1 h-1 rounded-full bg-orange-400' />}
               </div>
             </div>
           ))}
