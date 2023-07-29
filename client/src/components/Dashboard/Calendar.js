@@ -90,7 +90,7 @@ export default function Calendar() {
 
         <div className='calendar-container'>
           {Object.values(Weekdays).map((day) => (
-            <h5 key={day} >{day}</h5>
+            <h5 key={day}>{day}</h5>
           ))}
 
           {days.map((day, dayIdx) => (

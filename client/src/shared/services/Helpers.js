@@ -71,15 +71,7 @@ export const getCapitalized = (string) => {
 
 export const getConvertedDate = (dateString) => {
   const dateObject = new Date(dateString);
-
-  const year = dateObject.getFullYear();
-  const month = dateObject.getMonth() + 1;
-  const day = dateObject.getDate();
-
-  const formattedMonth = month.toString().padStart(2, '0');
-  const formattedDay = day.toString().padStart(2, '0');
-
-  const formattedDate = `${year}-${formattedMonth}-${formattedDay}`;
+  const formattedDate = dateObject.toISOString().split('T')[0];
 
   return formattedDate;
 };
@@ -99,12 +91,8 @@ export const getFormattedPhoneNum = (number) => {
   return number;
 };
 
-export const getTenantFullName = (firstName, middleName, lastName) => {
-  return `${firstName} ${middleName ? `${middleName.charAt(0)}.` : ''} ${lastName}`;
-};
-
-export const getStandardizedObject = (object) => {
-  const { streetAddress, city, province, postalCode } = object;
+export const getStandardizedProperty = (propertyObj) => {
+  const { streetAddress, city, province, postalCode } = propertyObj;
 
   const address = {
     streetAddress,
@@ -113,27 +101,49 @@ export const getStandardizedObject = (object) => {
     postalCode,
   };
 
-  const updatedObject = { ...object, address };
+  const updatedPropertyObj = { ...propertyObj, address };
 
-  delete updatedObject.streetAddress;
-  delete updatedObject.city;
-  delete updatedObject.province;
-  delete updatedObject.postalCode;
+  delete updatedPropertyObj.streetAddress;
+  delete updatedPropertyObj.city;
+  delete updatedPropertyObj.province;
+  delete updatedPropertyObj.postalCode;
 
-  return updatedObject;
+  return updatedPropertyObj;
+};
+
+export const getStandardizedTenant = (tenant) => {
+  const { startDate, endDate, leaseType } = tenant;
+
+  const lease = {
+    startDate,
+    endDate,
+    leaseType,
+  };
+
+  const updatedTenantObj = { ...tenant, lease };
+
+  delete updatedTenantObj.startDate;
+  delete updatedTenantObj.endDate;
+  delete updatedTenantObj.leaseType;
+
+  return updatedTenantObj;
 };
 
 export const getMappedEditObject = (object) => {
   const editObject = {};
 
   for (const field in object) {
-    if (field === '_id' || field === '__v') {
+    if (field === '_id' || field === '__v' || field === 'propertyId' || field === 'paymentHistory') {
       continue;
     }
 
-    if (field === 'address') {
-      for (const addressField in object[field]) {
-        editObject[addressField] = object[field][addressField];
+    if (field === 'address' || field === 'lease') {
+      for (const nestedField in object[field]) {
+        if (nestedField === 'fees') {
+          continue;
+        }
+
+        editObject[nestedField] = object[field][nestedField];
       }
     } else {
       editObject[field] = object[field] || '';
@@ -141,4 +151,36 @@ export const getMappedEditObject = (object) => {
   }
 
   return editObject;
+};
+
+export const getDateDifference = (startDate, endDate) => {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+
+  const yearDiff = end.getFullYear() - start.getFullYear();
+  const monthDiff = end.getMonth() - start.getMonth();
+  const dayDiff = end.getDate() - start.getDate();
+
+  let yearDiffAbs = Math.abs(yearDiff);
+  let monthDiffAbs = Math.abs(monthDiff);
+  let dayDiffAbs = Math.abs(dayDiff);
+
+  const isEndDateBeforeStartDate = end < start;
+
+  if (isEndDateBeforeStartDate) {
+    yearDiffAbs = -yearDiffAbs;
+    monthDiffAbs = -monthDiffAbs;
+    dayDiffAbs = -dayDiffAbs;
+  }
+
+  return {
+    years: yearDiffAbs,
+    months: monthDiffAbs,
+    days: dayDiffAbs,
+    isEndDateBeforeStartDate,
+  };
+};
+
+export const getPluralS = (count) => {
+  return count > 1 ? 's' : '';
 };

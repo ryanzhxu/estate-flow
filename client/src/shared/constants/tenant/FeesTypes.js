@@ -1,4 +1,4 @@
-export const PaymentTypes = {
+export const FeesTypes = {
   Rent: 'Rent',
   Gas: 'Gas',
   Maintenance: 'Maintenance',

@@ -6,7 +6,7 @@ import PropertyCard from '../../components/property/PropertyCard';
 import InputFormModal from '../../shared/components/InputFormModal';
 import { Tables } from '../../shared/constants/Tables';
 import { RequiredFields } from '../../shared/constants/property/RequiredFields';
-import { clearNestedObjectValues, getStandardizedObject } from '../../shared/services/Helpers';
+import { clearNestedObjectValues, getStandardizedProperty } from '../../shared/services/Helpers';
 
 const PropertiesListing = () => {
   const dispatch = useDispatch();
@@ -26,6 +26,7 @@ const PropertiesListing = () => {
     description: '',
     rent: '',
     amenities: '',
+    photos: [],
   };
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const PropertiesListing = () => {
   }, [dispatch]);
 
   const handleAddProperty = () => {
-    dispatch(addPropertyAsync(getStandardizedObject(property))).then(() => {
+    dispatch(addPropertyAsync(getStandardizedProperty(property))).then(() => {
       clearNestedObjectValues(property);
       setIsAddModalOpen(false);
       dispatch(getPropertiesAsync());
@@ -70,7 +71,6 @@ const PropertiesListing = () => {
           onSubmit={handleAddProperty}
         />
       )}
-      {/* {isAddModalOpen && <PropertyForm handleCloseForm={handleCloseAddForm} editProperty={null} />} */}
     </div>
   );
 };

@@ -13,7 +13,7 @@ import sandGlass from '../loading/loading_sand_glass.json';
 import Loading from '../loading/Loading';
 
 function TenantHome() {
-  const { id } = useParams();
+  const { _id } = useParams();
   const dispatch = useDispatch();
   const tenant = useSelector((state) => state.tenants.tenantSelected);
   const [showLoading, setShowLoading] = useState(true);
@@ -23,12 +23,12 @@ function TenantHome() {
       setShowLoading(false);
     }, 1500);
 
-    dispatch(getSingleTenantAsync(id));
+    dispatch(getSingleTenantAsync(_id));
 
     return () => {
       clearTimeout(timer);
     };
-  }, [id, dispatch]);
+  }, [_id, dispatch]);
 
   const getContents = () => {
     return (

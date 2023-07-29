@@ -9,7 +9,7 @@ import {
   clearNestedObjectValues,
   getSelectedIndex,
   getSelectOptions,
-  getStandardizedObject,
+  getStandardizedProperty,
   saveValueToObject,
 } from '../../shared/services/Helpers';
 import {
@@ -65,7 +65,7 @@ export default function AddTenantForm({propertyId, editingTenant}) {
       propertyId: propertyId,
       leaseFile: tenant.leaseFile,
     } 
-    dispatch(addTenantAsync(getStandardizedObject(tenant2))).then(() => {
+    dispatch(addTenantAsync(getStandardizedProperty(tenant2))).then(() => {
       clearNestedObjectValues(tenant2);
       clearNestedObjectValues(tenant);
       handleCloseForm();
@@ -82,7 +82,7 @@ export default function AddTenantForm({propertyId, editingTenant}) {
       tenant._id = editingTenant._id;
     }
 
-    dispatch(updateTenantAsync(getStandardizedObject(tenant))).then(() => {
+    dispatch(updateTenantAsync(getStandardizedProperty(tenant))).then(() => {
       clearNestedObjectValues(tenant);
       handleCloseForm();
       dispatch(getSingleTenantAsync(editingTenant._id));

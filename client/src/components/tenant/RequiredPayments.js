@@ -1,3 +1,5 @@
+import React from 'react';
+
 function RequiredPayments({ fees }) {
   return (
     <div key='required-payments'>
@@ -10,15 +12,15 @@ function RequiredPayments({ fees }) {
             <tr>
               <th>Type</th>
               <th>Amount</th>
-              <th>Deadline</th>
+              <th>Due</th>
             </tr>
           </thead>
           <tbody>
-            {fees.map((payment, index) => (
-              <tr key={`req-payment-${index}`}>
-                <td>{payment.type}</td>
-                <td>${payment.amount}</td>
-                <td>{new Date(payment.dueDate).toLocaleDateString()}</td>
+            {fees.map((fee, index) => (
+              <tr key={`required-payment-${index}`}>
+                <td>{fee.feesType}</td>
+                <td>${fee.amount}</td>
+                <td>{new Date(fee.dueDate).toLocaleDateString('en-US', { timeZone: 'UTC' })}</td>
               </tr>
             ))}
           </tbody>

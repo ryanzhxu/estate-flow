@@ -8,7 +8,7 @@ import {
   clearNestedObjectValues,
   getSelectedIndex,
   getSelectOptions,
-  getStandardizedObject,
+  getStandardizedProperty,
   saveValueToObject,
 } from '../../shared/services/Helpers';
 import InputField from '../../shared/components/InputField';
@@ -39,7 +39,7 @@ export default function PropertyForm({ handleCloseForm, editProperty }) {
   const dispatch = useDispatch();
 
   const handleAddProperty = () => {
-    dispatch(addPropertyAsync(getStandardizedObject(property))).then(() => {
+    dispatch(addPropertyAsync(getStandardizedProperty(property))).then(() => {
       clearNestedObjectValues(property);
       handleCloseForm();
       dispatch(getPropertiesAsync());
@@ -51,7 +51,7 @@ export default function PropertyForm({ handleCloseForm, editProperty }) {
       property._id = editProperty._id;
     }
 
-    dispatch(updatePropertyAsync(getStandardizedObject(property))).then(() => {
+    dispatch(updatePropertyAsync(getStandardizedProperty(property))).then(() => {
       clearNestedObjectValues(property);
       handleCloseForm();
       dispatch(getPropertiesAsync());

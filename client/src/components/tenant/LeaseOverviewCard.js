@@ -1,3 +1,4 @@
+import React from 'react';
 import './LeaseOverviewCard.css';
 
 function LeaseOverviewCard({ lease, address }) {
@@ -42,19 +43,10 @@ function LeaseOverviewCard({ lease, address }) {
         <hr />
         <div className='row row-spacing'>
           <div className='col-sm-6'>
-            <p className='mb-0'>Lease Term</p>
-          </div>
-          <div className='col-sm-5'>
-            <p className='text-muted mb-0'>{lease.term}</p>
-          </div>
-        </div>
-        <hr />
-        <div className='row row-spacing'>
-          <div className='col-sm-6'>
             <p className='mb-0'>Lease Type</p>
           </div>
           <div className='col-sm-5'>
-            <p className='text-muted mb-0'>{lease.type}</p>
+            <p className='text-muted mb-0'>{lease.leaseType}</p>
           </div>
         </div>
       </div>

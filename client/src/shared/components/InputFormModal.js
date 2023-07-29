@@ -1,8 +1,10 @@
 import Button from '@atlaskit/button';
 import React from 'react';
 import { Modal } from 'react-bootstrap';
+import { DateFields } from '../constants/DateFields';
 import { NumericFields } from '../constants/NumericFields';
 import { SelectionFields } from '../constants/SelectionFields';
+import { UploadFields } from '../constants/UploadFields';
 import { getSelectedIndex, getSelectOptions, saveValueToObject } from '../services/Helpers';
 import InputField from './InputField';
 
@@ -25,8 +27,7 @@ const InputFormModal = ({ isModalOpen, setIsModalOpen, isEdit = false, type, obj
               : object[field]
               ? object[field]
               : '';
-
-            const isNumeric = NumericFields.includes(field);
+            const type = DateFields.includes(field) ? 'date' : NumericFields.includes(field) ? 'number' : 'text';
             const options = isSelect && getSelectOptions(SelectionFields[field]);
 
             const handleSelectOnChange = (selectedOptions) => {
@@ -47,7 +48,7 @@ const InputFormModal = ({ isModalOpen, setIsModalOpen, isEdit = false, type, obj
                 key={field}
                 field={field}
                 defaultValue={defaultValue}
-                type={isNumeric ? 'number' : 'text'}
+                type={type}
                 isRequired={isRequired}
                 isSelect={isSelect}
                 isMulti={isMulti}

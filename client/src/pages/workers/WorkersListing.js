@@ -7,7 +7,7 @@ import '../../shared/styles/listing.css';
 import WorkerCard from '../../components/worker/WorkerCard';
 import InputFormModal from '../../shared/components/InputFormModal';
 import { Tables } from '../../shared/constants/Tables';
-import { clearNestedObjectValues, getStandardizedObject } from '../../shared/services/Helpers';
+import { clearNestedObjectValues, getStandardizedProperty } from '../../shared/services/Helpers';
 import { RequiredFields } from '../../shared/constants/worker/RequiredFields';
 
 function WorkersListing() {
@@ -34,7 +34,7 @@ function WorkersListing() {
   }, [dispatch]);
 
   const handleAddWorker = () => {
-    dispatch(addWorkerAsync(getStandardizedObject(worker))).then(() => {
+    dispatch(addWorkerAsync(getStandardizedProperty(worker))).then(() => {
       clearNestedObjectValues(worker);
       setIsAddModalOpen(false);
       dispatch(getWorkersAsync());

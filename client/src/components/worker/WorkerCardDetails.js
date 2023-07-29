@@ -8,7 +8,7 @@ import {
   clearNestedObjectValues,
   getFormattedPhoneNum,
   getMappedEditObject,
-  getStandardizedObject,
+  getStandardizedProperty,
 } from '../../shared/services/Helpers';
 import DeleteConfirmationModal from '../property/DeleteConfirmationModal';
 
@@ -23,7 +23,7 @@ const WorkerCardDetails = ({ worker }) => {
       editWorker._id = worker._id;
     }
 
-    dispatch(updateWorkerAsync(getStandardizedObject(editWorker))).then(() => {
+    dispatch(updateWorkerAsync(getStandardizedProperty(editWorker))).then(() => {
       clearNestedObjectValues(editWorker);
       setIsEditModalOpen(false);
       dispatch(getWorkersAsync());

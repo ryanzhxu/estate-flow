@@ -1,18 +1,20 @@
 import React from 'react';
 import './PropertyDetailCard.css';
-function PropertyDetailCard({ id, name, address }) {
+function PropertyDetailCard({ property }) {
   return (
-    <div className='property-card'>
-      <div className='property-detail'>
-        <header>{name ? name : id}</header>
-        <p className='property-address'>{address.streetAddress}</p>
-        <p className='property-zone-info'>
-          <small>
-            {address.city}, {address.province} {address.postalCode}
-          </small>
-        </p>
+    property.address && (
+      <div className='property-card'>
+        <div className='property-detail'>
+          <header>{property.name ? property.name : property._id}</header>
+          <p className='property-address'>{property.address.streetAddress}</p>
+          <p className='property-zone-info'>
+            <small>
+              {property.address.city}, {property.address.province} {property.address.postalCode}
+            </small>
+          </p>
+        </div>
       </div>
-    </div>
+    )
   );
 }
 export default PropertyDetailCard;
