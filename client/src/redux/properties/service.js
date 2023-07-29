@@ -5,6 +5,10 @@ const getProperties = async () => {
     method: 'GET',
   });
 
+  console.log('uri: ', `${SERVER_BASE_URL}/properties`);
+
+  console.log('resp: ', resp);
+
   return resp.json();
 };
 

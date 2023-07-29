@@ -6,6 +6,10 @@ const getTenants = async () => {
     method: 'GET',
   });
 
+  console.log('uri: ', `${SERVER_BASE_URL}/tenants`);
+
+  console.log('resp: ', resp);
+
   return resp.json();
 };
 

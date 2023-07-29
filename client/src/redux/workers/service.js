@@ -5,6 +5,10 @@ const getWorkers = async () => {
     method: 'GET',
   });
 
+  console.log('uri: ', `${SERVER_BASE_URL}/workers`);
+
+  console.log('response: ', response);
+
   return response.json();
 };
 
