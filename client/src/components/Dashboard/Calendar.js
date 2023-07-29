@@ -18,7 +18,7 @@ import DueReminder from './DueReminder';
 import './Calendar.css';
 import { Weekdays } from '../../shared/constants/Weekdays';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDueDaysForMonth, getTenantsWithDuesByDate } from '../../redux/tenants/tenantsThunks';
+import { getDueDaysForMonth, getTenantsWithDuesByDate } from '../../redux/tenants/thunks';
 import { dayHasDue, getConvertedDate } from '../../shared/services/Helpers';
 
 function classNames(...classes) {
@@ -116,7 +116,7 @@ export default function Calendar() {
               </button>
 
               <div className='day-marker-container'>
-                {dayHasDue(formattedDueDays, day) && <div className='day-marker w-1 h-1 rounded-full bg-sky-500' />}
+                {dayHasDue(formattedDueDays, day) && <div className='day-marker w-1 h-1 rounded-full bg-orange-400' />}
               </div>
             </div>
           ))}

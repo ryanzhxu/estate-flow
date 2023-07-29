@@ -19,26 +19,34 @@ const tenantSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    birthDate: {
+      type: Date,
+      required: false,
+    },
+    occupation: {
+      type: String,
+      required: false,
+    },
+    leaseFile: {
+      type: JSON,
+      required: false,
+    },
     lease: {
       startDate: {
         type: Date,
-        required: false,
+        required: true,
       },
       endDate: {
         type: Date,
-        required: false,
+        required: true,
       },
-      term: {
+      leaseType: {
         type: String,
-        required: false,
-      },
-      type: {
-        type: String,
-        required: false,
+        required: true,
       },
       fees: [
         {
-          type: {
+          feesType: {
             type: String,
             required: false,
           },
@@ -55,7 +63,7 @@ const tenantSchema = new mongoose.Schema(
     },
     paymentHistory: [
       {
-        type: {
+        paymentType: {
           type: String,
           required: false,
         },
@@ -67,7 +75,7 @@ const tenantSchema = new mongoose.Schema(
           type: Number,
           required: false,
         },
-        date: {
+        paidDate: {
           type: Date,
           required: false,
         },

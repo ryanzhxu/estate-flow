@@ -2,6 +2,7 @@ import React from 'react';
 import Select from 'react-select';
 import './inputField/InputField.css';
 import { getCapitalized } from '../services/Helpers';
+import { MultiWordFields } from '../constants/MultiWordFields';
 
 const InputField = ({
   field,
@@ -17,7 +18,7 @@ const InputField = ({
     <div style={{ padding: '0 25px 0 1px' }}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
         {isRequired && <span style={{ color: '#02687D' }}>*&nbsp;</span>}
-        <label>{getCapitalized(field)}:</label>
+        <label>{Object.keys(MultiWordFields).includes(field) ? MultiWordFields[field] : getCapitalized(field)}:</label>
       </div>
 
       {isSelect ? (
