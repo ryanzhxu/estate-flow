@@ -48,9 +48,9 @@ const getDueDaysForMonth = async (yearMonth) => {
 
 const addTenant = async (tenant) => {
   try {
-    const res = await axios.post(`${SERVER_BASE_URL}/tenants`, tenant)
+    const res = await axios.post(`${SERVER_BASE_URL}/tenants`, tenant);
     return res.data;
-  } catch(e) {
+  } catch (e) {
     console.error(e);
     throw new Error(e.message);
   }
@@ -60,7 +60,7 @@ const updateTenant = async (tenant) => {
   try {
     const res = await axios.put(`${SERVER_BASE_URL}/tenants`, tenant);
     return res.data;
-  } catch(e) {
+  } catch (e) {
     console.error(e);
     throw new Error(e.message);
   }

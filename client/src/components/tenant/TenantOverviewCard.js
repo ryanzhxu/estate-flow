@@ -1,3 +1,6 @@
+import React from 'react';
+import { getFormattedPhoneNum } from '../../shared/services/Helpers';
+
 function TenantOverviewCard({ tenant }) {
   return (
     <div className='card-body'>
@@ -17,7 +20,7 @@ function TenantOverviewCard({ tenant }) {
           <p className='mb-0'>Phone</p>
         </div>
         <div className='col-sm-7'>
-          <p className='text-muted mb-0'>{tenant.phoneNumber}</p>
+          <p className='text-muted mb-0'>{getFormattedPhoneNum(tenant.phoneNumber)}</p>
         </div>
       </div>
       <hr />

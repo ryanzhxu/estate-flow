@@ -10,4 +10,10 @@ export const MultiWordFields = {
   paymentHistory: 'Payment history',
   propertyId: 'Property ID',
   hourlyRate: 'Hourly rate',
+  birthDate: 'Date of birth',
+  leaseFile: 'Lease file',
+  leaseType: 'Lease type',
+  feesType: 'Fees type',
+  paymentType: 'Payment type',
+  paidDate: 'Paid date',
 };

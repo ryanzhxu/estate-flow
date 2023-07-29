@@ -20,7 +20,7 @@ function TenantView({ propertyId }) {
       </div>
       <div className='list-group list-group-flush border-bottom scrollarea'>
         {tenants.map((tenant) => (
-          <TenantViewCard tenant={tenant} />
+          <TenantViewCard key={`tenant-${tenant._id}-view-card`} tenant={tenant} />
         ))}
       </div>
     </div>

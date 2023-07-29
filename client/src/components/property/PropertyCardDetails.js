@@ -5,7 +5,7 @@ import { deletePropertyAsync, getPropertiesAsync, updatePropertyAsync } from '..
 import PropertyForm from './PropertyForm';
 import '../../shared/styles/listing.css';
 import { Tables } from '../../shared/constants/Tables';
-import { clearNestedObjectValues, getMappedEditObject, getStandardizedObject } from '../../shared/services/Helpers';
+import { clearNestedObjectValues, getMappedEditObject, getStandardizedProperty } from '../../shared/services/Helpers';
 import InputFormModal from '../../shared/components/InputFormModal';
 import { RequiredFields } from '../../shared/constants/property/RequiredFields';
 
@@ -20,7 +20,7 @@ const PropertyCardDetails = ({ property }) => {
       editProperty._id = property._id;
     }
 
-    dispatch(updatePropertyAsync(getStandardizedObject(editProperty))).then(() => {
+    dispatch(updatePropertyAsync(getStandardizedProperty(editProperty))).then(() => {
       clearNestedObjectValues(editProperty);
       setIsEditModalOpen(false);
       dispatch(getPropertiesAsync());

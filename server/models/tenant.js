@@ -40,17 +40,13 @@ const tenantSchema = new mongoose.Schema(
         type: Date,
         required: true,
       },
-      term: {
-        type: String,
-        required: true,
-      },
-      type: {
+      leaseType: {
         type: String,
         required: true,
       },
       fees: [
         {
-          type: {
+          feesType: {
             type: String,
             required: false,
           },
@@ -67,7 +63,7 @@ const tenantSchema = new mongoose.Schema(
     },
     paymentHistory: [
       {
-        type: {
+        paymentType: {
           type: String,
           required: false,
         },
@@ -79,7 +75,7 @@ const tenantSchema = new mongoose.Schema(
           type: Number,
           required: false,
         },
-        date: {
+        paidDate: {
           type: Date,
           required: false,
         },

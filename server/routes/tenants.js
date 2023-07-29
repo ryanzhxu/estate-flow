@@ -178,7 +178,7 @@ router.get('/properties/:_id/tenants', async (req, res) => {
     }
     const tenants = await Tenant.find({ propertyId: propertyId });
     return res.status(StatusCodes.OK).json(tenants);
-  } catch(e) {
+  } catch (e) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });
@@ -203,6 +203,15 @@ router.delete('/tenants/:_id', async (req, res) => {
     res.status(StatusCodes.OK).send();
   } catch (e) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+  }
+});
+
+router.delete('/tenants', async (req, res) => {
+  try {
+    await Tenant.deleteMany({});
+    res.status(StatusCodes.OK).json({ message: 'All tenants deleted successfully.' });
+  } catch (e) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
   }
 });
 

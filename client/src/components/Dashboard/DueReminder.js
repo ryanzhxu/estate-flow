@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FeesTypes } from '../../shared/constants/tenant/FeesTypes';
 import { getConvertedDate } from '../../shared/services/Helpers';
 import './DueReminder.css';
 
@@ -10,7 +11,7 @@ export default function DueReminder({ tenantWithDue }) {
         <div className='reminder-card-top-section'>
           <h5 className='name'>{tenantWithDue.fullName}</h5>
           {!tenantWithDue.address ? (
-            'propertyId is invalid'
+            'No address'
           ) : (
             <p className='address'>{`${tenantWithDue.address.streetAddress}, ${tenantWithDue.address.city}, ${tenantWithDue.address.province} ${tenantWithDue.address.postalCode}`}</p>
           )}
@@ -20,7 +21,7 @@ export default function DueReminder({ tenantWithDue }) {
           <ul>
             {tenantWithDue.fees.map((fee, index) => (
               <li key={index} className={index % 2 === 0 ? 'even' : 'odd'}>
-                {fee.type} - ${fee.amount} (Due date: {getConvertedDate(fee.dueDate)})
+                {FeesTypes[fee.feesType] ?? fee.feesType} - ${fee.amount} (Due date: {getConvertedDate(fee.dueDate)})
               </li>
             ))}
           </ul>
