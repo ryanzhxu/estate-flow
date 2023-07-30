@@ -1,15 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
 import '../../shared/styles/listing.css';
 import WorkerCardDetails from './WorkerCardDetails';
-import WorkerDetail from "./workerDetail";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {getWorkerAsync} from "../../redux/workers/thunks";
-import {closeDetail, isDetailOpen, openDetail} from "../../redux/workers/workerDetailsReducer";
+import {openDetail} from "../../redux/workers/workerDetailsReducer";
 
 
 const WorkerCard = ({ worker }) => {
     const dispatch = useDispatch()
-    const detailIsOpen = useSelector(isDetailOpen)
 
     const handleCardClick = () => {
         dispatch(getWorkerAsync(worker._id));

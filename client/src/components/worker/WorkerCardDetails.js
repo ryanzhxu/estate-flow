@@ -11,6 +11,7 @@ import {
   getStandardizedProperty,
 } from '../../shared/services/Helpers';
 import DeleteConfirmationModal from '../property/DeleteConfirmationModal';
+import {closeDetail} from "../../redux/workers/workerDetailsReducer";
 
 const WorkerCardDetails = ({ worker }) => {
   const dispatch = useDispatch();
@@ -59,10 +60,16 @@ const WorkerCardDetails = ({ worker }) => {
       </p>
       <div className='listing-card-footer'>
         <div className='listing-card-footer-buttons'>
-          <button className='btn btn-outline-primary' onClick={() => setIsEditModalOpen(true)}>
+          <button className='btn btn-outline-primary' onClick={() => {
+              setIsEditModalOpen(true)
+              dispatch(closeDetail());
+          }}>
             Edit
           </button>
-          <button className='btn btn-outline-danger' onClick={() => setIsDeleteModalOpen(true)}>
+          <button className='btn btn-outline-danger' onClick={() => {
+              setIsDeleteModalOpen(true)
+              dispatch(closeDetail());
+          }}>
             Delete
           </button>
         </div>
