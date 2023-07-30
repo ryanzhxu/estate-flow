@@ -40,10 +40,6 @@ const propertySchema = new mongoose.Schema(
       type: String,
       default: '',
     },
-    rent: {
-      type: Number,
-      default: '',
-    },
     amenities: {
       type: [String],
       default: [],

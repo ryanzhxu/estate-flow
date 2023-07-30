@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getPropertiesAsync, getPropertyAsync, updatePropertyAsync } from '../../redux/properties/thunks';
+import { getPropertyAsync, updatePropertyAsync } from '../../redux/properties/thunks';
 import { useDispatch, useSelector } from 'react-redux';
 import PropertyDetailCard from './PropertyDetailCard';
 import PropertyOverview from './PropertyOverview';
@@ -8,11 +8,7 @@ import PropertyPhotoGallery from './PropertyPhotoGallery';
 import './PropertyHome.css';
 import TenantView from './TenantView';
 import Loading from '../loading/Loading';
-// import searching from '../loading/loading-lottie.json';
 import sandGlass from '../loading/loading_sand_glass.json';
-import { openTenantADD, isTenantAddOpen } from '../../redux/tenants/reducer';
-import AddTenantForm from '../tenant/AddTenantForm';
-import PropertyForm from '../property/PropertyForm';
 import {
   clearNestedObjectValues,
   getMappedEditObject,
@@ -34,7 +30,8 @@ function PropertyHome() {
   const [isAddTenantModalOpen, setIsAddTenantModalOpen] = useState(false);
   const [isEditPropertyModalOpen, setIsEditPropertyModalOpen] = useState(false);
 
-  const editProperty = getMappedEditObject(property);
+  let editProperty = getMappedEditObject(property);
+  delete editProperty.rent;
 
   const tenant = {
     firstName: '',

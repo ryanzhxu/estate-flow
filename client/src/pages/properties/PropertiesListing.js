@@ -24,7 +24,6 @@ const PropertiesListing = () => {
     bed: '',
     bath: '',
     description: '',
-    rent: '',
     amenities: '',
     photos: [],
   };
