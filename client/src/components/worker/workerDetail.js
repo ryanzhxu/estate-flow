@@ -1,14 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { closeDetail, expSelectedWorker, openUpdate } from '../../redux/workers/workerDetailsReducer';
+import { closeDetail, expSelectedWorker } from '../../redux/workers/workerDetailsReducer';
 import React from 'react';
 import './worker.css';
-import { deleteWorkerAsync } from '../../redux/workers/thunks';
 
 const WorkerDetail = () => {
   const select = useSelector(expSelectedWorker);
-
   const dispatch = useDispatch();
-
   return (
     <div className='workerDetail'>
       <div className='details'>
@@ -23,13 +20,16 @@ const WorkerDetail = () => {
             <p className='single-line'>Postal code:</p>
           </div>
           <div>
-            <p>{select.name}</p>
+            <p>{select.firstName}</p>
+            <p>{select.lastName}</p>
             <p>{select.email}</p>
-            <p>{select.phone}</p>
-            <p>{select.address}</p>
-            <p>${select.hRate}/hr</p>
+            <p>{select.phoneNumber}</p>
+            <p>${select.address.streetAddress}/hr</p>
+            <p>{select.address.city}</p>
+            <p>{select.address.province}</p>
+            <p>{select.address.postalCode}</p>
+            <p>{select.hourlyRate}</p>
             <p>{select.trades}</p>
-            <p>{select.postalCode}</p>
           </div>
         </div>
         <div className='worker-detail-buttons'>
@@ -39,24 +39,6 @@ const WorkerDetail = () => {
               dispatch(closeDetail());
             }}>
             CLOSE
-          </button>
-
-          <button
-            className='btn btn-outline-danger'
-            onClick={() => {
-              dispatch(closeDetail());
-              dispatch(openUpdate());
-            }}>
-            UPDATE
-          </button>
-
-          <button
-            className='btn btn-outline-danger'
-            onClick={() => {
-              dispatch(deleteWorkerAsync(select._id));
-              dispatch(closeDetail());
-            }}>
-            DELETE
           </button>
         </div>
       </div>
