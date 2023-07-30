@@ -39,6 +39,8 @@ const WorkerDetail = () => {
               <p> {city}, {province}, {postalCode}</p>
             </div>
           </div>
+          <br></br>
+          <br></br>
           <div className='worker-detail-buttons' >
             <button
                 onClick={() => {
