@@ -25,7 +25,7 @@ const WorkerDetail = () => {
               <p className='single-line'>Name: </p>
               <p className='single-line'>Email: </p>
               <p className='single-line'>Phone: </p>
-              <p className='single-line'>Hourly rate: </p>
+              <p className='single-line'>Hourly rate ($/hr): </p>
               <p className='single-line'>Trades: </p>
               <p className='single-line'>Address: </p>
             </div>
