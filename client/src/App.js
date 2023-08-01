@@ -51,7 +51,7 @@ function App() {
 
   return (
     <main className='App'>
-      {!isLoggedIn ? (
+      {isLoggedIn ? (
         <div className='login'>
           <img className='login-img' src={logo} alt='logo' />
           <div className='login-btns'>

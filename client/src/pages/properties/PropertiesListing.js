@@ -7,12 +7,16 @@ import InputFormModal from '../../shared/components/InputFormModal';
 import { Tables } from '../../shared/constants/Tables';
 import { RequiredFields } from '../../shared/constants/property/RequiredFields';
 import { clearNestedObjectValues, getStandardizedProperty } from '../../shared/services/Helpers';
+import PropertySearch from '../../components/property/PropertySearch';
 
 const PropertiesListing = () => {
   const dispatch = useDispatch();
   const properties = useSelector((state) => state.properties.properties);
   const propertiesArray = Object.values(properties);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+
+  const [filteredProperties, setFilteredProperties] = useState([]);
+  const [selectedPropertyTypes, setSelectedPropertyTypes] = useState([]);
 
   const property = {
     type: '',
@@ -41,11 +45,29 @@ const PropertiesListing = () => {
     });
   };
 
+  const handleFilterProperties = (selectedTypes) => {
+    setSelectedPropertyTypes(selectedTypes);
+    if (selectedTypes.length === 0) {
+      setFilteredProperties(propertiesArray);
+    } else {
+      const filteredProperties = propertiesArray.filter((property) => selectedTypes.includes(property.type));
+      setFilteredProperties(filteredProperties);
+    }
+  };
+
+  const handleResetProperties = () => {
+    setSelectedPropertyTypes([]);
+    setFilteredProperties(propertiesArray);
+  };
+
   return (
     <div className='listing-page'>
       <div className='listing-contents'>
         <div className='listing-left'>
-          <h2>Search</h2>
+          <div className='listing-header'>
+            <h2>Search</h2>
+          </div>
+          <PropertySearch onFilterProperties={handleFilterProperties} onResetProperties={handleResetProperties} />
         </div>
         <div className='listing-right'>
           <div className='listing-header'>
@@ -55,9 +77,18 @@ const PropertiesListing = () => {
             </div>
           </div>
           <div className='listing-cards'>
-            {propertiesArray.map((property) => (
-              <PropertyCard key={`property-${property._id}-card`} property={property} />
-            ))}
+            {selectedPropertyTypes.length !== 0 && filteredProperties.length === 0 ? (
+              <></>
+            ) : filteredProperties.length > 0 ? (
+              filteredProperties.map((property) => (
+                <PropertyCard key={`property-${property._id}-card`} property={property} />
+              ))
+            ) : (
+              selectedPropertyTypes.length === 0 &&
+              propertiesArray.map((property) => (
+                <PropertyCard key={`property-${property._id}-card`} property={property} />
+              ))
+            )}
           </div>
         </div>
       </div>

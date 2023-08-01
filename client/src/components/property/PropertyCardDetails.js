@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import DeleteConfirmationModal from './DeleteConfirmationModal';
 import { deletePropertyAsync, getPropertiesAsync, updatePropertyAsync } from '../../redux/properties/thunks';
-import PropertyForm from './PropertyForm';
 import '../../shared/styles/listing.css';
 import { Tables } from '../../shared/constants/Tables';
 import { clearNestedObjectValues, getMappedEditObject, getStandardizedProperty } from '../../shared/services/Helpers';

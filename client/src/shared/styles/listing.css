@@ -4,11 +4,10 @@
 
 .listing-contents {
   display: flex;
-  gap: 15%;
+  gap: 20px;
 }
 
 .listing-left {
-  width: 10%;
 }
 
 .listing-right {
@@ -41,9 +40,14 @@
   background: #fff;
   width: 300px;
   display: inline-block;
+
+  transition: transform 0.5s ease;
+  transform-origin: center center;
 }
 
 .listing-card:hover {
+  transform: rotate(7deg) scale(1.05);
+
   transition-delay: 5ms;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
