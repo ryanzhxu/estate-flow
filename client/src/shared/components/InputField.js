@@ -14,6 +14,16 @@ const InputField = ({
   isMulti = false,
   options = [],
 }) => {
+  const getDefaultValue = () => {
+    if (defaultValue === '' || defaultValue.length === 0) return defaultValue;
+
+    if (isMulti) {
+      return defaultValue.map((value) => options.find((option) => option.value === value));
+    } else {
+      return options[defaultValue];
+    }
+  };
+
   return (
     <div style={{ padding: '0 25px 0 1px' }}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -27,7 +37,7 @@ const InputField = ({
           key={field}
           name={field}
           options={options}
-          defaultValue={defaultValue === '' ? '' : options[defaultValue]}
+          defaultValue={getDefaultValue()}
           onChange={onChangeHandler}
           isMulti={isMulti}
         />
