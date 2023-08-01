@@ -22,11 +22,14 @@ const InputFormModal = ({ isModalOpen, setIsModalOpen, isEdit = false, type, obj
             const isSelect = Object.keys(SelectionFields).includes(field);
             const isMulti = field === 'amenities';
             const isRequired = requiredFields.includes(field);
-            const defaultValue = isSelect
-              ? getSelectedIndex(SelectionFields[field], object[field])
-              : object[field]
-              ? object[field]
-              : '';
+
+            const defaultValue =
+              field === 'amenities'
+                ? object.amenities
+                : isSelect
+                ? getSelectedIndex(SelectionFields[field], object[field])
+                : object[field];
+
             const type = DateFields.includes(field) ? 'date' : NumericFields.includes(field) ? 'number' : 'text';
             const options = isSelect && getSelectOptions(SelectionFields[field]);
 
