@@ -18,9 +18,6 @@ function PropertyOverview({ property }) {
               <p>
                 <strong>Bathrooms:</strong> {property.bath}
               </p>
-              <p>
-                <strong>Rent per month:</strong> ${property.rent}
-              </p>
             </div>
             <div className='col-md-6 mb-1'>
               <p>
