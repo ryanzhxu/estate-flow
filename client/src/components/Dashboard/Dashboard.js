@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import React from 'react';
 import Calendar from './Calendar';
+import Calculator from "./Calculator";
 
 const Dashboard = () => {
   return (
@@ -18,7 +19,8 @@ const Dashboard = () => {
       </motion.div>
 
       <motion.div className='body_card'>
-        <motion.div >Calculator</motion.div>
+          <motion.div >Calculator</motion.div>
+          <Calculator/>
       </motion.div>
     </div>
   );

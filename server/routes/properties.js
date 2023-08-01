@@ -8,6 +8,20 @@ router.get('/properties', async (req, res) => {
   try {
     res.status(StatusCodes.OK).json(await Property.find());
   } catch (e) {
+    console.error(e);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+  }
+});
+
+router.get('/properties/dashboard', async (req, res) => {
+  try {
+    const results = await Property.find(
+        {address: { $ne: null, $exists: true }},
+        {address: 1}
+    )
+    res.status(StatusCodes.OK).json(results);
+  } catch (e) {
+    console.error(e);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });
