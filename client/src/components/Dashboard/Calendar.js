@@ -27,6 +27,15 @@ function classNames(...classes) {
 
 let colStartClasses = ['', 'col-start-2', 'col-start-3', 'col-start-4', 'col-start-5', 'col-start-6', 'col-start-7'];
 
+function selectedDate(date) {
+  const monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const monthIndex = date.getMonth();
+  const month = monthList[monthIndex];
+  const day = date.getDate();
+  const selectedDate = month + ' ' + day;
+  return selectedDate;
+}
+
 export default function Calendar() {
   const today = startOfToday();
   const [selectedDay, setSelectedDay] = useState(today);
@@ -131,7 +140,7 @@ export default function Calendar() {
               <DueReminder tenantWithDue={tenantWithDue} key={`tenant-${tenantWithDue._id}`} />
             ))
           ) : (
-            <p>No due for today</p>
+            <p>No due for {selectedDate(selectedDay)} </p>
           )}
         </div>
       </div>
