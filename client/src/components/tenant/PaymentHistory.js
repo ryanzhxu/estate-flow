@@ -55,9 +55,9 @@ function PaymentHistory({ tenant }) {
     <div style={{ width: '100%', paddingRight: '0' }}>
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', gap: '10px' }}>
         <h5>Payment History</h5>
-        <Button appearance='primary' onClick={() => setIsAddModalOpen(true)}>
+        <div className='btn btn-outline-primary' onClick={() => setIsAddModalOpen(true)}>
           Add payment history
-        </Button>
+        </div>
       </div>
       <div className='payment-history-container card'>
         <table className='payment-history table table-striped table-responsive m-0'>
@@ -79,7 +79,7 @@ function PaymentHistory({ tenant }) {
                 <td>${item.paid}</td>
                 <td width='1px'>
                   <Button appearance='subtle' onClick={() => handleDeletePaymentHistory(item._id)}>
-                    Delete
+                    <i className='bi bi-trash'></i>
                   </Button>
                 </td>
               </tr>

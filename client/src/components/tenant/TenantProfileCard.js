@@ -65,10 +65,10 @@ function TenantProfileCard({ tenant }) {
         style={{ width: '150px' }}
       />
       <div className='d-flex justify-content-center mt-3 mb-2'>
-        <button className='btn btn-primary' type='button' onClick={() => setIsEditModalOpen(true)}>
+        <button className='btn btn-outline-primary' type='button' onClick={() => setIsEditModalOpen(true)}>
           Edit
         </button>
-        <button className='btn btn-outline-primary ms-1' type='button' onClick={() => setIsDeleteModalOpen(true)}>
+        <button className='btn btn-outline-danger ms-1' type='button' onClick={() => setIsDeleteModalOpen(true)}>
           Delete
         </button>
       </div>
