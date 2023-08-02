@@ -11,15 +11,14 @@ const AboutPage = () => {
             <h2>About</h2>
             <br></br>
             <Link to='/'>
-            <div>
-            <div className='btn btn-outline-primary' onClick={() => true}>
+            <div className='btn btn-outline-primary'>
             <i className="bi bi-house"></i>
-            </div>
             </div>
             </Link>
           </div>
           <br></br>
           <h3>Estate Flow - Simplify Your Property Management</h3>
+          <br></br>
           <p>
             Estate Flow is a comprehensive web app designed for property managers, offering seamless management of
             rental properties, houses, townhouses, condos, commercial spaces, and offices. This app efficiently stores
@@ -28,9 +27,7 @@ const AboutPage = () => {
             expenses. Our goal is to empower property managers to maximize their efficiency and profitability while
             ensuring the security and privacy of sensitive data.
           </p>
-
-          <p>Developers:</p>
-          <p>Helena Xu, Ryan Xu, Zichao Zhou, Yixuan Li, Nicholas Luong</p>
+          <p>Developers: Helena Xu, Ryan Xu, Zichao Zhou, Yixuan Li, Nicholas Luong</p>
         </div>
       </div>
     </div>
