@@ -90,7 +90,7 @@ function Calculator() {
                         InputProps={{startAdornment: isFocused || mortgageValue !== "" ? <InputAdornment position="start">$</InputAdornment> : null}}
                         style={{ width: "70%" }}
                     />
-                    <IconButton style={{ width: "40px", height: "40px", borderRadius: "50%" }} onClick={handleCalculate}>
+                    <IconButton style={{ width: "40px", height: "40px", borderRadius: "40%", marginLeft: "5px" }} onClick={handleCalculate}>
                         <i className="bi bi-calculator bi-sm"/>
                     </IconButton>
                     <ProfitModal

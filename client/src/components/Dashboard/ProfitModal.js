@@ -1,13 +1,31 @@
-import {Button, Modal} from "react-bootstrap";
+import {Modal} from "react-bootstrap";
 import React from "react";
+import "./ProfitModal.css";
+import {IconButton} from "@mui/material";
 
 function ProfitModal({mortgageValue, totalRent, isOpen, onClose}) {
     const profit = totalRent - mortgageValue;
     return (
-        <Modal className="modal-sm" show={isOpen}>
+        <Modal className="modal-sm profit-modal" show={isOpen}>
+            <Modal.Header className="border-0">
+                <div style={{marginTop: "10px", marginLeft: "10px"}}>
+                    <h5>Result</h5>
+                </div>
+                <div>
+                    <IconButton
+                        style={{width: "25px", height: "25px", borderRadius: "20%", top: "-5px", right: "2px"}}
+                        className="close-btn"
+                        onClick={onClose}
+                        aria-label="close"
+                        color="inherit"
+                        size="small"
+                    >
+                        <span className="close-btn-times" aria-hidden="true">&times;</span>
+                    </IconButton>
+                </div>
+            </Modal.Header>
             <Modal.Body>
-                <h6>Result</h6>
-                <div className="card-body">
+                <div className="profit-modal-content card-body">
                     <div className="row">
                         <div className="col-sm-6">
                             <p className='mb-0'>Total Rent</p>
@@ -36,7 +54,6 @@ function ProfitModal({mortgageValue, totalRent, isOpen, onClose}) {
                     </div>
                 </div>
             </Modal.Body>
-            <Button onClick={onClose}>Close</Button>
         </Modal>
     )
 }
