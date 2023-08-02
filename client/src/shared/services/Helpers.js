@@ -72,13 +72,22 @@ export const getCapitalized = (string) => {
 export const getConvertedDate = (dateString) => {
   const dateObject = new Date(dateString);
   const formattedDate = dateObject.toISOString().split('T')[0];
-
+  
   return formattedDate;
 };
 
 export const dayHasDue = (formattedDueDays, unformattedDay) => {
   const day = getConvertedDate(unformattedDay).slice(-2);
   return formattedDueDays.includes(day);
+};
+
+export const selectedDate = (date) => {
+  const monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const monthIndex = date.getMonth();
+  const month = monthList[monthIndex];
+  const day = date.getDate();
+  const selectedDate = month + ' ' + day;
+  return selectedDate;
 };
 
 export const getFormattedPhoneNum = (number) => {

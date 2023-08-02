@@ -14,12 +14,11 @@ import {
 } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import DueReminder from './DueReminder';
-
 import './Calendar.css';
 import { Weekdays } from '../../shared/constants/Weekdays';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDueDaysForMonth, getTenantsWithDuesByDate } from '../../redux/tenants/thunks';
-import { dayHasDue, getConvertedDate } from '../../shared/services/Helpers';
+import { dayHasDue, getConvertedDate, selectedDate } from '../../shared/services/Helpers';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -131,7 +130,7 @@ export default function Calendar() {
               <DueReminder tenantWithDue={tenantWithDue} key={`tenant-${tenantWithDue._id}`} />
             ))
           ) : (
-            <p>No due for today</p>
+            <p>No due for {selectedDate(selectedDay)} </p>
           )}
         </div>
       </div>
