@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getPropertyAsync } from '../../redux/properties/thunks';
+import { getPropertyAsync, updatePropertyAsync } from '../../redux/properties/thunks';
 import { useDispatch, useSelector } from 'react-redux';
 import PropertyDetailCard from './PropertyDetailCard';
 import PropertyOverview from './PropertyOverview';
@@ -8,31 +8,68 @@ import PropertyPhotoGallery from './PropertyPhotoGallery';
 import './PropertyHome.css';
 import TenantView from './TenantView';
 import Loading from '../loading/Loading';
-// import searching from '../loading/loading-lottie.json';
 import sandGlass from '../loading/loading_sand_glass.json';
-import { openTenantADD, isTenantAddOpen } from '../../redux/tenants/tenantsReducer';
-import AddTenantForm from '../tenant/AddTenantForm';
-import PropertyForm from '../property/PropertyForm';
+import {
+  clearNestedObjectValues,
+  getMappedEditObject,
+  getStandardizedProperty,
+  getStandardizedTenant,
+} from '../../shared/services/Helpers';
+import InputFormModal from '../../shared/components/InputFormModal';
+import { Tables } from '../../shared/constants/Tables';
+import { RequiredFields as PropertyRequiredFields } from '../../shared/constants/property/RequiredFields';
+import { RequiredFields as TenantRequiredFields } from '../../shared/constants/tenant/RequiredFields';
+import { addTenantAsync, getTenantsFromPropertyAsync } from '../../redux/tenants/thunks';
 
 function PropertyHome() {
   const { _id } = useParams();
   const dispatch = useDispatch();
   const property = useSelector((state) => state.properties.propertySelected);
   const [showLoading, setShowLoading] = useState(true);
-  const tenantAddIsOpen = useSelector(isTenantAddOpen);
-  const [showEditForm, setShowEditForm] = useState(false);
-  const [editProperty, setEditProperty] = useState(null);
 
-  const handleOpenEditForm = () => {
-    if (!editProperty || editProperty.Id !== property.id) {
-      setEditProperty(property);
-      setShowEditForm(true);
+  const [isAddTenantModalOpen, setIsAddTenantModalOpen] = useState(false);
+  const [isEditPropertyModalOpen, setIsEditPropertyModalOpen] = useState(false);
+
+  let editProperty = getMappedEditObject(property);
+  delete editProperty.rent;
+
+  const tenant = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    birthDate: null,
+    occupation: '',
+    // leaseFile: null,
+    startDate: null,
+    endDate: null,
+    leaseType: '',
+  };
+
+  const handleAddTenant = () => {
+    tenant.propertyId = property._id;
+
+    if (new Date(tenant.endDate) < new Date(tenant.startDate)) {
+      alert('Lease end date cannot be older than start date');
+    } else {
+      dispatch(addTenantAsync(getStandardizedTenant(tenant))).then(() => {
+        clearNestedObjectValues(tenant);
+        setIsAddTenantModalOpen(false);
+        dispatch(getTenantsFromPropertyAsync(property._id));
+      });
     }
   };
 
-  const handleCloseEditForm = () => {
-    setShowEditForm(false);
-    setEditProperty(null);
+  const handleEditProperty = () => {
+    if (!editProperty._id) {
+      editProperty._id = property._id;
+    }
+
+    dispatch(updatePropertyAsync(getStandardizedProperty(editProperty))).then(() => {
+      clearNestedObjectValues(editProperty);
+      setIsEditPropertyModalOpen(false);
+      dispatch(getPropertyAsync(editProperty._id));
+    });
   };
 
   useEffect(() => {
@@ -51,20 +88,16 @@ function PropertyHome() {
     return (
       <div className='home-container'>
         <div className='property-card' id='property-home-header'>
-          <PropertyDetailCard address={property.address} id={property._id} name={property.name} />
+          <PropertyDetailCard property={property} />
           <div className='property-actions-container'>
             <div className='property-actions'>
-              <button className='property-action' onClick={() => dispatch(openTenantADD())}>
-                Add Tenant
+              <button className='property-action' onClick={() => setIsAddTenantModalOpen(true)}>
+                Add tenant
               </button>
-              <button
-                className='property-action'
-                onClick={() => {
-                  handleOpenEditForm();
-                }}>
-                Edit Details
+              <button className='property-action' onClick={() => setIsEditPropertyModalOpen(true)}>
+                Edit details
               </button>
-              <button className='property-action'>Calculate Profit</button>
+              <button className='property-action'>Calculate profit</button>
             </div>
           </div>
         </div>
@@ -79,12 +112,29 @@ function PropertyHome() {
           </div>
           <div className='tenants-view-container border-left'>
             <TenantView propertyId={property._id} />
-            <section className='sectionContainer'>
-              {tenantAddIsOpen && <AddTenantForm propertyId={property._id} />}
-              {showEditForm && <PropertyForm editProperty={editProperty} handleCloseForm={handleCloseEditForm} />}
-            </section>
           </div>
         </div>
+        {isAddTenantModalOpen && (
+          <InputFormModal
+            isModalOpen={isAddTenantModalOpen}
+            setIsModalOpen={setIsAddTenantModalOpen}
+            type={Tables.Tenant}
+            object={tenant}
+            requiredFields={TenantRequiredFields}
+            onSubmit={handleAddTenant}
+          />
+        )}
+        {isEditPropertyModalOpen && (
+          <InputFormModal
+            isModalOpen={isEditPropertyModalOpen}
+            setIsModalOpen={setIsEditPropertyModalOpen}
+            type={Tables.Property}
+            object={editProperty}
+            requiredFields={PropertyRequiredFields}
+            onSubmit={handleEditProperty}
+            isEdit
+          />
+        )}
       </div>
     );
   };

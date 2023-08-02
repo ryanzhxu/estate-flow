@@ -2,15 +2,20 @@ import React from 'react';
 import { useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { FeesTypes } from '../../shared/constants/tenant/FeesTypes';
+import { getDateDifference, getFormattedPhoneNum, getPluralS } from '../../shared/services/Helpers';
 
 function TenantViewCard({ tenant }) {
   const [isOpen, setIsOpen] = useState(false);
+  const dateDifference = getDateDifference(tenant.lease.startDate, tenant.lease.endDate);
+  const hasRentFees = tenant.lease.fees.find((fee) => fee.type === FeesTypes.Rent);
+  const rent = hasRentFees ? `$${hasRentFees.amount}/mo` : 'Not provided';
 
   return (
     <div>
       <div onClick={() => setIsOpen(true)} className='list-group-item list-group-item-action py-2 lh-tight tenant-card'>
         <h6 className='mb-0'>
-          {tenant.firstName} {tenant.middleName ? `${tenant.middleName.charAt(0)}.` : ''} {tenant.lastName}
+          {tenant.firstName} {tenant.lastName}
         </h6>
         <p className='mb-0 text-muted small'>
           <small>
@@ -20,7 +25,7 @@ function TenantViewCard({ tenant }) {
       </div>
       <Modal show={isOpen} onHide={() => setIsOpen(false)} centered>
         <Modal.Header>
-          <Modal.Title>Tenant Details</Modal.Title>
+          <Modal.Title>Tenant details</Modal.Title>
         </Modal.Header>
         <Modal.Body className='modal-content'>
           <div className='row'>
@@ -28,14 +33,14 @@ function TenantViewCard({ tenant }) {
               <strong>Name</strong>
             </p>
             <p className='col-sm-8'>
-              {tenant.firstName} {tenant.middleName ? `${tenant.middleName.charAt(0)}.` : ''} {tenant.lastName}
+              {tenant.firstName} {tenant.lastName}
             </p>
           </div>
           <div className='row'>
             <p className='col-sm-4'>
               <strong>Phone</strong>
             </p>
-            <p className='col-sm-8'>{tenant.phoneNumber}</p>
+            <p className='col-sm-8'>{getFormattedPhoneNum(tenant.phoneNumber)}</p>
           </div>
           <div className='row'>
             <p className='col-sm-4'>
@@ -45,20 +50,23 @@ function TenantViewCard({ tenant }) {
           </div>
           <div className='row'>
             <p className='col-sm-4'>
-              <strong>Lease Term</strong>
+              <strong>Lease remaining</strong>
             </p>
-            <p className='col-sm-8'>12 months</p>
+            <p className='col-sm-8'>
+              {dateDifference.years} year{getPluralS(dateDifference.years)}, {dateDifference.months} month
+              {getPluralS(dateDifference.months)}, and {dateDifference.days} day{getPluralS(dateDifference.days)}
+            </p>
           </div>
           <div className='row'>
             <p className='col-sm-4'>
               <strong>Rent</strong>
             </p>
-            <p className='col-sm-8'>$1000</p>
+            <p className='col-sm-8'>{rent}</p>
           </div>
         </Modal.Body>
         <Modal.Footer>
           <Link to={`/tenants/${tenant._id}`}>
-            <button className='tenant-modal-button'>More Details</button>
+            <button className='tenant-modal-button'>More details</button>
           </Link>
           <button onClick={() => setIsOpen(false)}>Close</button>
         </Modal.Footer>

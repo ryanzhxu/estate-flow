@@ -8,7 +8,34 @@ const router = express.Router();
 
 router.get('/tenants', async (req, res) => {
   try {
-    res.status(StatusCodes.OK).json(await Tenant.find());
+    const tenants = await Tenant.aggregate([
+      {
+        $lookup: {
+          from: 'properties',
+          localField: 'propertyId',
+          foreignField: '_id',
+          as: 'property',
+        },
+      },
+      {
+        $unwind: '$property',
+      },
+      {
+        $project: {
+          _id: 1,
+          firstName: 1,
+          lastName: 1,
+          email: 1,
+          phoneNumber: 1,
+          lease: 1,
+          paymentHistory: 1,
+          address: '$property.address',
+          propertyId: 1,
+        },
+      },
+    ]);
+
+    res.status(StatusCodes.OK).json(tenants);
   } catch (e) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
@@ -115,13 +142,13 @@ router.post('/tenants', async (req, res) => {
   const propertyId = req.body.propertyId;
 
   if (!mongoose.isValidObjectId(propertyId)) {
-    res.status(StatusCodes.BAD_REQUEST).json({ error: 'Invalid propertyId format' });
+    return res.status(StatusCodes.BAD_REQUEST).json({ error: 'Invalid propertyId format' });
   }
 
   try {
     const foundProperty = await Property.findById(propertyId);
     if (!foundProperty) {
-      res.status(StatusCodes.BAD_REQUEST).json({ error: `Property with id ${propertyId} does not exist` });
+      return res.status(StatusCodes.BAD_REQUEST).json({ error: `Property with id ${propertyId} does not exist` });
     }
 
     let newTenantBody = req.body;
@@ -131,9 +158,9 @@ router.post('/tenants', async (req, res) => {
 
     const newTenant = new Tenant(newTenantBody);
     await newTenant.save();
-    res.status(StatusCodes.CREATED).send(newTenant);
+    return res.status(StatusCodes.CREATED).send(newTenant);
   } catch (e) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });
 
@@ -141,25 +168,24 @@ router.get('/properties/:_id/tenants', async (req, res) => {
   const propertyId = req.params._id;
 
   if (!mongoose.isValidObjectId(propertyId)) {
-    res.status(StatusCodes.BAD_REQUEST).json({ error: 'Invalid propertyId format' });
-  }
-
-  const foundProperty = await Property.findById(propertyId);
-  if (!foundProperty) {
-    res.status(StatusCodes.BAD_REQUEST).json({ error: `Property with id ${propertyId} does not exist` });
+    return res.status(StatusCodes.BAD_REQUEST).json({ error: 'Invalid propertyId format' });
   }
 
   try {
+    const foundProperty = await Property.findById(propertyId);
+    if (!foundProperty) {
+      return res.status(StatusCodes.BAD_REQUEST).json({ error: `Property with id ${propertyId} does not exist` });
+    }
     const tenants = await Tenant.find({ propertyId: propertyId });
-    res.status(StatusCodes.OK).json(tenants);
+    return res.status(StatusCodes.OK).json(tenants);
   } catch (e) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });
 
-router.put('/tenants/:_id', async (req, res) => {
+router.put('/tenants', async (req, res) => {
   try {
-    await Tenant.findByIdAndUpdate(req.params._id, req.body);
+    await Tenant.findByIdAndUpdate(req.body._id, req.body);
     res.status(StatusCodes.OK).send();
   } catch (e) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
@@ -177,6 +203,15 @@ router.delete('/tenants/:_id', async (req, res) => {
     res.status(StatusCodes.OK).send();
   } catch (e) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+  }
+});
+
+router.delete('/tenants', async (req, res) => {
+  try {
+    await Tenant.deleteMany({});
+    res.status(StatusCodes.OK).json({ message: 'All tenants deleted successfully.' });
+  } catch (e) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
   }
 });
 

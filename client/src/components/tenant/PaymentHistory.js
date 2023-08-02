@@ -1,22 +1,21 @@
 import Button from '@atlaskit/button';
 import React, { useState } from 'react';
-import { Modal } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { getSingleTenantAsync, updateTenantAsync } from '../../redux/tenants/tenantsThunks';
-import InputField from '../../shared/components/InputField';
-import { getSelectOptions, getSelectedIndex, saveValueToObject } from '../../shared/services/Helpers';
-import { PaymentTypes } from '../../shared/constants/tenant/PaymentTypes';
+import { getSingleTenantAsync, updateTenantAsync } from '../../redux/tenants/thunks';
+import { clearNestedObjectValues } from '../../shared/services/Helpers';
+import { FeesTypes } from '../../shared/constants/tenant/FeesTypes';
 import './Tenant.css';
+import InputFormModal from '../../shared/components/InputFormModal';
 
 function PaymentHistory({ tenant }) {
-  const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   const paymentHistory = {
-    date: null,
-    type: '',
+    paymentType: '',
     charge: '',
     paid: '',
+    paidDate: null,
   };
 
   const handleAddPaymentHistory = () => {
@@ -25,9 +24,10 @@ function PaymentHistory({ tenant }) {
       paymentHistory: [...tenant.paymentHistory, { ...paymentHistory }],
     };
     dispatch(updateTenantAsync(tenantToBeUpdated)).then(() => {
+      clearNestedObjectValues(paymentHistory);
       dispatch(getSingleTenantAsync(tenantToBeUpdated._id));
+      setIsAddModalOpen(false);
     });
-    setIsOpen(false);
   };
 
   const handleDeletePaymentHistory = (_id) => {
@@ -53,78 +53,10 @@ function PaymentHistory({ tenant }) {
   return (
     <div style={{ width: '100%', paddingRight: '0' }}>
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', gap: '10px' }}>
-        <h6>Payment History</h6>
-        <Button
-          appearance='primary'
-          onClick={() => {
-            setIsOpen(true);
-          }}>
+        <h5>Payment History</h5>
+        <div className='btn btn-outline-primary' onClick={() => setIsAddModalOpen(true)}>
           Add payment history
-        </Button>
-
-        <Modal show={isOpen} onHide={() => setIsOpen(false)} centered>
-          <Modal.Header>
-            <Modal.Title>Add payment history</Modal.Title>
-          </Modal.Header>
-          <Modal.Body className='modal-content panel-warning' style={{ border: 'none' }}>
-            <form
-              key='payment-history-add-form'
-              className='add-payment-history-form'
-              style={{ display: 'grid', gap: '15px' }}>
-              {Object.keys(paymentHistory).map((field) => {
-                if (field === 'type') {
-                  return (
-                    <div key={field}>
-                      <InputField
-                        field={field}
-                        options={getSelectOptions(PaymentTypes)}
-                        defaultValue={getSelectedIndex(PaymentTypes, tenant.paymentHistory.type)}
-                        onChange={(selectedOptions) => {
-                          const selectedValue = selectedOptions ? selectedOptions.value : '';
-                          saveValueToObject(paymentHistory, field, selectedValue);
-                        }}
-                        isRequired
-                        isSelect
-                      />
-                    </div>
-                  );
-                } else if (field === 'date') {
-                  return (
-                    <div key={field}>
-                      <InputField
-                        type={field}
-                        field={field}
-                        defaultValue={''}
-                        onChange={(e) => saveValueToObject(paymentHistory, field, e.target.value)}
-                        isRequired
-                      />
-                    </div>
-                  );
-                } else {
-                  return (
-                    <div key={field}>
-                      <InputField
-                        field={field}
-                        defaultValue={tenant.paymentHistory[field] ?? ''}
-                        type='number'
-                        onChange={(e) => saveValueToObject(paymentHistory, field, e.target.value)}
-                        isRequired
-                      />
-                    </div>
-                  );
-                }
-              })}
-            </form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button appearance='subtle' onClick={() => setIsOpen(false)}>
-              Cancel
-            </Button>
-            <Button appearance='primary' onClick={handleAddPaymentHistory}>
-              Add
-            </Button>
-          </Modal.Footer>
-        </Modal>
+        </div>
       </div>
       <div className='payment-history-container card'>
         <table className='payment-history table table-striped table-responsive m-0'>
@@ -140,17 +72,13 @@ function PaymentHistory({ tenant }) {
           <tbody>
             {tenant.paymentHistory.map((item, index) => (
               <tr key={`payment-${index}`} style={{ verticalAlign: 'middle' }}>
-                <td>{new Date(item.date).toLocaleDateString()}</td>
-                <td>{PaymentTypes[item.type]}</td>
+                <td>{new Date(item.paidDate).toLocaleDateString('en-US', { timeZone: 'UTC' })}</td>
+                <td>{FeesTypes[item.paymentType]}</td>
                 <td>${item.charge}</td>
                 <td>${item.paid}</td>
                 <td width='1px'>
-                  <Button
-                    appearance='subtle'
-                    onClick={() => {
-                      handleDeletePaymentHistory(item._id);
-                    }}>
-                    Delete
+                  <Button appearance='subtle' onClick={() => handleDeletePaymentHistory(item._id)}>
+                    <i className='bi bi-trash'></i>
                   </Button>
                 </td>
               </tr>
@@ -158,6 +86,16 @@ function PaymentHistory({ tenant }) {
           </tbody>
         </table>
       </div>
+      {isAddModalOpen && (
+        <InputFormModal
+          isModalOpen={isAddModalOpen}
+          setIsModalOpen={setIsAddModalOpen}
+          type='Payment history'
+          object={paymentHistory}
+          requiredFields={[]}
+          onSubmit={handleAddPaymentHistory}
+        />
+      )}
     </div>
   );
 }

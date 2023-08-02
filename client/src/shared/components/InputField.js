@@ -2,6 +2,7 @@ import React from 'react';
 import Select from 'react-select';
 import './inputField/InputField.css';
 import { getCapitalized } from '../services/Helpers';
+import { MultiWordFields } from '../constants/MultiWordFields';
 
 const InputField = ({
   field,
@@ -13,11 +14,21 @@ const InputField = ({
   isMulti = false,
   options = [],
 }) => {
+  const getDefaultValue = () => {
+    if (defaultValue === '' || defaultValue.length === 0) return defaultValue;
+
+    if (isMulti) {
+      return defaultValue.map((value) => options.find((option) => option.value === value));
+    } else {
+      return options[defaultValue];
+    }
+  };
+
   return (
     <div style={{ padding: '0 25px 0 1px' }}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
         {isRequired && <span style={{ color: '#02687D' }}>*&nbsp;</span>}
-        <label>{getCapitalized(field)}:</label>
+        <label>{Object.keys(MultiWordFields).includes(field) ? MultiWordFields[field] : getCapitalized(field)}:</label>
       </div>
 
       {isSelect ? (
@@ -26,7 +37,7 @@ const InputField = ({
           key={field}
           name={field}
           options={options}
-          defaultValue={defaultValue === '' ? '' : options[defaultValue]}
+          defaultValue={getDefaultValue()}
           onChange={onChangeHandler}
           isMulti={isMulti}
         />
@@ -36,7 +47,7 @@ const InputField = ({
           id={field}
           key={field}
           name={field}
-          defaultValue={defaultValue}
+          defaultValue={type === 'date'? defaultValue.slice(0,10) : defaultValue}
           onChange={onChangeHandler}
         />
       )}

@@ -1,3 +1,6 @@
+import React from 'react';
+import { getFormattedPhoneNum } from '../../shared/services/Helpers';
+
 function TenantOverviewCard({ tenant }) {
   return (
     <div className='card-body'>
@@ -7,7 +10,7 @@ function TenantOverviewCard({ tenant }) {
         </div>
         <div className='col-sm-7'>
           <p className='text-muted mb-0'>
-            {tenant.firstName} {tenant.middleName ? tenant.middleName : ''} {tenant.lastName}
+            {tenant.firstName} {tenant.lastName}
           </p>
         </div>
       </div>
@@ -17,7 +20,7 @@ function TenantOverviewCard({ tenant }) {
           <p className='mb-0'>Phone</p>
         </div>
         <div className='col-sm-7'>
-          <p className='text-muted mb-0'>{tenant.phoneNumber}</p>
+          <p className='text-muted mb-0'>{getFormattedPhoneNum(tenant.phoneNumber)}</p>
         </div>
       </div>
       <hr />
@@ -35,7 +38,7 @@ function TenantOverviewCard({ tenant }) {
           <p className='mb-0'>Date of Birth</p>
         </div>
         <div className='col-sm-7'>
-          <p className='text-muted mb-0'>{tenant.birthdate}</p>
+          <p className='text-muted mb-0'>{tenant.birthDate? new Date(tenant.birthDate).toLocaleDateString() : 'Not Provided'}</p>
         </div>
       </div>
       <hr />
@@ -44,7 +47,7 @@ function TenantOverviewCard({ tenant }) {
           <p className='mb-0'>Employment</p>
         </div>
         <div className='col-sm-7'>
-          <p className='text-muted mb-0'>{tenant.employment}</p>
+          <p className='text-muted mb-0'>{tenant.occupation? tenant.occupation : 'Not Provided'}</p>
         </div>
       </div>
     </div>

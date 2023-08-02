@@ -14,11 +14,10 @@ import {
 } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import DueReminder from './DueReminder';
-
 import './Calendar.css';
 import { Weekdays } from '../../shared/constants/Weekdays';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDueDaysForMonth, getTenantsWithDuesByDate } from '../../redux/tenants/tenantsThunks';
+import { getDueDaysForMonth, getTenantsWithDuesByDate } from '../../redux/tenants/thunks';
 import { dayHasDue, getConvertedDate, selectedDate } from '../../shared/services/Helpers';
 
 function classNames(...classes) {
@@ -90,7 +89,7 @@ export default function Calendar() {
 
         <div className='calendar-container'>
           {Object.values(Weekdays).map((day) => (
-            <h5 key={day} >{day}</h5>
+            <h5 key={day}>{day}</h5>
           ))}
 
           {days.map((day, dayIdx) => (

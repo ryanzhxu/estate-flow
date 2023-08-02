@@ -2,7 +2,7 @@ import './TenantView.css';
 import TenantViewCard from './TenantViewCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getTenantsFromPropertyAsync } from '../../redux/tenants/tenantsThunks';
+import { getTenantsFromPropertyAsync } from '../../redux/tenants/thunks';
 import React from 'react';
 
 function TenantView({ propertyId }) {
@@ -20,7 +20,7 @@ function TenantView({ propertyId }) {
       </div>
       <div className='list-group list-group-flush border-bottom scrollarea'>
         {tenants.map((tenant) => (
-          <TenantViewCard tenant={tenant} />
+          <TenantViewCard key={`tenant-${tenant._id}-view-card`} tenant={tenant} />
         ))}
       </div>
     </div>

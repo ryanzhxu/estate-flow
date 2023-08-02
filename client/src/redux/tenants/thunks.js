@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { actionTypes } from './actionTypes';
-import TenantService from './tenantService';
+import TenantService from './service';
 
 export const addTenantAsync = createAsyncThunk(actionTypes.ADD_TENANT, async (tenant) => {
   return await TenantService.addTenant(tenant);

@@ -39,9 +39,9 @@ router.post('/properties', async (req, res) => {
   }
 });
 
-router.put('/properties/:_id', async (req, res) => {
+router.put('/properties', async (req, res) => {
   try {
-    await Property.findByIdAndUpdate(req.params._id, req.body);
+    await Property.findByIdAndUpdate(req.body._id, req.body);
     res.status(StatusCodes.OK).send();
   } catch (e) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
@@ -59,6 +59,15 @@ router.delete('/properties/:_id', async (req, res) => {
     res.status(StatusCodes.OK).send();
   } catch (e) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+  }
+});
+
+router.delete('/properties', async (req, res) => {
+  try {
+    await Property.deleteMany({});
+    res.status(StatusCodes.OK).json({ message: 'All properties deleted successfully.' });
+  } catch (e) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
   }
 });
 

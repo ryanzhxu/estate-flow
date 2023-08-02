@@ -7,13 +7,13 @@ import RequiredPayments from './RequiredPayments';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getSingleTenantAsync } from '../../redux/tenants/tenantsThunks';
+import { getSingleTenantAsync } from '../../redux/tenants/thunks';
 import React from 'react';
 import sandGlass from '../loading/loading_sand_glass.json';
 import Loading from '../loading/Loading';
 
-function Tenant() {
-  const { id } = useParams();
+function TenantHome() {
+  const { _id } = useParams();
   const dispatch = useDispatch();
   const tenant = useSelector((state) => state.tenants.tenantSelected);
   const [showLoading, setShowLoading] = useState(true);
@@ -23,12 +23,12 @@ function Tenant() {
       setShowLoading(false);
     }, 1500);
 
-    dispatch(getSingleTenantAsync(id));
+    dispatch(getSingleTenantAsync(_id));
 
     return () => {
       clearTimeout(timer);
     };
-  }, [id, dispatch]);
+  }, [_id, dispatch]);
 
   const getContents = () => {
     return (
@@ -49,7 +49,7 @@ function Tenant() {
                   <LeaseOverviewCard address={tenant.address} lease={tenant.lease} />
                 </div>
                 <div className='required-payments-container col-sm-5 card'>
-                  <RequiredPayments fees={tenant.lease.fees} />
+                  <RequiredPayments tenant={tenant} />
                 </div>
               </div>
               <PaymentHistory tenant={tenant} />
@@ -63,4 +63,4 @@ function Tenant() {
   return <>{showLoading || !tenant ? <Loading animationData={sandGlass} /> : getContents()}</>;
 }
 
-export default Tenant;
+export default TenantHome;
