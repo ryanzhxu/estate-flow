@@ -49,7 +49,7 @@ function TenantHome() {
                   <LeaseOverviewCard address={tenant.address} lease={tenant.lease} />
                 </div>
                 <div className='required-payments-container col-sm-5 card'>
-                  <RequiredPayments fees={tenant.lease.fees} />
+                  <RequiredPayments tenant={tenant} />
                 </div>
               </div>
               <PaymentHistory tenant={tenant} />

@@ -23,7 +23,6 @@ function PaymentHistory({ tenant }) {
       ...tenant,
       paymentHistory: [...tenant.paymentHistory, { ...paymentHistory }],
     };
-
     dispatch(updateTenantAsync(tenantToBeUpdated)).then(() => {
       clearNestedObjectValues(paymentHistory);
       dispatch(getSingleTenantAsync(tenantToBeUpdated._id));
