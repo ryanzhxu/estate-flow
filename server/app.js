@@ -10,6 +10,7 @@ const usersRouter = require('./routes/users');
 const propertiesRouter = require('./routes/properties');
 const workersRouter = require('./routes/workers');
 const tenantsRouter = require('./routes/tenants');
+const statsRouter = require('./routes/stats')
 
 const app = express();
 app.use(cors());
@@ -26,5 +27,6 @@ app.use('/users', usersRouter);
 app.use(propertiesRouter);
 app.use(workersRouter);
 app.use(tenantsRouter);
+app.use(statsRouter);
 
 module.exports = app;
