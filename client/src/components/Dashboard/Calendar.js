@@ -19,22 +19,13 @@ import './Calendar.css';
 import { Weekdays } from '../../shared/constants/Weekdays';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDueDaysForMonth, getTenantsWithDuesByDate } from '../../redux/tenants/tenantsThunks';
-import { dayHasDue, getConvertedDate } from '../../shared/services/Helpers';
+import { dayHasDue, getConvertedDate, selectedDate } from '../../shared/services/Helpers';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
 let colStartClasses = ['', 'col-start-2', 'col-start-3', 'col-start-4', 'col-start-5', 'col-start-6', 'col-start-7'];
-
-function selectedDate(date) {
-  const monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const monthIndex = date.getMonth();
-  const month = monthList[monthIndex];
-  const day = date.getDate();
-  const selectedDate = month + ' ' + day;
-  return selectedDate;
-}
 
 export default function Calendar() {
   const today = startOfToday();
