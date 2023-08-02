@@ -14,6 +14,7 @@ import {
     ListItemIcon, ListItemText,
     TextField
 } from "@mui/material";
+import ProfitModal from "./ProfitModal";
 
 function Calculator() {
     const [checked, setChecked] = useState([]);
@@ -83,40 +84,12 @@ function Calculator() {
                 <IconButton style={{ width: "40px", height: "40px", borderRadius: "50%" }} onClick={handleCalculate}>
                     <i className="bi bi-calculator bi-sm"/>
                 </IconButton>
-                <Modal className="modal-sm" show={isOpen}>
-                    <Modal.Body>
-                        <h6>Result</h6>
-                        <div className="card-body">
-                            <div className="row">
-                                <div className="col-sm-4">
-                                    <p className='mb-0'>Mortgage Fee</p>
-                                </div>
-                                <div className="col-sm-4">
-                                    <p className='text-muted mb-0'>${mortgageValue}</p>
-                                </div>
-                            </div>
-                            <hr/>
-                            <div className="row">
-                                <div className="col-sm-4">
-                                    <p className='mb-0'>Total Rent</p>
-                                </div>
-                                <div className="col-sm-4">
-                                    <p className='text-muted mb-0'>${totalRent}</p>
-                                </div>
-                            </div>
-                            <hr/>
-                            <div className="row">
-                                <div className="col-sm-4">
-                                    <p className='mb-0'>Profit Per Month</p>
-                                </div>
-                                <div className="col-sm-4">
-                                    <p className='text-muted mb-0'>${totalRent - (mortgageValue === "" ? 0 : mortgageValue)}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </Modal.Body>
-                    <Button onClick={handleClose}>Close</Button>
-                </Modal>
+                <ProfitModal
+                    mortgageValue={mortgageValue === "" ? 0 : mortgageValue}
+                    totalRent={totalRent}
+                    isOpen={isOpen}
+                    onClose={() => setIsOpen(false)}
+                />
             </motion.div>
             <motion.div style={{ maxHeight: '420px', overflowY: 'auto' }}>
                 <List sx={{ width: '100%', maxWidth: 360, bgcolor: '#DEE2E6' }}>
