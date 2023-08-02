@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 
 const router = express.Router();
 
-router.get("/profit", async(req, res) => {
+router.post("/profit", async(req, res) => {
     const propertyIds = req.body;
 
     try {
@@ -40,24 +40,5 @@ router.get("/profit", async(req, res) => {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: e.message})
     }
 })
-
-// router.get('/properties/profit', async (req, res) => {
-//     try {
-//         const results = await Property.find(
-//             {
-//                 address: { $ne: null, $exists: true },
-//                 rent: { $ne: null, $exists: true }
-//             },
-//             {address: 1}
-//         )
-//
-//         results.map((property))
-//
-//         res.status(StatusCodes.OK).json(results);
-//     } catch (e) {
-//         console.error(e);
-//         res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
-//     }
-// });
 
 module.exports = router;

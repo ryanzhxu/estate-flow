@@ -1,16 +1,19 @@
 import {motion} from 'framer-motion';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Checkbox from '@mui/material/Checkbox';
-import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
-import IconButton from '@mui/material/IconButton';
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getPropertiesForDashboardAsync} from "../../redux/properties/thunks";
+import StatsService from "../../redux/stats/service"
+import {Button, Modal} from "react-bootstrap";
+import {
+    Checkbox,
+    IconButton,
+    InputAdornment,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon, ListItemText,
+    TextField
+} from "@mui/material";
 
 function Calculator() {
     const [checked, setChecked] = useState([]);
@@ -18,15 +21,16 @@ function Calculator() {
 
     const dispatch = useDispatch();
     const properties = useSelector((state) => state.properties.properties);
-    const ids = properties.map((property) => property._id);
+    const propertyIds = properties.map((property) => property._id);
+
 
     useEffect(() => {
         dispatch(getPropertiesForDashboardAsync());
-    });
+    }, [dispatch]);
 
     const handleToggleAll = () => {
         setSelectAllChecked((prev) => !prev);
-        setChecked(selectAllChecked ? [] : ids)
+        setChecked(selectAllChecked ? [] : propertyIds)
     }
 
     const handleToggle = (id) => () => {
@@ -43,6 +47,22 @@ function Calculator() {
         setChecked(newChecked);
     };
 
+    const [isOpen, setIsOpen] = useState(false);
+    const [totalRent, setTotalRent] = useState(0);
+    const [mortgageValue, setMortgageValue] = useState("");
+
+    const handleCalculate = async () => {
+        if (checked.length > 0) {
+            const { totalRent } = await StatsService.getTotalRent(checked);
+            setTotalRent(totalRent);
+            setIsOpen(true);
+        }
+    };
+
+    const handleClose = () => {
+        setIsOpen(false);
+    };
+
     return (
         <motion.div>
             <motion.div>
@@ -52,15 +72,51 @@ function Calculator() {
                     variant="outlined"
                     size="small"
                     type="number"
-                    // inputProps={{
-                    //     min: 0,
-                    //     step: 0.01,
-                    // }}
+                    value={mortgageValue}
+                    onChange={(e) => setMortgageValue(e.target.value)}
+                    inputProps={{
+                        min: 0,
+                        step: 0.01,
+                    }}
                     InputProps={{startAdornment: <InputAdornment position="start">$</InputAdornment>}}
                 />
-                <IconButton style={{ width: '40px', height: '40px', borderRadius: '50%' }}>
+                <IconButton style={{ width: "40px", height: "40px", borderRadius: "50%" }} onClick={handleCalculate}>
                     <i className="bi bi-calculator bi-sm"/>
                 </IconButton>
+                <Modal className="modal-sm" show={isOpen}>
+                    <Modal.Body>
+                        <h6>Result</h6>
+                        <div className="card-body">
+                            <div className="row">
+                                <div className="col-sm-4">
+                                    <p className='mb-0'>Mortgage Fee</p>
+                                </div>
+                                <div className="col-sm-4">
+                                    <p className='text-muted mb-0'>${mortgageValue}</p>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div className="row">
+                                <div className="col-sm-4">
+                                    <p className='mb-0'>Total Rent</p>
+                                </div>
+                                <div className="col-sm-4">
+                                    <p className='text-muted mb-0'>${totalRent}</p>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div className="row">
+                                <div className="col-sm-4">
+                                    <p className='mb-0'>Profit Per Month</p>
+                                </div>
+                                <div className="col-sm-4">
+                                    <p className='text-muted mb-0'>${totalRent - (mortgageValue === "" ? 0 : mortgageValue)}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </Modal.Body>
+                    <Button onClick={handleClose}>Close</Button>
+                </Modal>
             </motion.div>
             <motion.div style={{ maxHeight: '420px', overflowY: 'auto' }}>
                 <List sx={{ width: '100%', maxWidth: 360, bgcolor: '#DEE2E6' }}>
