@@ -5,7 +5,7 @@ import { DateFields } from '../constants/DateFields';
 import { NumericFields } from '../constants/NumericFields';
 import { SelectionFields } from '../constants/SelectionFields';
 import { UploadFields } from '../constants/UploadFields';
-import { getSelectedIndex, getSelectOptions, saveValueToObject } from '../services/Helpers';
+import { getConvertedDate, getSelectedIndex, getSelectOptions, saveValueToObject } from '../services/Helpers';
 import InputField from './InputField';
 
 const InputFormModal = ({ isModalOpen, setIsModalOpen, isEdit = false, type, object, requiredFields, onSubmit }) => {
@@ -23,15 +23,21 @@ const InputFormModal = ({ isModalOpen, setIsModalOpen, isEdit = false, type, obj
             const isMulti = field === 'amenities';
             const isRequired = requiredFields.includes(field);
 
-            const defaultValue =
-              field === 'amenities'
-                ? object.amenities
-                : isSelect
-                ? getSelectedIndex(SelectionFields[field], object[field])
-                : object[field];
-
             const type = DateFields.includes(field) ? 'date' : NumericFields.includes(field) ? 'number' : 'text';
             const options = isSelect && getSelectOptions(SelectionFields[field]);
+
+            const defaultValue = () => {
+              if (!object[field]) {
+                return '';
+              }
+
+              if (DateFields.includes(field)) {
+                return getConvertedDate(object[field]);
+              } else if (isSelect && !isMulti) {
+                return getSelectedIndex(SelectionFields[field], object[field]);
+              }
+              return object[field];
+            };
 
             const handleSelectOnChange = (selectedOptions) => {
               if (!Array.isArray(selectedOptions)) {
@@ -50,7 +56,7 @@ const InputFormModal = ({ isModalOpen, setIsModalOpen, isEdit = false, type, obj
               <InputField
                 key={field}
                 field={field}
-                defaultValue={defaultValue}
+                defaultValue={defaultValue()}
                 type={type}
                 isRequired={isRequired}
                 isSelect={isSelect}

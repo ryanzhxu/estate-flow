@@ -47,7 +47,7 @@ const InputField = ({
           id={field}
           key={field}
           name={field}
-          defaultValue={type === 'date'? defaultValue.slice(0,10) : defaultValue}
+          defaultValue={defaultValue}
           onChange={onChangeHandler}
         />
       )}
