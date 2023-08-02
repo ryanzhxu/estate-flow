@@ -79,8 +79,9 @@ const HomeSideBar = ({ handleLogout = undefined }) => {
           </Link>
         </div>
         <div className='group'>
+          <Link to='/about' style={{ textDecoration: 'none', color: 'white' }}>
           <SideBarItem icon={'bi bi-cup-hot-fill'} name='About' />
-          <SideBarItem icon={'bi bi-microsoft-teams'} name='Team' />
+          </Link>
           <SideBarItem icon={'bi bi-box-arrow-left'} name='Log out' onClick={handleLogout} />
         </div>
       </motion.div>

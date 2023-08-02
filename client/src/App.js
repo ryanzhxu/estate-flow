@@ -8,6 +8,7 @@ import PropertiesListing from './pages/properties/PropertiesListing';
 import TenantsListing from './pages/tenants/TenantsListing';
 import TenantHome from './components/tenant/TenantHome';
 import PropertyHome from './components/propertyhome/PropertyHome';
+import AboutPage from './pages/about/AboutPage';
 import { GoogleLogin } from '@react-oauth/google';
 import MicrosoftLogin from 'react-microsoft-login';
 import logo from './components/home/logo.png';
@@ -72,6 +73,7 @@ function App() {
           <Route path='/tenants' element={<TenantsListing />} />
           <Route path='/tenants/:_id' element={<TenantHome />} />
           <Route path='/workers' element={<WorkersListing />} />
+          <Route path='/about' element={<AboutPage />} />
         </Routes>
       )}
     </main>
