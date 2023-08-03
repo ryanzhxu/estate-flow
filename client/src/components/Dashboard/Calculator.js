@@ -100,7 +100,7 @@ function Calculator() {
                         onClose={() => setIsOpen(false)}
                     />
                 </motion.div>
-                <motion.div style={{ maxHeight: '420px', overflowY: 'auto' }}>
+                <motion.div style={{ maxHeight: '440px', overflowY: 'auto' }}>
                     <List sx={{ width: '100%', maxWidth: 360, bgcolor: '#DEE2E6' }}>
                         <ListItem disablePadding>
                             <ListItemButton role={undefined} onClick={handleToggleAll} dense>
