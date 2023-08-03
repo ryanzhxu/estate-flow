@@ -9,6 +9,8 @@ import InputFormModal from '../../shared/components/InputFormModal';
 
 function PaymentHistory({ tenant }) {
   const dispatch = useDispatch();
+  const [sortOrder, setSortOrder] = useState('asc');
+  const [sortColumn, setSortColumn] = useState('paymentType');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   const paymentHistory = {
@@ -50,6 +52,29 @@ function PaymentHistory({ tenant }) {
     }
   };
 
+  function sortByType() {
+    setSortColumn('paymentType');
+    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+  }
+
+  function sortByDate() {
+    setSortColumn('paidDate');
+    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+  }
+
+  // handles the sorting
+  const sortedPaymentHistory = [...tenant.paymentHistory].sort((a, b) => {
+    if (sortColumn === 'paidDate') {
+      if (sortOrder === 'asc') {
+        return new Date(a[sortColumn]) - new Date(b[sortColumn]);
+      } else {
+        return new Date(b[sortColumn]) - new Date(a[sortColumn]);
+      }
+    } else {
+      return a[sortColumn].localeCompare(b[sortColumn]);
+    }
+  });
+
   return (
     <div style={{ width: '100%', paddingRight: '0' }}>
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', gap: '10px' }}>
@@ -62,15 +87,19 @@ function PaymentHistory({ tenant }) {
         <table className='payment-history table table-striped table-responsive m-0'>
           <thead>
             <tr>
-              <th scope='col'>Date</th>
-              <th scope='col'>Type</th>
+              <th scope='col' onClick={sortByDate} style={{ cursor: 'pointer' }}>
+                Date
+              </th>
+              <th scope='col' onClick={sortByType} style={{ cursor: 'pointer' }}>
+                Type
+              </th>
               <th scope='col'>Charges</th>
               <th scope='col'>Paid</th>
               <th />
             </tr>
           </thead>
           <tbody>
-            {tenant.paymentHistory.map((item, index) => (
+            {sortedPaymentHistory.map((item, index) => (
               <tr key={`payment-${index}`} style={{ verticalAlign: 'middle' }}>
                 <td>{new Date(item.paidDate).toLocaleDateString('en-US', { timeZone: 'UTC' })}</td>
                 <td>{FeesTypes[item.paymentType]}</td>
