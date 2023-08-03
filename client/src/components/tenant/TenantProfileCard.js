@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { deleteTenantAsync, getSingleTenantAsync, updateTenantAsync } from '../../redux/tenants/thunks';
 import DeleteConfirmationModal from '../property/DeleteConfirmationModal';
 import InputFormModal from '../../shared/components/InputFormModal';
@@ -65,7 +65,12 @@ function TenantProfileCard({ tenant }) {
         style={{ width: '150px' }}
       />
       <div className='d-flex justify-content-center mt-3 mb-2'>
-        <button className='btn btn-outline-primary' type='button' onClick={() => setIsEditModalOpen(true)}>
+        <Link to='/'>
+          <div className='btn btn-outline-primary ms-1'>
+            <i className='bi bi-house'></i>
+          </div>
+        </Link>
+        <button className='btn btn-outline-primary ms-1' type='button' onClick={() => setIsEditModalOpen(true)}>
           Edit
         </button>
         <button className='btn btn-outline-danger ms-1' type='button' onClick={() => setIsDeleteModalOpen(true)}>

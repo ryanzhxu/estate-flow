@@ -7,6 +7,7 @@ import InputFormModal from '../../shared/components/InputFormModal';
 import { Tables } from '../../shared/constants/Tables';
 import { RequiredFields } from '../../shared/constants/property/RequiredFields';
 import { clearNestedObjectValues, getStandardizedProperty } from '../../shared/services/Helpers';
+import { Link } from 'react-router-dom';
 
 const PropertiesListing = () => {
   const dispatch = useDispatch();
@@ -49,9 +50,15 @@ const PropertiesListing = () => {
         <div className='listing-right'>
           <div className='listing-header'>
             <h2>Properties</h2>
+            <br></br>
             <div className='btn btn-outline-primary' onClick={() => setIsAddModalOpen(true)}>
               Add property
             </div>
+            <Link to='/'>
+            <div className='btn btn-outline-primary'>
+            <i className="bi bi-house"></i>
+            </div>
+            </Link>
           </div>
           <div className='listing-cards'>
             {propertiesArray.map((property) => (
