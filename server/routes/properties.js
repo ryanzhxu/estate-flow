@@ -8,6 +8,20 @@ router.get('/properties', async (req, res) => {
   try {
     res.status(StatusCodes.OK).json(await Property.find());
   } catch (e) {
+    console.error(e);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+  }
+});
+
+router.get('/properties/dashboard', async (req, res) => {
+  try {
+    const results = await Property.find(
+        {address: { $ne: null, $exists: true }},
+        {address: 1}
+    )
+    res.status(StatusCodes.OK).json(results);
+  } catch (e) {
+    console.error(e);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });
@@ -62,13 +76,13 @@ router.delete('/properties/:_id', async (req, res) => {
   }
 });
 
-router.delete('/properties', async (req, res) => {
-  try {
-    await Property.deleteMany({});
-    res.status(StatusCodes.OK).json({ message: 'All properties deleted successfully.' });
-  } catch (e) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
-  }
-});
+// router.delete('/properties', async (req, res) => {
+//   try {
+//     await Property.deleteMany({});
+//     res.status(StatusCodes.OK).json({ message: 'All properties deleted successfully.' });
+//   } catch (e) {
+//     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
+//   }
+// });
 
 module.exports = router;

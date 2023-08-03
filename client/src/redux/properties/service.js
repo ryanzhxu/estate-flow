@@ -1,4 +1,5 @@
 import SERVER_BASE_URL from '../config';
+import axios from 'axios';
 
 const getProperties = async () => {
   const resp = await fetch(`${SERVER_BASE_URL}/properties`, {
@@ -14,6 +15,16 @@ const getProperty = async (_id) => {
   });
 
   return resp.json();
+};
+
+const getPropertiesForDashboard = async () => {
+  try {
+    const res = await axios.get(`${SERVER_BASE_URL}/properties/dashboard`);
+    return res.data;
+  } catch (e) {
+    console.error(e);
+    throw new Error(e.response.data.error);
+  }
 };
 
 const addProperty = async (property) => {
@@ -68,6 +79,7 @@ const deleteProperty = async (_id) => {
 const propertyService = {
   getProperties,
   getProperty,
+  getPropertiesForDashboard,
   addProperty,
   updateProperty,
   deleteProperty,

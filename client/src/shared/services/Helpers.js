@@ -69,10 +69,14 @@ export const getCapitalized = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
+export const formatDateValue = (defaultValue) => {
+  return defaultValue.slice(0, 10);
+};
+
 export const getConvertedDate = (dateString) => {
   const dateObject = new Date(dateString);
   const formattedDate = dateObject.toISOString().split('T')[0];
-  
+
   return formattedDate;
 };
 

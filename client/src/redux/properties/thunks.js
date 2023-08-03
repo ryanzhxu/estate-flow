@@ -10,6 +10,10 @@ export const getPropertyAsync = createAsyncThunk(actionTypes.GET_PROPERTY, async
   return await PropertyService.getProperty(_id);
 });
 
+export const getPropertiesForDashboardAsync = createAsyncThunk(actionTypes.GET_PROPERTY_DASHBOARD, async () => {
+  return await PropertyService.getPropertiesForDashboard();
+});
+
 export const addPropertyAsync = createAsyncThunk(actionTypes.ADD_PROPERTY, async (property) => {
   return await PropertyService.addProperty(property);
 });

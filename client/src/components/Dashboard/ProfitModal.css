@@ -1,0 +1,18 @@
+.profit-modal-content hr {
+  margin: 5px 0;
+}
+
+.profit-modal-header {
+  position: relative;
+  padding: 0;
+}
+
+.close-btn-times {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+  color: #032b43;
+  font-weight: bold;
+}

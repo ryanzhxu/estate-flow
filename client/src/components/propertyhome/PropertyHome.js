@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { getPropertyAsync, updatePropertyAsync } from '../../redux/properties/thunks';
 import { useDispatch, useSelector } from 'react-redux';
 import PropertyDetailCard from './PropertyDetailCard';
@@ -91,6 +91,11 @@ function PropertyHome() {
           <PropertyDetailCard property={property} />
           <div className='property-actions-container'>
             <div className='property-actions'>
+              <Link to='/'>
+                <div className='property-action'>
+                  <i className='bi bi-house'></i>
+                </div>
+              </Link>
               <button className='property-action' onClick={() => setIsAddTenantModalOpen(true)}>
                 Add tenant
               </button>

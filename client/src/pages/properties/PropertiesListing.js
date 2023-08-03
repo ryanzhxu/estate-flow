@@ -2,17 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPropertyAsync, getPropertiesAsync } from '../../redux/properties/thunks';
 import '../../shared/styles/listing.css';
+
 import PropertyCard from '../../components/property/PropertyCard';
+import PropertySearch from '../../components/property/PropertySearch';
 import InputFormModal from '../../shared/components/InputFormModal';
+import Loading from '../../components/loading/Loading';
+import sandGlass from '../../components/loading/loading_sand_glass.json';
+
 import { Tables } from '../../shared/constants/Tables';
 import { RequiredFields } from '../../shared/constants/property/RequiredFields';
 import { clearNestedObjectValues, getStandardizedProperty } from '../../shared/services/Helpers';
+import { Link } from 'react-router-dom';
 
 const PropertiesListing = () => {
   const dispatch = useDispatch();
   const properties = useSelector((state) => state.properties.properties);
-  const propertiesArray = Object.values(properties);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [propertiesArray, setPropertiesArray] = useState([]);
+  const [filteredProperties, setFilteredProperties] = useState([]);
 
   const property = {
     type: '',
@@ -32,6 +39,11 @@ const PropertiesListing = () => {
     dispatch(getPropertiesAsync());
   }, [dispatch]);
 
+  useEffect(() => {
+    setPropertiesArray(properties);
+    setFilteredProperties(properties);
+  }, [properties]);
+
   const handleAddProperty = () => {
     dispatch(addPropertyAsync(getStandardizedProperty(property))).then(() => {
       clearNestedObjectValues(property);
@@ -40,21 +52,43 @@ const PropertiesListing = () => {
     });
   };
 
+  const handleFilterProperties = (selectedTypes) => {
+    if (selectedTypes.length === 0) {
+      setFilteredProperties(propertiesArray);
+    } else {
+      const filteredProperties = propertiesArray.filter((property) => selectedTypes.includes(property.type));
+      setFilteredProperties(filteredProperties);
+    }
+  };
+
+  const handleResetProperties = () => {
+    setFilteredProperties(propertiesArray);
+  };
+
   return (
     <div className='listing-page'>
       <div className='listing-contents'>
         <div className='listing-left'>
-          <h2>Search</h2>
+          <div className='listing-header'>
+            <h2>Search</h2>
+          </div>
+          <PropertySearch onFilterProperties={handleFilterProperties} onResetProperties={handleResetProperties} />
         </div>
         <div className='listing-right'>
           <div className='listing-header'>
             <h2>Properties</h2>
+            <br></br>
             <div className='btn btn-outline-primary' onClick={() => setIsAddModalOpen(true)}>
               Add property
             </div>
+            <Link to='/'>
+            <div className='btn btn-outline-primary'>
+            <i className="bi bi-house"></i>
+            </div>
+            </Link>
           </div>
           <div className='listing-cards'>
-            {propertiesArray.map((property) => (
+            {filteredProperties.map((property) => (
               <PropertyCard key={`property-${property._id}-card`} property={property} />
             ))}
           </div>
