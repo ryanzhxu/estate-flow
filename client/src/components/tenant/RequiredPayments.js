@@ -17,14 +17,14 @@ function RequiredPayments({ tenant }) {
     feesType: '',
     amount: '',
     dueDate: null,
-  }
+  };
 
   const handleAddRequiredPayment = () => {
     const tenantToBeUpdated = {
       ...tenant,
       lease: {
-      ...tenant.lease,
-      fees: [...tenant.lease.fees, requiredPayment],
+        ...tenant.lease,
+        fees: [...tenant.lease.fees, requiredPayment],
       },
     };
 
@@ -62,8 +62,8 @@ function RequiredPayments({ tenant }) {
     <div key='required-payments'>
       <div className='card-header'>
         <h5 className='card-title mb-0'>Required Payments</h5>
-        <Button appearance='primary' spacing="compact" onClick={() => setIsAddModalOpen(true)}>
-          Add Required Payment
+        <Button appearance='subtle' onClick={() => setIsAddModalOpen(true)}>
+          <i className='bi bi-plus-circle' />
         </Button>
       </div>
       <div className='card-body'>
@@ -73,6 +73,7 @@ function RequiredPayments({ tenant }) {
               <th>Type</th>
               <th>Amount</th>
               <th>Due</th>
+              <th />
             </tr>
           </thead>
           <tbody>
@@ -83,7 +84,7 @@ function RequiredPayments({ tenant }) {
                 <td>{new Date(fee.dueDate).toLocaleDateString('en-US', { timeZone: 'UTC' })}</td>
                 <td width='1px'>
                   <Button appearance='subtle' onClick={() => handleDeleteRequiredPayment(fee._id)}>
-                    <i className='bi bi-trash'></i>
+                    <i className='bi bi-trash' />
                   </Button>
                 </td>
               </tr>

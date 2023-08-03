@@ -40,7 +40,7 @@ function PropertyHome() {
     phoneNumber: '',
     birthDate: null,
     occupation: '',
-    // leaseFile: null,
+    leaseFile: null,
     startDate: null,
     endDate: null,
     leaseType: '',
@@ -50,7 +50,9 @@ function PropertyHome() {
     tenant.propertyId = property._id;
 
     if (new Date(tenant.endDate) < new Date(tenant.startDate)) {
-      alert('Lease end date cannot be older than start date');
+      alert('Lease end date cannot be older than start date.');
+    } else if (!tenant.startDate || !tenant.endDate) {
+      alert('Tenant must have a lease start date and end date.');
     } else {
       dispatch(addTenantAsync(getStandardizedTenant(tenant))).then(() => {
         clearNestedObjectValues(tenant);
@@ -91,13 +93,13 @@ function PropertyHome() {
           <PropertyDetailCard property={property} />
           <div className='property-actions-container'>
             <div className='property-actions'>
-              <button className='property-action' onClick={() => setIsAddTenantModalOpen(true)}>
+              <div className='btn btn-outline-primary' onClick={() => setIsAddTenantModalOpen(true)}>
                 Add tenant
-              </button>
-              <button className='property-action' onClick={() => setIsEditPropertyModalOpen(true)}>
-                Edit details
-              </button>
-              <button className='property-action'>Calculate profit</button>
+              </div>
+              <div className='btn btn-outline-secondary' onClick={() => setIsEditPropertyModalOpen(true)}>
+                Edit property
+              </div>
+              <div className='btn btn-outline-dark'>Calculate profit</div>
             </div>
           </div>
         </div>

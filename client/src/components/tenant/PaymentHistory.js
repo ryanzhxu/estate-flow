@@ -76,12 +76,12 @@ function PaymentHistory({ tenant }) {
   });
 
   return (
-    <div style={{ width: '100%', paddingRight: '0' }}>
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', gap: '10px' }}>
+    <div className='payment-history'>
+      <div className='payment-history-header'>
         <h5>Payment History</h5>
-        <div className='btn btn-outline-primary' onClick={() => setIsAddModalOpen(true)}>
-          Add payment history
-        </div>
+        <Button appearance='subtle' onClick={() => setIsAddModalOpen(true)}>
+          <i className='bi bi-plus-circle' />
+        </Button>
       </div>
       <div className='payment-history-container card'>
         <table className='payment-history table table-striped table-responsive m-0'>
