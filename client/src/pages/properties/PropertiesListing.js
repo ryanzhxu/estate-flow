@@ -2,21 +2,23 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPropertyAsync, getPropertiesAsync } from '../../redux/properties/thunks';
 import '../../shared/styles/listing.css';
+
 import PropertyCard from '../../components/property/PropertyCard';
+import PropertySearch from '../../components/property/PropertySearch';
 import InputFormModal from '../../shared/components/InputFormModal';
+import Loading from '../../components/loading/Loading';
+import sandGlass from '../../components/loading/loading_sand_glass.json';
+
 import { Tables } from '../../shared/constants/Tables';
 import { RequiredFields } from '../../shared/constants/property/RequiredFields';
 import { clearNestedObjectValues, getStandardizedProperty } from '../../shared/services/Helpers';
-import PropertySearch from '../../components/property/PropertySearch';
 
 const PropertiesListing = () => {
   const dispatch = useDispatch();
   const properties = useSelector((state) => state.properties.properties);
-  const propertiesArray = Object.values(properties);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-
+  const [propertiesArray, setPropertiesArray] = useState([]);
   const [filteredProperties, setFilteredProperties] = useState([]);
-  const [selectedPropertyTypes, setSelectedPropertyTypes] = useState([]);
 
   const property = {
     type: '',
@@ -36,6 +38,11 @@ const PropertiesListing = () => {
     dispatch(getPropertiesAsync());
   }, [dispatch]);
 
+  useEffect(() => {
+    setPropertiesArray(properties);
+    setFilteredProperties(properties);
+  }, [properties]);
+
   const handleAddProperty = () => {
     dispatch(addPropertyAsync(getStandardizedProperty(property))).then(() => {
       clearNestedObjectValues(property);
@@ -45,7 +52,6 @@ const PropertiesListing = () => {
   };
 
   const handleFilterProperties = (selectedTypes) => {
-    setSelectedPropertyTypes(selectedTypes);
     if (selectedTypes.length === 0) {
       setFilteredProperties(propertiesArray);
     } else {
@@ -55,7 +61,6 @@ const PropertiesListing = () => {
   };
 
   const handleResetProperties = () => {
-    setSelectedPropertyTypes([]);
     setFilteredProperties(propertiesArray);
   };
 
@@ -76,18 +81,9 @@ const PropertiesListing = () => {
             </div>
           </div>
           <div className='listing-cards'>
-            {selectedPropertyTypes.length !== 0 && filteredProperties.length === 0 ? (
-              <></>
-            ) : filteredProperties.length > 0 ? (
-              filteredProperties.map((property) => (
-                <PropertyCard key={`property-${property._id}-card`} property={property} />
-              ))
-            ) : (
-              selectedPropertyTypes.length === 0 &&
-              propertiesArray.map((property) => (
-                <PropertyCard key={`property-${property._id}-card`} property={property} />
-              ))
-            )}
+            {filteredProperties.map((property) => (
+              <PropertyCard key={`property-${property._id}-card`} property={property} />
+            ))}
           </div>
         </div>
       </div>

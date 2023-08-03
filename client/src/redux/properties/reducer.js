@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {getPropertiesAsync, getPropertiesForDashboardAsync, getPropertyAsync} from './thunks';
+import { getPropertiesAsync, getPropertiesForDashboardAsync, getPropertyAsync } from './thunks';
 
 const INITIAL_STATE = {
   properties: [],
+  propertiesForDashboard: [],
   propertySelected: null,
 };
 
@@ -19,7 +20,7 @@ const propertiesSlice = createSlice({
         state.propertySelected = action.payload;
       })
       .addCase(getPropertiesForDashboardAsync.fulfilled, (state, action) => {
-        state.properties = action.payload;
+        state.propertiesForDashboard = action.payload;
       });
   },
 });
