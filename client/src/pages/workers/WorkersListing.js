@@ -8,6 +8,7 @@ import InputFormModal from '../../shared/components/InputFormModal';
 import { Tables } from '../../shared/constants/Tables';
 import { clearNestedObjectValues, getStandardizedProperty } from '../../shared/services/Helpers';
 import { RequiredFields } from '../../shared/constants/worker/RequiredFields';
+import HomeButton from '../../shared/components/HomeButton';
 
 function WorkersListing() {
   const dispatch = useDispatch();
@@ -47,9 +48,11 @@ function WorkersListing() {
         <div className='listing-right'>
           <div className='listing-header'>
             <h2>Workers</h2>
+            <br></br>
             <div className='btn btn-outline-primary' onClick={() => setIsAddModalOpen(true)}>
               Add worker
             </div>
+            <HomeButton />
           </div>
           <div className='listing-cards'>
             {workersArray.map((worker) => (

@@ -20,6 +20,7 @@ import { Tables } from '../../shared/constants/Tables';
 import { RequiredFields as PropertyRequiredFields } from '../../shared/constants/property/RequiredFields';
 import { RequiredFields as TenantRequiredFields } from '../../shared/constants/tenant/RequiredFields';
 import { addTenantAsync, getTenantsFromPropertyAsync } from '../../redux/tenants/thunks';
+import HomeButton from '../../shared/components/HomeButton';
 
 function PropertyHome() {
   const { _id } = useParams();
@@ -93,6 +94,7 @@ function PropertyHome() {
           <PropertyDetailCard property={property} />
           <div className='property-actions-container'>
             <div className='property-actions'>
+              <HomeButton />
               <div className='btn btn-outline-primary' onClick={() => setIsAddTenantModalOpen(true)}>
                 Add tenant
               </div>

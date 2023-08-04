@@ -80,7 +80,7 @@ const HomeSideBar = ({ handleLogout = undefined }) => {
         </div>
         <div className='group'>
           <Link to='/about' style={{ textDecoration: 'none', color: 'white' }}>
-          <SideBarItem icon={'bi bi-cup-hot-fill'} name='About' />
+            <SideBarItem icon={'bi bi-cup-hot-fill'} name='About' />
           </Link>
           <SideBarItem icon={'bi bi-box-arrow-left'} name='Log out' onClick={handleLogout} />
         </div>

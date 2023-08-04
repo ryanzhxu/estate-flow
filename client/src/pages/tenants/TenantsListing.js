@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getTenantsAsync } from '../../redux/tenants/thunks';
 import TenantCard from '../../components/tenant/TenantCard';
 import '../../shared/styles/listing.css';
+import HomeButton from '../../shared/components/HomeButton';
 
 const TenantsListing = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const TenantsListing = () => {
         <div className='listing-right'>
           <div className='listing-header'>
             <h2>Tenants</h2>
+            <HomeButton />
           </div>
           <div className='listing-cards'>
             {tenantsArray.map((tenant) => (

@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { Link } from 'react-router-dom';
+import HomeButton from '../../shared/components/HomeButton';
 
 const AboutPage = () => {
   return (
@@ -9,12 +9,8 @@ const AboutPage = () => {
         <div className='listing-right'>
           <div className='listing-header'>
             <h2>About</h2>
-            <br></br>
-            <Link to='/'>
-            <div className='btn btn-outline-primary'>
-            <i className="bi bi-house"></i>
-            </div>
-            </Link>
+            <br />
+            <HomeButton />
           </div>
           <br></br>
           <h3>Estate Flow - Simplify Your Property Management</h3>
