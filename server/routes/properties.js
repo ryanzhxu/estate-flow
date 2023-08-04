@@ -46,8 +46,8 @@ router.get('/properties/:_id', async (req, res) => {
 
 router.post('/properties', upload.array("photos"), async (req, res) => {
   if (req.files && req.files.length > 0) {
-    const awsFiles = await s3upload(req.files, "properties");
-    req.body.photos = awsFiles.map((file) => file.Location);
+    const results = await s3upload(req.files, "properties");
+    req.body.photos = results.map((file) => file.Location);
   }
   const property = new Property(req.body);
 

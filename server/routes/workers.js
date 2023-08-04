@@ -1,6 +1,8 @@
 const express = require('express');
 const Worker = require('../models/worker');
 const { StatusCodes } = require('http-status-codes');
+const upload = require("../aws/multer");
+const {s3upload} = require("../aws/s3");
 
 const router = express.Router();
 
@@ -28,7 +30,12 @@ router.get('/workers/:_id', async (req, res) => {
   }
 });
 
-router.post('/workers', async (req, res) => {
+router.post('/workers', upload.single("imageUrl"), async (req, res) => {
+  if (req.file) {
+    const results = await s3upload([req.file], "workers");
+    req.body.imageUrl = results[0].Location;
+  }
+
   const newWorker = new Worker(req.body);
 
   try {
