@@ -66,9 +66,11 @@ function TenantViewCard({ tenant }) {
         </Modal.Body>
         <Modal.Footer>
           <Link to={`/tenants/${tenant._id}`}>
-            <button className='tenant-modal-button'>More details</button>
+            <div className='btn btn-outline-primary'>More details</div>
           </Link>
-          <button onClick={() => setIsOpen(false)}>Close</button>
+          <div className='btn btn-outline-dark' onClick={() => setIsOpen(false)}>
+            Close
+          </div>
         </Modal.Footer>
       </Modal>
     </div>

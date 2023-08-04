@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getPropertyAsync, updatePropertyAsync } from '../../redux/properties/thunks';
 import { useDispatch, useSelector } from 'react-redux';
 import PropertyDetailCard from './PropertyDetailCard';
@@ -20,6 +20,7 @@ import { Tables } from '../../shared/constants/Tables';
 import { RequiredFields as PropertyRequiredFields } from '../../shared/constants/property/RequiredFields';
 import { RequiredFields as TenantRequiredFields } from '../../shared/constants/tenant/RequiredFields';
 import { addTenantAsync, getTenantsFromPropertyAsync } from '../../redux/tenants/thunks';
+import HomeButton from '../../shared/components/HomeButton';
 
 function PropertyHome() {
   const { _id } = useParams();
@@ -40,7 +41,7 @@ function PropertyHome() {
     phoneNumber: '',
     birthDate: null,
     occupation: '',
-    // leaseFile: null,
+    leaseFile: null,
     startDate: null,
     endDate: null,
     leaseType: '',
@@ -50,7 +51,9 @@ function PropertyHome() {
     tenant.propertyId = property._id;
 
     if (new Date(tenant.endDate) < new Date(tenant.startDate)) {
-      alert('Lease end date cannot be older than start date');
+      alert('Lease end date cannot be older than start date.');
+    } else if (!tenant.startDate || !tenant.endDate) {
+      alert('Tenant must have a lease start date and end date.');
     } else {
       dispatch(addTenantAsync(getStandardizedTenant(tenant))).then(() => {
         clearNestedObjectValues(tenant);
@@ -91,18 +94,14 @@ function PropertyHome() {
           <PropertyDetailCard property={property} />
           <div className='property-actions-container'>
             <div className='property-actions'>
-              <Link to='/'>
-                <div className='property-action'>
-                  <i className='bi bi-house'></i>
-                </div>
-              </Link>
-              <button className='property-action' onClick={() => setIsAddTenantModalOpen(true)}>
+              <HomeButton />
+              <div className='btn btn-outline-primary' onClick={() => setIsAddTenantModalOpen(true)}>
                 Add tenant
-              </button>
-              <button className='property-action' onClick={() => setIsEditPropertyModalOpen(true)}>
-                Edit details
-              </button>
-              <button className='property-action'>Calculate profit</button>
+              </div>
+              <div className='btn btn-outline-secondary' onClick={() => setIsEditPropertyModalOpen(true)}>
+                Edit property
+              </div>
+              <div className='btn btn-outline-dark'>Calculate profit</div>
             </div>
           </div>
         </div>

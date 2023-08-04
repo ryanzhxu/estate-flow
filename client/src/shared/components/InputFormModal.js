@@ -5,8 +5,16 @@ import { DateFields } from '../constants/DateFields';
 import { NumericFields } from '../constants/NumericFields';
 import { SelectionFields } from '../constants/SelectionFields';
 import { UploadFields } from '../constants/UploadFields';
-import { getConvertedDate, getSelectedIndex, getSelectOptions, saveValueToObject } from '../services/Helpers';
+import {
+  getCapitalized,
+  getConvertedDate,
+  getSelectedIndex,
+  getSelectOptions,
+  saveValueToObject,
+} from '../services/Helpers';
 import InputField from './InputField';
+import ImageUploader from '../../components/ImageUploader';
+import { MultiWordFields } from '../constants/MultiWordFields';
 
 const InputFormModal = ({ isModalOpen, setIsModalOpen, isEdit = false, type, object, requiredFields, onSubmit }) => {
   return (
@@ -52,7 +60,17 @@ const InputFormModal = ({ isModalOpen, setIsModalOpen, isEdit = false, type, obj
               saveValueToObject(object, field, e.target.value);
             };
 
-            return (
+            return UploadFields.includes(field) ? (
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  {isRequired && <span style={{ color: '#02687D' }}>*&nbsp;</span>}
+                  <label>
+                    {Object.keys(MultiWordFields).includes(field) ? MultiWordFields[field] : getCapitalized(field)}:
+                  </label>
+                </div>
+                <ImageUploader imageURL={undefined} onImageSelected={undefined} />
+              </div>
+            ) : (
               <InputField
                 key={field}
                 field={field}

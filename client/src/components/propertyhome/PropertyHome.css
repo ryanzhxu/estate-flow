@@ -34,15 +34,16 @@
 }
 
 #property-home-header {
-  padding: 0 12px 0;
+  padding: 0 15px 0;
   margin-top: 0;
 }
 
 .property-actions {
   display: flex;
   margin-top: 0;
-  padding: 10px;
+  padding: 15px;
   width: fit-content;
+  gap: 15px;
 }
 
 .property-action {

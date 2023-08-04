@@ -1,24 +1,20 @@
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { addWorkerAsync, getWorkersAsync, sortFilterWorkerAsync } from '../../redux/workers/thunks';
-import {expSelectedWorker, isDetailOpen} from '../../redux/workers/workerDetailsReducer';
+import { addWorkerAsync, getWorkersAsync } from '../../redux/workers/thunks';
 import '../../shared/styles/listing.css';
 import WorkerCard from '../../components/worker/WorkerCard';
 import InputFormModal from '../../shared/components/InputFormModal';
 import { Tables } from '../../shared/constants/Tables';
 import { clearNestedObjectValues, getStandardizedProperty } from '../../shared/services/Helpers';
 import { RequiredFields } from '../../shared/constants/worker/RequiredFields';
-import WorkerDetail from "../../components/worker/workerDetail";
-import { Link } from 'react-router-dom';
+import HomeButton from '../../shared/components/HomeButton';
 
 function WorkersListing() {
   const dispatch = useDispatch();
   const workers = useSelector((state) => state.workers.workers);
   const workersArray = Object.values(workers);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const detailIsOpen = useSelector(isDetailOpen)
-
 
   const worker = {
     firstName: '',
@@ -31,6 +27,7 @@ function WorkersListing() {
     postalCode: '',
     hourlyRate: '',
     trades: '',
+    imageUrl: '',
   };
 
   useEffect(() => {
@@ -55,11 +52,7 @@ function WorkersListing() {
             <div className='btn btn-outline-primary' onClick={() => setIsAddModalOpen(true)}>
               Add worker
             </div>
-            <Link to='/'>
-            <div className='btn btn-outline-primary'>
-            <i className="bi bi-house"></i>
-            </div>
-            </Link>
+            <HomeButton />
           </div>
           <div className='listing-cards'>
             {workersArray.map((worker) => (
@@ -78,7 +71,6 @@ function WorkersListing() {
           requiredFields={RequiredFields}
         />
       )}
-      {detailIsOpen && <WorkerDetail />}
     </div>
   );
 

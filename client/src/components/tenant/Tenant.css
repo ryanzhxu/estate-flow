@@ -31,3 +31,21 @@
   display: grid;
   gap: 1.5rem !important;
 }
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.payment-history {
+  width: 100%;
+  padding-right: '0';
+}
+
+.payment-history-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 10px;
+}

@@ -6,13 +6,11 @@ import '../../shared/styles/listing.css';
 import PropertyCard from '../../components/property/PropertyCard';
 import PropertySearch from '../../components/property/PropertySearch';
 import InputFormModal from '../../shared/components/InputFormModal';
-import Loading from '../../components/loading/Loading';
-import sandGlass from '../../components/loading/loading_sand_glass.json';
 
 import { Tables } from '../../shared/constants/Tables';
 import { RequiredFields } from '../../shared/constants/property/RequiredFields';
 import { clearNestedObjectValues, getStandardizedProperty } from '../../shared/services/Helpers';
-import { Link } from 'react-router-dom';
+import HomeButton from '../../shared/components/HomeButton';
 
 const PropertiesListing = () => {
   const dispatch = useDispatch();
@@ -81,11 +79,7 @@ const PropertiesListing = () => {
             <div className='btn btn-outline-primary' onClick={() => setIsAddModalOpen(true)}>
               Add property
             </div>
-            <Link to='/'>
-            <div className='btn btn-outline-primary'>
-            <i className="bi bi-house"></i>
-            </div>
-            </Link>
+            <HomeButton />
           </div>
           <div className='listing-cards'>
             {filteredProperties.map((property) => (
