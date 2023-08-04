@@ -46,10 +46,6 @@ const workerSchema = new mongoose.Schema({
   imageUrl: {
     type: String,
   },
-  gender: {
-    type: String,
-    required: false,
-  },
 });
 
 const Worker = mongoose.model('Worker', workerSchema);
