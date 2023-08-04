@@ -5,7 +5,7 @@ const HomeButton = () => {
   return (
     <Link to='/'>
       <div className='btn btn-outline-dark'>
-        <i className='bi bi-house' />
+        <i className='bi bi-house-heart-fill' />
       </div>
     </Link>
   );

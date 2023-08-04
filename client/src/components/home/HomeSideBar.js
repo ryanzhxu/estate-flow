@@ -69,7 +69,7 @@ const HomeSideBar = ({ handleLogout = undefined }) => {
             <SideBarItem icon={'bi bi-calendar2-heart'} name='Dashboard' />
           </Link>{' '}
           <Link to='/properties' style={{ textDecoration: 'none', color: 'white' }}>
-            <SideBarItem icon={'bi bi-house-heart-fill'} name='Properties' />
+            <SideBarItem icon={'bi bi-houses'} name='Properties' />
           </Link>{' '}
           <Link to='/tenants' style={{ textDecoration: 'none', color: 'white' }}>
             <SideBarItem icon={'bi bi-people'} name='Tenants' />
