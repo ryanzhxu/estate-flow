@@ -6,7 +6,7 @@
   overflow-y: auto;
   padding-right: 30px;
   scrollbar-width: thin;
-  scrollbar-color: transparent transparent; /* thumb color, track color */
+  scrollbar-color: transparent transparent;
 }
 
 .property-types::-webkit-scrollbar-thumb {

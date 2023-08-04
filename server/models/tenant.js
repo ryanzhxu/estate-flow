@@ -86,6 +86,10 @@ const tenantSchema = new mongoose.Schema(
       ref: 'Property',
       required: true,
     },
+    gender: {
+      type: String,
+      required: false,
+    },
   },
   {
     collection: 'tenants',
