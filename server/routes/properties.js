@@ -1,6 +1,8 @@
 const express = require('express');
 const Property = require('../models/property');
 const { StatusCodes } = require('http-status-codes');
+const upload = require("../aws/multer");
+const {s3upload} = require("../aws/s3");
 
 const router = express.Router();
 
@@ -42,12 +44,16 @@ router.get('/properties/:_id', async (req, res) => {
   }
 });
 
-router.post('/properties', async (req, res) => {
-  const newProperty = new Property(req.body);
+router.post('/properties', upload.array("photos"), async (req, res) => {
+  if (req.files && req.files.length > 0) {
+    const awsFiles = await s3upload(req.files, "properties");
+    req.body.photos = awsFiles.map((file) => file.Location);
+  }
+  const property = new Property(req.body);
 
   try {
-    await newProperty.save();
-    res.status(StatusCodes.CREATED).send(newProperty);
+    await property.save();
+    res.status(StatusCodes.CREATED).send(property);
   } catch (e) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
