@@ -10,11 +10,11 @@ dotenv.config();
 //     region: "us-east-1"
 // })
 
-const upload =  async(file) => {
+const upload =  async(file, folder) => {
     const s3 = new aws.S3();
     const param = {
         Bucket: process.env.AWS_BUCKET_NAME,
-        Key: `uploads/${uuid()}-${file.originalname}`,
+        Key: `uploads/${folder}/${uuid()}-${file.originalname}`,
         Body: file.buffer
     }
     return await s3.upload(param).promise();
