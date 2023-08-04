@@ -1,7 +1,4 @@
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-
-dotenv.config();
 
 const uri = process.env.NODE_ENV ? process.env.DB_HOST_REMOTE : process.env.DB_HOST;
 
