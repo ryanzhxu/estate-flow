@@ -2,7 +2,7 @@ const express = require('express');
 const Property = require('../models/property');
 const { StatusCodes } = require('http-status-codes');
 const upload = require("../aws/multer");
-const {s3upload, deleteFiles, isStoredInCloud} = require("../aws/s3");
+const {uploadFile, deleteFiles, isStoredInCloud} = require("../aws/s3");
 
 const router = express.Router();
 
@@ -46,7 +46,7 @@ router.get('/properties/:_id', async (req, res) => {
 
 router.post('/properties', upload.array("photos"), async (req, res) => {
   if (req.files && req.files.length > 0) {
-    const results = await s3upload(req.files, "properties");
+    const results = await uploadFile(req.files, "properties");
     req.body.photos = results.map((file) => file.Location);
   }
   const property = new Property(req.body);

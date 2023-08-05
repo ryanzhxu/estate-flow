@@ -4,9 +4,10 @@ const dotenv = require('dotenv');
 const path = require("path");
 
 dotenv.config();
+
 const s3 = new S3();
 
-const upload =  async(files, folder) => {
+const uploadFile =  async(files, folder) => {
     const params = files.map((file) => {
         const fileExtension = path.extname(file.originalname);
         return {
@@ -50,7 +51,7 @@ const isStoredInCloud= (urlString) => {
 }
 
 module.exports = {
-    s3upload: upload,
+    uploadFile,
     deleteFiles,
     isStoredInCloud
 }

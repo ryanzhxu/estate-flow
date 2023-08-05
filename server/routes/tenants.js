@@ -4,7 +4,7 @@ const Property = require('../models/property');
 const { StatusCodes } = require('http-status-codes');
 const mongoose = require('mongoose');
 const upload = require("../aws/multer");
-const {s3upload, deleteFiles, isStoredInCloud} = require("../aws/s3");
+const {uploadFile, deleteFiles, isStoredInCloud} = require("../aws/s3");
 
 const router = express.Router();
 
@@ -148,7 +148,7 @@ router.post('/tenants', upload.single("profileImageUrl"), async (req, res) => {
   }
 
   if (req.file) {
-    const results = await s3upload([req.file], "tenants");
+    const results = await uploadFile([req.file], "tenants");
     req.body.profileImageUrl = results[0].Location;
   }
 
