@@ -83,7 +83,7 @@ const tenantSchema = new mongoose.Schema(
     ],
     profileImageUrl: {
         type: String,
-        required: true,
+        required: false,
         default: "https://cdn-icons-png.flaticon.com/512/65/65581.png"
     },
     propertyId: {
