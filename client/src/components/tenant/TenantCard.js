@@ -7,7 +7,11 @@ const TenantCard = ({ tenant }) => {
     <div className='listing-card'>
       <Link to={`/tenants/${tenant._id}`}>
         <span>
-          <img alt='avatar' className='listing-card-image' src='https://cdn-icons-png.flaticon.com/512/65/65581.png' />
+          <img
+            alt='avatar'
+            className='listing-card-image'
+            src='https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg'
+          />
         </span>
       </Link>
       <div className='listing-card-content'>

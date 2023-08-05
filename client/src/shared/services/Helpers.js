@@ -197,3 +197,10 @@ export const getDateDifference = (startDate, endDate) => {
 export const getPluralS = (count) => {
   return count > 1 ? 's' : '';
 };
+
+export const getCapitalizedString = (string) => {
+  return string
+    .split(' ')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+};

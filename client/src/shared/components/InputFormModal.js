@@ -6,7 +6,7 @@ import { NumericFields } from '../constants/NumericFields';
 import { SelectionFields } from '../constants/SelectionFields';
 import { UploadFields } from '../constants/UploadFields';
 import {
-  getCapitalized,
+  getCapitalizedString,
   getConvertedDate,
   getSelectedIndex,
   getSelectOptions,
@@ -65,7 +65,7 @@ const InputFormModal = ({ isModalOpen, setIsModalOpen, isEdit = false, type, obj
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   {isRequired && <span style={{ color: '#02687D' }}>*&nbsp;</span>}
                   <label>
-                    {Object.keys(MultiWordFields).includes(field) ? MultiWordFields[field] : getCapitalized(field)}:
+                    {Object.keys(MultiWordFields).includes(field) ? MultiWordFields[field] : getCapitalizedString(field)}:
                   </label>
                 </div>
                 <ImageUploader imageURL={undefined} onImageSelected={undefined} />

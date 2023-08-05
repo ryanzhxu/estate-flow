@@ -10,8 +10,8 @@ const WorkerCard = ({ worker }) => {
 
   return (
     <div className='listing-card'>
-      <div onClick={() => setIsWorkerDetailOpen(true)}>
-        <span>
+      <div>
+        <span onClick={() => setIsWorkerDetailOpen(true)}>
           <img
             alt={worker._id}
             className='listing-card-image'
