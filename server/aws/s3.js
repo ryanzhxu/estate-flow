@@ -39,8 +39,19 @@ const deleteFiles = async(urls) => {
 
 }
 
+const isStoredInCloud= (urlString) => {
+    try {
+        const url = new URL(urlString);
+        const hostname = url.hostname;
+        return hostname === process.env.CLOUD_DOMAIN;
+    } catch (e) {
+        return false;
+    }
+}
+
 module.exports = {
     s3upload: upload,
-    deleteFiles
+    deleteFiles,
+    isStoredInCloud
 }
 

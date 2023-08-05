@@ -2,7 +2,7 @@ const express = require('express');
 const Property = require('../models/property');
 const { StatusCodes } = require('http-status-codes');
 const upload = require("../aws/multer");
-const {s3upload} = require("../aws/s3");
+const {s3upload, deleteFiles, isStoredInCloud} = require("../aws/s3");
 
 const router = express.Router();
 
@@ -73,12 +73,15 @@ router.delete('/properties/:_id', async (req, res) => {
     const property = await Property.findByIdAndDelete(req.params._id);
 
     if (!property) {
-      res.status(StatusCodes.BAD_REQUEST).send('No property found.');
+      return res.status(StatusCodes.BAD_REQUEST).send('No property found.');
     }
 
-    res.status(StatusCodes.OK).send();
+    if (property.photos.length > 0) {
+      await deleteFiles(property.photos.filter((photo) => isStoredInCloud(photo)));
+    }
+    return res.status(StatusCodes.OK).send();
   } catch (e) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });
 

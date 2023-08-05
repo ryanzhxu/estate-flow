@@ -2,7 +2,7 @@ const express = require('express');
 const Worker = require('../models/worker');
 const { StatusCodes } = require('http-status-codes');
 const upload = require("../aws/multer");
-const {s3upload} = require("../aws/s3");
+const {s3upload, deleteFiles, isStoredInCloud} = require("../aws/s3");
 
 const router = express.Router();
 
@@ -60,12 +60,16 @@ router.delete('/workers/:_id', async (req, res) => {
     const worker = await Worker.findByIdAndDelete(req.params._id);
 
     if (!worker) {
-      res.status(StatusCodes.BAD_REQUEST).send('No worker found.');
+      return res.status(StatusCodes.BAD_REQUEST).send('No worker found.');
     }
 
-    res.status(StatusCodes.OK).send();
+    if (worker.imageUrl && isStoredInCloud(worker.imageUrl)) {
+      await deleteFiles([worker.imageUrl]);
+    }
+
+    return res.status(StatusCodes.OK).send();
   } catch (e) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
   }
 });
 

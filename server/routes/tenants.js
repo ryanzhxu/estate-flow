@@ -4,7 +4,7 @@ const Property = require('../models/property');
 const { StatusCodes } = require('http-status-codes');
 const mongoose = require('mongoose');
 const upload = require("../aws/multer");
-const {s3upload} = require("../aws/s3");
+const {s3upload, deleteFiles, isStoredInCloud} = require("../aws/s3");
 
 const router = express.Router();
 
@@ -204,12 +204,15 @@ router.delete('/tenants/:_id', async (req, res) => {
     const tenant = await Tenant.findByIdAndDelete(req.params._id);
 
     if (!tenant) {
-      res.status(StatusCodes.BAD_REQUEST).send('No tenant found.');
+      return res.status(StatusCodes.BAD_REQUEST).send('No tenant found.');
     }
 
-    res.status(StatusCodes.OK).send();
+    if (tenant.profileImageUrl && isStoredInCloud(tenant.profileImageUrl)) {
+      await deleteFiles([tenant.profileImageUrl]);
+    }
+    return res.status(StatusCodes.OK).send();
   } catch (e) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });
 
