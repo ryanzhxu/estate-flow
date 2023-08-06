@@ -2,7 +2,7 @@
 .sideBarItem {
   display: flex;
   padding: 8px;
-  align-items: end;
+  align-items: flex-end;
   justify-content: flex-start;
   border-radius: 10px;
 }
