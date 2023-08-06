@@ -1,6 +1,8 @@
 const express = require('express');
 const Property = require('../models/property');
 const { StatusCodes } = require('http-status-codes');
+const upload = require("../aws/multer");
+const {uploadFile, deleteFiles, isStoredInCloud} = require("../aws/s3");
 
 const router = express.Router();
 
@@ -42,12 +44,16 @@ router.get('/properties/:_id', async (req, res) => {
   }
 });
 
-router.post('/properties', async (req, res) => {
-  const newProperty = new Property(req.body);
+router.post('/properties', upload.array("photos"), async (req, res) => {
+  if (req.files && req.files.length > 0) {
+    const results = await uploadFile(req.files, "properties");
+    req.body.photos = results.map((file) => file.Location);
+  }
+  const property = new Property(req.body);
 
   try {
-    await newProperty.save();
-    res.status(StatusCodes.CREATED).send(newProperty);
+    await property.save();
+    res.status(StatusCodes.CREATED).send(property);
   } catch (e) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
@@ -67,12 +73,15 @@ router.delete('/properties/:_id', async (req, res) => {
     const property = await Property.findByIdAndDelete(req.params._id);
 
     if (!property) {
-      res.status(StatusCodes.BAD_REQUEST).send('No property found.');
+      return res.status(StatusCodes.BAD_REQUEST).send('No property found.');
     }
 
-    res.status(StatusCodes.OK).send();
+    if (property.photos.length > 0) {
+      await deleteFiles(property.photos.filter((photo) => isStoredInCloud(photo)));
+    }
+    return res.status(StatusCodes.OK).send();
   } catch (e) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });
 

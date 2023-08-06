@@ -3,6 +3,8 @@ const Tenant = require('../models/tenant');
 const Property = require('../models/property');
 const { StatusCodes } = require('http-status-codes');
 const mongoose = require('mongoose');
+const upload = require("../aws/multer");
+const {uploadFile, deleteFiles, isStoredInCloud} = require("../aws/s3");
 
 const router = express.Router();
 
@@ -138,11 +140,16 @@ router.get('/tenants/dues/:date', async (req, res) => {
   }
 });
 
-router.post('/tenants', async (req, res) => {
+router.post('/tenants', upload.single("profileImageUrl"), async (req, res) => {
   const propertyId = req.body.propertyId;
 
   if (!mongoose.isValidObjectId(propertyId)) {
     return res.status(StatusCodes.BAD_REQUEST).json({ error: 'Invalid propertyId format' });
+  }
+
+  if (req.file) {
+    const results = await uploadFile([req.file], "tenants");
+    req.body.profileImageUrl = results[0].Location;
   }
 
   try {
@@ -197,12 +204,15 @@ router.delete('/tenants/:_id', async (req, res) => {
     const tenant = await Tenant.findByIdAndDelete(req.params._id);
 
     if (!tenant) {
-      res.status(StatusCodes.BAD_REQUEST).send('No tenant found.');
+      return res.status(StatusCodes.BAD_REQUEST).send('No tenant found.');
     }
 
-    res.status(StatusCodes.OK).send();
+    if (tenant.profileImageUrl && isStoredInCloud(tenant.profileImageUrl)) {
+      await deleteFiles([tenant.profileImageUrl]);
+    }
+    return res.status(StatusCodes.OK).send();
   } catch (e) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });
 
