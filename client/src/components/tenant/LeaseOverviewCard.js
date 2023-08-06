@@ -13,12 +13,11 @@ function LeaseOverviewCard({ tenant }) {
   const dispatch = useDispatch();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const lease = tenant.lease;
-  const address = tenant.address
-  const { startDate, endDate, leaseType} = tenant.lease;
-  const editTenant = { startDate, endDate, leaseType};
+  const address = tenant.address;
+  const { startDate, endDate, leaseType } = tenant.lease;
+  const editTenant = { startDate, endDate, leaseType };
 
   const handleEditTenant = () => {
-
     const tenantToBeUpdated = {
       ...tenant,
       lease: {
@@ -38,14 +37,12 @@ function LeaseOverviewCard({ tenant }) {
   return (
     <div className='tenant-lease-overview card'>
       <div className='card-header'>
-        <h5 className='card-title mb-0'>
-          Lease Details 
-          <button className="button-link" onClick={() => (true)}>
-            <i className="bi bi-arrow-down-circle"></i>
-          </button>
-        </h5>
-        <Button appearance='primary' spacing="compact" onClick={() => setIsEditModalOpen(true)}>
-          Edit Lease Details
+        <h5 className='card-title mb-0'>Lease Details</h5>
+        <button className='button-link' onClick={() => true}>
+          <i className='bi bi-arrow-down-circle' />
+        </button>
+        <Button appearance='subtle' onClick={() => setIsEditModalOpen(true)}>
+          <i className='bi bi-pencil-square' />
         </Button>
       </div>
       <div className='card-body'>
