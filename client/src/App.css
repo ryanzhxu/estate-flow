@@ -11,7 +11,8 @@
   flex: 1;
   display: grid;
   gap: 20px;
-  grid-template-columns: auto auto;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr;
   padding: 10px;
 }
 
