@@ -62,12 +62,19 @@ function SideBarItem({ icon, name, onClick = undefined }) {
           </p>
         </Modal.Body>
         <Modal.Footer>
-          <Button appearance='subtle' onClick={() => setIsOpen(false)}>
+          <div className='btn btn-outline-danger' onClick={handleConfirmLogout}>
+            {!isLoading ? (
+              `Log out`
+            ) : (
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                <span className='spinner-border spinner-border-sm' role='status' aria-hidden='true' />
+                Logging out
+              </div>
+            )}
+          </div>
+          <div className='btn btn-outline-primary' onClick={() => setIsOpen(false)}>
             Cancel
-          </Button>
-          <LoadingButton appearance='danger' onClick={handleConfirmLogout} isLoading={isLoading}>
-            Log out
-          </LoadingButton>
+          </div>
         </Modal.Footer>
       </Modal>
     </>

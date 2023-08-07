@@ -68,7 +68,7 @@ const PropertiesListing = () => {
       <div className='listing-contents'>
         <div className='listing-left'>
           <div className='listing-header'>
-            <h2>Search</h2>
+            <h2>Filter</h2>
           </div>
           <PropertySearch onFilterProperties={handleFilterProperties} onResetProperties={handleResetProperties} />
         </div>

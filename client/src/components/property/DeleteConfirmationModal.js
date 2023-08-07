@@ -1,6 +1,5 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
-import Button from '@atlaskit/button';
 
 const DeleteConfirmationModal = ({ isOpen, onCancel, onDelete, type, modalContent }) => {
   return (
@@ -10,12 +9,12 @@ const DeleteConfirmationModal = ({ isOpen, onCancel, onDelete, type, modalConten
       </Modal.Header>
       <Modal.Body className='modal-content panel-warning'>{modalContent}</Modal.Body>
       <Modal.Footer>
-        <Button appearance='subtle' onClick={onCancel}>
-          Cancel
-        </Button>
-        <Button appearance='danger' onClick={onDelete}>
+        <div className='btn btn-outline-danger' onClick={onDelete}>
           Delete
-        </Button>
+        </div>
+        <div className='btn btn-outline-primary' onClick={onCancel}>
+          Cancel
+        </div>
       </Modal.Footer>
     </Modal>
   );

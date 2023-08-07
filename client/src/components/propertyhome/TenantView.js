@@ -14,7 +14,7 @@ function TenantView({ propertyId }) {
   }, [propertyId, dispatch]);
 
   return (
-    <div className='d-flex flex-column align-items-stretch flex-shrink-0'>
+    <div className='d-flex flex-column align-items-stretch flex-shrink-0 tenants-list-container'>
       <div className='d-flex align-items-center flex-shrink-0 p-2 link-dark text-decoration-none border-bottom'>
         <h5 className='fs-5 fw-semibold'>Tenants</h5>
       </div>

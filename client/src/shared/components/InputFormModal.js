@@ -1,4 +1,3 @@
-import Button from '@atlaskit/button';
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import { DateFields } from '../constants/DateFields';
@@ -65,7 +64,10 @@ const InputFormModal = ({ isModalOpen, setIsModalOpen, isEdit = false, type, obj
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   {isRequired && <span style={{ color: '#02687D' }}>*&nbsp;</span>}
                   <label>
-                    {Object.keys(MultiWordFields).includes(field) ? MultiWordFields[field] : getCapitalizedString(field)}:
+                    {Object.keys(MultiWordFields).includes(field)
+                      ? MultiWordFields[field]
+                      : getCapitalizedString(field)}
+                    :
                   </label>
                 </div>
                 <ImageUploader imageURL={undefined} onImageSelected={undefined} />
@@ -87,12 +89,12 @@ const InputFormModal = ({ isModalOpen, setIsModalOpen, isEdit = false, type, obj
         </form>
       </Modal.Body>
       <Modal.Footer>
-        <Button appearance='subtle' onClick={() => setIsModalOpen(false)}>
-          Cancel
-        </Button>
-        <Button appearance='primary' onClick={onSubmit}>
+        <div className='btn btn-outline-primary' onClick={onSubmit}>
           {isEdit ? 'Submit changes' : 'Add'}
-        </Button>
+        </div>
+        <div className='btn btn-outline-secondary' onClick={() => setIsModalOpen(false)}>
+          Cancel
+        </div>
       </Modal.Footer>
     </Modal>
   );

@@ -14,10 +14,14 @@ code {
 
 .modal-content {
   border: none;
-  border-radius: 0;
+  border-radius: 5px;
 }
 
 .modal-header {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+.modal-footer {
+  justify-content: flex-start;
 }
