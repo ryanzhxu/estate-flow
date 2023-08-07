@@ -100,7 +100,6 @@ function PropertyHome() {
               <div className='btn btn-outline-secondary' onClick={() => setIsEditPropertyModalOpen(true)}>
                 Edit property
               </div>
-              <div className='btn btn-outline-dark'>Calculate profit</div>
             </div>
           </div>
         </div>
