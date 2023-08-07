@@ -30,7 +30,7 @@ export const handleDownloadLeasePdf = (tenant) => {
   doc.setFont(`Helvetica`, `normal`);
   doc.setFontSize(12);
   doc.text(`Estate Flow`, 1, yPosition);
-  doc.text(`and the TENANT(s):`, 1, yPosition + 2 * lineHeight);
+  doc.text(`and the TENANT:`, 1, yPosition + 2 * lineHeight);
 
   doc.text(`Name: ${tenant.firstName} ${tenant.lastName}`, 1, yPosition + 4 * lineHeight);
   doc.text(`Phone number: ${getFormattedPhoneNum(tenant.phoneNumber)}`, 1, yPosition + 5 * lineHeight);
@@ -60,7 +60,7 @@ export const handleDownloadLeasePdf = (tenant) => {
 
   doc.setFont(`Helvetica`, `bold`);
   doc.setFontSize(12);
-  doc.text(`ADDRESS OF PLACE BEING RENTED TO TENANT(s):`, 1, yPosition);
+  doc.text(`ADDRESS OF PLACE BEING RENTED TO TENANT:`, 1, yPosition);
 
   yPosition += 1.25 * lineHeight;
 
@@ -76,7 +76,7 @@ export const handleDownloadLeasePdf = (tenant) => {
 
   doc.setFont(`Helvetica`, `bold`);
   doc.setFontSize(13);
-  doc.text(`By signing this tenancy agreement, the landlord and the tenant(s) are bound \nby its terms:`, 1, yPosition);
+  doc.text(`By signing this tenancy agreement, the landlord and the tenant are bound \nby its terms:`, 1, yPosition);
 
   yPosition += 1.25 * lineHeight;
   doc.setFont(`Helvetica`, `normal`);
