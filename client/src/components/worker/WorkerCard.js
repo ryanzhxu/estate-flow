@@ -16,10 +16,10 @@ const WorkerCard = ({ worker }) => {
     case "Mechanic":
       workerImg = 'https://news.bpx.co.uk/wp-content/uploads/2022/10/shutterstock_1927241273.jpg';
       break;
-    case "Heating, Ventilation, and A/C":
+    case "HVAC":
       workerImg = 'https://www.floridacareercollege.edu/wp-content/uploads/sites/4/2021/11/what-does-hvac-technician-do.jpg';
       break;
-    case "Information Technology":
+    case "IT":
       workerImg = 'https://www.greenfieldreporter.com/wp-content/uploads/2023/02/130733204_web1_20230220dr-COMM-Peyten-Grant1.jpg';
       break;
     case "Telecommunications":
