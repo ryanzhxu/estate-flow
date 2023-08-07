@@ -42,11 +42,7 @@ const workerSchema = new mongoose.Schema({
   trades: {
     type: String,
     required: true,
-  },
-  imageUrl: {
-    type: String,
-    required: false
-  },
+  }
 });
 
 const Worker = mongoose.model('Worker', workerSchema);

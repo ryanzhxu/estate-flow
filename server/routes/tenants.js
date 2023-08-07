@@ -3,9 +3,8 @@ const Tenant = require('../models/tenant');
 const Property = require('../models/property');
 const { StatusCodes } = require('http-status-codes');
 const mongoose = require('mongoose');
-const upload = require("../aws/multer");
 const {uploadFile, deleteFiles, isStoredInCloud} = require("../aws/s3");
-
+const {upload, handleMulterError} = require("../aws/multer");
 const router = express.Router();
 
 router.get('/tenants', async (req, res) => {
@@ -140,7 +139,7 @@ router.get('/tenants/dues/:date', async (req, res) => {
   }
 });
 
-router.post('/tenants', upload.single("profileImageUrl"), async (req, res) => {
+router.post('/tenants', upload.single("profileImageUrl"), handleMulterError, async (req, res) => {
   const propertyId = req.body.propertyId;
 
   if (!mongoose.isValidObjectId(propertyId)) {
