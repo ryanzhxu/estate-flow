@@ -1,4 +1,5 @@
 import React from 'react';
+import Amenities from '../../shared/constants/property/Amenities';
 import './PropertyOverview.css';
 
 function PropertyOverview({ property }) {
@@ -18,17 +19,17 @@ function PropertyOverview({ property }) {
               <p>
                 <strong>Bathrooms:</strong> {property.bath}
               </p>
-            </div>
-            <div className='col-md-6 mb-1'>
               <p>
                 <strong>Description:</strong> {property.description}
               </p>
+            </div>
+            <div className='col-md-6 mb-1'>
               <div>
-                <strong>Amenities</strong>
+                <strong>Amenities:</strong>
                 <ul className='amenities-list list-group'>
                   {property.amenities.map((amenity, i) => (
                     <li className={`d-flex no-block card-body ${i > 0 ? 'border-top' : ''}`} key={i}>
-                      {amenity}
+                      {Amenities[amenity]}
                     </li>
                   ))}
                 </ul>

@@ -19,13 +19,13 @@ function TenantViewCard({ tenant }) {
         </h6>
         <p className='mb-0 text-muted small'>
           <small>
-            {tenant.phoneNumber} | {tenant.email}
+            {getFormattedPhoneNum(tenant.phoneNumber)} | {tenant.email}
           </small>
         </p>
       </div>
       <Modal show={isOpen} onHide={() => setIsOpen(false)} centered>
         <Modal.Header>
-          <Modal.Title>Tenant details</Modal.Title>
+          <Modal.Title>Tenant</Modal.Title>
         </Modal.Header>
         <Modal.Body className='modal-content'>
           <div className='row'>
@@ -68,7 +68,7 @@ function TenantViewCard({ tenant }) {
           <Link to={`/tenants/${tenant._id}`}>
             <div className='btn btn-outline-primary'>More details</div>
           </Link>
-          <div className='btn btn-outline-dark' onClick={() => setIsOpen(false)}>
+          <div className='btn btn-outline-secondary' onClick={() => setIsOpen(false)}>
             Close
           </div>
         </Modal.Footer>

@@ -31,7 +31,7 @@ function PropertyHome() {
   const [isAddTenantModalOpen, setIsAddTenantModalOpen] = useState(false);
   const [isEditPropertyModalOpen, setIsEditPropertyModalOpen] = useState(false);
 
-  let editProperty = getMappedEditObject(property);
+  const editProperty = getMappedEditObject(property);
   delete editProperty.rent;
 
   const tenant = {
@@ -69,7 +69,6 @@ function PropertyHome() {
     }
 
     dispatch(updatePropertyAsync(getStandardizedProperty(editProperty))).then(() => {
-      clearNestedObjectValues(editProperty);
       setIsEditPropertyModalOpen(false);
       dispatch(getPropertyAsync(editProperty._id));
     });
