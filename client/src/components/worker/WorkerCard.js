@@ -26,7 +26,7 @@ const WorkerCard = ({ worker }) => {
       workerImg = 'https://www.cimtcollege.com/cimt/images/telecommunications-technology-1.jpg';
       break;
     case "Instrumentation":
-      workerImg = 'https://www.tuskautomation.com/assets/img/services/instrumentation-1.jpg';
+      workerImg = 'https://iticollege.edu/wp-content/uploads/2022/06/Instrument-Technician-Course-.jpg';
       break;
     case "Plumber":
       workerImg = 'https://cdn-boadd.nitrocdn.com/dFVpCkCQuyKKGCvsieWgIJjyQLauwWHh/assets/images/optimized/rev-acc6a50/wp-content/uploads/2015/11/VIGILANT-plumber-fixing-a-sink-shutterstock_132523334-e1448389230378-620x400.jpg';
