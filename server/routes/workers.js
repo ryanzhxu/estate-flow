@@ -30,12 +30,7 @@ router.get('/workers/:_id', async (req, res) => {
   }
 });
 
-router.post('/workers', upload.single("imageUrl"), async (req, res) => {
-  if (req.file) {
-    const results = await uploadFile([req.file], "workers");
-    req.body.imageUrl = results[0].Location;
-  }
-
+router.post('/workers',async (req, res) => {
   const newWorker = new Worker(req.body);
 
   try {
@@ -62,11 +57,6 @@ router.delete('/workers/:_id', async (req, res) => {
     if (!worker) {
       return res.status(StatusCodes.BAD_REQUEST).send('No worker found.');
     }
-
-    if (worker.imageUrl && isStoredInCloud(worker.imageUrl)) {
-      await deleteFiles([worker.imageUrl]);
-    }
-
     return res.status(StatusCodes.OK).send();
   } catch (e) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
