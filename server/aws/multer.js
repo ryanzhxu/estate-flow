@@ -1,4 +1,5 @@
 const multer = require("multer");
+const {StatusCodes} = require("http-status-codes");
 const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
@@ -9,6 +10,15 @@ const fileFilter = (req, file, cb) => {
     }
 };
 
+const handleMulterError = (err, req, res, next) => {
+    if (err instanceof multer.MulterError) {
+        return res.status(StatusCodes.BAD_REQUEST).json({ error: err.message });
+    } else if (err) {
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: err.message });
+    }
+    next();
+};
+
 const upload = multer({
     storage: storage,
     fileFilter: fileFilter,
@@ -17,4 +27,4 @@ const upload = multer({
     }
 });
 
-module.exports = upload;
+module.exports = {upload, handleMulterError};

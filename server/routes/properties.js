@@ -1,8 +1,8 @@
 const express = require('express');
 const Property = require('../models/property');
 const { StatusCodes } = require('http-status-codes');
-const upload = require("../aws/multer");
 const {uploadFile, deleteFiles, isStoredInCloud} = require("../aws/s3");
+const {handleMulterError, upload} = require("../aws/multer");
 
 const router = express.Router();
 
@@ -44,7 +44,7 @@ router.get('/properties/:_id', async (req, res) => {
   }
 });
 
-router.post('/properties', upload.array("photos"), async (req, res) => {
+router.post('/properties', upload.array("photos", 3), handleMulterError,  async (req, res) => {
   if (req.files && req.files.length > 0) {
     const results = await uploadFile(req.files, "properties");
     req.body.photos = results.map((file) => file.Location);
