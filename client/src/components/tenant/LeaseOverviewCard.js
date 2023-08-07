@@ -8,6 +8,7 @@ import InputFormModal from '../../shared/components/InputFormModal';
 import { Tables } from '../../shared/constants/Tables';
 import { RequiredFields } from '../../shared/constants/tenant/RequiredFields';
 import { getConvertedDate } from '../../shared/services/Helpers';
+import { handleDownloadLeasePdf } from '../../shared/services/LeasePdfUtils';
 
 function LeaseOverviewCard({ tenant }) {
   const dispatch = useDispatch();
@@ -38,9 +39,9 @@ function LeaseOverviewCard({ tenant }) {
     <div className='tenant-lease-overview card'>
       <div className='card-header'>
         <h5 className='card-title mb-0'>Lease Details</h5>
-        <button className='button-link' onClick={() => true}>
-          <i className='bi bi-arrow-down-circle' />
-        </button>
+        <Button appearance='subtle' onClick={() => handleDownloadLeasePdf(tenant)}>
+          <i className='bi bi-download' />
+        </Button>
         <Button appearance='subtle' onClick={() => setIsEditModalOpen(true)}>
           <i className='bi bi-pencil-square' />
         </Button>
