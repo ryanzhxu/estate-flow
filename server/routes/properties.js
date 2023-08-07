@@ -44,7 +44,7 @@ router.get('/properties/:_id', async (req, res) => {
   }
 });
 
-router.post('/properties', upload.array("photos", 3), handleMulterError,  async (req, res) => {
+router.post('/properties', upload.array("photos", 5), handleMulterError,  async (req, res) => {
   if (req.files && req.files.length > 0) {
     const results = await uploadFile(req.files, "properties");
     req.body.photos = results.map((file) => file.Location);
