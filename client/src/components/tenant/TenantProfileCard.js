@@ -35,7 +35,7 @@ function TenantProfileCard({ tenant }) {
       editTenant.propertyId = tenant.propertyId;
     }
 
-    Object.keys(tenant).map((field) => {
+    Object.keys(tenant).forEach((field) => {
       if (!editTenant[field]) {
         editTenant[field] = tenant[field];
       }

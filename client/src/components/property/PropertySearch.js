@@ -21,7 +21,7 @@ const PropertySearch = ({ onFilterProperties, onResetProperties }) => {
 
   useEffect(() => {
     onFilterProperties(selectedTypes);
-  }, [selectedTypes]);
+  }, [selectedTypes, onFilterProperties]);
 
   const isPropertyTypeSelected = (type) => {
     return selectedTypes.includes(type) ? 'selected' : '';
