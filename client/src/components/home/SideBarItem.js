@@ -2,11 +2,8 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import './SideBarItem.css';
 import { Modal } from 'react-bootstrap';
-import Button from '@atlaskit/button';
-import LoadingButton from '@atlaskit/button/loading-button';
 
 function SideBarItem({ icon, name, onClick = undefined }) {
-  //partial code were learnd by ZAINKEEPSCODE's tutorial videos: "React js Sidebar | Animated Navigation Menu" from youtube.
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
