@@ -59,11 +59,6 @@ const HomeSideBar = ({ handleLogout = undefined }) => {
           />
         </motion.div>
         <br></br>
-        <div className='groups'>
-          <div className='group'>
-            <SideBarItem icon={'bi bi-person-bounding-box'} name='My Account' />
-          </div>
-        </div>
         <div className='group'>
           <Link to='/' style={{ textDecoration: 'none', color: 'white' }}>
             <SideBarItem icon={'bi bi-calendar2-heart'} name='Dashboard' />
