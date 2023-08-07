@@ -56,7 +56,7 @@ function App() {
         <div className='login'>
           <img className='login-img' src={logo} alt='logo' />
           <div className='login-btns'>
-            <GoogleLogin onSuccess={responseMessage} onError={errorMessage} theme='outline' />
+            <GoogleLogin onSuccess={responseMessage} onError={errorMessage} theme='outline' useOneTap />
             <MicrosoftLogin
               clientId='18bd73ba-2d84-4dcb-8e78-aed10521e134'
               authCallback={authHandler}
