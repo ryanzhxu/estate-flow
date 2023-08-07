@@ -4,21 +4,18 @@ import WorkerCardDetails from './WorkerCardDetails';
 import { Modal } from 'react-bootstrap';
 import { getFormattedPhoneNum } from '../../shared/services/Helpers';
 import { Trades } from '../../shared/constants/worker/Trades';
-import {tradesUrl} from "../../shared/constants/worker/tradesUrl";
+import { tradesUrl } from '../../shared/constants/worker/tradesUrl';
 
 const WorkerCard = ({ worker }) => {
   const [isWorkerDetailOpen, setIsWorkerDetailOpen] = useState(false);
-  const workerImg = tradesUrl[worker.trades] || 'https://pic4.zhimg.com/80/v2-32636e587d66426cc682e74eaafd2163_1440w.webp';
+  const workerImg =
+    tradesUrl[worker.trades] || 'https://pic4.zhimg.com/80/v2-32636e587d66426cc682e74eaafd2163_1440w.webp';
 
   return (
     <div className='listing-card'>
       <div>
         <span onClick={() => setIsWorkerDetailOpen(true)}>
-          <img
-            alt={worker._id}
-            className='listing-card-image'
-            src={ workerImg }
-          />
+          <img alt={worker._id} className='card-image' src={workerImg} />
         </span>
         <WorkerCardDetails worker={worker} />
       </div>
@@ -64,7 +61,7 @@ const WorkerCard = ({ worker }) => {
               <strong>Address</strong>
             </p>
             <p className='col-sm-8'>
-              {worker.address.streetAddress}, {worker.address.city}, {worker.address.province}{' '}
+              {worker.address.streetAddress}, {worker.address.city}, {worker.address.province} {''}
               {worker.address.postalCode}
             </p>
           </div>
