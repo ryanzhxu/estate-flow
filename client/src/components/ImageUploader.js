@@ -19,6 +19,11 @@ export default function ImageUploader({ onImageSelected }) {
     }
   };
 
+  const handleImageRemove = () => {
+    setSelectedImageUrl(null);
+    setSelectedImageFile(null);
+  }
+
   useEffect(() => {
     onImageSelected(selectedImageFile);
   },[selectedImageFile, onImageSelected]);
@@ -26,8 +31,22 @@ export default function ImageUploader({ onImageSelected }) {
   return (
     <div>
       <input type='file' id='imageURL' name='imageURL' accept='image/*' onChange={handleImageUpload}></input>
-      <div style={{ marginTop: '10px' }}>
-        {selectedImageUrl && <img src={selectedImageUrl} alt='Preview' style={{ maxWidth: '100px' }} />}
+      <div style={{ marginTop: '10px', position: 'relative' }}>
+        {selectedImageUrl && (
+            <div style={{ position: 'relative', display: 'inline-block' }}>
+              <img src={selectedImageUrl} alt='Preview' style={{ maxWidth: '100px' }} />
+              <div
+                  onClick={handleImageRemove}
+                  style={{
+                    position: 'absolute',
+                    top: '-12px',
+                    right: '-8px'
+                  }}
+              >
+                <i className="bi bi-x-circle-fill"/>
+              </div>
+            </div>
+        )}
       </div>
     </div>
   );

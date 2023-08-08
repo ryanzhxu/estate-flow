@@ -27,16 +27,12 @@ function PropertyHome() {
   const dispatch = useDispatch();
   const property = useSelector((state) => state.properties.propertySelected);
   const [showLoading, setShowLoading] = useState(true);
-  const [photo, setPhoto] = useState(null);
   const [profileImage, setProfileImage] = useState(null);
 
 
   const [isAddTenantModalOpen, setIsAddTenantModalOpen] = useState(false);
   const [isEditPropertyModalOpen, setIsEditPropertyModalOpen] = useState(false);
-
-  const editProperty = getMappedEditObject(property);
-  delete editProperty.rent;
-  const [editPropertyState, setEditPropertyState] = useState(editProperty);
+  const [editProperty, setEditProperty] = useState(getMappedEditObject(property));
 
   const tenantInitialState = {
     firstName: '',
@@ -83,6 +79,7 @@ function PropertyHome() {
 
     dispatch(updatePropertyAsync(getStandardizedProperty(editProperty))).then(() => {
       setIsEditPropertyModalOpen(false);
+      setEditProperty(getMappedEditObject(editProperty));
       dispatch(getPropertyAsync(editProperty._id));
     });
   };
@@ -147,11 +144,10 @@ function PropertyHome() {
             isModalOpen={isEditPropertyModalOpen}
             setIsModalOpen={setIsEditPropertyModalOpen}
             type={Tables.Property}
-            object={editPropertyState}
-            setObject={setEditPropertyState}
+            object={editProperty}
+            setObject={setEditProperty}
             requiredFields={PropertyRequiredFields}
             onSubmit={handleEditProperty}
-            onImageUpload={(image) => setPhoto(image)}
             isEdit
           />
         )}

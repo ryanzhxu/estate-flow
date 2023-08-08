@@ -131,7 +131,7 @@ export const getMappedEditObject = (object) => {
   const editObject = {};
 
   for (const field in object) {
-    if (field === '_id' || field === '__v' || field === 'propertyId' || field === 'paymentHistory') {
+    if (field === '_id' || field === '__v' || field === 'propertyId' || field === 'paymentHistory' || field === "photos") {
       continue;
     }
 

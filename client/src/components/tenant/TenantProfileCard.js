@@ -47,6 +47,8 @@ function TenantProfileCard({ tenant }) {
     console.log('editTenant: ', editTenant);
 
     dispatch(updateTenantAsync(editTenant)).then(() => {
+      const { firstName, lastName, phoneNumber, email, birthDate, occupation } = editTenant;
+      setEditTenant({ firstName, lastName, phoneNumber, email, birthDate, occupation })
       dispatch(getSingleTenantAsync(editTenant._id));
       setIsEditModalOpen(false);
     });
