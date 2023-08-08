@@ -62,7 +62,11 @@ const addTenant = async (tenant) => {
 
 const updateTenant = async (tenant) => {
   try {
-    const res = await axios.put(`${SERVER_BASE_URL}/tenants`, tenant);
+    const res = await axios.put(`${SERVER_BASE_URL}/tenants`, tenant, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    });
     return res.data;
   } catch (e) {
     console.error(e);

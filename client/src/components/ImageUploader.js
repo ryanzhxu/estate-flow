@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import { useState } from 'react';
 
-export default function ImageUploader({ onImageSelected }) {
-  const [selectedImageUrl, setSelectedImageUrl] = useState(null);
+export default function ImageUploader({ imageUrl=null, onImageSelected, isEdit}) {
+  const [selectedImageUrl, setSelectedImageUrl] = useState(imageUrl);
   const [selectedImageFile, setSelectedImageFile] = useState(null);
 
   const handleImageUpload = (event) => {
@@ -25,8 +25,8 @@ export default function ImageUploader({ onImageSelected }) {
   }
 
   useEffect(() => {
-    onImageSelected(selectedImageFile);
-  },[selectedImageFile, onImageSelected]);
+    onImageSelected(isEdit ? {file: selectedImageFile, url: selectedImageUrl} : selectedImageFile);
+  },[selectedImageFile, selectedImageUrl]);
 
   return (
     <div>

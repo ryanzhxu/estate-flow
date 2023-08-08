@@ -193,11 +193,26 @@ router.get('/properties/:_id/tenants', async (req, res) => {
   }
 });
 
-router.put('/tenants', async (req, res) => {
+router.put('/tenants', upload.single("profileImageUrl"), handleMulterError, async (req, res) => {
   try {
-    await Tenant.findByIdAndUpdate(req.body._id, req.body);
+    const updatedTenant = req.body;
+    if (new Tenant(updatedTenant).validateSync()) {
+      return res.status(StatusCodes.BAD_REQUEST).json(new Error("Updated tenant does not match schema"));
+    }
+    if (req.file) {
+      const results = await uploadFile([req.file], "tenants");
+      req.body.profileImageUrl = results[0].Location;
+    } else if (!req.body.profileImageUrl) {
+      req.body.profileImageUrl = null;
+    }
+
+    const oldTenant = await Tenant.findByIdAndUpdate(updatedTenant._id, updatedTenant);
+    if (oldTenant.profileImageUrl && oldTenant.profileImageUrl !== updatedTenant.profileImageUrl && isStoredInCloud(oldTenant.profileImageUrl)) {
+      await deleteFiles([oldTenant.profileImageUrl]);
+    }
     res.status(StatusCodes.OK).send();
   } catch (e) {
+    console.error(e);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });
