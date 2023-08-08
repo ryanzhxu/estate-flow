@@ -13,6 +13,7 @@ const PropertyCardDetails = ({ property }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [editProperty, setEditProperty] = useState(getMappedEditObject(property));
+  const [photo, setPhoto] = useState(null);
 
   const handleEditProperty = () => {
     if (!editProperty._id) {
@@ -32,6 +33,10 @@ const PropertyCardDetails = ({ property }) => {
       setIsDeleteModalOpen(false);
     });
   };
+
+  const handleImageUpload = (image) => {
+      setPhoto(image);
+  }
 
   const modalContent = (
     <div>
@@ -73,6 +78,7 @@ const PropertyCardDetails = ({ property }) => {
           setObject={setEditProperty}
           requiredFields={RequiredFields}
           onSubmit={handleEditProperty}
+          onImageUpload={handleImageUpload}
           isEdit
         />
       )}

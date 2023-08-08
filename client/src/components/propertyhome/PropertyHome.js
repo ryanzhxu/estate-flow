@@ -26,6 +26,8 @@ function PropertyHome() {
   const dispatch = useDispatch();
   const property = useSelector((state) => state.properties.propertySelected);
   const [showLoading, setShowLoading] = useState(true);
+  const [photo, setPhoto] = useState(null);
+
 
   const [isAddTenantModalOpen, setIsAddTenantModalOpen] = useState(false);
   const [isEditPropertyModalOpen, setIsEditPropertyModalOpen] = useState(false);
@@ -63,6 +65,10 @@ function PropertyHome() {
       });
     }
   };
+
+  const handleImageUpload = (image) => {
+    setPhoto(image);
+  }
 
   const handleEditProperty = () => {
     if (!editProperty._id) {
@@ -138,6 +144,7 @@ function PropertyHome() {
             setObject={setEditPropertyState}
             requiredFields={PropertyRequiredFields}
             onSubmit={handleEditProperty}
+            onImageUpload={handleImageUpload}
             isEdit
           />
         )}
