@@ -104,7 +104,6 @@ export const getStandardizedProperty = (propertyObj) => {
   delete updatedPropertyObj.city;
   delete updatedPropertyObj.province;
   delete updatedPropertyObj.postalCode;
-  delete updatedPropertyObj.photos;
 
   return updatedPropertyObj;
 };
@@ -131,7 +130,7 @@ export const getMappedEditObject = (object) => {
   const editObject = {};
 
   for (const field in object) {
-    if (field === '_id' || field === '__v' || field === 'propertyId' || field === 'paymentHistory' || field === "photos") {
+    if (field === '_id' || field === '__v' || field === 'propertyId' || field === 'paymentHistory') {
       continue;
     }
 

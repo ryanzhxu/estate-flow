@@ -63,11 +63,22 @@ router.post('/properties', upload.array("photos", 5), handleMulterError,  async 
   }
 });
 
-router.put('/properties', async (req, res) => {
+router.put('/properties', upload.array("photos"), handleMulterError, async(req, res) => {
   try {
-    await Property.findByIdAndUpdate(req.body._id, req.body);
+    const updatedProperty = req.body;
+    if (req.files && req.files.length > 0) {
+      const results = await uploadFile(req.files, "properties");
+      updatedProperty.photos = results.map((file) => file.Location);
+    } else if (!updatedProperty.photos) {
+      updatedProperty.photos = [];
+    }
+    const oldProperty = await Property.findByIdAndUpdate(req.body._id, req.body);
+    if (oldProperty.photos.length > 0 && oldProperty.photos !== updatedProperty.photos) {
+      await deleteFiles(oldProperty.photos.filter((photo) => isStoredInCloud(photo)));
+    }
     res.status(StatusCodes.OK).send();
   } catch (e) {
+    console.error(e);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });

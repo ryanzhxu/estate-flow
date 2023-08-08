@@ -41,20 +41,17 @@ const addProperty = async (property) => {
 };
 
 const updateProperty = async (property) => {
-  const resp = await fetch(`${SERVER_BASE_URL}/properties`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(property),
-  });
-
-  const data = await resp.json();
-
-  if (!resp.ok) {
-    const errorMsg = data?.message;
+  try {
+    const resp = await axios.put(`${SERVER_BASE_URL}/properties`, property, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    });
+    return resp.data;
+  } catch(e) {
+    const errorMsg = e.data.message;
     throw new Error(errorMsg);
   }
-
-  return data;
 };
 
 const deleteProperty = async (_id) => {
