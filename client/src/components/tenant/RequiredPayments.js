@@ -13,11 +13,12 @@ function RequiredPayments({ tenant }) {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const fees = tenant.lease.fees;
 
-  const requiredPayment = {
-    feesType: '',
-    amount: '',
-    dueDate: null,
+  const initialState ={
+      feesType: '',
+      amount: '',
+      dueDate: null,
   };
+  const [requiredPayment, setRequiredPayment] = useState(initialState);
 
   const handleAddRequiredPayment = () => {
     const tenantToBeUpdated = {
@@ -98,6 +99,7 @@ function RequiredPayments({ tenant }) {
           setIsModalOpen={setIsAddModalOpen}
           type='Required Payments'
           object={requiredPayment}
+          setObject={setRequiredPayment}
           requiredFields={[]}
           onSubmit={handleAddRequiredPayment}
         />

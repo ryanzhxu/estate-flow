@@ -16,7 +16,7 @@ const WorkerCardDetails = ({ worker }) => {
   const dispatch = useDispatch();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const editWorker = getMappedEditObject(worker);
+  const [editWorker, setEditWorker] = useState(getMappedEditObject(worker));
 
   const handleEditWorker = () => {
     if (!editWorker._id) {
@@ -88,6 +88,7 @@ const WorkerCardDetails = ({ worker }) => {
           setIsModalOpen={setIsEditModalOpen}
           type={Tables.Worker}
           object={editWorker}
+          setObject={setEditWorker}
           requiredFields={RequiredFields}
           onSubmit={handleEditWorker}
           isEdit

@@ -28,7 +28,8 @@ function TenantProfileCard({ tenant }) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const { firstName, lastName, phoneNumber, email, birthDate, occupation } = tenant;
-  const editTenant = { firstName, lastName, phoneNumber, email, birthDate, occupation };
+
+  const [editTenant, setEditTenant] = useState({ firstName, lastName, phoneNumber, email, birthDate, occupation })
 
   const handleEditTenant = () => {
     if (!editTenant.propertyId || editTenant.propertyId !== tenant.propertyId) {
@@ -80,6 +81,7 @@ function TenantProfileCard({ tenant }) {
           setIsModalOpen={setIsEditModalOpen}
           type={Tables.Tenant}
           object={editTenant}
+          setObject={setEditTenant}
           requiredFields={RequiredFields}
           onSubmit={handleEditTenant}
           isEdit

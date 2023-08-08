@@ -55,6 +55,7 @@ router.post('/properties', upload.array("photos", 5), handleMulterError,  async 
     await property.save();
     res.status(StatusCodes.CREATED).send(property);
   } catch (e) {
+    console.error(e);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });

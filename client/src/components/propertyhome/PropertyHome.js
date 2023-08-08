@@ -10,7 +10,6 @@ import TenantView from './TenantView';
 import Loading from '../loading/Loading';
 import sandGlass from '../loading/loading_sand_glass.json';
 import {
-  clearNestedObjectValues,
   getMappedEditObject,
   getStandardizedProperty,
   getStandardizedTenant,
@@ -33,8 +32,9 @@ function PropertyHome() {
 
   const editProperty = getMappedEditObject(property);
   delete editProperty.rent;
+  const [editPropertyState, setEditPropertyState] = useState(editProperty);
 
-  const tenant = {
+  const tenantInitialState = {
     firstName: '',
     lastName: '',
     email: '',
@@ -46,6 +46,7 @@ function PropertyHome() {
     endDate: null,
     leaseType: '',
   };
+  const [tenant, setTenant] = useState(tenantInitialState);
 
   const handleAddTenant = () => {
     tenant.propertyId = property._id;
@@ -56,7 +57,7 @@ function PropertyHome() {
       alert('Tenant must have a lease start date and end date.');
     } else {
       dispatch(addTenantAsync(getStandardizedTenant(tenant))).then(() => {
-        clearNestedObjectValues(tenant);
+        setTenant(tenantInitialState)
         setIsAddTenantModalOpen(false);
         dispatch(getTenantsFromPropertyAsync(property._id));
       });
@@ -123,6 +124,7 @@ function PropertyHome() {
             setIsModalOpen={setIsAddTenantModalOpen}
             type={Tables.Tenant}
             object={tenant}
+            setObject={setTenant}
             requiredFields={TenantRequiredFields}
             onSubmit={handleAddTenant}
           />
@@ -132,7 +134,8 @@ function PropertyHome() {
             isModalOpen={isEditPropertyModalOpen}
             setIsModalOpen={setIsEditPropertyModalOpen}
             type={Tables.Property}
-            object={editProperty}
+            object={editPropertyState}
+            setObject={setEditPropertyState}
             requiredFields={PropertyRequiredFields}
             onSubmit={handleEditProperty}
             isEdit
