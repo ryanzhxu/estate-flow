@@ -5,7 +5,6 @@ import InputFormModal from '../../shared/components/InputFormModal';
 import { Tables } from '../../shared/constants/Tables';
 import { RequiredFields } from '../../shared/constants/worker/RequiredFields';
 import {
-  clearNestedObjectValues,
   getFormattedPhoneNum,
   getMappedEditObject,
   getStandardizedProperty,
@@ -24,8 +23,8 @@ const WorkerCardDetails = ({ worker }) => {
     }
 
     dispatch(updateWorkerAsync(getStandardizedProperty(editWorker))).then(() => {
-      clearNestedObjectValues(editWorker);
       setIsEditModalOpen(false);
+      setEditWorker(getMappedEditObject(editWorker));
       dispatch(getWorkersAsync());
     });
   };
