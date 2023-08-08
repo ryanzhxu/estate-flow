@@ -45,13 +45,16 @@ router.get('/properties/:_id', async (req, res) => {
 });
 
 router.post('/properties', upload.array("photos", 5), handleMulterError,  async (req, res) => {
-  if (req.files && req.files.length > 0) {
-    const results = await uploadFile(req.files, "properties");
-    req.body.photos = results.map((file) => file.Location);
-  }
   const property = new Property(req.body);
 
   try {
+    if (property.validateSync()) {
+      return res.status(StatusCodes.BAD_REQUEST).json(new Error("Property does match schema"));
+    }
+    if (req.files && req.files.length > 0) {
+      const results = await uploadFile(req.files, "properties");
+      property.photos = results.map((file) => file.Location);
+    }
     await property.save();
     res.status(StatusCodes.CREATED).send(property);
   } catch (e) {
