@@ -30,22 +30,6 @@ export const areReqFieldsFilled = (object, requiredFields) => {
   return true;
 };
 
-export const saveValueToObject = (object, fieldName, value) => {
-  if (!object || !fieldName || !value) {
-    return;
-  }
-
-  if (object.hasOwnProperty(fieldName)) {
-    object[fieldName] = value;
-  }
-
-  for (const key in object) {
-    if (typeof object[key] === 'object') {
-      saveValueToObject(object[key], fieldName, value);
-    }
-  }
-};
-
 export const getSelectedIndex = (selections, value) => {
   if (!value || value === '') {
     return '';
@@ -120,6 +104,7 @@ export const getStandardizedProperty = (propertyObj) => {
   delete updatedPropertyObj.city;
   delete updatedPropertyObj.province;
   delete updatedPropertyObj.postalCode;
+  delete updatedPropertyObj.photos;
 
   return updatedPropertyObj;
 };
@@ -203,4 +188,28 @@ export const getCapitalizedString = (string) => {
     .split(' ')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
+};
+
+export const convertJsonToFormData = (data, formData, parentKey = null) => {
+  for (const key in data) {
+    if (data.hasOwnProperty(key)) {
+      const value = data[key];
+      const currentKey = parentKey ? `${parentKey}[${key}]` : key;
+
+      if (typeof value === 'object' && !Array.isArray(value)) {
+        convertJsonToFormData(value, formData, currentKey);
+      } else if (Array.isArray(value)) {
+        value.forEach((item, index) => {
+          const arrayKey = `${currentKey}[${index}]`;
+          if (typeof item === 'object') {
+            convertJsonToFormData(item, formData, arrayKey);
+          } else {
+            formData.append(arrayKey, item);
+          }
+        });
+      } else {
+        formData.append(currentKey, value);
+      }
+    }
+  }
 };
