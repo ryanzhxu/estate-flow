@@ -16,7 +16,7 @@ function WorkersListing() {
   const workersArray = Object.values(workers);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
-  const worker = {
+  const [worker, setWorker] = useState({
     firstName: '',
     lastName: '',
     email: '',
@@ -28,7 +28,7 @@ function WorkersListing() {
     hourlyRate: '',
     trades: '',
     imageUrl: '',
-  };
+  });
 
   useEffect(() => {
     dispatch(getWorkersAsync());
@@ -67,6 +67,7 @@ function WorkersListing() {
           setIsModalOpen={setIsAddModalOpen}
           type={Tables.Worker}
           object={worker}
+          setObject={setWorker}
           onSubmit={handleAddWorker}
           requiredFields={RequiredFields}
         />

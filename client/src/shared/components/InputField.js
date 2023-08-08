@@ -12,7 +12,7 @@ const InputField = ({
   isRequired = false,
   isSelect = false,
   isMulti = false,
-  options = [],
+  options = []
 }) => {
   const getDefaultValue = () => {
     if (defaultValue === '' || defaultValue.length === 0) return defaultValue;

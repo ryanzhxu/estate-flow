@@ -13,12 +13,12 @@ function PaymentHistory({ tenant }) {
   const [sortColumn, setSortColumn] = useState('paymentType');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
-  const paymentHistory = {
+  const [paymentHistory, setPaymentHistory] = useState({
     paymentType: '',
     charge: '',
     paid: '',
     paidDate: null,
-  };
+  });
 
   const handleAddPaymentHistory = () => {
     const tenantToBeUpdated = {
@@ -121,6 +121,7 @@ function PaymentHistory({ tenant }) {
           setIsModalOpen={setIsAddModalOpen}
           type='Payment history'
           object={paymentHistory}
+          setObject={setPaymentHistory}
           requiredFields={[]}
           onSubmit={handleAddPaymentHistory}
         />

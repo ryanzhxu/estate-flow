@@ -5,7 +5,6 @@ import InputFormModal from '../../shared/components/InputFormModal';
 import { Tables } from '../../shared/constants/Tables';
 import { RequiredFields } from '../../shared/constants/worker/RequiredFields';
 import {
-  clearNestedObjectValues,
   getFormattedPhoneNum,
   getMappedEditObject,
   getStandardizedProperty,
@@ -16,7 +15,7 @@ const WorkerCardDetails = ({ worker }) => {
   const dispatch = useDispatch();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const editWorker = getMappedEditObject(worker);
+  const [editWorker, setEditWorker] = useState(getMappedEditObject(worker));
 
   const handleEditWorker = () => {
     if (!editWorker._id) {
@@ -24,8 +23,8 @@ const WorkerCardDetails = ({ worker }) => {
     }
 
     dispatch(updateWorkerAsync(getStandardizedProperty(editWorker))).then(() => {
-      clearNestedObjectValues(editWorker);
       setIsEditModalOpen(false);
+      setEditWorker(getMappedEditObject(editWorker));
       dispatch(getWorkersAsync());
     });
   };
@@ -88,6 +87,7 @@ const WorkerCardDetails = ({ worker }) => {
           setIsModalOpen={setIsEditModalOpen}
           type={Tables.Worker}
           object={editWorker}
+          setObject={setEditWorker}
           requiredFields={RequiredFields}
           onSubmit={handleEditWorker}
           isEdit

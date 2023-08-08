@@ -9,6 +9,8 @@ import { RequiredFields } from '../../shared/constants/tenant/RequiredFields';
 import HomeButton from '../../shared/components/HomeButton';
 
 function TenantProfileCard({ tenant }) {
+  console.log(tenant);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -28,7 +30,8 @@ function TenantProfileCard({ tenant }) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const { firstName, lastName, phoneNumber, email, birthDate, occupation } = tenant;
-  const editTenant = { firstName, lastName, phoneNumber, email, birthDate, occupation };
+
+  const [editTenant, setEditTenant] = useState({ firstName, lastName, phoneNumber, email, birthDate, occupation })
 
   const handleEditTenant = () => {
     if (!editTenant.propertyId || editTenant.propertyId !== tenant.propertyId) {
@@ -44,6 +47,8 @@ function TenantProfileCard({ tenant }) {
     console.log('editTenant: ', editTenant);
 
     dispatch(updateTenantAsync(editTenant)).then(() => {
+      const { firstName, lastName, phoneNumber, email, birthDate, occupation } = editTenant;
+      setEditTenant({ firstName, lastName, phoneNumber, email, birthDate, occupation })
       dispatch(getSingleTenantAsync(editTenant._id));
       setIsEditModalOpen(false);
     });
@@ -60,7 +65,8 @@ function TenantProfileCard({ tenant }) {
         {tenant.firstName} {tenant.lastName}
       </h5>
       <img
-        src='https://cdn-icons-png.flaticon.com/512/65/65581.png'
+        src={tenant.profileImageUrl ? tenant.profileImageUrl :
+            'https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg'}
         alt='avatar'
         className='rounded-circle img-fluid'
         style={{ width: '150px' }}
@@ -80,6 +86,7 @@ function TenantProfileCard({ tenant }) {
           setIsModalOpen={setIsEditModalOpen}
           type={Tables.Tenant}
           object={editTenant}
+          setObject={setEditTenant}
           requiredFields={RequiredFields}
           onSubmit={handleEditTenant}
           isEdit

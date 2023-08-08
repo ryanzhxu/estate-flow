@@ -146,11 +146,6 @@ router.post('/tenants', upload.single("profileImageUrl"), handleMulterError, asy
     return res.status(StatusCodes.BAD_REQUEST).json({ error: 'Invalid propertyId format' });
   }
 
-  if (req.file) {
-    const results = await uploadFile([req.file], "tenants");
-    req.body.profileImageUrl = results[0].Location;
-  }
-
   try {
     const foundProperty = await Property.findById(propertyId);
     if (!foundProperty) {
@@ -163,6 +158,15 @@ router.post('/tenants', upload.single("profileImageUrl"), handleMulterError, asy
     }
 
     const newTenant = new Tenant(newTenantBody);
+    if (newTenant.validateSync()) {
+      return res.status(StatusCodes.BAD_REQUEST).json(new Error("Tenant does not match schema"));
+    }
+
+    if (req.file) {
+      const results = await uploadFile([req.file], "tenants");
+      newTenant.profileImageUrl = results[0].Location;
+    }
+
     await newTenant.save();
     return res.status(StatusCodes.CREATED).send(newTenant);
   } catch (e) {

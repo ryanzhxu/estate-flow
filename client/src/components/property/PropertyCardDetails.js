@@ -12,7 +12,7 @@ const PropertyCardDetails = ({ property }) => {
   const dispatch = useDispatch();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const editProperty = getMappedEditObject(property);
+  const [editProperty, setEditProperty] = useState(getMappedEditObject(property));
 
   const handleEditProperty = () => {
     if (!editProperty._id) {
@@ -20,8 +20,8 @@ const PropertyCardDetails = ({ property }) => {
     }
 
     dispatch(updatePropertyAsync(getStandardizedProperty(editProperty))).then(() => {
-      clearNestedObjectValues(editProperty);
       setIsEditModalOpen(false);
+      setEditProperty(getMappedEditObject(editProperty));
       dispatch(getPropertiesAsync());
     });
   };
@@ -70,6 +70,7 @@ const PropertyCardDetails = ({ property }) => {
           setIsModalOpen={setIsEditModalOpen}
           type={Tables.Property}
           object={editProperty}
+          setObject={setEditProperty}
           requiredFields={RequiredFields}
           onSubmit={handleEditProperty}
           isEdit

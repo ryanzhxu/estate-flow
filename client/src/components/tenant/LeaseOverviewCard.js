@@ -16,16 +16,16 @@ function LeaseOverviewCard({ tenant }) {
   const lease = tenant.lease;
   const address = tenant.address;
   const { startDate, endDate, leaseType } = tenant.lease;
-  const editTenant = { startDate, endDate, leaseType };
+  const [editLease, setEditLease] = useState({ startDate, endDate, leaseType });
 
   const handleEditTenant = () => {
     const tenantToBeUpdated = {
       ...tenant,
       lease: {
         ...tenant.lease,
-        startDate: editTenant.startDate,
-        endDate: editTenant.endDate,
-        leaseType: editTenant.leaseType,
+        startDate: editLease.startDate,
+        endDate: editLease.endDate,
+        leaseType: editLease.leaseType,
       },
     };
 
@@ -92,7 +92,8 @@ function LeaseOverviewCard({ tenant }) {
           isModalOpen={isEditModalOpen}
           setIsModalOpen={setIsEditModalOpen}
           type={Tables.Tenant}
-          object={editTenant}
+          object={editLease}
+          setObject={setEditLease}
           requiredFields={RequiredFields}
           onSubmit={handleEditTenant}
           isEdit

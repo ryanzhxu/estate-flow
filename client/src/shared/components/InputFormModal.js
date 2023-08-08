@@ -8,14 +8,13 @@ import {
   getCapitalizedString,
   getConvertedDate,
   getSelectedIndex,
-  getSelectOptions,
-  saveValueToObject,
+  getSelectOptions
 } from '../services/Helpers';
 import InputField from './InputField';
 import ImageUploader from '../../components/ImageUploader';
 import { MultiWordFields } from '../constants/MultiWordFields';
 
-const InputFormModal = ({ isModalOpen, setIsModalOpen, isEdit = false, type, object, requiredFields, onSubmit }) => {
+const InputFormModal = ({ isModalOpen, setIsModalOpen, isEdit = false, type, object, setObject, requiredFields, onSubmit, onImageUpload }) => {
   return (
     <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)} centered>
       <Modal.Header>
@@ -49,14 +48,14 @@ const InputFormModal = ({ isModalOpen, setIsModalOpen, isEdit = false, type, obj
             const handleSelectOnChange = (selectedOptions) => {
               if (!Array.isArray(selectedOptions)) {
                 const selectedValue = selectedOptions ? selectedOptions.value : '';
-                object[field] = selectedValue;
+                setObject({...object, [field]: selectedValue});
               } else {
-                object[field] = selectedOptions.map((option) => option.value);
+                setObject({...object, [field]: selectedOptions.map((option) => option.value)});
               }
             };
 
             const handleOnChange = (e) => {
-              saveValueToObject(object, field, e.target.value);
+              setObject({...object, [field]: e.target.value});
             };
 
             return UploadFields.includes(field) ? (
@@ -70,7 +69,7 @@ const InputFormModal = ({ isModalOpen, setIsModalOpen, isEdit = false, type, obj
                     :
                   </label>
                 </div>
-                <ImageUploader imageURL={undefined} onImageSelected={undefined} />
+                <ImageUploader onImageSelected={onImageUpload} />
               </div>
             ) : (
               <InputField
