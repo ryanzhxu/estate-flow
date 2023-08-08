@@ -41,7 +41,6 @@ function PropertyHome() {
     phoneNumber: '',
     birthDate: null,
     occupation: '',
-    leaseFile: null,
     startDate: null,
     endDate: null,
     leaseType: '',
