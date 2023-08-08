@@ -15,7 +15,6 @@ const Dashboard = () => {
       </motion.div>
 
       <motion.div className='body_card'>
-          <motion.div >Calculator</motion.div>
           <Calculator/>
       </motion.div>
     </div>
