@@ -27,10 +27,6 @@ const tenantSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    leaseFile: {
-      type: JSON,
-      required: false,
-    },
     lease: {
       startDate: {
         type: Date,
