@@ -49,9 +49,9 @@ const PropertiesListing = () => {
     if (photo) {
       formData.append("photos", photo);
     }
+    delete property.photos;
     convertJsonToFormData(getStandardizedProperty(property), formData);
 
-    console.log(formData);
     dispatch(addPropertyAsync(formData)).then(() => {
       setProperty(initialState);
       setIsAddModalOpen(false);
@@ -71,10 +71,6 @@ const PropertiesListing = () => {
   const handleResetProperties = () => {
     setFilteredProperties(propertiesArray);
   };
-
-  const handleImageUpload = (image) => {
-    setPhoto(image);
-  }
 
   return (
     <div className='listing-page'>
@@ -110,7 +106,7 @@ const PropertiesListing = () => {
           setObject={setProperty}
           requiredFields={RequiredFields}
           onSubmit={handleAddProperty}
-          onImageUpload={handleImageUpload}
+          onImageUpload={(image) => (setPhoto(image))}
         />
       )}
     </div>

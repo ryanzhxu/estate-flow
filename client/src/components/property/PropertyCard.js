@@ -8,7 +8,9 @@ const PropertyCard = ({ property }) => {
     <div className='listing-card'>
       <Link to={`/properties/${property._id}`}>
         <span>
-          <img alt={property._id} className={'card-image'} src={property.photos[0]} />
+          <img alt={property._id} className={'card-image'} src={property.photos.length === 0 ?
+              "https://t3.ftcdn.net/jpg/01/94/24/52/360_F_194245207_zjevIW5p8VNxxMWlpy66vDECCMue6DCv.jpg" :
+              property.photos[0]} />
         </span>
       </Link>
       <PropertyCardDetails property={property} />

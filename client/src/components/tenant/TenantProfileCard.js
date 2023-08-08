@@ -9,6 +9,8 @@ import { RequiredFields } from '../../shared/constants/tenant/RequiredFields';
 import HomeButton from '../../shared/components/HomeButton';
 
 function TenantProfileCard({ tenant }) {
+  console.log(tenant);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -61,7 +63,8 @@ function TenantProfileCard({ tenant }) {
         {tenant.firstName} {tenant.lastName}
       </h5>
       <img
-        src='https://cdn-icons-png.flaticon.com/512/65/65581.png'
+        src={tenant.profileImageUrl ? tenant.profileImageUrl :
+            'https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg'}
         alt='avatar'
         className='rounded-circle img-fluid'
         style={{ width: '150px' }}

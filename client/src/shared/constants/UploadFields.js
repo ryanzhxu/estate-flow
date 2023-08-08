@@ -1,1 +1,1 @@
-export const UploadFields = ['photos'];
+export const UploadFields = ['photos', 'profileImageUrl'];
