@@ -40,7 +40,8 @@ export default function ImageUploader({ imageUrl=null, onImageSelected, isEdit})
                   style={{
                     position: 'absolute',
                     top: '-12px',
-                    right: '-8px'
+                    right: '-8px',
+                    cursor: "pointer"
                   }}
               >
                 <i className="bi bi-x-circle-fill"/>
