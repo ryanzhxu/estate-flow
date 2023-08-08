@@ -65,6 +65,7 @@
 
 .calendar {
   width: 100%;
+  font-family: 'Arial';
 }
 
 .calendar-header {
@@ -73,7 +74,7 @@
   margin-bottom: 20px;
   color: black;
   margin-left: 50px;
-  font-family: 'Bradley Hand';
+  font-family: 'Arial';
 }
 
 .calendar-container button {
@@ -118,7 +119,7 @@
 
 .reminder {
   width: 100%;
-  font-family: 'Bradley Hand';
+  font-family: 'Arial';
 }
 
 .dues {

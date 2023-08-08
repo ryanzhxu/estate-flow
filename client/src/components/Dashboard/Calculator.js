@@ -17,6 +17,7 @@ import {
   ThemeProvider,
 } from '@mui/material';
 import ProfitModal from './ProfitModal';
+import './Calculator.css';
 
 function Calculator() {
   const [checked, setChecked] = useState([]);
@@ -71,6 +72,8 @@ function Calculator() {
   });
 
   return (
+    <div className='Calculator'>
+      <h2>Calculator</h2>
     <ThemeProvider theme={theme}>
       <motion.div>
         <motion.div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -157,6 +160,7 @@ function Calculator() {
         </motion.div>
       </motion.div>
     </ThemeProvider>
+    </div>
   );
 }
 
