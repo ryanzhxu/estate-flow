@@ -9,7 +9,7 @@ import InputFormModal from '../../shared/components/InputFormModal';
 
 import { Tables } from '../../shared/constants/Tables';
 import { RequiredFields } from '../../shared/constants/property/RequiredFields';
-import { clearNestedObjectValues, getStandardizedProperty } from '../../shared/services/Helpers';
+import {convertJsonToFormData, getStandardizedProperty} from '../../shared/services/Helpers';
 import HomeButton from '../../shared/components/HomeButton';
 
 const PropertiesListing = () => {
@@ -18,8 +18,9 @@ const PropertiesListing = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [propertiesArray, setPropertiesArray] = useState([]);
   const [filteredProperties, setFilteredProperties] = useState([]);
+  const [photo, setPhoto] = useState(null);
 
-  const property = {
+  const initialState = {
     type: '',
     name: '',
     streetAddress: '',
@@ -31,7 +32,8 @@ const PropertiesListing = () => {
     description: '',
     amenities: '',
     photos: [],
-  };
+  }
+  const [property, setProperty] = useState(initialState);
 
   useEffect(() => {
     dispatch(getPropertiesAsync());
@@ -43,8 +45,15 @@ const PropertiesListing = () => {
   }, [properties]);
 
   const handleAddProperty = () => {
-    dispatch(addPropertyAsync(getStandardizedProperty(property))).then(() => {
-      clearNestedObjectValues(property);
+    const formData = new FormData();
+    if (photo) {
+      formData.append("photos", photo);
+    }
+    convertJsonToFormData(getStandardizedProperty(property), formData);
+
+    console.log(formData);
+    dispatch(addPropertyAsync(formData)).then(() => {
+      setProperty(initialState);
       setIsAddModalOpen(false);
       dispatch(getPropertiesAsync());
     });
@@ -62,6 +71,10 @@ const PropertiesListing = () => {
   const handleResetProperties = () => {
     setFilteredProperties(propertiesArray);
   };
+
+  const handleImageUpload = (image) => {
+    setPhoto(image);
+  }
 
   return (
     <div className='listing-page'>
@@ -94,8 +107,10 @@ const PropertiesListing = () => {
           setIsModalOpen={setIsAddModalOpen}
           type={Tables.Property}
           object={property}
+          setObject={setProperty}
           requiredFields={RequiredFields}
           onSubmit={handleAddProperty}
+          onImageUpload={handleImageUpload}
         />
       )}
     </div>

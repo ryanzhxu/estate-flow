@@ -28,20 +28,16 @@ const getPropertiesForDashboard = async () => {
 };
 
 const addProperty = async (property) => {
-  const resp = await fetch(`${SERVER_BASE_URL}/properties`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(property),
-  });
-
-  const data = await resp.json();
-
-  if (!resp.ok) {
-    const errorMsg = data?.message;
-    throw new Error(errorMsg);
+  try {
+    const resp = await axios.post(`${SERVER_BASE_URL}/properties`, property, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    });
+    return await resp.data();
+  } catch(e) {
+    throw new Error(e.data.message);
   }
-
-  return data;
 };
 
 const updateProperty = async (property) => {
