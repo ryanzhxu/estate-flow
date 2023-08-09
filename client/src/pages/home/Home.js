@@ -1,7 +1,7 @@
 import React from 'react';
-import Dashboard from '../../components/dashboard/Dashboard';
 import HomeSideBar from './HomeSideBar';
 import './Home.css';
+import Dashboard from '../../components/dashboard/Dashboard';
 
 function Home({ handleLogout = undefined }) {
   return (
