@@ -1,0 +1,48 @@
+.homepage {
+  display: flex;
+  width: 100%;
+  color: black;
+  min-height: 100vh;
+  padding: 25px;
+  gap: 25px;
+}
+
+.sidebar {
+  display: flex;
+  width: 15rem;
+  flex-direction: column;
+  padding: 15px;
+  background-color: #032b43;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(5.5px);
+  border-radius: 10px;
+}
+
+.sideBarItem {
+  display: flex;
+  padding: 10px;
+  gap: 8px;
+  align-items: flex-end;
+  font-family: 'Arial';
+  margin-bottom: 6px;
+}
+
+.minimize_sidebar_icon {
+  display: flex;
+  align-self: flex-end;
+  border-radius: 5px;
+  color: white;
+}
+
+.profile > img {
+  width: 110%;
+  border-radius: 100%;
+}
+
+.group {
+  color: white;
+}
+
+.sideLogo {
+  width: 210%;
+}

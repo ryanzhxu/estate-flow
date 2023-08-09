@@ -1,0 +1,28 @@
+.banner {
+  display: flex;
+  gap: 60px;
+  align-items: center;
+  min-height: 312px;
+}
+
+.banner-right-section {
+  flex: 1;
+}
+
+.banner-right-section-contents {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.banner-weather-section {
+  min-width: 220px;
+  text-align: center;
+}
+
+.banner-weather-section-loading {
+    display: inline-grid;
+}
+
+.banner-weather-info {
+  text-align: left;
+}

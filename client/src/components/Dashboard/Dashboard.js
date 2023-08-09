@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
 import React from 'react';
-import Calendar from './Calendar';
-import Calculator from "./Calculator";
-import Banner from "./Banner";
+import Calculator from './calculator/Calculator';
+import Banner from './banner/Banner';
+import './Dashboard.css';
+import Calendar from './calendar/Calendar';
+
 const Dashboard = () => {
   return (
     <div className='body_container'>
@@ -15,7 +17,7 @@ const Dashboard = () => {
       </motion.div>
 
       <motion.div className='body_card'>
-          <Calculator/>
+        <Calculator />
       </motion.div>
     </div>
   );

@@ -1,0 +1,26 @@
+.body_container {
+  flex: 1;
+  display: grid;
+  gap: 25px;
+}
+
+.banner_card {
+  background-color: #dee2e6;
+  color: #032b43;
+  padding: 25px 50px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  grid-column: 1 / span 2;
+  border-radius: 10px;
+}
+
+.body_card {
+  background-color: #dee2e6;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 25px;
+  font-size: 30px;
+  text-align: center;
+  border-radius: 8px;
+  backdrop-filter: blur(5.5px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}

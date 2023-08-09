@@ -40,8 +40,6 @@
 }
 
 .listing-card:hover {
-  transform: rotate(7deg) scale(1.05);
-
   transition-delay: 5ms;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }

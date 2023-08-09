@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FeesTypes } from '../../shared/constants/tenant/FeesTypes';
-import { getConvertedDate } from '../../shared/services/Helpers';
+import { FeesTypes } from '../../../shared/constants/tenant/FeesTypes';
+import { getConvertedDate } from '../../../shared/services/Helpers';
 import './DueReminder.css';
 
 export default function DueReminder({ tenantWithDue }) {

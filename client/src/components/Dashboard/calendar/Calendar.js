@@ -15,10 +15,10 @@ import {
 import React, { useEffect, useState } from 'react';
 import DueReminder from './DueReminder';
 import './Calendar.css';
-import { Weekdays } from '../../shared/constants/Weekdays';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDueDaysForMonth, getTenantsWithDuesByDate } from '../../redux/tenants/thunks';
-import { dayHasDue, getConvertedDate, selectedDate } from '../../shared/services/Helpers';
+import { getDueDaysForMonth, getTenantsWithDuesByDate } from '../../../redux/tenants/thunks';
+import { Weekdays } from '../../../shared/constants/Weekdays';
+import { getConvertedDate, dayHasDue, selectedDate } from '../../../shared/services/Helpers';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');

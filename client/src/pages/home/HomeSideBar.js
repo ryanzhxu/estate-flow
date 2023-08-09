@@ -3,7 +3,7 @@ import React from 'react';
 import { useState } from 'react';
 import SideBarItem from './SideBarItem';
 import { Link } from 'react-router-dom';
-import logo from './logo.png';
+import logo from '../../shared/images/logo.png';
 
 const HomeSideBar = ({ handleLogout = undefined }) => {
   const [open, setOpen] = useState(true);
@@ -37,7 +37,7 @@ const HomeSideBar = ({ handleLogout = undefined }) => {
   return (
     <>
       <motion.div className='sidebar' initial={`${open}`} animate={`${open}`} variants={sidebarShift}>
-        <motion.div whileHover={whiteHoverStyles} onClick={handleToggle} className='lines_icon'>
+        <motion.div whileHover={whiteHoverStyles} onClick={handleToggle} className='minimize_sidebar_icon'>
           <i className={'bi bi-card-list'}></i>
         </motion.div>
         {open && (
@@ -45,8 +45,10 @@ const HomeSideBar = ({ handleLogout = undefined }) => {
             <img src={logo} alt='logo' width='200' height='40' />
           </div>
         )}
-        <br></br>
-        <br></br>
+
+        <br />
+        <br />
+
         <motion.div
           initial={`${open}`}
           animate={`${open}`}
@@ -54,11 +56,13 @@ const HomeSideBar = ({ handleLogout = undefined }) => {
           className='profile'
           whileHover={whiteHoverStyles}>
           <img
-            src='https://hips.hearstapps.com/hmg-prod/images/russian-blue-royalty-free-image-1658451809.jpg?crop=0.667xw:1.00xh;0.120xw,0&resize=1200:*'
+            src={`https://hips.hearstapps.com/hmg-prod/images/russian-blue-royalty-free-image-1658451809.jpg?crop=0.667xw:1.00xh;0.120xw,0&resize=1200:*`}
             alt='profile_img'
           />
         </motion.div>
-        <br></br>
+
+        <br />
+
         <div className='group'>
           <Link to='/' style={{ textDecoration: 'none', color: 'white' }}>
             <SideBarItem icon={'bi bi-calendar2-heart'} name='Dashboard' />
@@ -72,8 +76,6 @@ const HomeSideBar = ({ handleLogout = undefined }) => {
           <Link to='/workers' style={{ textDecoration: 'none', color: 'white' }}>
             <SideBarItem icon={'bi bi-person-circle'} name='Workers' />
           </Link>
-        </div>
-        <div className='group'>
           <Link to='/about' style={{ textDecoration: 'none', color: 'white' }}>
             <SideBarItem icon={'bi bi-cup-hot-fill'} name='About' />
           </Link>
