@@ -2,7 +2,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import HomeDashboardPage from './components/home/HomeDashboardPage';
+import Home from './pages/home/Home';
 import WorkersListing from './pages/workers/WorkersListing';
 import PropertiesListing from './pages/properties/PropertiesListing';
 import TenantsListing from './pages/tenants/TenantsListing';
@@ -11,7 +11,7 @@ import PropertyHome from './components/propertyhome/PropertyHome';
 import AboutPage from './pages/about/AboutPage';
 import { GoogleLogin } from '@react-oauth/google';
 import MicrosoftLogin from 'react-microsoft-login';
-import logo from './components/home/logo.png';
+import logo from './shared/images/logo.png';
 import './components/login/Login.css';
 
 function App() {
@@ -67,7 +67,7 @@ function App() {
         </div>
       ) : (
         <Routes>
-          <Route path='/' element={<HomeDashboardPage handleLogout={handleLogout} />} />
+          <Route path='/' element={<Home handleLogout={handleLogout} />} />
           <Route path='/properties' element={<PropertiesListing />} />
           <Route path='/properties/:_id' element={<PropertyHome />} />
           <Route path='/tenants' element={<TenantsListing />} />

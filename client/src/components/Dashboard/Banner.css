@@ -1,8 +1,0 @@
-.banner_card {
-    background-color: #dee2e6;
-    color: #032b43;
-    padding: 10px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-    grid-column: 1 / span 2; /* This spans both columns */
-    }
-  

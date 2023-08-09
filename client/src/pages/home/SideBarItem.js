@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import './SideBarItem.css';
 import { Modal } from 'react-bootstrap';
 
 function SideBarItem({ icon, name, onClick = undefined }) {
@@ -42,7 +41,7 @@ function SideBarItem({ icon, name, onClick = undefined }) {
           duration: 0.01,
         }}
         onClick={name === 'Log out' ? handleLogoutClick : undefined}>
-        <motion.div className='icon'>
+        <motion.div>
           <i className={icon}></i>
         </motion.div>
         <motion.span variants={title}>{name}</motion.span>

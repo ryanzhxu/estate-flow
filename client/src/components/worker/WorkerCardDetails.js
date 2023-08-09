@@ -4,11 +4,7 @@ import { deleteWorkerAsync, getWorkersAsync, updateWorkerAsync } from '../../red
 import InputFormModal from '../../shared/components/InputFormModal';
 import { Tables } from '../../shared/constants/Tables';
 import { RequiredFields } from '../../shared/constants/worker/RequiredFields';
-import {
-  getFormattedPhoneNum,
-  getMappedEditObject,
-  getStandardizedProperty,
-} from '../../shared/services/Helpers';
+import { getFormattedPhoneNum, getMappedEditObject, getStandardizedProperty } from '../../shared/services/Helpers';
 import DeleteConfirmationModal from '../property/DeleteConfirmationModal';
 
 const WorkerCardDetails = ({ worker }) => {
@@ -52,6 +48,8 @@ const WorkerCardDetails = ({ worker }) => {
         {worker.firstName} {worker.lastName}
       </h4>
       <p>
+        <span>{`${worker.address.city}, ${worker.address.province}`}</span>
+        <br />
         <span>{getFormattedPhoneNum(worker.phoneNumber)}</span>
         <br />
         <span>Hourly rate: ${worker.hourlyRate}/hr</span>
