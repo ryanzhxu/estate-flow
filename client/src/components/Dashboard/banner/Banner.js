@@ -27,7 +27,7 @@ export default function Banner() {
     const openWeatherMapApi = '4201b710d29b331523d35ab01f306e9a';
 
     fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${process.env.OPEN_WEATHER_MAP_API}&units=metric`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${openWeatherMapApi}&units=metric`
     )
       .then((response) => response.json())
       .then((data) => {
