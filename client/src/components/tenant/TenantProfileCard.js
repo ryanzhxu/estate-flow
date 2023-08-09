@@ -77,7 +77,7 @@ function TenantProfileCard({ tenant }) {
         src={tenant.profileImageUrl ? tenant.profileImageUrl :
             'https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg'}
         alt='avatar'
-        className='rounded-circle'
+        className='rounded-circle img-fluid'
         style={{ width: '150px', height: '150px' }}
       />
       <div className='d-flex justify-content-center mt-3 mb-2'>
