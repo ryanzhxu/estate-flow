@@ -14,7 +14,7 @@ import InputField from './InputField';
 import ImageUploader from '../../components/ImageUploader';
 import { MultiWordFields } from '../constants/MultiWordFields';
 
-const InputFormModal = ({ isModalOpen, setIsModalOpen, isEdit = false, type, object, setObject, requiredFields, onSubmit, onImageUpload }) => {
+const InputFormModal = ({ isModalOpen, setIsModalOpen, isEdit = false, type, object, setObject, requiredFields, onSubmit, onImageUpload, imageUrl }) => {
   return (
     <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)} centered>
       <Modal.Header>
@@ -69,7 +69,7 @@ const InputFormModal = ({ isModalOpen, setIsModalOpen, isEdit = false, type, obj
                     :
                   </label>
                 </div>
-                <ImageUploader onImageSelected={onImageUpload} />
+                <ImageUploader imageUrl={imageUrl} onImageSelected={onImageUpload} isEdit={isEdit}/>
               </div>
             ) : (
               <InputField
