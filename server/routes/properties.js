@@ -52,7 +52,7 @@ router.post('/properties', upload.array("photos", 5), handleMulterError,  async 
       return res.status(StatusCodes.BAD_REQUEST).json(new Error("Property does match schema"));
     }
     if (req.files && req.files.length > 0) {
-      const results = await uploadFile(req.files, "demo");
+      const results = await uploadFile(req.files, "properties");
       property.photos = results.map((file) => file.Location);
     }
     await property.save();
