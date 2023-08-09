@@ -6,7 +6,7 @@ import { getTenantsFromPropertyAsync } from '../../redux/tenants/thunks';
 import React from 'react';
 
 function TenantView({ propertyId }) {
-  const tenants = useSelector((state) => state.tenants.tenants);
+  const tenants = useSelector((state) => state.tenants.tenantsInProperty);
   const dispatch = useDispatch();
 
   useEffect(() => {

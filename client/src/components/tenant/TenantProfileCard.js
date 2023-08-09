@@ -7,10 +7,9 @@ import InputFormModal from '../../shared/components/InputFormModal';
 import { Tables } from '../../shared/constants/Tables';
 import { RequiredFields } from '../../shared/constants/tenant/RequiredFields';
 import HomeButton from '../../shared/components/HomeButton';
+import {convertJsonToFormData} from "../../shared/services/Helpers";
 
 function TenantProfileCard({ tenant }) {
-  console.log(tenant);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -29,9 +28,10 @@ function TenantProfileCard({ tenant }) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const { firstName, lastName, phoneNumber, email, birthDate, occupation } = tenant;
+  const { firstName, lastName, phoneNumber, email, birthDate, occupation, profileImageUrl } = tenant;
 
-  const [editTenant, setEditTenant] = useState({ firstName, lastName, phoneNumber, email, birthDate, occupation })
+  const [editTenant, setEditTenant] = useState({ firstName, lastName, phoneNumber, email, birthDate, occupation, profileImageUrl })
+  const [profileImage, setProfileImage] = useState({file: null, url: profileImageUrl});
 
   const handleEditTenant = () => {
     if (!editTenant.propertyId || editTenant.propertyId !== tenant.propertyId) {
@@ -44,11 +44,20 @@ function TenantProfileCard({ tenant }) {
       }
     });
 
-    console.log('editTenant: ', editTenant);
+    const formData = new FormData();
+    if (profileImage.url !== profileImageUrl) {
+        if (profileImage.file) {
+            formData.append("profileImageUrl", profileImage.file);
+        }
+        editTenant.profileImageUrl = null;
+    } else {
+        editTenant.profileImageUrl = profileImageUrl;
+    }
+    convertJsonToFormData(editTenant, formData);
 
-    dispatch(updateTenantAsync(editTenant)).then(() => {
-      const { firstName, lastName, phoneNumber, email, birthDate, occupation } = editTenant;
-      setEditTenant({ firstName, lastName, phoneNumber, email, birthDate, occupation })
+    dispatch(updateTenantAsync(formData)).then(() => {
+      const { firstName, lastName, phoneNumber, email, birthDate, occupation, profileImageUrl } = editTenant;
+      setEditTenant({ firstName, lastName, phoneNumber, email, birthDate, occupation, profileImageUrl })
       dispatch(getSingleTenantAsync(editTenant._id));
       setIsEditModalOpen(false);
     });
@@ -69,7 +78,7 @@ function TenantProfileCard({ tenant }) {
             'https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg'}
         alt='avatar'
         className='rounded-circle img-fluid'
-        style={{ width: '150px' }}
+        style={{ width: '150px', height: '150px' }}
       />
       <div className='d-flex justify-content-center mt-3 mb-2'>
         <HomeButton />
@@ -89,6 +98,8 @@ function TenantProfileCard({ tenant }) {
           setObject={setEditTenant}
           requiredFields={RequiredFields}
           onSubmit={handleEditTenant}
+          onImageUpload={(image) => setProfileImage({file: image.file, url: image.url})}
+          imageUrl={profileImageUrl}
           isEdit
         />
       )}

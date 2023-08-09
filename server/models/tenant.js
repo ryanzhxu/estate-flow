@@ -22,6 +22,7 @@ const tenantSchema = new mongoose.Schema(
     birthDate: {
       type: Date,
       required: false,
+      default: null
     },
     occupation: {
       type: String,
@@ -79,7 +80,8 @@ const tenantSchema = new mongoose.Schema(
     ],
     profileImageUrl: {
         type: String,
-        required: false
+        required: false,
+        default: null
     },
     propertyId: {
       type: Schema.Types.ObjectId,

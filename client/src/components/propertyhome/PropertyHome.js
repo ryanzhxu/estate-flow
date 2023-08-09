@@ -29,10 +29,11 @@ function PropertyHome() {
   const [showLoading, setShowLoading] = useState(true);
   const [profileImage, setProfileImage] = useState(null);
 
-
   const [isAddTenantModalOpen, setIsAddTenantModalOpen] = useState(false);
   const [isEditPropertyModalOpen, setIsEditPropertyModalOpen] = useState(false);
   const [editProperty, setEditProperty] = useState(getMappedEditObject(property));
+
+  const [propertyPhoto, setPropertyPhoto] = useState({file: null, url: null});
 
   const tenantInitialState = {
     firstName: '',
@@ -75,8 +76,19 @@ function PropertyHome() {
     if (!editProperty._id) {
       editProperty._id = property._id;
     }
+    const initialPropertyPhotoUrl = property.photos && property.photos.length > 0 ? property.photos[0] : null;
+    const formData = new FormData();
+    if (propertyPhoto.url !== initialPropertyPhotoUrl) {
+      if (propertyPhoto.file) {
+        formData.append("photos", propertyPhoto.file)
+      }
+      editProperty.photos = [];
+    } else {
+      editProperty.photos = [initialPropertyPhotoUrl];
+    }
+    convertJsonToFormData(getStandardizedProperty(editProperty), formData);
 
-    dispatch(updatePropertyAsync(getStandardizedProperty(editProperty))).then(() => {
+    dispatch(updatePropertyAsync(formData)).then(() => {
       setIsEditPropertyModalOpen(false);
       setEditProperty(getMappedEditObject(editProperty));
       dispatch(getPropertyAsync(editProperty._id));
@@ -146,6 +158,8 @@ function PropertyHome() {
             setObject={setEditProperty}
             requiredFields={PropertyRequiredFields}
             onSubmit={handleEditProperty}
+            onImageUpload={(image) => setPropertyPhoto({file: image.file, url: image.url})}
+            imageUrl={property.photos && property.photos.length > 0 ? property.photos[0] : null}
             isEdit
           />
         )}

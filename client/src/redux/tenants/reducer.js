@@ -10,6 +10,7 @@ import {
 
 const INITIAL_STATE = {
   tenants: [],
+  tenantsInProperty: [],
   isTenantDetailOpen: false,
   isTenantAddOpen: false,
   tenantSelected: null,
@@ -43,7 +44,7 @@ const tenantsSlice = createSlice({
         state.tenantSelected = action.payload;
       })
       .addCase(getTenantsFromPropertyAsync.fulfilled, (state, action) => {
-        state.tenants = action.payload;
+        state.tenantsInProperty = action.payload;
       })
       .addCase(getTenantsWithDuesByDate.fulfilled, (state, action) => {
         state.tenantsWithDues = action.payload;
