@@ -52,7 +52,7 @@ router.post('/properties', upload.array("photos", 5), handleMulterError,  async 
       return res.status(StatusCodes.BAD_REQUEST).json(new Error("Property does match schema"));
     }
     if (req.files && req.files.length > 0) {
-      const results = await uploadFile(req.files, "properties");
+      const results = await uploadFile(req.files, "demo");
       property.photos = results.map((file) => file.Location);
     }
     await property.save();
@@ -73,7 +73,8 @@ router.put('/properties', upload.array("photos"), handleMulterError, async(req, 
       updatedProperty.photos = [];
     }
     const oldProperty = await Property.findByIdAndUpdate(req.body._id, req.body);
-    if (oldProperty.photos.length > 0 && oldProperty.photos !== updatedProperty.photos) {
+    if (oldProperty.photos.length > 0
+        && oldProperty.photos[0] !== (updatedProperty.photos.length > 0 ? updatedProperty.photos[0] : null)) {
       await deleteFiles(oldProperty.photos.filter((photo) => isStoredInCloud(photo)));
     }
     res.status(StatusCodes.OK).send();
@@ -99,14 +100,5 @@ router.delete('/properties/:_id', async (req, res) => {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 });
-
-// router.delete('/properties', async (req, res) => {
-//   try {
-//     await Property.deleteMany({});
-//     res.status(StatusCodes.OK).json({ message: 'All properties deleted successfully.' });
-//   } catch (e) {
-//     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
-//   }
-// });
 
 module.exports = router;
