@@ -29,7 +29,6 @@ function PropertyHome() {
   const [showLoading, setShowLoading] = useState(true);
   const [profileImage, setProfileImage] = useState(null);
 
-
   const [isAddTenantModalOpen, setIsAddTenantModalOpen] = useState(false);
   const [isEditPropertyModalOpen, setIsEditPropertyModalOpen] = useState(false);
   const [editProperty, setEditProperty] = useState(getMappedEditObject(property));
@@ -81,7 +80,6 @@ function PropertyHome() {
     const formData = new FormData();
     if (propertyPhoto.url !== initialPropertyPhotoUrl) {
       if (propertyPhoto.file) {
-        console.log("Reached line 32")
         formData.append("photos", propertyPhoto.file)
       }
       editProperty.photos = [];
