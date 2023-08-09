@@ -33,7 +33,7 @@ function PropertyHome() {
   const [isEditPropertyModalOpen, setIsEditPropertyModalOpen] = useState(false);
   const [editProperty, setEditProperty] = useState(getMappedEditObject(property));
 
-  const [propertyPhoto, setPropertyPhoto] = useState({file: null, url: null});
+  const [propertyPhoto, setPropertyPhoto] = useState({ file: null, url: null });
 
   const tenantInitialState = {
     firstName: '',
@@ -45,9 +45,15 @@ function PropertyHome() {
     startDate: null,
     endDate: null,
     leaseType: '',
-    profileImageUrl: null
+    profileImageUrl: null,
   };
   const [tenant, setTenant] = useState(tenantInitialState);
+
+  useEffect(() => {
+    if (property) {
+      setEditProperty(getMappedEditObject(property));
+    }
+  }, [property]);
 
   const handleAddTenant = () => {
     tenant.propertyId = property._id;
@@ -59,13 +65,13 @@ function PropertyHome() {
     } else {
       const formData = new FormData();
       if (profileImage) {
-        formData.append("profileImageUrl", profileImage);
+        formData.append('profileImageUrl', profileImage);
       }
       delete tenant.profileImageUrl;
       convertJsonToFormData(getStandardizedTenant(tenant), formData);
 
       dispatch(addTenantAsync(formData)).then(() => {
-        setTenant(tenantInitialState)
+        setTenant(tenantInitialState);
         setIsAddTenantModalOpen(false);
         dispatch(getTenantsFromPropertyAsync(property._id));
       });
@@ -80,7 +86,7 @@ function PropertyHome() {
     const formData = new FormData();
     if (propertyPhoto.url !== initialPropertyPhotoUrl) {
       if (propertyPhoto.file) {
-        formData.append("photos", propertyPhoto.file)
+        formData.append('photos', propertyPhoto.file);
       }
       editProperty.photos = [];
     } else {
@@ -158,7 +164,7 @@ function PropertyHome() {
             setObject={setEditProperty}
             requiredFields={PropertyRequiredFields}
             onSubmit={handleEditProperty}
-            onImageUpload={(image) => setPropertyPhoto({file: image.file, url: image.url})}
+            onImageUpload={(image) => setPropertyPhoto({ file: image.file, url: image.url })}
             imageUrl={property.photos && property.photos.length > 0 ? property.photos[0] : null}
             isEdit
           />
