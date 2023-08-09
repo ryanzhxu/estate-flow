@@ -27,7 +27,6 @@ function WorkersListing() {
     postalCode: '',
     hourlyRate: '',
     trades: '',
-    imageUrl: '',
   });
 
   useEffect(() => {
@@ -74,59 +73,6 @@ function WorkersListing() {
       )}
     </div>
   );
-
-  // const detailIsOpen = useSelector(isDetailOpen);
-  // const UpdateIsOpen = useSelector(isUpdateOpen);
-  // const addIsOpen = useSelector(isADDOpen);
-
-  // const renderedWorkers = workers.map((worker) => (
-  //   <article className='divItem' key={worker._id}>
-  //     <h4 className='single-line' id={worker._id}>
-  //       {worker.name}
-  //     </h4>
-  //     <img src={worker.imageUrlInput} alt={worker.name} className='WorkerImg' />
-  //     <button
-  //       className='btn btn-outline-dark'
-  //       style={{ marginTop: '10px' }}
-  //       onClick={() => {
-  //         dispatch(getWorkerAsync(worker._id));
-  //         dispatch(openDetail());
-  //       }}>
-  //       Details
-  //     </button>
-  //   </article>
-  // ));
-
-  // const addNew = (
-  //   <article className='divItem'>
-  //     <h4 className='single-line'>New worker</h4>
-  //     <img
-  //       src={'https://5b0988e595225.cdn.sohucs.com/images/20171113/0108899329264ee5b833f70945195e66.jpeg'}
-  //       alt={'Empty Worker'}
-  //       className='WorkerImg'
-  //     />
-  //     <button
-  //       className='btn btn-primary'
-  //       style={{ marginTop: '10px' }}
-  //       onClick={() => {
-  //         dispatch(openAddForm());
-  //       }}>
-  //       Add worker
-  //     </button>
-  //   </article>
-  // );
-
-  // const onSortOption = (e) => setSortOption(e.target.value);
-  // const onTradesChanged = (e) => setTrades(e.target.value);
-  // const [trades, setTrades] = useState('');
-  // const [sortOption, setSortOption] = useState('');
-  // const onFilterClicked = () => {
-  //   if (trades) {
-  //     dispatch(sortFilterWorkerAsync({ tradeType: trades, sortOption }));
-  //   } else {
-  //     alert('All filed must be filled');
-  //   }
-  // };
 }
 
 export default WorkersListing;
