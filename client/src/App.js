@@ -13,6 +13,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import MicrosoftLogin from 'react-microsoft-login';
 import logo from './shared/images/logo.png';
 import './components/login/Login.css';
+import video from './components/login/videoplayback.mp4';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -57,7 +58,7 @@ function App() {
       {!isLoggedIn ? (
         <div className='login'>
           <video className='videoTag' autoPlay loop muted>
-            <source src={videoUrl} type='video/mp4' />
+            <source src={video} type='video/mp4' />
           </video>
           <div className='login-content'>
             <div>
